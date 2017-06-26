@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/api-reference/doc_result/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/api-reference/standardese_entities/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/api-reference/standardese_files/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/api-reference/standardese_modules/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/_header/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/api-reference/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/api-reference/doc_outcome/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>
