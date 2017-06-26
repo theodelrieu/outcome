@@ -10,60 +10,21 @@
     
     
     <item>
-      <title></title>
-      <link>https://ned14.github.io/outcome/api-reference/doc_result/</link>
+      <title>outcome&lt;R, S, P&gt;</title>
+      <link>https://ned14.github.io/outcome/api-reference/doc_outcome.md/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://ned14.github.io/outcome/api-reference/doc_result/</guid>
-      <description>Header file result.hpp #define OUTCOME_RESULT_HPP #define OUTCOME_SYMBOL_VISIBLE #define OUTCOME_NODISCARD #define OUTCOME_ENABLE_POSITIVE_STATUS namespace outcome { template &amp;lt;class T&amp;gt; struct in_place_type_t; class bad_result_access; struct no_error_type; namespace impl { template &amp;lt;class R, class EC, class NoValuePolicy&amp;gt; class result_storage; template &amp;lt;class Base, class R, class NoValuePolicy&amp;gt; class result_value_observers; template &amp;lt;class Base, class NoValuePolicy&amp;gt; class result_value_observers&amp;lt;Base, void, NoValuePolicy&amp;gt;; template &amp;lt;class Base, class EC, class NoValuePolicy&amp;gt; class result_error_observers; template &amp;lt;class Base, class NoValuePolicy&amp;gt; class result_error_observers&amp;lt;Base, void, NoValuePolicy&amp;gt;; template &amp;lt;class R, class EC, class NoValuePolicy&amp;gt; using select_result_impl = result_error_observers&amp;lt;result_value_observers&amp;lt;result_storage&amp;lt;R, EC, NoValuePolicy&amp;gt;, R, NoValuePolicy&amp;gt;, EC, NoValuePolicy&amp;gt;; template &amp;lt;class R, class S, class NoValuePolicy&amp;gt; class result_final; } namespace policy { template &amp;lt;class EC&amp;gt; struct throw_directly; template &amp;lt;class EC&amp;gt; struct error_code_throw_as_system_error; template &amp;lt;class EC&amp;gt; struct exception_ptr_rethrow; struct terminate; template &amp;lt;class EC&amp;gt; using default_result_policy = std::conditional_t&amp;lt;//std::is_void&amp;lt;EC&amp;gt;::value, //terminate, //std::conditional_t&amp;lt;//detail::is_same_or_constructible&amp;lt;std::error_code, EC&amp;gt;, error_code_throw_as_system_error&amp;lt;EC&amp;gt;, //std::conditional_t&amp;lt;//detail::is_same_or_constructible&amp;lt;std::exception_ptr, EC&amp;gt;, exception_ptr_rethrow&amp;lt;EC&amp;gt;, //throw_directly&amp;lt;EC&amp;gt;//&amp;gt;&amp;gt;&amp;gt;; } template &amp;lt;class R, class S = error_code_extended, class NoValuePolicy = policy::default_result_policy&amp;lt;S&amp;gt; class result; template &amp;lt;class NoValuePolicy&amp;gt; class result&amp;lt;void, void, NoValuePolicy&amp;gt;; } Macro OUTCOME_ENABLE_POSITIVE_STATUS #define OUTCOME_ENABLE_POSITIVE_STATUS Define to enable positive value + status returns</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://ned14.github.io/outcome/api-reference/standardese_entities/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://ned14.github.io/outcome/api-reference/standardese_entities/</guid>
-      <description>OUTCOME_ENABLE_POSITIVE_STATUS - Define to enable positive value + status returns
- OUTCOME_NODISCARD
- OUTCOME_OUTCOME_HPP
- OUTCOME_RESULT_HPP
- OUTCOME_SYMBOL_VISIBLE
- outcome
- bad_outcome_access - Thrown when you try to access state in a outcome&amp;lt;T, EC, E&amp;gt; which isn&amp;rsquo;t present.
- bad_result_access - Thrown when you try to access state in a result&amp;lt;R, S&amp;gt; which isn&amp;rsquo;t present.
- in_place_type_t - Aliases std::in_place_type_t&amp;lt;T&amp;gt; if on C++ 17 or later, else defined locally.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://ned14.github.io/outcome/api-reference/standardese_files/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://ned14.github.io/outcome/api-reference/standardese_files/</guid>
-      <description> outcome.hpp
- result.hpp   </description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://ned14.github.io/outcome/api-reference/standardese_modules/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://ned14.github.io/outcome/api-reference/standardese_modules/</guid>
-      <description>Error code interpretation policy  outcome::policy::default_outcome_policy - Default outcome&amp;lt;R, S, P&amp;gt; policy selector.
- outcome::policy::default_result_policy - Default result&amp;lt;R, S&amp;gt; policy selector.
- outcome::policy::error_code_throw_as_system_error - Policy interpreting EC as a type implementing the std::error_code contract and any wide attempt to access the successful state throws the error_code wrapped into a std::system_error
- outcome::policy::error_code_throw_as_system_error_exception_rethrow - Policy interpreting S as a type implementing the std::error_code contract, E as a type implementing the std::exception_ptr contract, and any wide attempt to access the successful state throws the exception_ptr if available, then the error_code wrapped into a std::system_error.</description>
-    </item>
-    
-    <item>
-      <title>Header outcome.hpp</title>
-      <link>https://ned14.github.io/outcome/api-reference/doc_outcome/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://ned14.github.io/outcome/api-reference/doc_outcome/</guid>
+      <guid>https://ned14.github.io/outcome/api-reference/doc_outcome.md/</guid>
       <description>Header file outcome.hpp #define OUTCOME_OUTCOME_HPP namespace outcome { class bad_outcome_access; namespace trait { template &amp;lt;class P&amp;gt; struct is_exception_ptr; } struct no_payload_type; struct no_exception_type; namespace impl { template &amp;lt;class Base, class R, class S, class P, class NoValuePolicy&amp;gt; class outcome_payload_observers; template &amp;lt;class Base, class R, class S, class NoValuePolicy&amp;gt; class outcome_payload_observers&amp;lt;Base, R, S, void, NoValuePolicy&amp;gt;; template &amp;lt;class Base, class R, class S, class P, class NoValuePolicy&amp;gt; class outcome_exception_observers; template &amp;lt;class Base, class R, class S, class NoValuePolicy&amp;gt; class outcome_exception_observers&amp;lt;Base, R, S, void, NoValuePolicy&amp;gt;; } namespace policy { template &amp;lt;class R, class S, class P&amp;gt; using default_outcome_policy = std::conditional_t&amp;lt;//detail::is_same_or_constructible&amp;lt;std::error_code, S&amp;gt;&amp;amp;&amp;amp;trait::is_exception_ptr&amp;lt;P&amp;gt;::value, error_code_throw_as_system_error_exception_rethrow&amp;lt;R, S, P&amp;gt;, //terminate//&amp;gt;; } template &amp;lt;class R, class S = error_code_extended, class P = std::exception_ptr, class NoValuePolicy = policy::default_outcome_policy&amp;lt;R, S, P&amp;gt;&amp;gt; class outcome; namespace policy { template &amp;lt;class R, class S, class P&amp;gt; struct error_code_throw_as_system_error_exception_rethrow; } namespace impl { } } Class outcome::bad_outcome_access class bad_outcome_access : public std::logic_error { public: bad_outcome_access(const char* what); }; Thrown when you try to access state in a outcome&amp;lt;T, EC, E&amp;gt; which isn&amp;rsquo;t present.</description>
+    </item>
+    
+    <item>
+      <title>result&lt;R, S&gt;</title>
+      <link>https://ned14.github.io/outcome/api-reference/doc_result.md/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/api-reference/doc_result.md/</guid>
+      <description>Header file result.hpp #define OUTCOME_RESULT_HPP #define OUTCOME_SYMBOL_VISIBLE #define OUTCOME_NODISCARD #define OUTCOME_ENABLE_POSITIVE_STATUS namespace outcome { template &amp;lt;class T&amp;gt; struct in_place_type_t; class bad_result_access; struct no_error_type; namespace impl { template &amp;lt;class R, class EC, class NoValuePolicy&amp;gt; class result_storage; template &amp;lt;class Base, class R, class NoValuePolicy&amp;gt; class result_value_observers; template &amp;lt;class Base, class NoValuePolicy&amp;gt; class result_value_observers&amp;lt;Base, void, NoValuePolicy&amp;gt;; template &amp;lt;class Base, class EC, class NoValuePolicy&amp;gt; class result_error_observers; template &amp;lt;class Base, class NoValuePolicy&amp;gt; class result_error_observers&amp;lt;Base, void, NoValuePolicy&amp;gt;; template &amp;lt;class R, class EC, class NoValuePolicy&amp;gt; using select_result_impl = result_error_observers&amp;lt;result_value_observers&amp;lt;result_storage&amp;lt;R, EC, NoValuePolicy&amp;gt;, R, NoValuePolicy&amp;gt;, EC, NoValuePolicy&amp;gt;; template &amp;lt;class R, class S, class NoValuePolicy&amp;gt; class result_final; } namespace policy { template &amp;lt;class EC&amp;gt; struct throw_directly; template &amp;lt;class EC&amp;gt; struct error_code_throw_as_system_error; template &amp;lt;class EC&amp;gt; struct exception_ptr_rethrow; struct terminate; template &amp;lt;class EC&amp;gt; using default_result_policy = std::conditional_t&amp;lt;//std::is_void&amp;lt;EC&amp;gt;::value, //terminate, //std::conditional_t&amp;lt;//detail::is_same_or_constructible&amp;lt;std::error_code, EC&amp;gt;, error_code_throw_as_system_error&amp;lt;EC&amp;gt;, //std::conditional_t&amp;lt;//detail::is_same_or_constructible&amp;lt;std::exception_ptr, EC&amp;gt;, exception_ptr_rethrow&amp;lt;EC&amp;gt;, //throw_directly&amp;lt;EC&amp;gt;//&amp;gt;&amp;gt;&amp;gt;; } template &amp;lt;class R, class S = error_code_extended, class NoValuePolicy = policy::default_result_policy&amp;lt;S&amp;gt; class result; template &amp;lt;class NoValuePolicy&amp;gt; class result&amp;lt;void, void, NoValuePolicy&amp;gt;; } Macro OUTCOME_ENABLE_POSITIVE_STATUS #define OUTCOME_ENABLE_POSITIVE_STATUS Define to enable positive value + status returns</description>
     </item>
     
   </channel>

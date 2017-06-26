@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.24.1" />
+    <meta name="description" content="">
+
+
+    <title>result&lt;R, S&gt; :: Outcome documentation</title>
+    <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
+    <link href="/outcome/css/nucleus.css" rel="stylesheet">
+    <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/outcome/css/hybrid.css" rel="stylesheet">
+    <link href="/outcome/css/featherlight.min.css" rel="stylesheet">
+    <link href="/outcome/css/horsey.css" rel="stylesheet">
+    <link href="/outcome/css/theme.css" rel="stylesheet">
+    <link rel="stylesheet" href="/outcome/css/bootstrap.min.css">
+    <script src="/outcome/js/jquery-2.x.min.js"></script>
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left {
+        display:none !important;
+      }
+    </style>
+
+    
+
+    
+
+  </head>
+  <body class="" data-url="/outcome/api-reference/doc_result.md/">
+    <nav id="sidebar" class="">
+  <div id="header-wrapper">
+    <div id="header">
+       
+	<p>Outcome 2.0 library documentation</p>
+ 
+
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+<script type="text/javascript" src="/outcome/js/lunr.min.js"></script>
+<script type="text/javascript" src="/outcome/js/horsey.js"></script>
+<script type="text/javascript">
+    var baseurl = "https:\/\/ned14.github.io\/outcome\/";
+</script>
+<script type="text/javascript" src="/outcome/js/search.js"></script>
+
+    
+  </div>
+
+
+
+
+
+<div class="highlightable">
+    <ul class="topics">
+        
+        
+            <li data-nav-id="/outcome/" class="dd-item">
+            <a href="/outcome/"><i class="fa fa-fw fa-home"></i></a>
+            </li>
+        
+
+        
+
+
+
+
+<li data-nav-id="/outcome/api-reference/" class="dd-item 
+parent
+
+
+">
+  <a href="/outcome/api-reference/">
+    <span>API reference</span>
+
+    
+    <i class="fa fa-angle-down fa-lg category-icon"></i>
+    
+    
+    
+  </a>
+    <ul>
+        
+         
+          <li data-nav-id="/outcome/api-reference/doc_outcome.md/" class="dd-item
+         
+          ">
+            <a href="/outcome/api-reference/doc_outcome.md/">
+            <span>outcome&lt;R, S, P&gt;</span> 
+            
+
+            </a></li>
+         
+        
+         
+          <li data-nav-id="/outcome/api-reference/doc_result.md/" class="dd-item
+         active
+          ">
+            <a href="/outcome/api-reference/doc_result.md/">
+            <span>result&lt;R, S&gt;</span> 
+            
+
+            </a></li>
+         
+        
+        
+
+
+
+
+    </ul>
+</li>
+
+
+
+        
+        <section id="shortcuts">
+            
+                <li class="" role="">
+                    <h3>More</h3>
+                    <a href="https://github.com/ned14/outcome"><i class='fa fa-github'></i> Outcome 2.0 github repo</a>
+                    
+                </li>
+            
+                <li class="" role="">
+                    
+                    <a href="/outcome/credits"><i class='fa fa-bullhorn'></i> History and Acknowledgements</a>
+                    
+                </li>
+            
+        </section>    
+        
+        
+
+        
+    </ul>
+    
+     
+    <section id="footer">
+      <center>
+
+<a class="github-button" href="https://github.com/ned14/outcome/archive/master.zip" data-icon="octicon-cloud-download" aria-label="Download Outcome on GitHub">Download</a>
+
+
+<a class="github-button" href="https://github.com/ned14/outcome" data-icon="octicon-star" data-show-count="false" aria-label="Star Outcome on GitHub">Star</a>
+
+
+<a class="github-button" href="https://github.com/ned14/outcome/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork Outcome on GitHub">Fork</a>
+
+</center>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+    </section>
+  </div>
+</nav>
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+        
+          <div id="top-bar">
+            
+              
+              
+              
+            <div id="top-github-link">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/API%20reference/doc_result.md" target="blank">
+                <i class="fa fa-code-fork"></i>
+                Edit page
+              </a>
+            </div>
+              
+            
+
+            <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <span id="sidebar-toggle-span">
+                  <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                    <i class="fa fa-bars"></i>
+                  </a>
+                </span>
+                <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                <span class="links">
+                
+
+
+
+
+
+
+
+ <a href='/outcome/'></a> > <a href='/outcome/api-reference/'>API reference</a> > result<R, S>
+
+ 
+
+ 
+
+   
+                </span>
+            </div>
+            <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li><a href="#header-file-result-hpp-a-id-result-hpp-a">Header file <code>result.hpp</code><a id="result.hpp"></a></a>
+<ul>
+<li><a href="#macro-outcome-enable-positive-status-a-id-outcome-enable-positive-status-a">Macro <code>OUTCOME_ENABLE_POSITIVE_STATUS</code><a id="OUTCOME_ENABLE_POSITIVE_STATUS"></a></a></li>
+<li><a href="#class-template-outcome-in-place-type-t-a-id-outcome-in-place-type-t-t-a">Class template <code>outcome::in_place_type_t</code><a id="outcome::in_place_type_t-T-"></a></a></li>
+<li><a href="#class-outcome-bad-result-access-a-id-outcome-bad-result-access-a">Class <code>outcome::bad_result_access</code><a id="outcome::bad_result_access"></a></a></li>
+<li><a href="#struct-outcome-no-error-type-a-id-outcome-no-error-type-a">Struct <code>outcome::no_error_type</code><a id="outcome::no_error_type"></a></a></li>
+<li><a href="#class-template-outcome-impl-result-storage-a-id-outcome-impl-result-storage-r-ec-novaluepolicy-a">Class template <code>outcome::impl::result_storage</code><a id="outcome::impl::result_storage-R,EC,NoValuePolicy-"></a></a></li>
+<li><a href="#class-template-outcome-impl-result-value-observers-a-id-outcome-impl-result-value-observers-base-r-novaluepolicy-a">Class template <code>outcome::impl::result_value_observers</code><a id="outcome::impl::result_value_observers-Base,R,NoValuePolicy-"></a></a>
+<ul>
+<li><a href="#function-outcome-impl-result-value-observers-assume-value-a-id-outcome-impl-result-value-observers-base-r-novaluepolicy-assume-value-a">Function <code>outcome::impl::result_value_observers::assume_value</code><a id="outcome::impl::result_value_observers-Base,R,NoValuePolicy-::assume_value()&"></a></a></li>
+<li><a href="#function-outcome-impl-result-value-observers-value-a-id-outcome-impl-result-value-observers-base-r-novaluepolicy-value-a">Function <code>outcome::impl::result_value_observers::value</code><a id="outcome::impl::result_value_observers-Base,R,NoValuePolicy-::value()&"></a></a></li>
+</ul></li>
+<li><a href="#class-template-outcome-impl-result-error-observers-a-id-outcome-impl-result-error-observers-base-ec-novaluepolicy-a">Class template <code>outcome::impl::result_error_observers</code><a id="outcome::impl::result_error_observers-Base,EC,NoValuePolicy-"></a></a>
+<ul>
+<li><a href="#function-outcome-impl-result-error-observers-assume-error-a-id-outcome-impl-result-error-observers-base-ec-novaluepolicy-assume-error-a">Function <code>outcome::impl::result_error_observers::assume_error</code><a id="outcome::impl::result_error_observers-Base,EC,NoValuePolicy-::assume_error()&"></a></a></li>
+<li><a href="#function-outcome-impl-result-error-observers-error-a-id-outcome-impl-result-error-observers-base-ec-novaluepolicy-error-a">Function <code>outcome::impl::result_error_observers::error</code><a id="outcome::impl::result_error_observers-Base,EC,NoValuePolicy-::error()&"></a></a></li>
+</ul></li>
+<li><a href="#class-template-outcome-impl-result-final-a-id-outcome-impl-result-final-r-s-novaluepolicy-a">Class template <code>outcome::impl::result_final</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-"></a></a>
+<ul>
+<li><a href="#type-alias-outcome-impl-result-final-value-type-a-id-outcome-impl-result-final-r-s-novaluepolicy-value-type-a">Type alias <code>outcome::impl::result_final::value_type</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-::value_type"></a></a></li>
+<li><a href="#type-alias-outcome-impl-result-final-status-error-type-a-id-outcome-impl-result-final-r-s-novaluepolicy-status-error-type-a">Type alias <code>outcome::impl::result_final::status_error_type</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-::status_error_type"></a></a></li>
+<li><a href="#type-alias-outcome-impl-result-final-error-type-a-id-outcome-impl-result-final-r-s-novaluepolicy-error-type-a">Type alias <code>outcome::impl::result_final::error_type</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-::error_type"></a></a></li>
+<li><a href="#conversion-operator-outcome-impl-result-final-operator-bool-a-id-outcome-impl-result-final-r-s-novaluepolicy-operatorbool-const-a">Conversion operator <code>outcome::impl::result_final::operator bool</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-::operatorbool()const"></a></a></li>
+<li><a href="#function-outcome-impl-result-final-has-value-a-id-outcome-impl-result-final-r-s-novaluepolicy-has-value-const-a">Function <code>outcome::impl::result_final::has_value</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-::has_value()const"></a></a></li>
+<li><a href="#function-outcome-impl-result-final-has-error-a-id-outcome-impl-result-final-r-s-novaluepolicy-has-error-const-a">Function <code>outcome::impl::result_final::has_error</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-::has_error()const"></a></a></li>
+<li><a href="#function-outcome-impl-result-final-has-payload-a-id-outcome-impl-result-final-r-s-novaluepolicy-has-payload-const-a">Function <code>outcome::impl::result_final::has_payload</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-::has_payload()const"></a></a></li>
+<li><a href="#function-outcome-impl-result-final-has-exception-a-id-outcome-impl-result-final-r-s-novaluepolicy-has-exception-const-a">Function <code>outcome::impl::result_final::has_exception</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-::has_exception()const"></a></a></li>
+</ul></li>
+<li><a href="#namespace-outcome-policy-a-id-outcome-policy-a">Namespace <code>outcome::policy</code><a id="outcome::policy"></a></a>
+<ul>
+<li><a href="#class-template-outcome-policy-throw-directly-error-code-interpretation-policy-a-id-outcome-policy-throw-directly-ec-a">Class template <code>outcome::policy::throw_directly</code> [Error code interpretation policy]<a id="outcome::policy::throw_directly-EC-"></a></a>
+<ul>
+<li><a href="#function-template-outcome-policy-throw-directly-narrow-value-check-a-id-outcome-policy-throw-directly-ec-narrow-value-check-impl-a">Function template <code>outcome::policy::throw_directly::narrow_value_check</code><a id="outcome::policy::throw_directly-EC-::narrow_value_check(Impl*)"></a></a></li>
+<li><a href="#function-template-outcome-policy-throw-directly-narrow-error-check-a-id-outcome-policy-throw-directly-ec-narrow-error-check-impl-a">Function template <code>outcome::policy::throw_directly::narrow_error_check</code><a id="outcome::policy::throw_directly-EC-::narrow_error_check(Impl*)"></a></a></li>
+<li><a href="#function-template-outcome-policy-throw-directly-wide-value-check-a-id-outcome-policy-throw-directly-ec-wide-value-check-impl-a">Function template <code>outcome::policy::throw_directly::wide_value_check</code><a id="outcome::policy::throw_directly-EC-::wide_value_check(Impl*)"></a></a></li>
+<li><a href="#function-template-outcome-policy-throw-directly-wide-error-check-a-id-outcome-policy-throw-directly-ec-wide-error-check-impl-a">Function template <code>outcome::policy::throw_directly::wide_error_check</code><a id="outcome::policy::throw_directly-EC-::wide_error_check(Impl*)"></a></a></li>
+</ul></li>
+<li><a href="#class-template-outcome-policy-error-code-throw-as-system-error-error-code-interpretation-policy-a-id-outcome-policy-error-code-throw-as-system-error-ec-a">Class template <code>outcome::policy::error_code_throw_as_system_error</code> [Error code interpretation policy]<a id="outcome::policy::error_code_throw_as_system_error-EC-"></a></a>
+<ul>
+<li><a href="#function-template-outcome-policy-error-code-throw-as-system-error-narrow-value-check-a-id-outcome-policy-error-code-throw-as-system-error-ec-narrow-value-check-impl-a">Function template <code>outcome::policy::error_code_throw_as_system_error::narrow_value_check</code><a id="outcome::policy::error_code_throw_as_system_error-EC-::narrow_value_check(Impl*)"></a></a></li>
+<li><a href="#function-template-outcome-policy-error-code-throw-as-system-error-narrow-error-check-a-id-outcome-policy-error-code-throw-as-system-error-ec-narrow-error-check-impl-a">Function template <code>outcome::policy::error_code_throw_as_system_error::narrow_error_check</code><a id="outcome::policy::error_code_throw_as_system_error-EC-::narrow_error_check(Impl*)"></a></a></li>
+<li><a href="#function-template-outcome-policy-error-code-throw-as-system-error-wide-value-check-a-id-outcome-policy-error-code-throw-as-system-error-ec-wide-value-check-impl-a">Function template <code>outcome::policy::error_code_throw_as_system_error::wide_value_check</code><a id="outcome::policy::error_code_throw_as_system_error-EC-::wide_value_check(Impl*)"></a></a></li>
+<li><a href="#function-template-outcome-policy-error-code-throw-as-system-error-wide-error-check-a-id-outcome-policy-error-code-throw-as-system-error-ec-wide-error-check-impl-a">Function template <code>outcome::policy::error_code_throw_as_system_error::wide_error_check</code><a id="outcome::policy::error_code_throw_as_system_error-EC-::wide_error_check(Impl*)"></a></a></li>
+</ul></li>
+<li><a href="#class-template-outcome-policy-exception-ptr-rethrow-error-code-interpretation-policy-a-id-outcome-policy-exception-ptr-rethrow-ec-a">Class template <code>outcome::policy::exception_ptr_rethrow</code> [Error code interpretation policy]<a id="outcome::policy::exception_ptr_rethrow-EC-"></a></a>
+<ul>
+<li><a href="#function-template-outcome-policy-exception-ptr-rethrow-narrow-value-check-a-id-outcome-policy-exception-ptr-rethrow-ec-narrow-value-check-impl-a">Function template <code>outcome::policy::exception_ptr_rethrow::narrow_value_check</code><a id="outcome::policy::exception_ptr_rethrow-EC-::narrow_value_check(Impl*)"></a></a></li>
+<li><a href="#function-template-outcome-policy-exception-ptr-rethrow-narrow-error-check-a-id-outcome-policy-exception-ptr-rethrow-ec-narrow-error-check-impl-a">Function template <code>outcome::policy::exception_ptr_rethrow::narrow_error_check</code><a id="outcome::policy::exception_ptr_rethrow-EC-::narrow_error_check(Impl*)"></a></a></li>
+<li><a href="#function-template-outcome-policy-exception-ptr-rethrow-wide-value-check-a-id-outcome-policy-exception-ptr-rethrow-ec-wide-value-check-impl-a">Function template <code>outcome::policy::exception_ptr_rethrow::wide_value_check</code><a id="outcome::policy::exception_ptr_rethrow-EC-::wide_value_check(Impl*)"></a></a></li>
+<li><a href="#function-template-outcome-policy-exception-ptr-rethrow-wide-error-check-a-id-outcome-policy-exception-ptr-rethrow-ec-wide-error-check-impl-a">Function template <code>outcome::policy::exception_ptr_rethrow::wide_error_check</code><a id="outcome::policy::exception_ptr_rethrow-EC-::wide_error_check(Impl*)"></a></a></li>
+</ul></li>
+<li><a href="#struct-outcome-policy-terminate-error-code-interpretation-policy-a-id-outcome-policy-terminate-a">Struct <code>outcome::policy::terminate</code> [Error code interpretation policy]<a id="outcome::policy::terminate"></a></a>
+<ul>
+<li><a href="#function-template-outcome-policy-terminate-narrow-value-check-a-id-outcome-policy-terminate-narrow-value-check-impl-a">Function template <code>outcome::policy::terminate::narrow_value_check</code><a id="outcome::policy::terminate::narrow_value_check(Impl*)"></a></a></li>
+<li><a href="#function-template-outcome-policy-terminate-narrow-error-check-a-id-outcome-policy-terminate-narrow-error-check-impl-a">Function template <code>outcome::policy::terminate::narrow_error_check</code><a id="outcome::policy::terminate::narrow_error_check(Impl*)"></a></a></li>
+<li><a href="#function-template-outcome-policy-terminate-narrow-payload-check-a-id-outcome-policy-terminate-narrow-payload-check-impl-a">Function template <code>outcome::policy::terminate::narrow_payload_check</code><a id="outcome::policy::terminate::narrow_payload_check(Impl*)"></a></a></li>
+<li><a href="#function-template-outcome-policy-terminate-narrow-exception-check-a-id-outcome-policy-terminate-narrow-exception-check-impl-a">Function template <code>outcome::policy::terminate::narrow_exception_check</code><a id="outcome::policy::terminate::narrow_exception_check(Impl*)"></a></a></li>
+<li><a href="#function-template-outcome-policy-terminate-wide-value-check-a-id-outcome-policy-terminate-wide-value-check-impl-a">Function template <code>outcome::policy::terminate::wide_value_check</code><a id="outcome::policy::terminate::wide_value_check(Impl*)"></a></a></li>
+<li><a href="#function-template-outcome-policy-terminate-wide-error-check-a-id-outcome-policy-terminate-wide-error-check-impl-a">Function template <code>outcome::policy::terminate::wide_error_check</code><a id="outcome::policy::terminate::wide_error_check(Impl*)"></a></a></li>
+<li><a href="#function-template-outcome-policy-terminate-wide-payload-check-a-id-outcome-policy-terminate-wide-payload-check-impl-a">Function template <code>outcome::policy::terminate::wide_payload_check</code><a id="outcome::policy::terminate::wide_payload_check(Impl*)"></a></a></li>
+<li><a href="#function-template-outcome-policy-terminate-wide-exception-check-a-id-outcome-policy-terminate-wide-exception-check-impl-a">Function template <code>outcome::policy::terminate::wide_exception_check</code><a id="outcome::policy::terminate::wide_exception_check(Impl*)"></a></a></li>
+</ul></li>
+<li><a href="#alias-template-outcome-policy-default-result-policy-error-code-interpretation-policy-a-id-outcome-policy-default-result-policy-ec-a">Alias template <code>outcome::policy::default_result_policy</code> [Error code interpretation policy]<a id="outcome::policy::default_result_policy-EC-"></a></a></li>
+</ul></li>
+<li><a href="#class-template-outcome-result-result-r-s-implementation-a-id-outcome-result-r-s-novaluepolicy-a">Class template <code>outcome::result</code> [result&lt;R, S&gt; implementation]<a id="outcome::result-R,S,NoValuePolicy-"></a></a>
+<ul>
+<li><a href="#type-alias-outcome-result-value-type-a-id-outcome-result-r-s-novaluepolicy-value-type-a">Type alias <code>outcome::result::value_type</code><a id="outcome::result-R,S,NoValuePolicy-::value_type"></a></a></li>
+<li><a href="#type-alias-outcome-result-status-error-type-a-id-outcome-result-r-s-novaluepolicy-status-error-type-a">Type alias <code>outcome::result::status_error_type</code><a id="outcome::result-R,S,NoValuePolicy-::status_error_type"></a></a></li>
+<li><a href="#type-alias-outcome-result-error-type-a-id-outcome-result-r-s-novaluepolicy-error-type-a">Type alias <code>outcome::result::error_type</code><a id="outcome::result-R,S,NoValuePolicy-::error_type"></a></a></li>
+<li><a href="#default-constructor-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-a">Default constructor <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result()"></a></a></li>
+<li><a href="#move-constructor-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-result-r-s-novaluepolicy-a">Move constructor <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(result-R,S,NoValuePolicy-&&)"></a></a></li>
+<li><a href="#copy-constructor-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-constresult-r-s-novaluepolicy-a">Copy constructor <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(constresult-R,S,NoValuePolicy-&)"></a></a></li>
+<li><a href="#assignment-operator-outcome-result-operator-a-id-outcome-result-r-s-novaluepolicy-operator-result-r-s-novaluepolicy-a">Assignment operator <code>outcome::result::operator=</code><a id="outcome::result-R,S,NoValuePolicy-::operator=(result-R,S,NoValuePolicy-&&)"></a></a></li>
+<li><a href="#assignment-operator-outcome-result-operator-a-id-outcome-result-r-s-novaluepolicy-operator-constresult-r-s-novaluepolicy-a">Assignment operator <code>outcome::result::operator=</code><a id="outcome::result-R,S,NoValuePolicy-::operator=(constresult-R,S,NoValuePolicy-&)"></a></a></li>
+<li><a href="#function-template-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-t-outcome-result-value-converting-constructor-tag-a">Function template <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(T&&,outcome::result::value_converting_constructor_tag)"></a></a></li>
+<li><a href="#function-template-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-t-outcome-result-error-converting-constructor-tag-a">Function template <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(T&&,outcome::result::error_converting_constructor_tag)"></a></a></li>
+<li><a href="#function-template-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-constresult-t-u-v-a">Function template <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(constresult-T,U,V-&)"></a></a></li>
+<li><a href="#function-template-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-result-t-u-v-a">Function template <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(result-T,U,V-&&)"></a></a></li>
+<li><a href="#function-template-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-in-place-type-t-value-type-args-a">Function template <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-value_type-,Args&&...)"></a></a></li>
+<li><a href="#function-template-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-in-place-type-t-value-type-std-initializer-list-u-args-a">Function template <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-value_type-,std::initializer_list-U-,Args&&...)"></a></a></li>
+<li><a href="#function-template-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-in-place-type-t-error-type-args-a">Function template <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-error_type-,Args&&...)"></a></a></li>
+<li><a href="#function-template-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-in-place-type-t-error-type-std-initializer-list-u-args-a">Function template <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-error_type-,std::initializer_list-U-,Args&&...)"></a></a></li>
+</ul></li>
+<li><a href="#class-template-outcome-result-void-void-novaluepolicy-a-id-outcome-result-void-void-novaluepolicy-a">Class template <code>outcome::result&lt;void, void, NoValuePolicy&gt;</code><a id="outcome::result-void,void,NoValuePolicy-"></a></a>
+<ul>
+<li><a href="#type-alias-outcome-result-void-void-novaluepolicy-value-type-a-id-outcome-result-void-void-novaluepolicy-value-type-a">Type alias <code>outcome::result&lt;void, void, NoValuePolicy&gt;::value_type</code><a id="outcome::result-void,void,NoValuePolicy-::value_type"></a></a></li>
+<li><a href="#type-alias-outcome-result-void-void-novaluepolicy-status-error-type-a-id-outcome-result-void-void-novaluepolicy-status-error-type-a">Type alias <code>outcome::result&lt;void, void, NoValuePolicy&gt;::status_error_type</code><a id="outcome::result-void,void,NoValuePolicy-::status_error_type"></a></a></li>
+<li><a href="#type-alias-outcome-result-void-void-novaluepolicy-error-type-a-id-outcome-result-void-void-novaluepolicy-error-type-a">Type alias <code>outcome::result&lt;void, void, NoValuePolicy&gt;::error_type</code><a id="outcome::result-void,void,NoValuePolicy-::error_type"></a></a></li>
+<li><a href="#function-outcome-result-void-void-novaluepolicy-assume-value-a-id-outcome-result-void-void-novaluepolicy-assume-value-const-a">Function <code>outcome::result&lt;void, void, NoValuePolicy&gt;::assume_value</code><a id="outcome::result-void,void,NoValuePolicy-::assume_value()const"></a></a></li>
+<li><a href="#function-outcome-result-void-void-novaluepolicy-assume-error-a-id-outcome-result-void-void-novaluepolicy-assume-error-const-a">Function <code>outcome::result&lt;void, void, NoValuePolicy&gt;::assume_error</code><a id="outcome::result-void,void,NoValuePolicy-::assume_error()const"></a></a></li>
+<li><a href="#function-outcome-result-void-void-novaluepolicy-value-a-id-outcome-result-void-void-novaluepolicy-value-const-a">Function <code>outcome::result&lt;void, void, NoValuePolicy&gt;::value</code><a id="outcome::result-void,void,NoValuePolicy-::value()const"></a></a></li>
+<li><a href="#function-outcome-result-void-void-novaluepolicy-error-a-id-outcome-result-void-void-novaluepolicy-error-const-a">Function <code>outcome::result&lt;void, void, NoValuePolicy&gt;::error</code><a id="outcome::result-void,void,NoValuePolicy-::error()const"></a></a></li>
+<li><a href="#conversion-operator-outcome-result-void-void-novaluepolicy-operator-bool-a-id-outcome-result-void-void-novaluepolicy-operatorbool-const-a">Conversion operator <code>outcome::result&lt;void, void, NoValuePolicy&gt;::operator bool</code><a id="outcome::result-void,void,NoValuePolicy-::operatorbool()const"></a></a></li>
+<li><a href="#function-outcome-result-void-void-novaluepolicy-has-value-a-id-outcome-result-void-void-novaluepolicy-has-value-const-a">Function <code>outcome::result&lt;void, void, NoValuePolicy&gt;::has_value</code><a id="outcome::result-void,void,NoValuePolicy-::has_value()const"></a></a></li>
+<li><a href="#function-outcome-result-void-void-novaluepolicy-has-error-a-id-outcome-result-void-void-novaluepolicy-has-error-const-a">Function <code>outcome::result&lt;void, void, NoValuePolicy&gt;::has_error</code><a id="outcome::result-void,void,NoValuePolicy-::has_error()const"></a></a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+          </div>
+        
+        
+        <div id="body-inner">
+          
+            <h1>result&lt;R, S&gt;</h1>
+          
+
+
+
+
+
+
+<h1 id="header-file-result-hpp-a-id-result-hpp-a">Header file <code>result.hpp</code><a id="result.hpp"></a></h1>
+
+<pre><code class="language-cpp">#define <a href='doc_result.md#result.hpp'>OUTCOME_RESULT_HPP</a>
+
+#define <a href='doc_result.md#result.hpp'>OUTCOME_SYMBOL_VISIBLE</a>
+
+#define <a href='doc_result.md#result.hpp'>OUTCOME_NODISCARD</a>
+
+#define <a href='doc_result.md#OUTCOME_ENABLE_POSITIVE_STATUS'>OUTCOME_ENABLE_POSITIVE_STATUS</a>
+
+namespace <a href='doc_result.md#result.hpp'>outcome</a>
+{
+    template &lt;class T&gt;
+    struct <a href='doc_result.md#outcome::in_place_type_t-T-'>in_place_type_t</a>;
+    
+    class <a href='doc_result.md#outcome::bad_result_access'>bad_result_access</a>;
+    
+    struct <a href='doc_result.md#outcome::no_error_type'>no_error_type</a>;
+    
+    namespace <a href='doc_result.md#result.hpp'>impl</a>
+    {
+        template &lt;class R, class EC, class NoValuePolicy&gt;
+        class <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage</a>;
+        
+        template &lt;class Base, class R, class NoValuePolicy&gt;
+        class <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>result_value_observers</a>;
+        
+        template &lt;class Base, class NoValuePolicy&gt;
+        class <a href='doc_result.md#result.hpp'>result_value_observers&lt;Base, void, NoValuePolicy&gt;</a>;
+        
+        template &lt;class Base, class EC, class NoValuePolicy&gt;
+        class <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>result_error_observers</a>;
+        
+        template &lt;class Base, class NoValuePolicy&gt;
+        class <a href='doc_result.md#result.hpp'>result_error_observers&lt;Base, void, NoValuePolicy&gt;</a>;
+        
+        template &lt;class R, class EC, class NoValuePolicy&gt;
+        using <a href='doc_result.md#result.hpp'>select_result_impl</a> = <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>result_error_observers&lt;result_value_observers&lt;result_storage&lt;R, EC, NoValuePolicy&gt;, R, NoValuePolicy&gt;, EC, NoValuePolicy&gt;</a>;
+        
+        template &lt;class R, class S, class NoValuePolicy&gt;
+        class <a href='doc_result.md#outcome::impl::result_final-R,S,NoValuePolicy-'>result_final</a>;
+    }
+    
+    namespace <a href='doc_result.md#outcome::policy'>policy</a>
+    {
+        template &lt;class EC&gt;
+        struct <a href='doc_result.md#outcome::policy::throw_directly-EC-'>throw_directly</a>;
+        
+        template &lt;class EC&gt;
+        struct <a href='doc_result.md#outcome::policy::error_code_throw_as_system_error-EC-'>error_code_throw_as_system_error</a>;
+        
+        template &lt;class EC&gt;
+        struct <a href='doc_result.md#outcome::policy::exception_ptr_rethrow-EC-'>exception_ptr_rethrow</a>;
+        
+        struct <a href='doc_result.md#outcome::policy::terminate'>terminate</a>;
+        
+        template &lt;class EC&gt;
+        using <a href='doc_result.md#outcome::policy::default_result_policy-EC-'>default_result_policy</a> = <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::conditional_t%3c//std::is_void%3cEC%3e::value,//terminate,//std::conditional_t%3c//detail::is_same_or_constructible%3cstd::error_code,EC%3e,error_code_throw_as_system_error%3cEC%3e,//std::conditional_t%3c//detail::is_same_or_constructible%3cstd::exception_ptr,EC%3e,exception_ptr_rethrow%3cEC%3e,//throw_directly%3cEC%3e//%3e%3e%3e'>std::conditional_t&lt;//std::is_void&lt;EC&gt;::value, //terminate, //std::conditional_t&lt;//detail::is_same_or_constructible&lt;std::error_code, EC&gt;, error_code_throw_as_system_error&lt;EC&gt;, //std::conditional_t&lt;//detail::is_same_or_constructible&lt;std::exception_ptr, EC&gt;, exception_ptr_rethrow&lt;EC&gt;, //throw_directly&lt;EC&gt;//&gt;&gt;&gt;</a>;
+    }
+    
+    template &lt;class R, class S = error_code_extended, class NoValuePolicy = policy::default_result_policy&lt;S&gt;
+    class <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-'>result</a>;
+    
+    template &lt;class NoValuePolicy&gt;
+    class <a href='doc_result.md#outcome::result-void,void,NoValuePolicy-'>result&lt;void, void, NoValuePolicy&gt;</a>;
+}</code></pre>
+
+<h2 id="macro-outcome-enable-positive-status-a-id-outcome-enable-positive-status-a">Macro <code>OUTCOME_ENABLE_POSITIVE_STATUS</code><a id="OUTCOME_ENABLE_POSITIVE_STATUS"></a></h2>
+
+<pre><code class="language-cpp">#define OUTCOME_ENABLE_POSITIVE_STATUS</code></pre>
+
+<p>Define to enable positive value + status returns</p>
+
+<h2 id="class-template-outcome-in-place-type-t-a-id-outcome-in-place-type-t-t-a">Class template <code>outcome::in_place_type_t</code><a id="outcome::in_place_type_t-T-"></a></h2>
+
+<pre><code class="language-cpp">template &lt;class T&gt;
+struct in_place_type_t
+{
+    <a href='doc_result.md#outcome::in_place_type_t-T-'>in_place_type_t</a>() = default;
+};</code></pre>
+
+<p>Aliases <code>std::in_place_type_t&lt;T&gt;</code> if on C++ 17 or later, else defined locally.</p>
+
+<h2 id="class-outcome-bad-result-access-a-id-outcome-bad-result-access-a">Class <code>outcome::bad_result_access</code><a id="outcome::bad_result_access"></a></h2>
+
+<pre><code class="language-cpp">class bad_result_access
+: public <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::logic_error'>std::logic_error</a>
+{
+public:
+    <a href='doc_result.md#outcome::bad_result_access'>bad_result_access</a>(const char* what);
+};</code></pre>
+
+<p>Thrown when you try to access state in a <code>result&lt;R, S&gt;</code> which isn&rsquo;t present.</p>
+
+<h2 id="struct-outcome-no-error-type-a-id-outcome-no-error-type-a">Struct <code>outcome::no_error_type</code><a id="outcome::no_error_type"></a></h2>
+
+<pre><code class="language-cpp">struct no_error_type
+{
+    <a href='doc_result.md#outcome::no_error_type'>no_error_type</a>() = delete;
+};</code></pre>
+
+<p>Placeholder type to indicate there is no error type</p>
+
+<h2 id="class-template-outcome-impl-result-storage-a-id-outcome-impl-result-storage-r-ec-novaluepolicy-a">Class template <code>outcome::impl::result_storage</code><a id="outcome::impl::result_storage-R,EC,NoValuePolicy-"></a></h2>
+
+<pre><code class="language-cpp">template &lt;class R, class EC, class NoValuePolicy&gt;
+class result_storage
+{
+protected:
+    'hidden' <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>_state</a>;
+    
+    'hidden' <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>_error</a>;
+    
+    <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage</a>() = default;
+    
+    template &lt;class ... Args&gt;
+    constexpr <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage</a>(<a href='doc_result.md#outcome::in_place_type_t-T-'>in_place_type_t&lt;value_type&gt;</a> _, Args&amp;&amp;... args) noexcept(std::is_nothrow_constructible&lt;value_type, Args...&gt;::value);
+    
+    template &lt;class U, class ... Args&gt;
+    constexpr <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage</a>(<a href='doc_result.md#outcome::in_place_type_t-T-'>in_place_type_t&lt;value_type&gt;</a> _, <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::initializer_list%3cU%3e'>std::initializer_list&lt;U&gt;</a> il, Args&amp;&amp;... args) noexcept(std::is_nothrow_constructible&lt;value_type, std::initializer_list&lt;U&gt;, Args...&gt;::value);
+    
+    template &lt;class ... Args&gt;
+    constexpr <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage</a>(<a href='doc_result.md#outcome::in_place_type_t-T-'>in_place_type_t&lt;error_type&gt;</a>, Args&amp;&amp;... args) noexcept(std::is_nothrow_constructible&lt;error_type, Args...&gt;::value);
+    
+    template &lt;class U, class ... Args&gt;
+    constexpr <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage</a>(<a href='doc_result.md#outcome::in_place_type_t-T-'>in_place_type_t&lt;error_type&gt;</a>, <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::initializer_list%3cU%3e'>std::initializer_list&lt;U&gt;</a> il, Args&amp;&amp;... args) noexcept(std::is_nothrow_constructible&lt;error_type, std::initializer_list&lt;U&gt;, Args...&gt;::value);
+    
+    struct <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>compatible_conversion_tag</a>;
+    
+    template &lt;class T, class U, class V&gt;
+    constexpr <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage</a>(<a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>compatible_conversion_tag</a>, const <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage&lt;T, U, V&gt;</a>&amp; o) noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value&amp;&amp;std::is_nothrow_constructible&lt;error_type, U&gt;::value);
+    
+    template &lt;class U, class V&gt;
+    constexpr <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage</a>(<a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>compatible_conversion_tag</a>, const <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage&lt;void, U, V&gt;</a>&amp; o) noexcept(std::is_nothrow_constructible&lt;error_type, U&gt;::value);
+    
+    template &lt;class T, class V&gt;
+    constexpr <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage</a>(<a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>compatible_conversion_tag</a>, const <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage&lt;T, void, V&gt;</a>&amp; o) noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value);
+    
+    template &lt;class T, class U, class V&gt;
+    constexpr <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage</a>(<a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>compatible_conversion_tag</a>, <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage&lt;T, U, V&gt;</a>&amp;&amp; o) noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value&amp;&amp;std::is_nothrow_constructible&lt;error_type, U&gt;::value);
+    
+    template &lt;class U, class V&gt;
+    constexpr <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage</a>(<a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>compatible_conversion_tag</a>, <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage&lt;void, U, V&gt;</a>&amp;&amp; o) noexcept(std::is_nothrow_constructible&lt;error_type, U&gt;::value);
+    
+    template &lt;class T, class V&gt;
+    constexpr <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage</a>(<a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>compatible_conversion_tag</a>, <a href='doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-'>result_storage&lt;T, void, V&gt;</a>&amp;&amp; o) noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value);
+};</code></pre>
+
+<p>The base implementation type of <code>result&lt;R, EC, NoValuePolicy&gt;</code>. Only appears separate due to standardese limitations.</p>
+
+<h2 id="class-template-outcome-impl-result-value-observers-a-id-outcome-impl-result-value-observers-base-r-novaluepolicy-a">Class template <code>outcome::impl::result_value_observers</code><a id="outcome::impl::result_value_observers-Base,R,NoValuePolicy-"></a></h2>
+
+<pre><code class="language-cpp">template &lt;class Base, class R, class NoValuePolicy&gt;
+class result_value_observers
+: public Base
+{
+public:
+    using <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>value_type</a> = R;
+    
+    using Base::Base;
+    
+    constexpr <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>value_type</a>&amp; <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-::assume_value()&'>assume_value</a>() &amp; noexcept;
+    constexpr const <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>value_type</a>&amp; <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-::assume_value()&'>assume_value</a>() const &amp; noexcept;
+    constexpr <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>value_type</a>&amp;&amp; <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-::assume_value()&'>assume_value</a>() &amp;&amp; noexcept;
+    constexpr const <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>value_type</a>&amp;&amp; <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-::assume_value()&'>assume_value</a>() const &amp;&amp; noexcept;
+    
+    constexpr <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>value_type</a>&amp; <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-::value()&'>value</a>() &amp;;
+    constexpr const <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>value_type</a>&amp; <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-::value()&'>value</a>() const &amp;;
+    constexpr <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>value_type</a>&amp;&amp; <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-::value()&'>value</a>() &amp;&amp;;
+    constexpr const <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>value_type</a>&amp;&amp; <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-::value()&'>value</a>() const &amp;&amp;;
+};</code></pre>
+
+<p>The value observers implementation of <code>result&lt;R, EC, NoValuePolicy&gt;</code>. Only appears separate due to standardese limitations.</p>
+
+<h3 id="function-outcome-impl-result-value-observers-assume-value-a-id-outcome-impl-result-value-observers-base-r-novaluepolicy-assume-value-a">Function <code>outcome::impl::result_value_observers::assume_value</code><a id="outcome::impl::result_value_observers-Base,R,NoValuePolicy-::assume_value()&"></a></h3>
+
+<pre><code class="language-cpp">(1)  constexpr <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>value_type</a>&amp; assume_value() &amp; noexcept;
+
+(2)  constexpr const <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>value_type</a>&amp; assume_value() const &amp; noexcept;
+
+(3)  constexpr <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>value_type</a>&amp;&amp; assume_value() &amp;&amp; noexcept;
+
+(4)  constexpr const <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>value_type</a>&amp;&amp; assume_value() const &amp;&amp; noexcept;</code></pre>
+
+<p>Access value without runtime checks.</p>
+
+<p><em>Returns</em>: Reference to the held <code>value_type</code> according to overload.</p>
+
+<h3 id="function-outcome-impl-result-value-observers-value-a-id-outcome-impl-result-value-observers-base-r-novaluepolicy-value-a">Function <code>outcome::impl::result_value_observers::value</code><a id="outcome::impl::result_value_observers-Base,R,NoValuePolicy-::value()&"></a></h3>
+
+<pre><code class="language-cpp">(1)  constexpr <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>value_type</a>&amp; value() &amp;;
+
+(2)  constexpr const <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>value_type</a>&amp; value() const &amp;;
+
+(3)  constexpr <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>value_type</a>&amp;&amp; value() &amp;&amp;;
+
+(4)  constexpr const <a href='doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-'>value_type</a>&amp;&amp; value() const &amp;&amp;;</code></pre>
+
+<p>Access value with runtime checks.</p>
+
+<p><em>Returns</em>: Reference to the held <code>value_type</code> according to overload.</p>
+
+<p><em>Requires</em>: The result to have a successful state, else whatever <code>NoValuePolicy</code> says ought to happen.</p>
+
+<hr />
+
+<h2 id="class-template-outcome-impl-result-error-observers-a-id-outcome-impl-result-error-observers-base-ec-novaluepolicy-a">Class template <code>outcome::impl::result_error_observers</code><a id="outcome::impl::result_error_observers-Base,EC,NoValuePolicy-"></a></h2>
+
+<pre><code class="language-cpp">template &lt;class Base, class EC, class NoValuePolicy&gt;
+class result_error_observers
+: public Base
+{
+public:
+    using <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>error_type</a> = EC;
+    
+    using Base::Base;
+    
+    constexpr <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>error_type</a>&amp; <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-::assume_error()&'>assume_error</a>() &amp; noexcept;
+    constexpr const <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>error_type</a>&amp; <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-::assume_error()&'>assume_error</a>() const &amp; noexcept;
+    constexpr <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>error_type</a>&amp;&amp; <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-::assume_error()&'>assume_error</a>() &amp;&amp; noexcept;
+    constexpr const <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>error_type</a>&amp;&amp; <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-::assume_error()&'>assume_error</a>() const &amp;&amp; noexcept;
+    
+    constexpr <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>error_type</a>&amp; <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-::error()&'>error</a>() &amp;;
+    constexpr const <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>error_type</a>&amp; <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-::error()&'>error</a>() const &amp;;
+    constexpr <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>error_type</a>&amp;&amp; <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-::error()&'>error</a>() &amp;&amp;;
+    constexpr const <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>error_type</a>&amp;&amp; <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-::error()&'>error</a>() const &amp;&amp;;
+};</code></pre>
+
+<p>The error observers implementation of <code>result&lt;R, EC, NoValuePolicy&gt;</code>. Only appears separate due to standardese limitations.</p>
+
+<h3 id="function-outcome-impl-result-error-observers-assume-error-a-id-outcome-impl-result-error-observers-base-ec-novaluepolicy-assume-error-a">Function <code>outcome::impl::result_error_observers::assume_error</code><a id="outcome::impl::result_error_observers-Base,EC,NoValuePolicy-::assume_error()&"></a></h3>
+
+<pre><code class="language-cpp">(1)  constexpr <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>error_type</a>&amp; assume_error() &amp; noexcept;
+
+(2)  constexpr const <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>error_type</a>&amp; assume_error() const &amp; noexcept;
+
+(3)  constexpr <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>error_type</a>&amp;&amp; assume_error() &amp;&amp; noexcept;
+
+(4)  constexpr const <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>error_type</a>&amp;&amp; assume_error() const &amp;&amp; noexcept;</code></pre>
+
+<p>Access error without runtime checks.</p>
+
+<p><em>Returns</em>: Reference to the held <code>error_type</code> according to overload.</p>
+
+<h3 id="function-outcome-impl-result-error-observers-error-a-id-outcome-impl-result-error-observers-base-ec-novaluepolicy-error-a">Function <code>outcome::impl::result_error_observers::error</code><a id="outcome::impl::result_error_observers-Base,EC,NoValuePolicy-::error()&"></a></h3>
+
+<pre><code class="language-cpp">(1)  constexpr <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>error_type</a>&amp; error() &amp;;
+
+(2)  constexpr const <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>error_type</a>&amp; error() const &amp;;
+
+(3)  constexpr <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>error_type</a>&amp;&amp; error() &amp;&amp;;
+
+(4)  constexpr const <a href='doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-'>error_type</a>&amp;&amp; error() const &amp;&amp;;</code></pre>
+
+<p>Access error with runtime checks.</p>
+
+<p><em>Returns</em>: Reference to the held <code>error_type</code> according to overload.</p>
+
+<p><em>Requires</em>: The result to have a failed state, else whatever <code>NoValuePolicy</code> says ought to happen.</p>
+
+<hr />
+
+<h2 id="class-template-outcome-impl-result-final-a-id-outcome-impl-result-final-r-s-novaluepolicy-a">Class template <code>outcome::impl::result_final</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-"></a></h2>
+
+<pre><code class="language-cpp">template &lt;class R, class S, class NoValuePolicy&gt;
+class result_final
+: public <a href='doc_result.md#result.hpp'>select_result_impl&lt;R, S, NoValuePolicy&gt;</a>
+{
+public:
+    //=== <a href='doc_result.md#outcome::impl::result_final-R,S,NoValuePolicy-::value_type'>Member types</a> ===//
+    using <a href='doc_result.md#outcome::impl::result_final-R,S,NoValuePolicy-::value_type'>value_type</a> = R;
+    
+    using <a href='doc_result.md#outcome::impl::result_final-R,S,NoValuePolicy-::status_error_type'>status_error_type</a> = S;
+    
+    using <a href='doc_result.md#outcome::impl::result_final-R,S,NoValuePolicy-::error_type'>error_type</a> = S;
+    
+    using <a href='standardese://outcome::impl::result_final<R, S, NoValuePolicy>::base/'>base::base</a>;
+    
+    constexpr <a href='doc_result.md#outcome::impl::result_final-R,S,NoValuePolicy-::operatorbool()const'>operator bool</a>() const noexcept;
+    
+    constexpr bool <a href='doc_result.md#outcome::impl::result_final-R,S,NoValuePolicy-::has_value()const'>has_value</a>() const noexcept;
+    
+    constexpr bool <a href='doc_result.md#outcome::impl::result_final-R,S,NoValuePolicy-::has_error()const'>has_error</a>() const noexcept;
+    
+    constexpr bool <a href='doc_result.md#outcome::impl::result_final-R,S,NoValuePolicy-::has_payload()const'>has_payload</a>() const noexcept;
+    
+    constexpr bool <a href='doc_result.md#outcome::impl::result_final-R,S,NoValuePolicy-::has_exception()const'>has_exception</a>() const noexcept;
+};</code></pre>
+
+<p>The assembled implementation type of <code>result&lt;R, EC, NoValuePolicy&gt;</code>. Only appears separate due to standardese limitations.</p>
+
+<h3 id="type-alias-outcome-impl-result-final-value-type-a-id-outcome-impl-result-final-r-s-novaluepolicy-value-type-a">Type alias <code>outcome::impl::result_final::value_type</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-::value_type"></a></h3>
+
+<pre><code class="language-cpp">using value_type = R;</code></pre>
+
+<p>The success type.</p>
+
+<h3 id="type-alias-outcome-impl-result-final-status-error-type-a-id-outcome-impl-result-final-r-s-novaluepolicy-status-error-type-a">Type alias <code>outcome::impl::result_final::status_error_type</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-::status_error_type"></a></h3>
+
+<pre><code class="language-cpp">using status_error_type = S;</code></pre>
+
+<p>The S type configured</p>
+
+<h3 id="type-alias-outcome-impl-result-final-error-type-a-id-outcome-impl-result-final-r-s-novaluepolicy-error-type-a">Type alias <code>outcome::impl::result_final::error_type</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-::error_type"></a></h3>
+
+<pre><code class="language-cpp">using error_type = S;</code></pre>
+
+<p>The failure type.</p>
+
+<h3 id="conversion-operator-outcome-impl-result-final-operator-bool-a-id-outcome-impl-result-final-r-s-novaluepolicy-operatorbool-const-a">Conversion operator <code>outcome::impl::result_final::operator bool</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-::operatorbool()const"></a></h3>
+
+<pre><code class="language-cpp">constexpr operator bool() const noexcept;</code></pre>
+
+<p>Checks if has value.</p>
+
+<p><em>Returns</em>: True if has value.</p>
+
+<h3 id="function-outcome-impl-result-final-has-value-a-id-outcome-impl-result-final-r-s-novaluepolicy-has-value-const-a">Function <code>outcome::impl::result_final::has_value</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-::has_value()const"></a></h3>
+
+<pre><code class="language-cpp">constexpr bool has_value() const noexcept;</code></pre>
+
+<p>Checks if has value.</p>
+
+<p><em>Returns</em>: True if has value.</p>
+
+<h3 id="function-outcome-impl-result-final-has-error-a-id-outcome-impl-result-final-r-s-novaluepolicy-has-error-const-a">Function <code>outcome::impl::result_final::has_error</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-::has_error()const"></a></h3>
+
+<pre><code class="language-cpp">constexpr bool has_error() const noexcept;</code></pre>
+
+<p>Checks if has error.</p>
+
+<p><em>Returns</em>: True if has error.</p>
+
+<h3 id="function-outcome-impl-result-final-has-payload-a-id-outcome-impl-result-final-r-s-novaluepolicy-has-payload-const-a">Function <code>outcome::impl::result_final::has_payload</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-::has_payload()const"></a></h3>
+
+<pre><code class="language-cpp">constexpr bool has_payload() const noexcept;</code></pre>
+
+<p>Checks if has payload.</p>
+
+<p><em>Returns</em>: True if has payload.</p>
+
+<h3 id="function-outcome-impl-result-final-has-exception-a-id-outcome-impl-result-final-r-s-novaluepolicy-has-exception-const-a">Function <code>outcome::impl::result_final::has_exception</code><a id="outcome::impl::result_final-R,S,NoValuePolicy-::has_exception()const"></a></h3>
+
+<pre><code class="language-cpp">constexpr bool has_exception() const noexcept;</code></pre>
+
+<p>Checks if has exception.</p>
+
+<p><em>Returns</em>: True if has exception.</p>
+
+<hr />
+
+<hr />
+
+<h2 id="namespace-outcome-policy-a-id-outcome-policy-a">Namespace <code>outcome::policy</code><a id="outcome::policy"></a></h2>
+
+<pre><code class="language-cpp">namespace policy
+{
+    template &lt;class EC&gt;
+    struct <a href='doc_result.md#outcome::policy::throw_directly-EC-'>throw_directly</a>;
+    
+    template &lt;class EC&gt;
+    struct <a href='doc_result.md#outcome::policy::error_code_throw_as_system_error-EC-'>error_code_throw_as_system_error</a>;
+    
+    template &lt;class EC&gt;
+    struct <a href='doc_result.md#outcome::policy::exception_ptr_rethrow-EC-'>exception_ptr_rethrow</a>;
+    
+    struct <a href='doc_result.md#outcome::policy::terminate'>terminate</a>;
+    
+    template &lt;class EC&gt;
+    using <a href='doc_result.md#outcome::policy::default_result_policy-EC-'>default_result_policy</a> = <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::conditional_t%3c//std::is_void%3cEC%3e::value,//terminate,//std::conditional_t%3c//detail::is_same_or_constructible%3cstd::error_code,EC%3e,error_code_throw_as_system_error%3cEC%3e,//std::conditional_t%3c//detail::is_same_or_constructible%3cstd::exception_ptr,EC%3e,exception_ptr_rethrow%3cEC%3e,//throw_directly%3cEC%3e//%3e%3e%3e'>std::conditional_t&lt;//std::is_void&lt;EC&gt;::value, //terminate, //std::conditional_t&lt;//detail::is_same_or_constructible&lt;std::error_code, EC&gt;, error_code_throw_as_system_error&lt;EC&gt;, //std::conditional_t&lt;//detail::is_same_or_constructible&lt;std::exception_ptr, EC&gt;, exception_ptr_rethrow&lt;EC&gt;, //throw_directly&lt;EC&gt;//&gt;&gt;&gt;</a>;
+}</code></pre>
+
+<p>Namespace for policies</p>
+
+<h3 id="class-template-outcome-policy-throw-directly-error-code-interpretation-policy-a-id-outcome-policy-throw-directly-ec-a">Class template <code>outcome::policy::throw_directly</code> [Error code interpretation policy]<a id="outcome::policy::throw_directly-EC-"></a></h3>
+
+<pre><code class="language-cpp">template &lt;class EC&gt;
+struct throw_directly
+{
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::throw_directly-EC-::narrow_value_check(Impl*)'>narrow_value_check</a>(Impl* self) noexcept;
+    
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::throw_directly-EC-::narrow_error_check(Impl*)'>narrow_error_check</a>(Impl* self) noexcept;
+    
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::throw_directly-EC-::wide_value_check(Impl*)'>wide_value_check</a>(Impl* self);
+    
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::throw_directly-EC-::wide_error_check(Impl*)'>wide_error_check</a>(Impl* self);
+};</code></pre>
+
+<p>Policy interpreting EC as a type to be thrown directly during wide checks.</p>
+
+<h4 id="function-template-outcome-policy-throw-directly-narrow-value-check-a-id-outcome-policy-throw-directly-ec-narrow-value-check-impl-a">Function template <code>outcome::policy::throw_directly::narrow_value_check</code><a id="outcome::policy::throw_directly-EC-::narrow_value_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void narrow_value_check(Impl* self) noexcept;</code></pre>
+
+<p>Performs a narrow check of state, used in the assume_value() functions.</p>
+
+<p><em>Effects</em>: None.</p>
+
+<h4 id="function-template-outcome-policy-throw-directly-narrow-error-check-a-id-outcome-policy-throw-directly-ec-narrow-error-check-impl-a">Function template <code>outcome::policy::throw_directly::narrow_error_check</code><a id="outcome::policy::throw_directly-EC-::narrow_error_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void narrow_error_check(Impl* self) noexcept;</code></pre>
+
+<p>Performs a narrow check of state, used in the assume_error() functions</p>
+
+<p><em>Effects</em>: None.</p>
+
+<h4 id="function-template-outcome-policy-throw-directly-wide-value-check-a-id-outcome-policy-throw-directly-ec-wide-value-check-impl-a">Function template <code>outcome::policy::throw_directly::wide_value_check</code><a id="outcome::policy::throw_directly-EC-::wide_value_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void wide_value_check(Impl* self);</code></pre>
+
+<p>Performs a wide check of state, used in the value() functions.</p>
+
+<p><em>Effects</em>: If result does not have a value, if it has an error it throws that <code>error()</code>, else it throws <code>bad_result_access</code>.</p>
+
+<h4 id="function-template-outcome-policy-throw-directly-wide-error-check-a-id-outcome-policy-throw-directly-ec-wide-error-check-impl-a">Function template <code>outcome::policy::throw_directly::wide_error_check</code><a id="outcome::policy::throw_directly-EC-::wide_error_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void wide_error_check(Impl* self);</code></pre>
+
+<p>Performs a wide check of state, used in the error() functions</p>
+
+<p><em>Effects</em>: If result does not have an error, it throws <code>bad_result_access</code>.</p>
+
+<hr />
+
+<h3 id="class-template-outcome-policy-error-code-throw-as-system-error-error-code-interpretation-policy-a-id-outcome-policy-error-code-throw-as-system-error-ec-a">Class template <code>outcome::policy::error_code_throw_as_system_error</code> [Error code interpretation policy]<a id="outcome::policy::error_code_throw_as_system_error-EC-"></a></h3>
+
+<pre><code class="language-cpp">template &lt;class EC&gt;
+struct error_code_throw_as_system_error
+{
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::error_code_throw_as_system_error-EC-::narrow_value_check(Impl*)'>narrow_value_check</a>(Impl* self) noexcept;
+    
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::error_code_throw_as_system_error-EC-::narrow_error_check(Impl*)'>narrow_error_check</a>(Impl* self) noexcept;
+    
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::error_code_throw_as_system_error-EC-::wide_value_check(Impl*)'>wide_value_check</a>(Impl* self);
+    
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::error_code_throw_as_system_error-EC-::wide_error_check(Impl*)'>wide_error_check</a>(Impl* self);
+};</code></pre>
+
+<p>Policy interpreting EC as a type implementing the <code>std::error_code</code> contract and any wide attempt to access the successful state throws the <code>error_code</code> wrapped into a <code>std::system_error</code></p>
+
+<h4 id="function-template-outcome-policy-error-code-throw-as-system-error-narrow-value-check-a-id-outcome-policy-error-code-throw-as-system-error-ec-narrow-value-check-impl-a">Function template <code>outcome::policy::error_code_throw_as_system_error::narrow_value_check</code><a id="outcome::policy::error_code_throw_as_system_error-EC-::narrow_value_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void narrow_value_check(Impl* self) noexcept;</code></pre>
+
+<p>Performs a narrow check of state, used in the assume_value() functions.</p>
+
+<p><em>Effects</em>: None.</p>
+
+<h4 id="function-template-outcome-policy-error-code-throw-as-system-error-narrow-error-check-a-id-outcome-policy-error-code-throw-as-system-error-ec-narrow-error-check-impl-a">Function template <code>outcome::policy::error_code_throw_as_system_error::narrow_error_check</code><a id="outcome::policy::error_code_throw_as_system_error-EC-::narrow_error_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void narrow_error_check(Impl* self) noexcept;</code></pre>
+
+<p>Performs a narrow check of state, used in the assume_error() functions.</p>
+
+<p><em>Effects</em>: None.</p>
+
+<h4 id="function-template-outcome-policy-error-code-throw-as-system-error-wide-value-check-a-id-outcome-policy-error-code-throw-as-system-error-ec-wide-value-check-impl-a">Function template <code>outcome::policy::error_code_throw_as_system_error::wide_value_check</code><a id="outcome::policy::error_code_throw_as_system_error-EC-::wide_value_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void wide_value_check(Impl* self);</code></pre>
+
+<p>Performs a wide check of state, used in the value() functions.</p>
+
+<p><em>Effects</em>: If result does not have a value, if it has an error it throws a <code>std::system_error(error())</code>, else it throws <code>bad_result_access</code>.</p>
+
+<h4 id="function-template-outcome-policy-error-code-throw-as-system-error-wide-error-check-a-id-outcome-policy-error-code-throw-as-system-error-ec-wide-error-check-impl-a">Function template <code>outcome::policy::error_code_throw_as_system_error::wide_error_check</code><a id="outcome::policy::error_code_throw_as_system_error-EC-::wide_error_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void wide_error_check(Impl* self);</code></pre>
+
+<p>Performs a wide check of state, used in the error() functions</p>
+
+<p><em>Effects</em>: If result does not have an error, it throws <code>bad_result_access</code>.</p>
+
+<hr />
+
+<h3 id="class-template-outcome-policy-exception-ptr-rethrow-error-code-interpretation-policy-a-id-outcome-policy-exception-ptr-rethrow-ec-a">Class template <code>outcome::policy::exception_ptr_rethrow</code> [Error code interpretation policy]<a id="outcome::policy::exception_ptr_rethrow-EC-"></a></h3>
+
+<pre><code class="language-cpp">template &lt;class EC&gt;
+struct exception_ptr_rethrow
+{
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::exception_ptr_rethrow-EC-::narrow_value_check(Impl*)'>narrow_value_check</a>(Impl* self) noexcept;
+    
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::exception_ptr_rethrow-EC-::narrow_error_check(Impl*)'>narrow_error_check</a>(Impl* self) noexcept;
+    
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::exception_ptr_rethrow-EC-::wide_value_check(Impl*)'>wide_value_check</a>(Impl* self);
+    
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::exception_ptr_rethrow-EC-::wide_error_check(Impl*)'>wide_error_check</a>(Impl* self);
+};</code></pre>
+
+<p>Policy interpreting EC as a type implementing the <code>std::exception_ptr</code> contract and any wide attempt to access the successful state calls <code>std::rethrow_exception()</code>.</p>
+
+<h4 id="function-template-outcome-policy-exception-ptr-rethrow-narrow-value-check-a-id-outcome-policy-exception-ptr-rethrow-ec-narrow-value-check-impl-a">Function template <code>outcome::policy::exception_ptr_rethrow::narrow_value_check</code><a id="outcome::policy::exception_ptr_rethrow-EC-::narrow_value_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void narrow_value_check(Impl* self) noexcept;</code></pre>
+
+<p>Performs a narrow check of state, used in the assume_value() functions.</p>
+
+<p><em>Effects</em>: None.</p>
+
+<h4 id="function-template-outcome-policy-exception-ptr-rethrow-narrow-error-check-a-id-outcome-policy-exception-ptr-rethrow-ec-narrow-error-check-impl-a">Function template <code>outcome::policy::exception_ptr_rethrow::narrow_error_check</code><a id="outcome::policy::exception_ptr_rethrow-EC-::narrow_error_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void narrow_error_check(Impl* self) noexcept;</code></pre>
+
+<p>Performs a narrow check of state, used in the assume_error() functions</p>
+
+<p><em>Effects</em>: None.</p>
+
+<h4 id="function-template-outcome-policy-exception-ptr-rethrow-wide-value-check-a-id-outcome-policy-exception-ptr-rethrow-ec-wide-value-check-impl-a">Function template <code>outcome::policy::exception_ptr_rethrow::wide_value_check</code><a id="outcome::policy::exception_ptr_rethrow-EC-::wide_value_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void wide_value_check(Impl* self);</code></pre>
+
+<p>Performs a wide check of state, used in the value() functions</p>
+
+<p><em>Effects</em>: If result does not have a value, if it has an error it rethrows that error via <code>std::rethrow_exception()</code>, else it throws <code>bad_result_access</code>.</p>
+
+<h4 id="function-template-outcome-policy-exception-ptr-rethrow-wide-error-check-a-id-outcome-policy-exception-ptr-rethrow-ec-wide-error-check-impl-a">Function template <code>outcome::policy::exception_ptr_rethrow::wide_error_check</code><a id="outcome::policy::exception_ptr_rethrow-EC-::wide_error_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void wide_error_check(Impl* self);</code></pre>
+
+<p>Performs a wide check of state, used in the value() functions</p>
+
+<p><em>Effects</em>: If result does not have a value, if it has an error it throws that error, else it throws <code>bad_result_access</code>.</p>
+
+<hr />
+
+<h3 id="struct-outcome-policy-terminate-error-code-interpretation-policy-a-id-outcome-policy-terminate-a">Struct <code>outcome::policy::terminate</code> [Error code interpretation policy]<a id="outcome::policy::terminate"></a></h3>
+
+<pre><code class="language-cpp">struct terminate
+{
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::terminate::narrow_value_check(Impl*)'>narrow_value_check</a>(Impl* self) noexcept;
+    
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::terminate::narrow_error_check(Impl*)'>narrow_error_check</a>(Impl* self) noexcept;
+    
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::terminate::narrow_payload_check(Impl*)'>narrow_payload_check</a>(Impl* self) noexcept;
+    
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::terminate::narrow_exception_check(Impl*)'>narrow_exception_check</a>(Impl* self) noexcept;
+    
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::terminate::wide_value_check(Impl*)'>wide_value_check</a>(Impl* self);
+    
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::terminate::wide_error_check(Impl*)'>wide_error_check</a>(Impl* self) noexcept;
+    
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::terminate::wide_payload_check(Impl*)'>wide_payload_check</a>(Impl* self);
+    
+    template &lt;class Impl&gt;
+    static constexpr void <a href='doc_result.md#outcome::policy::terminate::wide_exception_check(Impl*)'>wide_exception_check</a>(Impl* self);
+};</code></pre>
+
+<p>Policy implementing any wide attempt to access the successful state as calling <code>std::terminate</code></p>
+
+<h4 id="function-template-outcome-policy-terminate-narrow-value-check-a-id-outcome-policy-terminate-narrow-value-check-impl-a">Function template <code>outcome::policy::terminate::narrow_value_check</code><a id="outcome::policy::terminate::narrow_value_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void narrow_value_check(Impl* self) noexcept;</code></pre>
+
+<p>Performs a narrow check of state, used in the assume_value() functions.</p>
+
+<p><em>Effects</em>: None.</p>
+
+<h4 id="function-template-outcome-policy-terminate-narrow-error-check-a-id-outcome-policy-terminate-narrow-error-check-impl-a">Function template <code>outcome::policy::terminate::narrow_error_check</code><a id="outcome::policy::terminate::narrow_error_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void narrow_error_check(Impl* self) noexcept;</code></pre>
+
+<p>Performs a narrow check of state, used in the assume_error() functions</p>
+
+<p><em>Effects</em>: None.</p>
+
+<h4 id="function-template-outcome-policy-terminate-narrow-payload-check-a-id-outcome-policy-terminate-narrow-payload-check-impl-a">Function template <code>outcome::policy::terminate::narrow_payload_check</code><a id="outcome::policy::terminate::narrow_payload_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void narrow_payload_check(Impl* self) noexcept;</code></pre>
+
+<p>Performs a narrow check of state, used in the assume_payload() functions</p>
+
+<p><em>Effects</em>: None.</p>
+
+<h4 id="function-template-outcome-policy-terminate-narrow-exception-check-a-id-outcome-policy-terminate-narrow-exception-check-impl-a">Function template <code>outcome::policy::terminate::narrow_exception_check</code><a id="outcome::policy::terminate::narrow_exception_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void narrow_exception_check(Impl* self) noexcept;</code></pre>
+
+<p>Performs a narrow check of state, used in the assume_exception() functions</p>
+
+<p><em>Effects</em>: None.</p>
+
+<h4 id="function-template-outcome-policy-terminate-wide-value-check-a-id-outcome-policy-terminate-wide-value-check-impl-a">Function template <code>outcome::policy::terminate::wide_value_check</code><a id="outcome::policy::terminate::wide_value_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void wide_value_check(Impl* self);</code></pre>
+
+<p>Performs a wide check of state, used in the value() functions.</p>
+
+<p><em>Effects</em>: If result does not have a value, calls <code>std::terminate()</code>.</p>
+
+<h4 id="function-template-outcome-policy-terminate-wide-error-check-a-id-outcome-policy-terminate-wide-error-check-impl-a">Function template <code>outcome::policy::terminate::wide_error_check</code><a id="outcome::policy::terminate::wide_error_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void wide_error_check(Impl* self) noexcept;</code></pre>
+
+<p>Performs a wide check of state, used in the error() functions</p>
+
+<p><em>Effects</em>: If result does not have an error, calls <code>std::terminate()</code>.</p>
+
+<h4 id="function-template-outcome-policy-terminate-wide-payload-check-a-id-outcome-policy-terminate-wide-payload-check-impl-a">Function template <code>outcome::policy::terminate::wide_payload_check</code><a id="outcome::policy::terminate::wide_payload_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void wide_payload_check(Impl* self);</code></pre>
+
+<p>Performs a wide check of state, used in the payload() functions</p>
+
+<p><em>Effects</em>: If outcome does not have an exception, calls <code>std::terminate()</code>.</p>
+
+<h4 id="function-template-outcome-policy-terminate-wide-exception-check-a-id-outcome-policy-terminate-wide-exception-check-impl-a">Function template <code>outcome::policy::terminate::wide_exception_check</code><a id="outcome::policy::terminate::wide_exception_check(Impl*)"></a></h4>
+
+<pre><code class="language-cpp">template &lt;class Impl&gt;
+static constexpr void wide_exception_check(Impl* self);</code></pre>
+
+<p>Performs a wide check of state, used in the exception() functions</p>
+
+<p><em>Effects</em>: If outcome does not have an exception, calls <code>std::terminate()</code>.</p>
+
+<hr />
+
+<h3 id="alias-template-outcome-policy-default-result-policy-error-code-interpretation-policy-a-id-outcome-policy-default-result-policy-ec-a">Alias template <code>outcome::policy::default_result_policy</code> [Error code interpretation policy]<a id="outcome::policy::default_result_policy-EC-"></a></h3>
+
+<pre><code class="language-cpp">template &lt;class EC&gt;
+using default_result_policy = <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::conditional_t%3c//std::is_void%3cEC%3e::value,//terminate,//std::conditional_t%3c//detail::is_same_or_constructible%3cstd::error_code,EC%3e,error_code_throw_as_system_error%3cEC%3e,//std::conditional_t%3c//detail::is_same_or_constructible%3cstd::exception_ptr,EC%3e,exception_ptr_rethrow%3cEC%3e,//throw_directly%3cEC%3e//%3e%3e%3e'>std::conditional_t&lt;//std::is_void&lt;EC&gt;::value, //terminate, //std::conditional_t&lt;//detail::is_same_or_constructible&lt;std::error_code, EC&gt;, error_code_throw_as_system_error&lt;EC&gt;, //std::conditional_t&lt;//detail::is_same_or_constructible&lt;std::exception_ptr, EC&gt;, exception_ptr_rethrow&lt;EC&gt;, //throw_directly&lt;EC&gt;//&gt;&gt;&gt;</a>;</code></pre>
+
+<p>Default <code>result&lt;R, S&gt;</code> policy selector.</p>
+
+<hr />
+
+<h2 id="class-template-outcome-result-result-r-s-implementation-a-id-outcome-result-r-s-novaluepolicy-a">Class template <code>outcome::result</code> [result&lt;R, S&gt; implementation]<a id="outcome::result-R,S,NoValuePolicy-"></a></h2>
+
+<pre><code class="language-cpp">template &lt;class R, class S = error_code_extended, class NoValuePolicy = policy::default_result_policy&lt;S&gt;
+class result
+: public <a href='doc_result.md#outcome::impl::result_final-R,S,NoValuePolicy-'>impl::result_final&lt;R, S, NoValuePolicy&gt;</a>
+{
+public:
+    //=== <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::value_type'>Member types</a> ===//
+    using <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::value_type'>value_type</a> = R;
+    
+    using <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::status_error_type'>status_error_type</a> = S;
+    
+    using <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::error_type'>error_type</a> = typename base::error_type;
+    
+    //=== <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::result()'>Default, copy/move constructors and assignment</a> ===//
+    <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::result()'>result</a>() = delete;
+    
+    <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::result(result-R,S,NoValuePolicy-&&)'>result</a>(<a href='doc_result.md#outcome::result-R,S,NoValuePolicy-'>result</a>&amp;&amp;) = default;
+    
+    <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::result(constresult-R,S,NoValuePolicy-&)'>result</a>(const <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-'>result</a>&amp;) = default;
+    
+    <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-'>result</a>&amp; <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::operator=(result-R,S,NoValuePolicy-&&)'>operator=</a>(<a href='doc_result.md#outcome::result-R,S,NoValuePolicy-'>result</a>&amp;&amp;) = default;
+    
+    <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-'>result</a>&amp; <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::operator=(constresult-R,S,NoValuePolicy-&)'>operator=</a>(const <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-'>result</a>&amp;) = default;
+    
+    template &lt;class T&gt;
+    constexpr <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::result(T&&,outcome::result::value_converting_constructor_tag)'>result</a>(T&amp;&amp; t) noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value);
+    
+    template &lt;class T&gt;
+    constexpr <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::result(T&&,outcome::result::error_converting_constructor_tag)'>result</a>(T&amp;&amp; t) noexcept(std::is_nothrow_constructible&lt;error_type, T&gt;::value);
+    
+    template &lt;class T, class U, class V&gt;
+    constexpr <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::result(constresult-T,U,V-&)'>result</a>(const <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-'>result&lt;T, U, V&gt;</a>&amp; o) noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value&amp;&amp;std::is_nothrow_constructible&lt;status_error_type, U&gt;::value);
+    
+    template &lt;class T, class U, class V&gt;
+    constexpr <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::result(result-T,U,V-&&)'>result</a>(<a href='doc_result.md#outcome::result-R,S,NoValuePolicy-'>result&lt;T, U, V&gt;</a>&amp;&amp; o) noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value&amp;&amp;std::is_nothrow_constructible&lt;status_error_type, U&gt;::value);
+    
+    template &lt;class ... Args&gt;
+    constexpr <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-value_type-,Args&&...)'>result</a>(<a href='doc_result.md#outcome::in_place_type_t-T-'>in_place_type_t&lt;value_type&gt;</a> _, Args&amp;&amp;... args) noexcept(std::is_nothrow_constructible&lt;value_type, Args...&gt;::value);
+    
+    template &lt;class U, class ... Args&gt;
+    constexpr <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-value_type-,std::initializer_list-U-,Args&&...)'>result</a>(<a href='doc_result.md#outcome::in_place_type_t-T-'>in_place_type_t&lt;value_type&gt;</a> _, <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::initializer_list%3cU%3e'>std::initializer_list&lt;U&gt;</a> il, Args&amp;&amp;... args) noexcept(std::is_nothrow_constructible&lt;value_type, std::initializer_list&lt;U&gt;, Args...&gt;::value);
+    
+    template &lt;class ... Args&gt;
+    constexpr <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-error_type-,Args&&...)'>result</a>(<a href='doc_result.md#outcome::in_place_type_t-T-'>in_place_type_t&lt;error_type&gt;</a> _, Args&amp;&amp;... args) noexcept(std::is_nothrow_constructible&lt;error_type, Args...&gt;::value);
+    
+    template &lt;class U, class ... Args&gt;
+    constexpr <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-error_type-,std::initializer_list-U-,Args&&...)'>result</a>(<a href='doc_result.md#outcome::in_place_type_t-T-'>in_place_type_t&lt;error_type&gt;</a> _, <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::initializer_list%3cU%3e'>std::initializer_list&lt;U&gt;</a> il, Args&amp;&amp;... args) noexcept(std::is_nothrow_constructible&lt;error_type, std::initializer_list&lt;U&gt;, Args...&gt;::value);
+};</code></pre>
+
+<p>Used to return from functions (i) a value (ii) a value and a positive status or (iii) no value and a negative status. <code>constexpr</code> capable.</p>
+
+<p>This is a vocabulary type implementing <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0262r0.html">P0262R0 A Class for Status and Optional Value</a>, albeit with types <code>Status</code> and <code>Value</code> reversed in lexical order. By default <code>S</code> is considered to be a <em>positive</em> status type used to supply additional information about the successful return of a type <code>R</code>. If however the trait <code>trait::status_type_is_negative&lt;S&gt;</code> has been specialised to be true, then <code>S</code> is considered to be a <em>negative</em> status type used to supply information about the cause of failure to return a type <code>R</code>.</p>
+
+<p><code>trait::status_type_is_negative&lt;S&gt;</code> is already set to true for these types (you can specialise in your own types easily):</p>
+
+<ul>
+<li><code>std::error_code</code></li>
+<li><code>error_code_extended</code></li>
+<li><code>std::exception_ptr</code></li>
+<li><code>void</code></li>
+</ul>
+
+<p>When <code>trait::status_type_is_negative&lt;S&gt;</code> is false, the default for <code>NoValuePolicy</code> is:</p>
+
+<ol>
+<li>If <code>.status()</code> called when there is no <code>status_type</code>:</li>
+</ol>
+
+<!-- end list -->
+
+<ul>
+<li><code>throw bad_result_access()</code> if C++ exceptions are enabled, else call <code>std::terminate()</code>.</li>
+</ul>
+
+<p>When <code>trait::status_type_is_negative&lt;S&gt;</code> is true, the default for <code>NoValuePolicy</code> is:</p>
+
+<ol>
+<li>If <code>.value()</code> called when there is no <code>value_type</code> but there is an <code>error_type</code>:</li>
+</ol>
+
+<!-- end list -->
+
+<ul>
+<li>If <code>S</code> convertible to a <code>std::error_code</code>, then <code>throw std::system_error(error())</code> [<code>policy::error_code_throw_as_system_error&lt;S&gt;</code>] if C++ exceptions are enabled, else call <code>std::terminate()</code>.</li>
+<li>If <code>S</code> convertible to a <code>std::exception_ptr</code>, then <code>std::rethrow_exception(error())</code> [<code>policy::exception_ptr_rethrow&lt;S&gt;</code>] if C++ exceptions are enabled, else call <code>std::terminate()</code>.</li>
+<li>If <code>S</code> is <code>void</code>, call <code>std::terminate()</code> [<code>policy::terminate&lt;S&gt;</code>]</li>
+<li>If <code>S</code> is none of the above, then someone has enabled the negative status type trait but did not specify a custom policy. We therefore simply <code>throw error()</code> [<code>policy::throw_directly&lt;S&gt;</code>] if C++ exceptions are enabled, else call <code>std::terminate</code>.</li>
+</ul>
+
+<!-- end list -->
+
+<ol>
+<li>If <code>.error()</code> called when there is no <code>error_type</code>:</li>
+</ol>
+
+<!-- end list -->
+
+<ul>
+<li><code>throw bad_result_access()</code> if C++ exceptions are enabled, else call <code>std::terminate()</code>.</li>
+</ul>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li><p><a id="outcome::result-R,S,NoValuePolicy-.R"></a><code>R</code> - The optional type of the successful result (use  <code>void</code> to disable).</p></li>
+
+<li><p><a id="outcome::result-R,S,NoValuePolicy-.S"></a><code>S</code> - The optional type of the status result (use  <code>void</code> to disable). Must be either <code>void</code> or DefaultConstructible.</p></li>
+
+<li><p><a id="outcome::result-R,S,NoValuePolicy-.NoValuePolicy"></a><code>NoValuePolicy</code> - Policy on how to interpret type  <code>S</code> when a wide observation of a not present value occurs.</p></li>
+</ul>
+
+<h3 id="type-alias-outcome-result-value-type-a-id-outcome-result-r-s-novaluepolicy-value-type-a">Type alias <code>outcome::result::value_type</code><a id="outcome::result-R,S,NoValuePolicy-::value_type"></a></h3>
+
+<pre><code class="language-cpp">using value_type = R;</code></pre>
+
+<p>The success type.</p>
+
+<h3 id="type-alias-outcome-result-status-error-type-a-id-outcome-result-r-s-novaluepolicy-status-error-type-a">Type alias <code>outcome::result::status_error_type</code><a id="outcome::result-R,S,NoValuePolicy-::status_error_type"></a></h3>
+
+<pre><code class="language-cpp">using status_error_type = S;</code></pre>
+
+<p>The S type configured</p>
+
+<h3 id="type-alias-outcome-result-error-type-a-id-outcome-result-r-s-novaluepolicy-error-type-a">Type alias <code>outcome::result::error_type</code><a id="outcome::result-R,S,NoValuePolicy-::error_type"></a></h3>
+
+<pre><code class="language-cpp">using error_type = typename base::error_type;</code></pre>
+
+<p>The failure type.</p>
+
+<h3 id="default-constructor-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-a">Default constructor <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result()"></a></h3>
+
+<pre><code class="language-cpp">result() = delete;</code></pre>
+
+<p>Default construction is not permitted.</p>
+
+<h3 id="move-constructor-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-result-r-s-novaluepolicy-a">Move constructor <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(result-R,S,NoValuePolicy-&&)"></a></h3>
+
+<pre><code class="language-cpp">result(<a href='doc_result.md#outcome::result-R,S,NoValuePolicy-'>result</a>&amp;&amp;) = default;</code></pre>
+
+<p>Move construction available if <code>value_type</code> and <code>status_type</code>/<code>error_type</code> implement it.</p>
+
+<h3 id="copy-constructor-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-constresult-r-s-novaluepolicy-a">Copy constructor <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(constresult-R,S,NoValuePolicy-&)"></a></h3>
+
+<pre><code class="language-cpp">result(const <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-'>result</a>&amp;) = default;</code></pre>
+
+<p>Copy construction available if <code>value_type</code> and <code>status_type</code>/<code>error_type</code> implement it.</p>
+
+<h3 id="assignment-operator-outcome-result-operator-a-id-outcome-result-r-s-novaluepolicy-operator-result-r-s-novaluepolicy-a">Assignment operator <code>outcome::result::operator=</code><a id="outcome::result-R,S,NoValuePolicy-::operator=(result-R,S,NoValuePolicy-&&)"></a></h3>
+
+<pre><code class="language-cpp"><a href='doc_result.md#outcome::result-R,S,NoValuePolicy-'>result</a>&amp; operator=(<a href='doc_result.md#outcome::result-R,S,NoValuePolicy-'>result</a>&amp;&amp;) = default;</code></pre>
+
+<p>Move assignment available if <code>value_type</code> and <code>status_type</code>/<code>error_type</code> implement it.</p>
+
+<h3 id="assignment-operator-outcome-result-operator-a-id-outcome-result-r-s-novaluepolicy-operator-constresult-r-s-novaluepolicy-a">Assignment operator <code>outcome::result::operator=</code><a id="outcome::result-R,S,NoValuePolicy-::operator=(constresult-R,S,NoValuePolicy-&)"></a></h3>
+
+<pre><code class="language-cpp"><a href='doc_result.md#outcome::result-R,S,NoValuePolicy-'>result</a>&amp; operator=(const <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-'>result</a>&amp;) = default;</code></pre>
+
+<p>Copy assignment available if <code>value_type</code> and <code>status_type</code>/<code>error_type</code> implement it.</p>
+
+<h3 id="function-template-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-t-outcome-result-value-converting-constructor-tag-a">Function template <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(T&&,outcome::result::value_converting_constructor_tag)"></a></h3>
+
+<pre><code class="language-cpp">template &lt;class T&gt;
+constexpr result(T&amp;&amp; t) noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value);</code></pre>
+
+<p>Converting constructor to a successful result.</p>
+
+<p><em>Effects</em>: Initialises the result with a <code>value_type</code>.</p>
+
+<p><em>Requires</em>: Type T is constructible to <code>value_type</code>, is not constructible to <code>status_error_type</code>, and is not <code>result&lt;R, S&gt;</code> and not <code>in_place_type&lt;&gt;</code>.</p>
+
+<p><em>Throws</em>: Any exception the construction of <code>value_type(T)</code> might throw.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li><a id="outcome::result-R,S,NoValuePolicy-::result(T&&,outcome::result::value_converting_constructor_tag).t"></a><code>t</code> - The value from which to initialise the  <code>value_type</code>.</li>
+</ul>
+
+<h3 id="function-template-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-t-outcome-result-error-converting-constructor-tag-a">Function template <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(T&&,outcome::result::error_converting_constructor_tag)"></a></h3>
+
+<pre><code class="language-cpp">template &lt;class T&gt;
+constexpr result(T&amp;&amp; t) noexcept(std::is_nothrow_constructible&lt;error_type, T&gt;::value);</code></pre>
+
+<p>Converting constructor to a failure result.</p>
+
+<p><em>Effects</em>: Initialises the result with a <code>error_type</code>.</p>
+
+<p><em>Requires</em>: <code>trait::status_type_is_negative&lt;EC&gt;</code> must be true; Type T is constructible to <code>error_type</code>, is not constructible to <code>value_type</code>, and is not <code>result&lt;R, S&gt;</code> and not <code>in_place_type&lt;&gt;</code>.</p>
+
+<p><em>Throws</em>: Any exception the construction of <code>error_type(T)</code> might throw.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li><a id="outcome::result-R,S,NoValuePolicy-::result(T&&,outcome::result::error_converting_constructor_tag).t"></a><code>t</code> - The value from which to initialise the  <code>error_type</code>.</li>
+</ul>
+
+<h3 id="function-template-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-constresult-t-u-v-a">Function template <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(constresult-T,U,V-&)"></a></h3>
+
+<pre><code class="language-cpp">template &lt;class T, class U, class V&gt;
+constexpr result(const <a href='doc_result.md#outcome::result-R,S,NoValuePolicy-'>result&lt;T, U, V&gt;</a>&amp; o) noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value&amp;&amp;std::is_nothrow_constructible&lt;status_error_type, U&gt;::value);</code></pre>
+
+<p>Converting copy constructor from a compatible result type.</p>
+
+<p><em>Effects</em>: Initialises the result with a copy of the compatible result.</p>
+
+<p><em>Requires</em>: Both result&rsquo;s <code>value_type</code>, <code>error_type</code> and <code>status_type</code> need to be constructible, or the source <code>void</code>.</p>
+
+<p><em>Throws</em>: Any exception the construction of <code>value_type(T)</code> and <code>status_error_type(U)</code> might throw.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li><a id="outcome::result-R,S,NoValuePolicy-::result(constresult-T,U,V-&).o"></a><code>o</code> - The compatible result.</li>
+</ul>
+
+<h3 id="function-template-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-result-t-u-v-a">Function template <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(result-T,U,V-&&)"></a></h3>
+
+<pre><code class="language-cpp">template &lt;class T, class U, class V&gt;
+constexpr result(<a href='doc_result.md#outcome::result-R,S,NoValuePolicy-'>result&lt;T, U, V&gt;</a>&amp;&amp; o) noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value&amp;&amp;std::is_nothrow_constructible&lt;status_error_type, U&gt;::value);</code></pre>
+
+<p>Converting move constructor from a compatible result type.</p>
+
+<p><em>Effects</em>: Initialises the result with a move of the compatible result.</p>
+
+<p><em>Requires</em>: Both result&rsquo;s <code>value_type</code>, <code>error_type</code> and <code>status_type</code> need to be constructible, or the source <code>void</code>.</p>
+
+<p><em>Throws</em>: Any exception the construction of <code>value_type(T)</code> and <code>status_error_type(U)</code> might throw.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li><a id="outcome::result-R,S,NoValuePolicy-::result(result-T,U,V-&&).o"></a><code>o</code> - The compatible result.</li>
+</ul>
+
+<h3 id="function-template-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-in-place-type-t-value-type-args-a">Function template <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-value_type-,Args&&...)"></a></h3>
+
+<pre><code class="language-cpp">template &lt;class ... Args&gt;
+constexpr result(<a href='doc_result.md#outcome::in_place_type_t-T-'>in_place_type_t&lt;value_type&gt;</a> _, Args&amp;&amp;... args) noexcept(std::is_nothrow_constructible&lt;value_type, Args...&gt;::value);</code></pre>
+
+<p>Inplace constructor to a successful result.</p>
+
+<p><em>Effects</em>: Initialises the result with a <code>value_type</code>.</p>
+
+<p><em>Requires</em>: <code>value_type</code> is void or <code>Args...</code> are constructible to <code>value_type</code>.</p>
+
+<p><em>Throws</em>: Any exception the construction of <code>value_type(Args...)</code> might throw.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li><p><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-value_type-,Args&&...)._"></a>Tag type to indicate we are doing in place construction of  <code>value_type</code>.</p></li>
+
+<li><p><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-value_type-,Args&&...).args"></a><code>args</code> - Arguments with which to in place construct.</p></li>
+</ul>
+
+<h3 id="function-template-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-in-place-type-t-value-type-std-initializer-list-u-args-a">Function template <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-value_type-,std::initializer_list-U-,Args&&...)"></a></h3>
+
+<pre><code class="language-cpp">template &lt;class U, class ... Args&gt;
+constexpr result(<a href='doc_result.md#outcome::in_place_type_t-T-'>in_place_type_t&lt;value_type&gt;</a> _, <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::initializer_list%3cU%3e'>std::initializer_list&lt;U&gt;</a> il, Args&amp;&amp;... args) noexcept(std::is_nothrow_constructible&lt;value_type, std::initializer_list&lt;U&gt;, Args...&gt;::value);</code></pre>
+
+<p>Inplace constructor to a successful result.</p>
+
+<p><em>Effects</em>: Initialises the result with a <code>value_type</code>.</p>
+
+<p><em>Requires</em>: The initializer list + <code>Args...</code> are constructible to <code>value_type</code>.</p>
+
+<p><em>Throws</em>: Any exception the construction of <code>value_type(il, Args...)</code> might throw.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li><p><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-value_type-,std::initializer_list-U-,Args&&...)._"></a>Tag type to indicate we are doing in place construction of  <code>value_type</code>.</p></li>
+
+<li><p><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-value_type-,std::initializer_list-U-,Args&&...)"></a><code>il</code> - An initializer list with which to in place construct.</p></li>
+
+<li><p><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-value_type-,std::initializer_list-U-,Args&&...).args"></a><code>args</code> - Arguments with which to in place construct.</p></li>
+</ul>
+
+<h3 id="function-template-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-in-place-type-t-error-type-args-a">Function template <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-error_type-,Args&&...)"></a></h3>
+
+<pre><code class="language-cpp">template &lt;class ... Args&gt;
+constexpr result(<a href='doc_result.md#outcome::in_place_type_t-T-'>in_place_type_t&lt;error_type&gt;</a> _, Args&amp;&amp;... args) noexcept(std::is_nothrow_constructible&lt;error_type, Args...&gt;::value);</code></pre>
+
+<p>Inplace constructor to a failure result.</p>
+
+<p><em>Effects</em>: Initialises the result with a <code>error_type</code>.</p>
+
+<p><em>Requires</em>: <code>trait::status_type_is_negative&lt;EC&gt;</code> must be true; <code>error_type</code> is void or <code>Args...</code> are constructible to <code>error_type</code>.</p>
+
+<p><em>Throws</em>: Any exception the construction of <code>error_type(Args...)</code> might throw.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li><p><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-error_type-,Args&&...)._"></a>Tag type to indicate we are doing in place construction of  <code>error_type</code>.</p></li>
+
+<li><p><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-error_type-,Args&&...).args"></a><code>args</code> - Arguments with which to in place construct.</p></li>
+</ul>
+
+<h3 id="function-template-outcome-result-result-a-id-outcome-result-r-s-novaluepolicy-result-in-place-type-t-error-type-std-initializer-list-u-args-a">Function template <code>outcome::result::result</code><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-error_type-,std::initializer_list-U-,Args&&...)"></a></h3>
+
+<pre><code class="language-cpp">template &lt;class U, class ... Args&gt;
+constexpr result(<a href='doc_result.md#outcome::in_place_type_t-T-'>in_place_type_t&lt;error_type&gt;</a> _, <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::initializer_list%3cU%3e'>std::initializer_list&lt;U&gt;</a> il, Args&amp;&amp;... args) noexcept(std::is_nothrow_constructible&lt;error_type, std::initializer_list&lt;U&gt;, Args...&gt;::value);</code></pre>
+
+<p>Inplace constructor to a failure result.</p>
+
+<p><em>Effects</em>: Initialises the result with a <code>error_type</code>.</p>
+
+<p><em>Requires</em>: <code>trait::status_type_is_negative&lt;EC&gt;</code> must be true; The initializer list + <code>Args...</code> are constructible to <code>error_type</code>.</p>
+
+<p><em>Throws</em>: Any exception the construction of <code>error_type(il, Args...)</code> might throw.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li><p><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-error_type-,std::initializer_list-U-,Args&&...)._"></a>Tag type to indicate we are doing in place construction of  <code>error_type</code>.</p></li>
+
+<li><p><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-error_type-,std::initializer_list-U-,Args&&...)"></a><code>il</code> - An initializer list with which to in place construct.</p></li>
+
+<li><p><a id="outcome::result-R,S,NoValuePolicy-::result(in_place_type_t-error_type-,std::initializer_list-U-,Args&&...).args"></a><code>args</code> - Arguments with which to in place construct.</p></li>
+</ul>
+
+<hr />
+
+<h2 id="class-template-outcome-result-void-void-novaluepolicy-a-id-outcome-result-void-void-novaluepolicy-a">Class template <code>outcome::result&lt;void, void, NoValuePolicy&gt;</code><a id="outcome::result-void,void,NoValuePolicy-"></a></h2>
+
+<pre><code class="language-cpp">template &lt;class NoValuePolicy&gt;
+class result&lt;void, void, NoValuePolicy&gt;
+{
+public:
+    //=== <a href='doc_result.md#outcome::result-void,void,NoValuePolicy-::value_type'>Member types</a> ===//
+    using <a href='doc_result.md#outcome::result-void,void,NoValuePolicy-::value_type'>value_type</a> = void;
+    
+    using <a href='doc_result.md#outcome::result-void,void,NoValuePolicy-::status_error_type'>status_error_type</a> = void;
+    
+    using <a href='doc_result.md#outcome::result-void,void,NoValuePolicy-::error_type'>error_type</a> = void;
+    
+    constexpr void <a href='doc_result.md#outcome::result-void,void,NoValuePolicy-::assume_value()const'>assume_value</a>() const noexcept;
+    
+    constexpr void <a href='doc_result.md#outcome::result-void,void,NoValuePolicy-::assume_error()const'>assume_error</a>() const noexcept;
+    
+    constexpr void <a href='doc_result.md#outcome::result-void,void,NoValuePolicy-::value()const'>value</a>() const;
+    
+    constexpr void <a href='doc_result.md#outcome::result-void,void,NoValuePolicy-::error()const'>error</a>() const;
+    
+    constexpr <a href='doc_result.md#outcome::result-void,void,NoValuePolicy-::operatorbool()const'>operator bool</a>() const noexcept;
+    
+    constexpr bool <a href='doc_result.md#outcome::result-void,void,NoValuePolicy-::has_value()const'>has_value</a>() const noexcept;
+    
+    constexpr bool <a href='doc_result.md#outcome::result-void,void,NoValuePolicy-::has_error()const'>has_error</a>() const noexcept;
+};</code></pre>
+
+<p><code>result&lt;void, void&gt;</code> specialisation.</p>
+
+<h3 id="type-alias-outcome-result-void-void-novaluepolicy-value-type-a-id-outcome-result-void-void-novaluepolicy-value-type-a">Type alias <code>outcome::result&lt;void, void, NoValuePolicy&gt;::value_type</code><a id="outcome::result-void,void,NoValuePolicy-::value_type"></a></h3>
+
+<pre><code class="language-cpp">using value_type = void;</code></pre>
+
+<p>The success type.</p>
+
+<h3 id="type-alias-outcome-result-void-void-novaluepolicy-status-error-type-a-id-outcome-result-void-void-novaluepolicy-status-error-type-a">Type alias <code>outcome::result&lt;void, void, NoValuePolicy&gt;::status_error_type</code><a id="outcome::result-void,void,NoValuePolicy-::status_error_type"></a></h3>
+
+<pre><code class="language-cpp">using status_error_type = void;</code></pre>
+
+<p>The S type configured</p>
+
+<h3 id="type-alias-outcome-result-void-void-novaluepolicy-error-type-a-id-outcome-result-void-void-novaluepolicy-error-type-a">Type alias <code>outcome::result&lt;void, void, NoValuePolicy&gt;::error_type</code><a id="outcome::result-void,void,NoValuePolicy-::error_type"></a></h3>
+
+<pre><code class="language-cpp">using error_type = void;</code></pre>
+
+<p>The failure type.</p>
+
+<h3 id="function-outcome-result-void-void-novaluepolicy-assume-value-a-id-outcome-result-void-void-novaluepolicy-assume-value-const-a">Function <code>outcome::result&lt;void, void, NoValuePolicy&gt;::assume_value</code><a id="outcome::result-void,void,NoValuePolicy-::assume_value()const"></a></h3>
+
+<pre><code class="language-cpp">constexpr void assume_value() const noexcept;</code></pre>
+
+<p>Does nothing</p>
+
+<p><em>Returns</em>: Nothing.</p>
+
+<h3 id="function-outcome-result-void-void-novaluepolicy-assume-error-a-id-outcome-result-void-void-novaluepolicy-assume-error-const-a">Function <code>outcome::result&lt;void, void, NoValuePolicy&gt;::assume_error</code><a id="outcome::result-void,void,NoValuePolicy-::assume_error()const"></a></h3>
+
+<pre><code class="language-cpp">constexpr void assume_error() const noexcept;</code></pre>
+
+<p>Does nothing</p>
+
+<p><em>Returns</em>: Nothing.</p>
+
+<h3 id="function-outcome-result-void-void-novaluepolicy-value-a-id-outcome-result-void-void-novaluepolicy-value-const-a">Function <code>outcome::result&lt;void, void, NoValuePolicy&gt;::value</code><a id="outcome::result-void,void,NoValuePolicy-::value()const"></a></h3>
+
+<pre><code class="language-cpp">constexpr void value() const;</code></pre>
+
+<p>Does nothing.</p>
+
+<p><em>Returns</em>: Nothing.</p>
+
+<h3 id="function-outcome-result-void-void-novaluepolicy-error-a-id-outcome-result-void-void-novaluepolicy-error-const-a">Function <code>outcome::result&lt;void, void, NoValuePolicy&gt;::error</code><a id="outcome::result-void,void,NoValuePolicy-::error()const"></a></h3>
+
+<pre><code class="language-cpp">constexpr void error() const;</code></pre>
+
+<p>Does nothing.</p>
+
+<p><em>Returns</em>: Nothing.</p>
+
+<h3 id="conversion-operator-outcome-result-void-void-novaluepolicy-operator-bool-a-id-outcome-result-void-void-novaluepolicy-operatorbool-const-a">Conversion operator <code>outcome::result&lt;void, void, NoValuePolicy&gt;::operator bool</code><a id="outcome::result-void,void,NoValuePolicy-::operatorbool()const"></a></h3>
+
+<pre><code class="language-cpp">constexpr operator bool() const noexcept;</code></pre>
+
+<p>Checks if has value.</p>
+
+<p><em>Returns</em>: False.</p>
+
+<h3 id="function-outcome-result-void-void-novaluepolicy-has-value-a-id-outcome-result-void-void-novaluepolicy-has-value-const-a">Function <code>outcome::result&lt;void, void, NoValuePolicy&gt;::has_value</code><a id="outcome::result-void,void,NoValuePolicy-::has_value()const"></a></h3>
+
+<pre><code class="language-cpp">constexpr bool has_value() const noexcept;</code></pre>
+
+<p>Checks if has value.</p>
+
+<p><em>Returns</em>: False.</p>
+
+<h3 id="function-outcome-result-void-void-novaluepolicy-has-error-a-id-outcome-result-void-void-novaluepolicy-has-error-const-a">Function <code>outcome::result&lt;void, void, NoValuePolicy&gt;::has_error</code><a id="outcome::result-void,void,NoValuePolicy-::has_error()const"></a></h3>
+
+<pre><code class="language-cpp">constexpr bool has_error() const noexcept;</code></pre>
+
+<p>Checks if has error.</p>
+
+<p><em>Returns</em>: False.</p>
+
+<hr />
+
+<hr />
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+
+      </div>
+    </div>
+
+    
+ 
+    
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+                
+                    
+            
+            
+                
+                    
+                    
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+                
+            
+        
+                    
+                
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/outcome/api-reference/doc_outcome.md/" title="outcome&lt;R, S, P&gt;"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/outcome/api-reference/doc_outcome.md/" title="outcome&lt;R, S, P&gt;" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/outcome/js/clipboard.min.js"></script>
+    <script src="/outcome/js/featherlight.min.js"></script>
+    <script src="/outcome/js/html5shiv-printshiv.min.js"></script>
+    <script src="/outcome/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/outcome/js/modernizr.custom.71422.js"></script>
+    <script src="/outcome/js/learn.js"></script>
+    <script src="/outcome/js/hugo-learn.js"></script>
+
+    
+    <link href="/outcome/mermaid/mermaid.css" type="text/css" rel="stylesheet"/>
+    <script src="/outcome/mermaid/mermaid.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    
+
+    
+
+  </body>
+</html>
+

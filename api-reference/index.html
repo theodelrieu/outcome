@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.24.1" />
+    <meta name="description" content="">
+
+
+    <title>API reference :: Outcome documentation</title>
+    <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
+    <link href="/outcome/css/nucleus.css" rel="stylesheet">
+    <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/outcome/css/hybrid.css" rel="stylesheet">
+    <link href="/outcome/css/featherlight.min.css" rel="stylesheet">
+    <link href="/outcome/css/horsey.css" rel="stylesheet">
+    <link href="/outcome/css/theme.css" rel="stylesheet">
+    <link rel="stylesheet" href="/outcome/css/bootstrap.min.css">
+    <script src="/outcome/js/jquery-2.x.min.js"></script>
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left {
+        display:none !important;
+      }
+    </style>
+
+    
+
+    
+
+  </head>
+  <body class="" data-url="/outcome/api-reference/">
+    <nav id="sidebar" class="">
+  <div id="header-wrapper">
+    <div id="header">
+       
+	<p>Outcome 2.0 library documentation</p>
+ 
+
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+<script type="text/javascript" src="/outcome/js/lunr.min.js"></script>
+<script type="text/javascript" src="/outcome/js/horsey.js"></script>
+<script type="text/javascript">
+    var baseurl = "https:\/\/ned14.github.io\/outcome\/";
+</script>
+<script type="text/javascript" src="/outcome/js/search.js"></script>
+
+    
+  </div>
+
+
+
+
+
+<div class="highlightable">
+    <ul class="topics">
+        
+        
+            <li data-nav-id="/outcome/" class="dd-item">
+            <a href="/outcome/"><i class="fa fa-fw fa-home"></i></a>
+            </li>
+        
+
+        
+
+
+
+
+<li data-nav-id="/outcome/api-reference/" class="dd-item 
+parent
+active
+
+">
+  <a href="/outcome/api-reference/">
+    <span>API reference</span>
+
+    
+    <i class="fa fa-angle-down fa-lg category-icon"></i>
+    
+    
+    
+  </a>
+    <ul>
+        
+         
+          <li data-nav-id="/outcome/api-reference/doc_outcome.md/" class="dd-item
+         
+          ">
+            <a href="/outcome/api-reference/doc_outcome.md/">
+            <span>outcome&lt;R, S, P&gt;</span> 
+            
+
+            </a></li>
+         
+        
+         
+          <li data-nav-id="/outcome/api-reference/doc_result.md/" class="dd-item
+         
+          ">
+            <a href="/outcome/api-reference/doc_result.md/">
+            <span>result&lt;R, S&gt;</span> 
+            
+
+            </a></li>
+         
+        
+        
+
+
+
+
+    </ul>
+</li>
+
+
+
+        
+        <section id="shortcuts">
+            
+                <li class="" role="">
+                    <h3>More</h3>
+                    <a href="https://github.com/ned14/outcome"><i class='fa fa-github'></i> Outcome 2.0 github repo</a>
+                    
+                </li>
+            
+                <li class="" role="">
+                    
+                    <a href="/outcome/credits"><i class='fa fa-bullhorn'></i> History and Acknowledgements</a>
+                    
+                </li>
+            
+        </section>    
+        
+        
+
+        
+    </ul>
+    
+     
+    <section id="footer">
+      <center>
+
+<a class="github-button" href="https://github.com/ned14/outcome/archive/master.zip" data-icon="octicon-cloud-download" aria-label="Download Outcome on GitHub">Download</a>
+
+
+<a class="github-button" href="https://github.com/ned14/outcome" data-icon="octicon-star" data-show-count="false" aria-label="Star Outcome on GitHub">Star</a>
+
+
+<a class="github-button" href="https://github.com/ned14/outcome/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork Outcome on GitHub">Fork</a>
+
+</center>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+    </section>
+  </div>
+</nav>
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+        
+          <div id="top-bar">
+            
+              
+              
+              
+            <div id="top-github-link">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/API%20reference/_index.md" target="blank">
+                <i class="fa fa-code-fork"></i>
+                Edit page
+              </a>
+            </div>
+              
+            
+
+            <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <span id="sidebar-toggle-span">
+                  <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                    <i class="fa fa-bars"></i>
+                  </a>
+                </span>
+                <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                <span class="links">
+                
+
+
+
+
+ <a href='/outcome/'></a> > API reference
+
+ 
+
+   
+                </span>
+            </div>
+            <div class="progress">
+    <div class="wrapper">
+
+    </div>
+</div>
+
+          </div>
+        
+        
+        <div id="body-inner">
+          
+            <h1>API reference</h1>
+          
+
+
+
+
+<ul>
+<li><p><a href="doc_result.md#OUTCOME_ENABLE_POSITIVE_STATUS" title="OUTCOME_ENABLE_POSITIVE_STATUS">OUTCOME_ENABLE_POSITIVE_STATUS</a> - Define to enable positive value + status returns</p>
+
+<ul>
+<li><p><a href="doc_result.md#result.hpp" title="OUTCOME_NODISCARD">OUTCOME_NODISCARD</a></p></li>
+
+<li><p><a href="doc_outcome.md#outcome.hpp" title="OUTCOME_OUTCOME_HPP">OUTCOME_OUTCOME_HPP</a></p></li>
+
+<li><p><a href="doc_result.md#result.hpp" title="OUTCOME_RESULT_HPP">OUTCOME_RESULT_HPP</a></p></li>
+
+<li><p><a href="doc_result.md#result.hpp" title="OUTCOME_SYMBOL_VISIBLE">OUTCOME_SYMBOL_VISIBLE</a></p></li>
+
+<li><p><code>outcome</code></p>
+
+<ul>
+<li><p><a href="doc_outcome.md#outcome::bad_outcome_access" title="outcome::bad_outcome_access">bad_outcome_access</a> - Thrown when you try to access state in a <code>outcome&lt;T, EC, E&gt;</code> which isn&rsquo;t present.</p></li>
+
+<li><p><a href="doc_result.md#outcome::bad_result_access" title="outcome::bad_result_access">bad_result_access</a> - Thrown when you try to access state in a <code>result&lt;R, S&gt;</code> which isn&rsquo;t present.</p></li>
+
+<li><p><a href="doc_result.md#outcome::in_place_type_t-T-" title="outcome::in_place_type_t\&lt;T\&gt;">in_place_type_t</a> - Aliases <code>std::in_place_type_t&lt;T&gt;</code> if on C++ 17 or later, else defined locally.</p></li>
+
+<li><p><a href="doc_result.md#outcome::no_error_type" title="outcome::no_error_type">no_error_type</a> - Placeholder type to indicate there is no error type</p></li>
+
+<li><p><a href="doc_outcome.md#outcome::no_exception_type" title="outcome::no_exception_type">no_exception_type</a> - Placeholder type to indicate there is no exception type</p></li>
+
+<li><p><a href="doc_outcome.md#outcome::no_payload_type" title="outcome::no_payload_type">no_payload_type</a> - Placeholder type to indicate there is no payload type</p></li>
+
+<li><p><a href="doc_outcome.md#outcome::outcome-R,S,P,NoValuePolicy-" title="outcome::outcome\&lt;R, S, P, NoValuePolicy\&gt;">outcome</a> - Used to return from functions (i) a value and (a positive status and/or a payload) or (ii) no value and (a negative status and/or a payload). <code>constexpr</code> capable.</p></li>
+
+<li><p><a href="doc_result.md#outcome::result-R,S,NoValuePolicy-" title="outcome::result\&lt;R, S, NoValuePolicy\&gt;">result</a> - Used to return from functions (i) a value (ii) a value and a positive status or (iii) no value and a negative status. <code>constexpr</code> capable.</p></li>
+
+<li><p><a href="doc_result.md#outcome::result-void,void,NoValuePolicy-" title="outcome::result\&lt;void, void, NoValuePolicy\&gt;">result&lt;void, void, NoValuePolicy&gt;</a> - <code>result&lt;void, void&gt;</code> specialisation.</p></li>
+</ul></li>
+
+<li><p><code>outcome::impl</code></p>
+
+<ul>
+<li><p><a href="doc_outcome.md#outcome::impl::outcome_exception_observers-Base,R,S,P,NoValuePolicy-" title="outcome::impl::outcome_exception_observers\&lt;Base, R, S, P, NoValuePolicy\&gt;">outcome_exception_observers</a> - The exception observers implementation of <code>outcome&lt;R, S, P&gt;</code>. Only appears separate due to standardese limitations.</p></li>
+
+<li><p><a href="doc_outcome.md#outcome.hpp" title="outcome::impl::outcome_exception_observers\&lt;Base, R, S, void, NoValuePolicy\&gt;">outcome_exception_observers&lt;Base, R, S, void, NoValuePolicy&gt;</a></p></li>
+
+<li><p><a href="doc_outcome.md#outcome::impl::outcome_payload_observers-Base,R,S,P,NoValuePolicy-" title="outcome::impl::outcome_payload_observers\&lt;Base, R, S, P, NoValuePolicy\&gt;">outcome_payload_observers</a> - The payload observers implementation of <code>outcome&lt;R, S, P&gt;</code>. Only appears separate due to standardese limitations.</p></li>
+
+<li><p><a href="doc_outcome.md#outcome.hpp" title="outcome::impl::outcome_payload_observers\&lt;Base, R, S, void, NoValuePolicy\&gt;">outcome_payload_observers&lt;Base, R, S, void, NoValuePolicy&gt;</a></p></li>
+
+<li><p><a href="doc_result.md#outcome::impl::result_error_observers-Base,EC,NoValuePolicy-" title="outcome::impl::result_error_observers\&lt;Base, EC, NoValuePolicy\&gt;">result_error_observers</a> - The error observers implementation of <code>result&lt;R, EC, NoValuePolicy&gt;</code>. Only appears separate due to standardese limitations.</p></li>
+
+<li><p><a href="doc_result.md#result.hpp" title="outcome::impl::result_error_observers\&lt;Base, void, NoValuePolicy\&gt;">result_error_observers&lt;Base, void, NoValuePolicy&gt;</a></p></li>
+
+<li><p><a href="doc_result.md#outcome::impl::result_final-R,S,NoValuePolicy-" title="outcome::impl::result_final\&lt;R, S, NoValuePolicy\&gt;">result_final</a> - The assembled implementation type of <code>result&lt;R, EC, NoValuePolicy&gt;</code>. Only appears separate due to standardese limitations.</p></li>
+
+<li><p><a href="doc_result.md#outcome::impl::result_storage-R,EC,NoValuePolicy-" title="outcome::impl::result_storage\&lt;R, EC, NoValuePolicy\&gt;">result_storage</a> - The base implementation type of <code>result&lt;R, EC, NoValuePolicy&gt;</code>. Only appears separate due to standardese limitations.</p></li>
+
+<li><p><a href="doc_result.md#outcome::impl::result_value_observers-Base,R,NoValuePolicy-" title="outcome::impl::result_value_observers\&lt;Base, R, NoValuePolicy\&gt;">result_value_observers</a> - The value observers implementation of <code>result&lt;R, EC, NoValuePolicy&gt;</code>. Only appears separate due to standardese limitations.</p></li>
+
+<li><p><a href="doc_result.md#result.hpp" title="outcome::impl::result_value_observers\&lt;Base, void, NoValuePolicy\&gt;">result_value_observers&lt;Base, void, NoValuePolicy&gt;</a></p></li>
+
+<li><p><a href="doc_result.md#result.hpp" title="outcome::impl::select_result_impl\&lt;R, EC, NoValuePolicy\&gt;">select_result_impl</a></p></li>
+</ul></li>
+
+<li><p><code>outcome::policy</code></p>
+
+<ul>
+<li><p><a href="doc_outcome.md#outcome::policy::default_outcome_policy-R,S,P-" title="outcome::policy::default_outcome_policy\&lt;R, S, P\&gt;">default_outcome_policy</a> - Default <code>outcome&lt;R, S, P&gt;</code> policy selector.</p></li>
+
+<li><p><a href="doc_result.md#outcome::policy::default_result_policy-EC-" title="outcome::policy::default_result_policy\&lt;EC\&gt;">default_result_policy</a> - Default <code>result&lt;R, S&gt;</code> policy selector.</p></li>
+
+<li><p><a href="doc_result.md#outcome::policy::error_code_throw_as_system_error-EC-" title="outcome::policy::error_code_throw_as_system_error\&lt;EC\&gt;">error_code_throw_as_system_error</a> - Policy interpreting EC as a type implementing the <code>std::error_code</code> contract and any wide attempt to access the successful state throws the <code>error_code</code> wrapped into a <code>std::system_error</code></p></li>
+
+<li><p><a href="doc_outcome.md#outcome::policy::error_code_throw_as_system_error_exception_rethrow-R,S,P-" title="outcome::policy::error_code_throw_as_system_error_exception_rethrow\&lt;R, S, P\&gt;">error_code_throw_as_system_error_exception_rethrow</a> - Policy interpreting S as a type implementing the <code>std::error_code</code> contract, E as a type implementing the <code>std::exception_ptr</code> contract, and any wide attempt to access the successful state throws the <code>exception_ptr</code> if available, then the <code>error_code</code> wrapped into a <code>std::system_error</code>.</p></li>
+
+<li><p><a href="doc_result.md#outcome::policy::exception_ptr_rethrow-EC-" title="outcome::policy::exception_ptr_rethrow\&lt;EC\&gt;">exception_ptr_rethrow</a> - Policy interpreting EC as a type implementing the <code>std::exception_ptr</code> contract and any wide attempt to access the successful state calls <code>std::rethrow_exception()</code>.</p></li>
+
+<li><p><a href="doc_result.md#outcome::policy::terminate" title="outcome::policy::terminate">terminate</a> - Policy implementing any wide attempt to access the successful state as calling <code>std::terminate</code></p></li>
+
+<li><p><a href="doc_result.md#outcome::policy::throw_directly-EC-" title="outcome::policy::throw_directly\&lt;EC\&gt;">throw_directly</a> - Policy interpreting EC as a type to be thrown directly during wide checks.</p></li>
+</ul></li>
+
+<li><p><code>outcome::trait</code> - Namespace for traits</p>
+
+<ul>
+<li><a href="doc_outcome.md#outcome::trait::is_exception_ptr-P-" title="outcome::trait::is_exception_ptr\&lt;P\&gt;">is_exception_ptr</a> - Trait for whether type <code>P</code> is to be considered a payload to an exception.</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+
+
+
+      </div>
+    </div>
+
+    
+ 
+    
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+                
+                    
+            
+            
+                
+                    
+                    
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                    
+                
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/outcome/" title=""> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/outcome/api-reference/doc_outcome.md/" title="outcome&lt;R, S, P&gt;" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/outcome/js/clipboard.min.js"></script>
+    <script src="/outcome/js/featherlight.min.js"></script>
+    <script src="/outcome/js/html5shiv-printshiv.min.js"></script>
+    <script src="/outcome/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/outcome/js/modernizr.custom.71422.js"></script>
+    <script src="/outcome/js/learn.js"></script>
+    <script src="/outcome/js/hugo-learn.js"></script>
+
+    
+    <link href="/outcome/mermaid/mermaid.css" type="text/css" rel="stylesheet"/>
+    <script src="/outcome/mermaid/mermaid.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    
+
+    
+
+  </body>
+</html>
