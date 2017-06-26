@@ -7,10 +7,6 @@
   </url>
   
   <url>
-    <loc>https://ned14.github.io/outcome/</loc>
-  </url>
-  
-  <url>
     <loc>https://ned14.github.io/outcome/api-reference/</loc>
   </url>
   
@@ -21,6 +17,10 @@
   
   <url>
     <loc>https://ned14.github.io/outcome/credits/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/</loc>
   </url>
   
   <url>
