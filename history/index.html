@@ -343,7 +343,7 @@ at least four complete rewrites currently at the time of writing.</p>
 <p>In parallel to all this development on Outcome, Expected went before the LEWG and entered
 the C++ standards track. As the WG21 meetings went by, Expected experienced a period
 of being stripped back and much of the complexity which had so murdered compile and
-link times in <sup>2014</sup>&frasl;<sub>2015</sub> fell away, thus the Expected proposed in P0323R1 ended up landing
+link times in 2014-2015 fell away, thus the Expected proposed in P0323R1 ended up landing
 so close to Outcome that in January 2017 it was just a few hours work to implement
 Expected using the core <code>basic_monad</code> infrastructure in Outcome. That highly flexible
 policy based design which made monadic future-promise possible made it similarly easy
@@ -368,12 +368,13 @@ rejected, <a href="https://lists.boost.org/boost-announce/2017/06/0510.php">with
 
 <h2 id="outcome-v2">Outcome v2</h2>
 
-<p>During the very lengthy peer review roughly three groups of opinion emerged as to what
-a value OR error transporting class ought to look like:</p>
+<p>During the very lengthy peer review, roughly three groups of opinion emerged as to what
+a <code>value|error</code> transporting class ought to look like:</p>
 
 <dl>
 <dt><b>1. Lightweight</b></dt>
-<dd>A simple-as-possible <code>T</code> and/or <code>E</code> transport without any implementation complexity.</dd>
+<dd>A simple-as-possible <code>T</code> and/or <code>E</code> transport without any
+implementation complexity.</dd>
 <dt><b>2. Medium</b></dt>
 <dd>A variant stored <code>T</code> or <code>E1</code> ... <code>E<i>n</i></code>
 where <code>T</code> is the expected value and <code>E1 ...</code>
@@ -381,12 +382,16 @@ are the potential unexpected values. This implemention really ought to be implem
 using C++ 17's <code>std::variant<...></code> except with stronger never-empty guarantees.
 </dd>
 <dt><b>3. Heavy</b></dt>
-<dd>An Either monad participating fully in a wider monadic programming framework for C++.</dd>
+<dd>A full fat Either monad participating fully in a wider monadic programming framework for C++.</dd>
 </dl>
 
 <p>Peter Dimov was very quickly able to implement an <code>expected&lt;T, E1, ...&gt;</code> using his
 <a href="https://github.com/pdimov/variant2">variant2</a> library, and thus there seemed little
-point in replicating his work in an Outcome v2.</p>
+point in replicating his work in an Outcome v2. The lightweight choice seemed to be the
+best path forwards, so in June 2017 the bare minimum <code>result&lt;T, E&gt;</code> and <code>outcome&lt;T, EC, P&gt;</code>
+as presented in this library was built, using the same constructor design as <code>std::variant&lt;...&gt;</code>.</p>
+
+<p>To finish later &hellip;</p>
 
 
 <footer class=" footline" >
