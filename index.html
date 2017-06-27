@@ -72,6 +72,31 @@
 
 
 
+<li data-nav-id="/outcome/tutorial/" class="dd-item 
+
+
+
+">
+  <a href="/outcome/tutorial/">
+    <span>Tutorial</span>
+
+    
+    <i class="fa fa-angle-right fa-lg category-icon"></i>
+    
+    
+    
+  </a>
+    <ul>
+        
+        
+
+
+
+
+    </ul>
+</li>
+
+
 <li data-nav-id="/outcome/api-reference/" class="dd-item 
 
 
@@ -119,6 +144,56 @@
 </li>
 
 
+<li data-nav-id="/outcome/faq/" class="dd-item 
+
+
+
+">
+  <a href="/outcome/faq/">
+    <span>Frequently asked questions</span>
+
+    
+    <i class="fa fa-angle-right fa-lg category-icon"></i>
+    
+    
+    
+  </a>
+    <ul>
+        
+        
+
+
+
+
+    </ul>
+</li>
+
+
+<li data-nav-id="/outcome/history/" class="dd-item 
+
+
+
+">
+  <a href="/outcome/history/">
+    <span>History</span>
+
+    
+    <i class="fa fa-angle-right fa-lg category-icon"></i>
+    
+    
+    
+  </a>
+    <ul>
+        
+        
+
+
+
+
+    </ul>
+</li>
+
+
 
         
         <section id="shortcuts">
@@ -131,7 +206,7 @@
             
                 <li class="" role="">
                     
-                    <a href="/outcome/credits"><i class='fa fa-bullhorn'></i> History and Acknowledgements</a>
+                    <a href="/outcome/credits"><i class='fa fa-bullhorn'></i> Acknowledgements</a>
                     
                 </li>
             
@@ -207,13 +282,13 @@ into the standard C++ library.</p>
 using a single minimum overhead framework. This
 motivating example should clarify:</p>
 
-<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span></span><span class="c1">// Imagine the libraries you depend on each use different mechanisms for returning errors</span>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="c1">// Imagine the libraries you depend on each use different mechanisms for returning errors</span>
 
 <span class="k">namespace</span> <span class="n">outcome</span> <span class="o">=</span> <span class="n">OUTCOME_V2_NAMESPACE</span><span class="p">;</span>
 
 <span class="k">namespace</span> <span class="n">Library1</span>
 <span class="p">{</span>                                                          <span class="c1">// Like the Filesystem and Networking TS,</span>
-  <span class="k">auto</span> <span class="n">fun</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">error_code</span> <span class="o">&amp;</span><span class="p">)</span> <span class="k">noexcept</span>                     <span class="c1">// returns errors via lvalue ref to an error_code.</span>
+  <span class="k">auto</span> <span class="n">fun</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">error_code</span> <span class="o">&amp;</span><span class="p">)</span> <span class="n">noexcept</span>                     <span class="c1">// returns errors via lvalue ref to an error_code.</span>
     <span class="o">-&gt;</span> <span class="kt">int</span><span class="p">;</span>                                                <span class="c1">// Never throws exceptions.</span>
 <span class="p">}</span>
 
@@ -225,29 +300,29 @@ motivating example should clarify:</p>
   
 <span class="k">namespace</span> <span class="n">Library3</span>
 <span class="p">{</span>                                                          <span class="c1">// Returns an int (expected) or some exception </span>
-  <span class="k">auto</span> <span class="n">fun</span><span class="p">()</span> <span class="k">noexcept</span>                                      <span class="c1">// pointer (unexpected). Never throws exceptions.</span>
+  <span class="k">auto</span> <span class="n">fun</span><span class="p">()</span> <span class="n">noexcept</span>                                      <span class="c1">// pointer (unexpected). Never throws exceptions.</span>
     <span class="o">-&gt;</span> <span class="n">outcome</span><span class="o">::</span><span class="n">result</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">exception_ptr</span><span class="o">&gt;</span><span class="p">;</span> 
 <span class="p">}</span>  
   
 <span class="k">namespace</span> <span class="n">Library4</span>                                         <span class="c1">// Result is an int (not error)</span>
 <span class="p">{</span>                                                          <span class="c1">// or an outcome::error_code_extended (error)</span>
-  <span class="k">auto</span> <span class="n">fun</span><span class="p">()</span> <span class="k">noexcept</span>                                      <span class="c1">// Never throws exceptions.</span>
+  <span class="k">auto</span> <span class="n">fun</span><span class="p">()</span> <span class="n">noexcept</span>                                      <span class="c1">// Never throws exceptions.</span>
     <span class="o">-&gt;</span> <span class="n">outcome</span><span class="o">::</span><span class="n">result</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
   
 <span class="c1">// signalling uniform error Outcome is an int, or an outcome::error_code_extended,</span>
 <span class="c1">// or a std::exception_ptr</span>
 
-<span class="k">auto</span> <span class="n">my_fun</span><span class="p">()</span> <span class="k">noexcept</span>
+<span class="k">auto</span> <span class="n">my_fun</span><span class="p">()</span> <span class="n">noexcept</span>
   <span class="o">-&gt;</span> <span class="n">outcome</span><span class="o">::</span><span class="n">outcome</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span>
 <span class="p">{</span>                                                          <span class="c1">// all noexcept functions which could call</span>
-  <span class="k">try</span> <span class="p">{</span>                                                    <span class="c1">// throwing code should always have their</span>
+  <span class="n">try</span> <span class="p">{</span>                                                    <span class="c1">// throwing code should always have their</span>
     <span class="n">std</span><span class="o">::</span><span class="n">error_code</span> <span class="n">ec</span><span class="p">;</span>                                    <span class="c1">// bodies wrapped in a try...catch</span>
     <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">Library1</span><span class="o">::</span><span class="n">fun</span><span class="p">(</span><span class="n">ec</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">ec</span><span class="p">)</span>
       <span class="k">return</span> <span class="p">{</span><span class="n">outcome</span><span class="o">::</span><span class="n">in_place</span><span class="o">&lt;</span><span class="n">outcome</span><span class="o">::</span><span class="n">error_code_extended</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">ec</span><span class="p">};</span>  <span class="c1">// error code returned inside outcome</span>
       
-    <span class="k">try</span> <span class="p">{</span>
+    <span class="n">try</span> <span class="p">{</span>
       <span class="n">i</span> <span class="o">+=</span> <span class="n">Library2</span><span class="o">::</span><span class="n">fun</span><span class="p">();</span>
     <span class="p">}</span>
     <span class="k">catch</span> <span class="p">(...)</span> <span class="p">{</span>
@@ -273,7 +348,7 @@ motivating example should clarify:</p>
 
 <span class="kt">int</span> <span class="nf">test</span><span class="p">()</span>
 <span class="p">{</span>
-  <span class="k">try</span> <span class="p">{</span>
+  <span class="n">try</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">my_fun</span><span class="p">().</span><span class="n">value</span><span class="p">();</span>                              <span class="c1">// throws if not valued</span>
     <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
   <span class="p">}</span>
@@ -321,7 +396,8 @@ motivating example should clarify:</p>
             
         
                     
-                        
+                
+                    
             
             
                 
@@ -343,6 +419,41 @@ motivating example should clarify:</p>
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                    
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                    
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                    
                 
             
         
@@ -352,7 +463,7 @@ motivating example should clarify:</p>
 
         
         
-            <a class="nav nav-next" href="/outcome/api-reference/" title="API reference" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/outcome/tutorial/" title="Tutorial" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 

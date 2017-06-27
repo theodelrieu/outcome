@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://ned14.github.io/outcome/_header/</loc>
+    <loc>https://ned14.github.io/outcome/tutorial/</loc>
   </url>
   
   <url>
@@ -11,12 +11,24 @@
   </url>
   
   <url>
-    <loc>https://ned14.github.io/outcome/categories/</loc>
-    <priority>0</priority>
+    <loc>https://ned14.github.io/outcome/faq/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/history/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/_header/</loc>
   </url>
   
   <url>
     <loc>https://ned14.github.io/outcome/credits/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/categories/</loc>
+    <priority>0</priority>
   </url>
   
   <url>

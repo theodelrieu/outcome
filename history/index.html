@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title> :: Outcome documentation</title>
+    <title>History :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/_header/">
+  <body class="" data-url="/outcome/history/">
     <nav id="sidebar" class="">
   <div id="header-wrapper">
     <div id="header">
@@ -170,15 +170,15 @@
 
 
 <li data-nav-id="/outcome/history/" class="dd-item 
-
-
+parent
+active
 
 ">
   <a href="/outcome/history/">
     <span>History</span>
 
     
-    <i class="fa fa-angle-right fa-lg category-icon"></i>
+    <i class="fa fa-angle-down fa-lg category-icon"></i>
     
     
     
@@ -248,7 +248,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/_header.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/history/_index.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -266,6 +266,11 @@
                 <span class="links">
                 
 
+
+
+
+ <a href='/outcome/'>Home</a> > History
+
  
 
    
@@ -273,7 +278,15 @@
             </div>
             <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#the-genesis-of-outcome-v1">The genesis of Outcome v1</a></li>
+<li><a href="#outcome-v2">Outcome v2</a></li>
+</ul></li>
+</ul>
+</nav>
     </div>
 </div>
 
@@ -282,18 +295,105 @@
         
         <div id="body-inner">
           
-            <h1></h1>
+            <h1>History</h1>
           
 
 
 
 
-<p>Outcome 2.0 library documentation</p>
+
+
+<p>Outcome has had an interesting history, and it is worth summarising it here to show how a
+Boost library comes to life. The following recollections are by Niall Douglas, and may be
+faulty due to his aging memory.</p>
+
+<h2 id="the-genesis-of-outcome-v1">The genesis of Outcome v1</h2>
+
+<p>The git repo began life as a &ldquo;Boost.Spinlock&rdquo; in June 2014 hived out of Boost.AFIO v1 where it had existed
+for some time as an internal library. In October 2014 I added in the original prototype
+Boost.Expected reference library as a git submodule, and began developing a non-allocating
+<code>future&lt;T&gt;</code>/<code>promise&lt;T&gt;</code> as an extension of <code>expected&lt;T, std::exception_ptr&gt;</code> as a faster,
+monadic future-promise was something which AFIO v1 sorely needed.</p>
+
+<p>The original prototype Boost.Expected library was a large and very complex beastie.
+I was fortunate to be employed on a contract in late 2014 early 2015 where I saw it deployed at
+scale into an existing large C++ codebase. Expected was really great and powerful, but it absolutely
+murdered compile times in a large C++ codebase, and made LTO effectively infeasible.
+I also found its implementation non-conducive to implementing
+future-promise with it, and so I resolved to implement a much more powerful policy driven
+monad factory which could stamp out everything from an <code>option&lt;T&gt;</code> right through to a
+future-promise pair, all using the exact same <code>basic_monad&lt;&gt;</code> and therefore all with a full
+monadic programming API, C++ 17 continuations/monadic bind and intelligently convertible into one another.
+Moreover, all this needed to have an absolute minimum impact on compile times and runtime
+overheads, neither of which were strengths of the original prototype Boost.Expected library.</p>
+
+<p>By August 2015 &ldquo;Boost.Monad&rdquo; was delivering on all those requirements and then some, but it lacked
+maturity through use in other code. Summer 2015 saw the Boost peer review of AFIO v1 which
+was roundly rejected. After considering the ample review feedback, it was realised that
+AFIO v2 would be a very different design, one no longer using futures, memory allocation
+nor C++ exceptions. As AFIO v2 was started from scratch and using Outcome heavily from the
+very beginning (every AFIO v2 API returns a <code>result&lt;T&gt;</code>), Outcome began to gain bug fixes and
+shed features, with the non-allocating future-promise implementation being dropped in May
+2016 and a large chunk of metaprogramming being replaced with cleaner variable templates
+in June. After CppCon 2016 in September, then began the long process of getting Outcome
+ready for Boost peer review in Q1 2017 which involved a repeated sequence of complete rewrites
+of the tutorial in response to multiple rounds of feedback from the C++ community, with
+at least four complete rewrites currently at the time of writing.</p>
+
+<p>In parallel to all this development on Outcome, Expected went before the LEWG and entered
+the C++ standards track. As the WG21 meetings went by, Expected experienced a period
+of being stripped back and much of the complexity which had so murdered compile and
+link times in <sup>2014</sup>&frasl;<sub>2015</sub> fell away, thus the Expected proposed in P0323R1 ended up landing
+so close to Outcome that in January 2017 it was just a few hours work to implement
+Expected using the core <code>basic_monad</code> infrastructure in Outcome. That highly flexible
+policy based design which made monadic future-promise possible made it similarly easy
+to implement a highly conforming Expected, indeed in early 2017 Outcome&rsquo;s Expected was much
+closer to P0323R1 than any other implementation including the LEWG reference implementation.
+And unlike the LEWG reference implementation, Outcome has had eighteen months of that
+finely tuned patina you only get when a library is in use by other code bases.</p>
+
+<p>In February 2017 it became realised that the userbase really wanted a high quality <code>expected&lt;T, E&gt;</code>
+implementation rather than anything similar but not the same which Outcome had invented.
+The only just implemented Expected implementation based on <code>basic_monad</code> therefore took
+primacy. The final rewrite of the documentation before peer review submission was one
+which made it look like Outcome was primarily an <code>expected&lt;T, E&gt;</code> implementation with a
+few useful extensions like <code>outcome&lt;T&gt;</code> and <code>result&lt;T&gt;</code>. I was sad to so pivot, but it
+was obvious that Outcome would see far wider popularity and usage as primarily an Expected
+implementation.</p>
+
+<p>Almost three years after its beginning, Outcome v1 finally went before Boost peer review
+in May 2017 which turned into one of the longest and most detailed peer reviews Boost has
+done in recent years, with over 800 pieces of review feedback submitted. It was by consensus
+rejected, <a href="https://lists.boost.org/boost-announce/2017/06/0510.php">with substantial feedback on what to do instead</a>.</p>
+
+<h2 id="outcome-v2">Outcome v2</h2>
+
+<p>During the very lengthy peer review roughly three groups of opinion emerged as to what
+a value OR error transporting class ought to look like:</p>
+
+<dl>
+<dt><b>1. Lightweight</b></dt>
+<dd>A simple-as-possible <code>T</code> and/or <code>E</code> transport without any implementation complexity.</dd>
+<dt><b>2. Medium</b></dt>
+<dd>A variant stored <code>T</code> or <code>E1</code> ... <code>E<i>n</i></code>
+where <code>T</code> is the expected value and <code>E1 ...</code>
+are the potential unexpected values. This implemention really ought to be implemented
+using C++ 17's <code>std::variant<...></code> except with stronger never-empty guarantees.
+</dd>
+<dt><b>3. Heavy</b></dt>
+<dd>An Either monad participating fully in a wider monadic programming framework for C++.</dd>
+</dl>
+
+<p>Peter Dimov was very quickly able to implement an <code>expected&lt;T, E1, ...&gt;</code> using his
+<a href="https://github.com/pdimov/variant2">variant2</a> library, and thus there seemed little
+point in replicating his work in an Outcome v2.</p>
 
 
 <footer class=" footline" >
 	
 </footer>
+
+
 
 
 
@@ -383,6 +483,7 @@
             
                 
                     
+                    
                 
                 
                 
@@ -396,6 +497,8 @@
         
 
 
+        
+            <a class="nav nav-prev" href="/outcome/faq/" title="Frequently asked questions"> <i class="fa fa-chevron-left"></i></a>
         
         
             <a class="nav nav-next" href="/outcome/tutorial/" title="Tutorial" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
@@ -425,4 +528,3 @@
 
   </body>
 </html>
-
