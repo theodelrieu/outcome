@@ -25,7 +25,7 @@
 
     
 
-    
+    <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
   <body class="" data-url="/outcome/">
@@ -178,7 +178,108 @@
 </span>
 
  
-<p>Hello</p>
+<p>This is the Outcome library. It is a C++ 14 library intended to aid ultra-lightweight
+error handling in large C++ codebases, providing a more expressive and type safe
+alternative to integer error codes or enums.</p>
+
+<p>Unlike alternative implementations, it works perfectly with exceptions and RTTI
+disabled and is thus suitable for low-latency/games/finance/SG14 users. One could
+view Outcome as a minimum overhead universal outcome transport mechanism for C++,
+hence being named &ldquo;Outcome&rdquo;.</p>
+
+<p>If you are familiar with Swift&rsquo;s error code throws or Rust&rsquo;s <code>Result&lt;T, E&gt;</code>,
+you will find almost identical semantics in the transports provided here.
+Outcome even has a <code>OUTCOME_TRY</code> macro doing most of the
+<code>try</code> keyword in Rust and Swift!</p>
+
+<div class="notices note" ><p>This is the v2 Outcome designed in response to feedback from a <a href="https://lists.boost.org/boost-announce/2017/06/0510.php">Boost peer review held in
+May 2017</a>. This library
+is expected to pass a second Boost peer review, and be submitted to WG21 for standardisation
+into the standard C++ library.</p>
+</div>
+
+
+<p>One motivation for this library is to manage errors reported by different means
+using a single minimum overhead framework. This
+motivating example should clarify:</p>
+
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span></span><span class="c1">// Imagine the libraries you depend on each use different mechanisms for returning errors</span>
+
+<span class="k">namespace</span> <span class="n">outcome</span> <span class="o">=</span> <span class="n">OUTCOME_V2_NAMESPACE</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="n">Library1</span>
+<span class="p">{</span>                                                          <span class="c1">// Like the Filesystem and Networking TS,</span>
+  <span class="k">auto</span> <span class="n">fun</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">error_code</span> <span class="o">&amp;</span><span class="p">)</span> <span class="k">noexcept</span>                     <span class="c1">// returns errors via lvalue ref to an error_code.</span>
+    <span class="o">-&gt;</span> <span class="kt">int</span><span class="p">;</span>                                                <span class="c1">// Never throws exceptions.</span>
+<span class="p">}</span>
+
+<span class="k">namespace</span> <span class="n">Library2</span>
+<span class="p">{</span>                                                          <span class="c1">// Throws some exception on error</span>
+  <span class="k">auto</span> <span class="n">fun</span><span class="p">()</span>
+    <span class="o">-&gt;</span> <span class="kt">int</span><span class="p">;</span>
+<span class="p">}</span>
+  
+<span class="k">namespace</span> <span class="n">Library3</span>
+<span class="p">{</span>                                                          <span class="c1">// Returns an int (expected) or some exception </span>
+  <span class="k">auto</span> <span class="n">fun</span><span class="p">()</span> <span class="k">noexcept</span>                                      <span class="c1">// pointer (unexpected). Never throws exceptions.</span>
+    <span class="o">-&gt;</span> <span class="n">outcome</span><span class="o">::</span><span class="n">result</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">exception_ptr</span><span class="o">&gt;</span><span class="p">;</span> 
+<span class="p">}</span>  
+  
+<span class="k">namespace</span> <span class="n">Library4</span>                                         <span class="c1">// Result is an int (not error)</span>
+<span class="p">{</span>                                                          <span class="c1">// or an outcome::error_code_extended (error)</span>
+  <span class="k">auto</span> <span class="n">fun</span><span class="p">()</span> <span class="k">noexcept</span>                                      <span class="c1">// Never throws exceptions.</span>
+    <span class="o">-&gt;</span> <span class="n">outcome</span><span class="o">::</span><span class="n">result</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+  
+<span class="c1">// signalling uniform error Outcome is an int, or an outcome::error_code_extended,</span>
+<span class="c1">// or a std::exception_ptr</span>
+
+<span class="k">auto</span> <span class="n">my_fun</span><span class="p">()</span> <span class="k">noexcept</span>
+  <span class="o">-&gt;</span> <span class="n">outcome</span><span class="o">::</span><span class="n">outcome</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span>
+<span class="p">{</span>                                                          <span class="c1">// all noexcept functions which could call</span>
+  <span class="k">try</span> <span class="p">{</span>                                                    <span class="c1">// throwing code should always have their</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">error_code</span> <span class="n">ec</span><span class="p">;</span>                                    <span class="c1">// bodies wrapped in a try...catch</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">Library1</span><span class="o">::</span><span class="n">fun</span><span class="p">(</span><span class="n">ec</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ec</span><span class="p">)</span>
+      <span class="k">return</span> <span class="p">{</span><span class="n">outcome</span><span class="o">::</span><span class="n">in_place</span><span class="o">&lt;</span><span class="n">outcome</span><span class="o">::</span><span class="n">error_code_extended</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">ec</span><span class="p">};</span>  <span class="c1">// error code returned inside outcome</span>
+      
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="n">i</span> <span class="o">+=</span> <span class="n">Library2</span><span class="o">::</span><span class="n">fun</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">catch</span> <span class="p">(...)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">current_exception</span><span class="p">();</span>                     <span class="c1">// exception_ptr returned inside outcome</span>
+    <span class="p">}</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="k">auto</span> <span class="n">rslt1</span> <span class="o">=</span> <span class="n">Library3</span><span class="o">::</span><span class="n">fun</span><span class="p">())</span>
+      <span class="n">i</span> <span class="o">+=</span> <span class="o">*</span><span class="n">rslt1</span><span class="p">;</span>
+    <span class="k">else</span>
+      <span class="k">return</span> <span class="n">rslt1</span><span class="p">.</span><span class="n">error</span><span class="p">();</span>                                <span class="c1">// error code returned inside outcome</span>
+   
+    <span class="n">OUTCOME_TRY</span><span class="p">(</span><span class="n">rslt2</span><span class="p">,</span> <span class="n">Library4</span><span class="o">::</span><span class="n">fun</span><span class="p">());</span>                   <span class="c1">// this may return an outcome with an</span>
+                                                           <span class="c1">// error code, iff fun() reports failure</span>
+
+    <span class="k">return</span> <span class="n">i</span> <span class="o">+</span> <span class="n">rslt2</span><span class="p">;</span>                                      <span class="c1">// return outcome with a value</span>
+  <span class="p">}</span>
+  <span class="k">catch</span> <span class="p">(...)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">current_exception</span><span class="p">();</span>                       <span class="c1">// construct from std::current_exception()</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// using functions&#39; outcome:</span>
+
+<span class="kt">int</span> <span class="nf">test</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">my_fun</span><span class="p">().</span><span class="n">value</span><span class="p">();</span>                              <span class="c1">// throws if not valued</span>
+    <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">catch</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">exception</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>                        <span class="c1">// e can be used to retrieve</span>
+    <span class="k">return</span> <span class="n">inspect_exception_to_your_liking</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>            <span class="c1">// initial error condition</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
 	
   
 
