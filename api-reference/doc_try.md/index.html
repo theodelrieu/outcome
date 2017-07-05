@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title> :: Outcome documentation</title>
+    <title>Try operations :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/_header/">
+  <body class="" data-url="/outcome/api-reference/doc_try.md/">
     <nav id="sidebar" class="">
   <div id="header-wrapper">
     <div id="header">
@@ -98,7 +98,7 @@
 
 
 <li data-nav-id="/outcome/api-reference/" class="dd-item 
-
+parent
 
 
 ">
@@ -106,7 +106,7 @@
     <span>API reference</span>
 
     
-    <i class="fa fa-angle-right fa-lg category-icon"></i>
+    <i class="fa fa-angle-down fa-lg category-icon"></i>
     
     
     
@@ -115,7 +115,7 @@
         
          
           <li data-nav-id="/outcome/api-reference/doc_try.md/" class="dd-item
-         
+         active
           ">
             <a href="/outcome/api-reference/doc_try.md/">
             <span>Try operations</span> 
@@ -259,7 +259,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/_header.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/API%20reference/doc_try.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -277,6 +277,16 @@
                 <span class="links">
                 
 
+
+
+
+
+
+
+ <a href='/outcome/'>Home</a> > <a href='/outcome/api-reference/'>API reference</a> > Try operations
+
+ 
+
  
 
    
@@ -284,7 +294,16 @@
             </div>
             <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+<ul>
+<li><a href="#header-file-try-hpp-a-id-try-hpp-a">Header file <code>try.hpp</code><a id="try.hpp"></a></a>
+<ul>
+<li><a href="#macro-outcome-tryv-a-id-outcome-tryv-a">Macro <code>OUTCOME_TRYV</code><a id="OUTCOME_TRYV"></a></a></li>
+<li><a href="#macro-outcome-tryx-a-id-outcome-tryx-a">Macro <code>OUTCOME_TRYX</code><a id="OUTCOME_TRYX"></a></a></li>
+<li><a href="#macro-outcome-try-a-id-outcome-try-a">Macro <code>OUTCOME_TRY</code><a id="OUTCOME_TRY"></a></a></li>
+</ul></li>
+</ul>
+</nav>
     </div>
 </div>
 
@@ -293,13 +312,57 @@
         
         <div id="body-inner">
           
-            <h1></h1>
+            <h1>Try operations</h1>
           
 
 
 
 
-<p>Outcome 2.0 library documentation</p>
+
+
+<h1 id="header-file-try-hpp-a-id-try-hpp-a">Header file <code>try.hpp</code><a id="try.hpp"></a></h1>
+
+<pre><code class="language-cpp">#define <a href='doc_try.md#try.hpp'>OUTCOME_TRY_HPP</a>
+
+#define <a href='doc_try.md#try.hpp'>OUTCOME_TRY_GLUE2</a>(x, y)
+
+#define <a href='doc_try.md#try.hpp'>OUTCOME_TRY_GLUE</a>(x, y)
+
+#define <a href='doc_try.md#try.hpp'>OUTCOME_TRY_UNIQUE_NAME</a>
+
+#define <a href='doc_try.md#try.hpp'>OUTCOME_TRYV2</a>(unique, m)
+
+#define <a href='doc_try.md#try.hpp'>OUTCOME_TRY2</a>(unique, v, m)
+
+#define <a href='doc_try.md#OUTCOME_TRYV'>OUTCOME_TRYV</a>(m)
+
+#define <a href='doc_try.md#OUTCOME_TRYX'>OUTCOME_TRYX</a>(m)
+
+#define <a href='doc_try.md#OUTCOME_TRY'>OUTCOME_TRY</a>(v, m)
+
+namespace <a href='doc_try.md#try.hpp'>outcome_v2_156a3156</a>
+{
+}</code></pre>
+
+<h2 id="macro-outcome-tryv-a-id-outcome-tryv-a">Macro <code>OUTCOME_TRYV</code><a id="OUTCOME_TRYV"></a></h2>
+
+<pre><code class="language-cpp">#define OUTCOME_TRYV(m)</code></pre>
+
+<p>If the outcome returned by expression <em>m</em> is not valued, propagate any failure by immediately returning that failure state immediately</p>
+
+<h2 id="macro-outcome-tryx-a-id-outcome-tryx-a">Macro <code>OUTCOME_TRYX</code><a id="OUTCOME_TRYX"></a></h2>
+
+<pre><code class="language-cpp">#define OUTCOME_TRYX(m)</code></pre>
+
+<p>If the outcome returned by expression <em>m</em> is not valued, propagate any failure by immediately returning that failure state immediately, else become the unwrapped value as an expression. This makes <code>OUTCOME_TRYX(expr)</code> an expression which can be used exactly like the <code>try</code> operator in other languages.</p>
+
+<p>portable. The macro is not made available on unsupported compilers, so you can test for its presence using <code>#ifdef OUTCOME_TRYX</code>.</p>
+
+<h2 id="macro-outcome-try-a-id-outcome-try-a">Macro <code>OUTCOME_TRY</code><a id="OUTCOME_TRY"></a></h2>
+
+<pre><code class="language-cpp">#define OUTCOME_TRY(v, m)</code></pre>
+
+<p>If the outcome returned by expression <em>m</em> is not valued, propagate any failure by immediately returning that failure immediately, else set *v( to the unwrapped value</p>
 
 
 <footer class=" footline" >
@@ -348,16 +411,6 @@
             
                 
                     
-                
-                
-                
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -369,6 +422,21 @@
             
             
                 
+                    
+                    
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -419,8 +487,10 @@
 
 
         
+            <a class="nav nav-prev" href="/outcome/api-reference/" title="API reference"> <i class="fa fa-chevron-left"></i></a>
         
-            <a class="nav nav-next" href="/outcome/tutorial/" title="Tutorial" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+            <a class="nav nav-next" href="/outcome/api-reference/doc_outcome.md/" title="outcome&lt;R, S, P&gt;" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
