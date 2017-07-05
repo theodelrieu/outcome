@@ -306,7 +306,7 @@ the reason for failure.</p>
 <span class="k">if</span> <span class="p">(</span><span class="k">auto</span> <span class="n">rslt</span> <span class="o">=</span> <span class="n">read_int_from_file</span><span class="p">(</span><span class="s">&quot;config.cfg&quot;</span><span class="p">))</span>
   <span class="n">use_int</span><span class="p">(</span><span class="n">rslt</span><span class="p">.</span><span class="n">value</span><span class="p">());</span>
 <span class="k">else</span>
-  <span class="nf">report_error</span><span class="p">(</span><span class="n">rslt</span><span class="p">.</span><span class="n">error</span><span class="p">());</span> <span class="c1">// returns error_code_extended</span>
+  <span class="nf">report_error</span><span class="p">(</span><span class="n">rslt</span><span class="p">.</span><span class="n">error</span><span class="p">());</span> <span class="c1">// returns std::error_code</span>
 </code></pre></div>
 
 
