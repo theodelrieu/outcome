@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title>Tutorial :: Outcome documentation</title>
+    <title>Prerequisites :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/tutorial/">
+  <body class="" data-url="/outcome/requirements/">
     <nav id="sidebar" class="">
   <div id="header-wrapper">
     <div id="header">
@@ -73,15 +73,15 @@
 
 
 <li data-nav-id="/outcome/requirements/" class="dd-item 
-
-
+parent
+active
 
 ">
   <a href="/outcome/requirements/">
     <span>Prerequisites</span>
 
     
-    <i class="fa fa-angle-right fa-lg category-icon"></i>
+    <i class="fa fa-angle-down fa-lg category-icon"></i>
     
     
     
@@ -98,15 +98,15 @@
 
 
 <li data-nav-id="/outcome/tutorial/" class="dd-item 
-parent
-active
+
+
 
 ">
   <a href="/outcome/tutorial/">
     <span>Tutorial</span>
 
     
-    <i class="fa fa-angle-down fa-lg category-icon"></i>
+    <i class="fa fa-angle-right fa-lg category-icon"></i>
     
     
     
@@ -284,7 +284,7 @@ active
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/_index.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/requirements/_index.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -305,7 +305,7 @@ active
 
 
 
- <a href='/outcome/'>Home</a> > Tutorial
+ <a href='/outcome/'>Home</a> > Prerequisites
 
  
 
@@ -323,24 +323,28 @@ active
         
         <div id="body-inner">
           
-            <h1>Tutorial</h1>
+            <h1>Prerequisites</h1>
           
 
 
 
 
-<p>Todo</p>
+<p>Outcome is a header only C++ 14 library known to work on these compiler-platform combinations or better:</p>
 
-<div class="mermaid" align="center" >
-graph TD
-    A1{"result#lt;T, E#gt;"} --"Success"--> B1["T value()"]
-    A1 --"Failure"--> C1["E error()"]
-    A2{"outcome#lt;T, EC, E|P#gt;"} --"Success"--> B2["T value()"]
-    A2 --"Failure"--> C2["EC error()"]
-    A2 --> D2(("Either"))
-    D2 --"Abort"--> E2["E exception()"]
-    D2 --"Payload"--> F2["P payload()"]
-</div>
+<ul>
+<li>clang 4.0.1 (LLVM) [FreeBSD, Linux, OS X, Windows]</li>
+<li>GCC 6.3 [Linux]</li>
+</ul>
+
+<p>Partially working compilers:</p>
+
+<ul>
+<li>GCC 5.4.1 is highly usable so long as you don&rsquo;t use Outcome in a <code>constexpr</code> evaluation context.</li>
+<li>Visual Studio 2017.2 can compile varying degrees of the test suite, indeed it has sufficient C++ 14 language
+support. The problem is in the backend which internal compiler errors. Chances are very good that a future
+compiler update will fix this.</li>
+<li>clang 3.5 - 3.9 can compile varying degrees of the test suite, the problem is lack of complete and unbuggy C++ 14 language support.</li>
+</ul>
 
 
 <footer class=" footline" >
@@ -376,21 +380,6 @@ graph TD
             
                 
                     
-                        
-                        
-                    
-                
-                
-                
-            
-        
-                    
-                
-                    
-            
-            
-                
-                    
                     
                 
                 
@@ -406,6 +395,18 @@ graph TD
                     
                         
                         
+                    
+                
+                
+                
+            
+        
+                    
+                
+                    
+            
+            
+                
                     
                 
                 
@@ -478,10 +479,10 @@ graph TD
 
 
         
-            <a class="nav nav-prev" href="/outcome/requirements/" title="Prerequisites"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/outcome/" title="Home"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/outcome/api-reference/" title="API reference" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/outcome/tutorial/" title="Tutorial" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
