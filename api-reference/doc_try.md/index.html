@@ -326,6 +326,7 @@ parent
 <li><a href="#macro-outcome-tryv-a-id-outcome-tryv-a">Macro <code>OUTCOME_TRYV</code><a id="OUTCOME_TRYV"></a></a></li>
 <li><a href="#macro-outcome-tryx-a-id-outcome-tryx-a">Macro <code>OUTCOME_TRYX</code><a id="OUTCOME_TRYX"></a></a></li>
 <li><a href="#macro-outcome-try-a-id-outcome-try-a">Macro <code>OUTCOME_TRY</code><a id="OUTCOME_TRY"></a></a></li>
+<li><a href="#function-template-outcome-v2-6f6309a5-try-operation-return-as-a-id-outcome-v2-6f6309a5-try-operation-return-as-t-a">Function template <code>outcome_v2_6f6309a5::try_operation_return_as</code><a id="outcome_v2_6f6309a5::try_operation_return_as(T&&)"></a></a></li>
 </ul></li>
 </ul>
 </nav>
@@ -363,7 +364,13 @@ parent
 
 #define <a href='doc_try.md#OUTCOME_TRYX'>OUTCOME_TRYX</a>(m)
 
-#define <a href='doc_try.md#OUTCOME_TRY'>OUTCOME_TRY</a>(v, m)</code></pre>
+#define <a href='doc_try.md#OUTCOME_TRY'>OUTCOME_TRY</a>(v, m)
+
+namespace <a href='doc_try.md#try.hpp'>outcome_v2_6f6309a5</a>
+{
+    template &lt;class T&gt;
+    typename T::template rebind&lt;void&gt; <a href='doc_try.md#outcome_v2_6f6309a5::try_operation_return_as(T&&)'>try_operation_return_as</a>(T&amp;&amp; v);
+}</code></pre>
 
 <h2 id="macro-outcome-tryv-a-id-outcome-tryv-a">Macro <code>OUTCOME_TRYV</code><a id="OUTCOME_TRYV"></a></h2>
 
@@ -384,6 +391,19 @@ parent
 <pre><code class="language-cpp">#define OUTCOME_TRY(v, m)</code></pre>
 
 <p>If the outcome returned by expression <em>m</em> is not valued, propagate any failure by immediately returning that failure immediately, else set *v( to the unwrapped value</p>
+
+<h2 id="function-template-outcome-v2-6f6309a5-try-operation-return-as-a-id-outcome-v2-6f6309a5-try-operation-return-as-t-a">Function template <code>outcome_v2_6f6309a5::try_operation_return_as</code><a id="outcome_v2_6f6309a5::try_operation_return_as(T&&)"></a></h2>
+
+<pre><code class="language-cpp">template &lt;class T&gt;
+typename T::template rebind&lt;void&gt; try_operation_return_as(T&amp;&amp; v);</code></pre>
+
+<p>Customisation point for changing what the <code>OUTCOME_TRY</code> macros do. This function defaults to returning <code>std::move(v).as_void()</code>.</p>
+
+<p><em>Effects</em>: Extracts any state apart from value into a <code>void</code> rebound equivalent.</p>
+
+<p><em>Requires</em>: The input value to have a <code>.as_void()</code> member function.</p>
+
+<hr />
 
 
 <footer class=" footline" >
