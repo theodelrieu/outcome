@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title>Try operations :: Outcome documentation</title>
+    <title>iostream support :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/api-reference/doc_try.md/">
+  <body class="" data-url="/outcome/api-reference/iostream_support.md/">
     <nav id="sidebar" class="">
   <div id="header-wrapper">
     <div id="header">
@@ -140,7 +140,7 @@ parent
         
          
           <li data-nav-id="/outcome/api-reference/iostream_support.md/" class="dd-item
-         
+         active
           ">
             <a href="/outcome/api-reference/iostream_support.md/">
             <span>iostream support</span> 
@@ -151,7 +151,7 @@ parent
         
          
           <li data-nav-id="/outcome/api-reference/doc_try.md/" class="dd-item
-         active
+         
           ">
             <a href="/outcome/api-reference/doc_try.md/">
             <span>Try operations</span> 
@@ -295,7 +295,7 @@ parent
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/API%20reference/doc_try.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/API%20reference/doc_iostream_support.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -319,7 +319,7 @@ parent
 
 
 
- <a href='/outcome/'>Home</a> > <a href='/outcome/api-reference/'>API reference</a> > Try operations
+ <a href='/outcome/'>Home</a> > <a href='/outcome/api-reference/'>API reference</a> > iostream support
 
  
 
@@ -332,12 +332,14 @@ parent
     <div class="wrapper">
 <nav id="TableOfContents">
 <ul>
-<li><a href="#header-file-try-hpp-a-id-try-hpp-a">Header file <code>try.hpp</code><a id="try.hpp"></a></a>
+<li><a href="#header-file-iostream-support-hpp-a-id-iostream-support-hpp-a">Header file <code>iostream_support.hpp</code><a id="iostream_support.hpp"></a></a>
 <ul>
-<li><a href="#macro-outcome-tryv-a-id-outcome-tryv-a">Macro <code>OUTCOME_TRYV</code><a id="OUTCOME_TRYV"></a></a></li>
-<li><a href="#macro-outcome-tryx-a-id-outcome-tryx-a">Macro <code>OUTCOME_TRYX</code><a id="OUTCOME_TRYX"></a></a></li>
-<li><a href="#macro-outcome-try-a-id-outcome-try-a">Macro <code>OUTCOME_TRY</code><a id="OUTCOME_TRY"></a></a></li>
-<li><a href="#function-template-outcome-v2-1737b49b-try-operation-return-as-a-id-outcome-v2-1737b49b-try-operation-return-as-t-a">Function template <code>outcome_v2_1737b49b::try_operation_return_as</code><a id="outcome_v2_1737b49b::try_operation_return_as(T&&)"></a></a></li>
+<li><a href="#input-operator-outcome-v2-1737b49b-operator-a-id-outcome-v2-1737b49b-operator-std-istream-result-r-s-p-a">Input operator <code>outcome_v2_1737b49b::operator&gt;&gt;</code><a id="outcome_v2_1737b49b::operator--(std::istream&,result-R,S,P-&)"></a></a></li>
+<li><a href="#output-operator-outcome-v2-1737b49b-operator-a-id-outcome-v2-1737b49b-operator-std-ostream-constresult-r-s-p-a">Output operator <code>outcome_v2_1737b49b::operator&lt;&lt;</code><a id="outcome_v2_1737b49b::operator--(std::ostream&,constresult-R,S,P-&)"></a></a></li>
+<li><a href="#function-template-outcome-v2-1737b49b-print-a-id-outcome-v2-1737b49b-print-constresult-r-s-p-a">Function template <code>outcome_v2_1737b49b::print</code><a id="outcome_v2_1737b49b::print(constresult-R,S,P-&)"></a></a></li>
+<li><a href="#input-operator-outcome-v2-1737b49b-operator-a-id-outcome-v2-1737b49b-operator-std-istream-outcome-r-s-p-n-a">Input operator <code>outcome_v2_1737b49b::operator&gt;&gt;</code><a id="outcome_v2_1737b49b::operator--(std::istream&,outcome-R,S,P,N-&)"></a></a></li>
+<li><a href="#output-operator-outcome-v2-1737b49b-operator-a-id-outcome-v2-1737b49b-operator-std-ostream-constoutcome-r-s-p-n-a">Output operator <code>outcome_v2_1737b49b::operator&lt;&lt;</code><a id="outcome_v2_1737b49b::operator--(std::ostream&,constoutcome-R,S,P,N-&)"></a></a></li>
+<li><a href="#function-template-outcome-v2-1737b49b-print-a-id-outcome-v2-1737b49b-print-constoutcome-r-s-p-n-a">Function template <code>outcome_v2_1737b49b::print</code><a id="outcome_v2_1737b49b::print(constoutcome-R,S,P,N-&)"></a></a></li>
 </ul></li>
 </ul>
 </nav>
@@ -349,7 +351,7 @@ parent
         
         <div id="body-inner">
           
-            <h1>Try operations</h1>
+            <h1>iostream support</h1>
           
 
 
@@ -357,62 +359,72 @@ parent
 
 
 
-<h1 id="header-file-try-hpp-a-id-try-hpp-a">Header file <code>try.hpp</code><a id="try.hpp"></a></h1>
+<h1 id="header-file-iostream-support-hpp-a-id-iostream-support-hpp-a">Header file <code>iostream_support.hpp</code><a id="iostream_support.hpp"></a></h1>
 
-<pre><code class="language-cpp">#define <a href='doc_try.md#try.hpp'>OUTCOME_TRY_HPP</a>
-
-#define <a href='doc_try.md#try.hpp'>OUTCOME_TRY_GLUE2</a>(x, y)
-
-#define <a href='doc_try.md#try.hpp'>OUTCOME_TRY_GLUE</a>(x, y)
-
-#define <a href='doc_try.md#try.hpp'>OUTCOME_TRY_UNIQUE_NAME</a>
-
-#define <a href='doc_try.md#try.hpp'>OUTCOME_TRYV2</a>(unique, m)
-
-#define <a href='doc_try.md#try.hpp'>OUTCOME_TRY2</a>(unique, v, m)
-
-#define <a href='doc_try.md#OUTCOME_TRYV'>OUTCOME_TRYV</a>(m)
-
-#define <a href='doc_try.md#OUTCOME_TRYX'>OUTCOME_TRYX</a>(m)
-
-#define <a href='doc_try.md#OUTCOME_TRY'>OUTCOME_TRY</a>(v, m)
+<pre><code class="language-cpp">#define <a href='doc_iostream_support.md#iostream_support.hpp'>OUTCOME_IOSTREAM_SUPPORT_HPP</a>
 
 namespace <a href='doc_try.md#try.hpp'>outcome_v2_1737b49b</a>
 {
-    template &lt;class T&gt;
-    typename T::template rebind&lt;void&gt; <a href='doc_try.md#outcome_v2_1737b49b::try_operation_return_as(T&&)'>try_operation_return_as</a>(T&amp;&amp; v);
+    template &lt;class R, class S, class P&gt;
+    <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::istream'>std::istream</a>&amp; <a href='doc_iostream_support.md#outcome_v2_1737b49b::operator--(std::istream&,result-R,S,P-&)'>operator&gt;&gt;</a>(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::istream'>std::istream</a>&amp; s, <a href='doc_result.md#outcome_v2_1737b49b::result-R,S,NoValuePolicy-'>result&lt;R, S, P&gt;</a>&amp; v);
+    
+    template &lt;class R, class S, class P&gt;
+    <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::ostream'>std::ostream</a>&amp; <a href='doc_iostream_support.md#outcome_v2_1737b49b::operator--(std::ostream&,constresult-R,S,P-&)'>operator&lt;&lt;</a>(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::ostream'>std::ostream</a>&amp; s, const <a href='doc_result.md#outcome_v2_1737b49b::result-R,S,NoValuePolicy-'>result&lt;R, S, P&gt;</a>&amp; v);
+    
+    template &lt;class R, class S, class P&gt;
+    <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::string'>std::string</a> <a href='doc_iostream_support.md#outcome_v2_1737b49b::print(constresult-R,S,P-&)'>print</a>(const <a href='doc_result.md#outcome_v2_1737b49b::result-R,S,NoValuePolicy-'>result&lt;R, S, P&gt;</a>&amp; v);
+    
+    template &lt;class R, class S, class P, class N&gt;
+    <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::istream'>std::istream</a>&amp; <a href='doc_iostream_support.md#outcome_v2_1737b49b::operator--(std::istream&,outcome-R,S,P,N-&)'>operator&gt;&gt;</a>(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::istream'>std::istream</a>&amp; s, <a href='doc_outcome.md#outcome_v2_1737b49b::outcome-R,S,P,NoValuePolicy-'>outcome&lt;R, S, P, N&gt;</a>&amp; v);
+    
+    template &lt;class R, class S, class P, class N&gt;
+    <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::ostream'>std::ostream</a>&amp; <a href='doc_iostream_support.md#outcome_v2_1737b49b::operator--(std::ostream&,constoutcome-R,S,P,N-&)'>operator&lt;&lt;</a>(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::ostream'>std::ostream</a>&amp; s, const <a href='doc_outcome.md#outcome_v2_1737b49b::outcome-R,S,P,NoValuePolicy-'>outcome&lt;R, S, P, N&gt;</a>&amp; v);
+    
+    template &lt;class R, class S, class P, class N&gt;
+    <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::string'>std::string</a> <a href='doc_iostream_support.md#outcome_v2_1737b49b::print(constoutcome-R,S,P,N-&)'>print</a>(const <a href='doc_outcome.md#outcome_v2_1737b49b::outcome-R,S,P,NoValuePolicy-'>outcome&lt;R, S, P, N&gt;</a>&amp; v);
 }</code></pre>
 
-<h2 id="macro-outcome-tryv-a-id-outcome-tryv-a">Macro <code>OUTCOME_TRYV</code><a id="OUTCOME_TRYV"></a></h2>
+<h2 id="input-operator-outcome-v2-1737b49b-operator-a-id-outcome-v2-1737b49b-operator-std-istream-result-r-s-p-a">Input operator <code>outcome_v2_1737b49b::operator&gt;&gt;</code><a id="outcome_v2_1737b49b::operator--(std::istream&,result-R,S,P-&)"></a></h2>
 
-<pre><code class="language-cpp">#define OUTCOME_TRYV(m)</code></pre>
+<pre><code class="language-cpp">template &lt;class R, class S, class P&gt;
+<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::istream'>std::istream</a>&amp; operator&gt;&gt;(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::istream'>std::istream</a>&amp; s, <a href='doc_result.md#outcome_v2_1737b49b::result-R,S,NoValuePolicy-'>result&lt;R, S, P&gt;</a>&amp; v);</code></pre>
 
-<p>If the outcome returned by expression <em>m</em> is not valued, propagate any failure by immediately returning that failure state immediately</p>
+<p>Deserialise a result</p>
 
-<h2 id="macro-outcome-tryx-a-id-outcome-tryx-a">Macro <code>OUTCOME_TRYX</code><a id="OUTCOME_TRYX"></a></h2>
+<h2 id="output-operator-outcome-v2-1737b49b-operator-a-id-outcome-v2-1737b49b-operator-std-ostream-constresult-r-s-p-a">Output operator <code>outcome_v2_1737b49b::operator&lt;&lt;</code><a id="outcome_v2_1737b49b::operator--(std::ostream&,constresult-R,S,P-&)"></a></h2>
 
-<pre><code class="language-cpp">#define OUTCOME_TRYX(m)</code></pre>
+<pre><code class="language-cpp">template &lt;class R, class S, class P&gt;
+<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::ostream'>std::ostream</a>&amp; operator&lt;&lt;(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::ostream'>std::ostream</a>&amp; s, const <a href='doc_result.md#outcome_v2_1737b49b::result-R,S,NoValuePolicy-'>result&lt;R, S, P&gt;</a>&amp; v);</code></pre>
 
-<p>If the outcome returned by expression <em>m</em> is not valued, propagate any failure by immediately returning that failure state immediately, else become the unwrapped value as an expression. This makes <code>OUTCOME_TRYX(expr)</code> an expression which can be used exactly like the <code>try</code> operator in other languages.</p>
+<p>Serialise a result</p>
 
-<p>portable. The macro is not made available on unsupported compilers, so you can test for its presence using <code>#ifdef OUTCOME_TRYX</code>.</p>
+<h2 id="function-template-outcome-v2-1737b49b-print-a-id-outcome-v2-1737b49b-print-constresult-r-s-p-a">Function template <code>outcome_v2_1737b49b::print</code><a id="outcome_v2_1737b49b::print(constresult-R,S,P-&)"></a></h2>
 
-<h2 id="macro-outcome-try-a-id-outcome-try-a">Macro <code>OUTCOME_TRY</code><a id="OUTCOME_TRY"></a></h2>
+<pre><code class="language-cpp">template &lt;class R, class S, class P&gt;
+<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::string'>std::string</a> print(const <a href='doc_result.md#outcome_v2_1737b49b::result-R,S,NoValuePolicy-'>result&lt;R, S, P&gt;</a>&amp; v);</code></pre>
 
-<pre><code class="language-cpp">#define OUTCOME_TRY(v, m)</code></pre>
+<p>Debug print a result</p>
 
-<p>If the outcome returned by expression <em>m</em> is not valued, propagate any failure by immediately returning that failure immediately, else set *v( to the unwrapped value</p>
+<h2 id="input-operator-outcome-v2-1737b49b-operator-a-id-outcome-v2-1737b49b-operator-std-istream-outcome-r-s-p-n-a">Input operator <code>outcome_v2_1737b49b::operator&gt;&gt;</code><a id="outcome_v2_1737b49b::operator--(std::istream&,outcome-R,S,P,N-&)"></a></h2>
 
-<h2 id="function-template-outcome-v2-1737b49b-try-operation-return-as-a-id-outcome-v2-1737b49b-try-operation-return-as-t-a">Function template <code>outcome_v2_1737b49b::try_operation_return_as</code><a id="outcome_v2_1737b49b::try_operation_return_as(T&&)"></a></h2>
+<pre><code class="language-cpp">template &lt;class R, class S, class P, class N&gt;
+<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::istream'>std::istream</a>&amp; operator&gt;&gt;(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::istream'>std::istream</a>&amp; s, <a href='doc_outcome.md#outcome_v2_1737b49b::outcome-R,S,P,NoValuePolicy-'>outcome&lt;R, S, P, N&gt;</a>&amp; v);</code></pre>
 
-<pre><code class="language-cpp">template &lt;class T&gt;
-typename T::template rebind&lt;void&gt; try_operation_return_as(T&amp;&amp; v);</code></pre>
+<p>Deserialise an outcome</p>
 
-<p>Customisation point for changing what the <code>OUTCOME_TRY</code> macros do. This function defaults to returning <code>std::move(v).as_void()</code>.</p>
+<h2 id="output-operator-outcome-v2-1737b49b-operator-a-id-outcome-v2-1737b49b-operator-std-ostream-constoutcome-r-s-p-n-a">Output operator <code>outcome_v2_1737b49b::operator&lt;&lt;</code><a id="outcome_v2_1737b49b::operator--(std::ostream&,constoutcome-R,S,P,N-&)"></a></h2>
 
-<p><em>Effects</em>: Extracts any state apart from value into a <code>void</code> rebound equivalent.</p>
+<pre><code class="language-cpp">template &lt;class R, class S, class P, class N&gt;
+<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::ostream'>std::ostream</a>&amp; operator&lt;&lt;(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::ostream'>std::ostream</a>&amp; s, const <a href='doc_outcome.md#outcome_v2_1737b49b::outcome-R,S,P,NoValuePolicy-'>outcome&lt;R, S, P, N&gt;</a>&amp; v);</code></pre>
 
-<p><em>Requires</em>: The input value to have a <code>.as_void()</code> member function, and a <code>rebind</code> member template alias.</p>
+<p>Serialise an outcome</p>
+
+<h2 id="function-template-outcome-v2-1737b49b-print-a-id-outcome-v2-1737b49b-print-constoutcome-r-s-p-n-a">Function template <code>outcome_v2_1737b49b::print</code><a id="outcome_v2_1737b49b::print(constoutcome-R,S,P,N-&)"></a></h2>
+
+<pre><code class="language-cpp">template &lt;class R, class S, class P, class N&gt;
+<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::string'>std::string</a> print(const <a href='doc_outcome.md#outcome_v2_1737b49b::outcome-R,S,P,NoValuePolicy-'>outcome&lt;R, S, P, N&gt;</a>&amp; v);</code></pre>
+
+<p>Debug print an outcome</p>
 
 <hr />
 
@@ -487,20 +499,6 @@ typename T::template rebind&lt;void&gt; try_operation_return_as(T&amp;&amp; v);<
             
                 
                     
-                        
-                        
-                    
-                
-                
-                
-            
-        
-                    
-                        
-            
-            
-                
-                    
                     
                 
                 
@@ -515,6 +513,17 @@ typename T::template rebind&lt;void&gt; try_operation_return_as(T&amp;&amp; v);<
                     
                         
                         
+                    
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
                     
                 
                 
@@ -565,10 +574,10 @@ typename T::template rebind&lt;void&gt; try_operation_return_as(T&amp;&amp; v);<
 
 
         
-            <a class="nav nav-prev" href="/outcome/api-reference/iostream_support.md/" title="iostream support"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/outcome/api-reference/" title="API reference"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/outcome/api-reference/doc_outcome.md/" title="outcome&lt;R, S, P&gt;" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/outcome/api-reference/doc_try.md/" title="Try operations" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 

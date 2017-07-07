@@ -139,6 +139,17 @@ active
     <ul>
         
          
+          <li data-nav-id="/outcome/api-reference/iostream_support.md/" class="dd-item
+         
+          ">
+            <a href="/outcome/api-reference/iostream_support.md/">
+            <span>iostream support</span> 
+            
+
+            </a></li>
+         
+        
+         
           <li data-nav-id="/outcome/api-reference/doc_try.md/" class="dd-item
          
           ">
@@ -333,6 +344,8 @@ active
 <li><p><a href="doc_result.md#result.hpp" title="OUTCOME_ENABLE_POSITIVE_STATUS">OUTCOME_ENABLE_POSITIVE_STATUS</a></p>
 
 <ul>
+<li><p><a href="doc_iostream_support.md#iostream_support.hpp" title="OUTCOME_IOSTREAM_SUPPORT_HPP">OUTCOME_IOSTREAM_SUPPORT_HPP</a></p></li>
+
 <li><p><a href="doc_outcome.md#outcome.hpp" title="OUTCOME_OUTCOME_HPP">OUTCOME_OUTCOME_HPP</a></p></li>
 
 <li><p><a href="doc_result.md#result.hpp" title="OUTCOME_RESULT_HPP">OUTCOME_RESULT_HPP</a></p></li>
@@ -355,100 +368,116 @@ active
 
 <li><p><a href="doc_try.md#try.hpp" title="OUTCOME_TRY_UNIQUE_NAME">OUTCOME_TRY_UNIQUE_NAME</a></p></li>
 
-<li><p><code>outcome_v2_6f6309a5</code></p>
+<li><p><code>outcome_v2_1737b49b</code></p>
 
 <ul>
-<li><p><a href="doc_outcome.md#outcome_v2_6f6309a5::bad_outcome_access" title="outcome_v2_6f6309a5::bad_outcome_access">bad_outcome_access</a> - Thrown when you try to access state in a <code>outcome&lt;T, EC, E&gt;</code> which isn&rsquo;t present.</p></li>
+<li><p><a href="doc_outcome.md#outcome_v2_1737b49b::bad_outcome_access" title="outcome_v2_1737b49b::bad_outcome_access">bad_outcome_access</a> - Thrown when you try to access state in a <code>outcome&lt;T, EC, E&gt;</code> which isn&rsquo;t present.</p></li>
 
-<li><p><a href="doc_result.md#outcome_v2_6f6309a5::bad_result_access" title="outcome_v2_6f6309a5::bad_result_access">bad_result_access</a> - Thrown when you try to access state in a <code>result&lt;R, S&gt;</code> which isn&rsquo;t present.</p></li>
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::bad_result_access" title="outcome_v2_1737b49b::bad_result_access">bad_result_access</a> - Thrown when you try to access state in a <code>result&lt;R, S&gt;</code> which isn&rsquo;t present.</p></li>
 
-<li><p><a href="doc_outcome.md#outcome_v2_6f6309a5::hook_outcome_construction(in_place_type_t-T-,U*) &quot;outcome_v2_6f6309a5::hook_outcome_construction(in_place_type_t&lt;T&gt;, U *">hook_outcome_construction(in_place_type_t&lt;T&gt;, U *)</a>&rdquo;) - The default instantiation hook implementation called when a <code>outcome</code> is first created by conversion from one of its possible types. Does nothing.</p></li>
+<li><p><a href="doc_outcome.md#outcome_v2_1737b49b::hook_outcome_construction(in_place_type_t-T-,U*) &quot;outcome_v2_1737b49b::hook_outcome_construction(in_place_type_t&lt;T&gt;, U *">hook_outcome_construction(in_place_type_t&lt;T&gt;, U *)</a>&rdquo;) - The default instantiation hook implementation called when a <code>outcome</code> is first created by conversion from one of its possible types. Does nothing.</p></li>
 
-<li><p><a href="doc_outcome.md#outcome_v2_6f6309a5::hook_outcome_copy_construction(in_place_type_t-T-,U*) &quot;outcome_v2_6f6309a5::hook_outcome_copy_construction(in_place_type_t&lt;T&gt;, U *">hook_outcome_copy_construction(in_place_type_t&lt;T&gt;, U *)</a>&rdquo;) - The default instantiation hook implementation called when a <code>outcome</code> is created by copying from another <code>outcome</code> or <code>result</code>. Does nothing.</p></li>
+<li><p><a href="doc_outcome.md#outcome_v2_1737b49b::hook_outcome_copy_construction(in_place_type_t-T-,U*) &quot;outcome_v2_1737b49b::hook_outcome_copy_construction(in_place_type_t&lt;T&gt;, U *">hook_outcome_copy_construction(in_place_type_t&lt;T&gt;, U *)</a>&rdquo;) - The default instantiation hook implementation called when a <code>outcome</code> is created by copying from another <code>outcome</code> or <code>result</code>. Does nothing.</p></li>
 
-<li><p><a href="doc_outcome.md#outcome_v2_6f6309a5::hook_outcome_in_place_construction(in_place_type_t-T-,U*) &quot;outcome_v2_6f6309a5::hook_outcome_in_place_construction(in_place_type_t&lt;T&gt;, U *">hook_outcome_in_place_construction(in_place_type_t&lt;T&gt;, U *)</a>&rdquo;) - The default instantiation hook implementation called when a <code>outcome</code> is created by in place construction. Does nothing.</p></li>
+<li><p><a href="doc_outcome.md#outcome_v2_1737b49b::hook_outcome_in_place_construction(in_place_type_t-T-,U*) &quot;outcome_v2_1737b49b::hook_outcome_in_place_construction(in_place_type_t&lt;T&gt;, U *">hook_outcome_in_place_construction(in_place_type_t&lt;T&gt;, U *)</a>&rdquo;) - The default instantiation hook implementation called when a <code>outcome</code> is created by in place construction. Does nothing.</p></li>
 
-<li><p><a href="doc_outcome.md#outcome_v2_6f6309a5::hook_outcome_move_construction(in_place_type_t-T-,U*) &quot;outcome_v2_6f6309a5::hook_outcome_move_construction(in_place_type_t&lt;T&gt;, U *">hook_outcome_move_construction(in_place_type_t&lt;T&gt;, U *)</a>&rdquo;) - The default instantiation hook implementation called when a <code>outcome</code> is created by moving from another <code>outcome</code> or <code>result</code>. Does nothing.</p></li>
+<li><p><a href="doc_outcome.md#outcome_v2_1737b49b::hook_outcome_move_construction(in_place_type_t-T-,U*) &quot;outcome_v2_1737b49b::hook_outcome_move_construction(in_place_type_t&lt;T&gt;, U *">hook_outcome_move_construction(in_place_type_t&lt;T&gt;, U *)</a>&rdquo;) - The default instantiation hook implementation called when a <code>outcome</code> is created by moving from another <code>outcome</code> or <code>result</code>. Does nothing.</p></li>
 
-<li><p><a href="doc_result.md#outcome_v2_6f6309a5::hook_result_construction(in_place_type_t-T-,U*) &quot;outcome_v2_6f6309a5::hook_result_construction(in_place_type_t&lt;T&gt;, U *">hook_result_construction(in_place_type_t&lt;T&gt;, U *)</a>&rdquo;) - The default instantiation hook implementation called when a <code>result</code> is first created by conversion from one of its possible types. Does nothing.</p></li>
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::hook_result_construction(in_place_type_t-T-,U*) &quot;outcome_v2_1737b49b::hook_result_construction(in_place_type_t&lt;T&gt;, U *">hook_result_construction(in_place_type_t&lt;T&gt;, U *)</a>&rdquo;) - The default instantiation hook implementation called when a <code>result</code> is first created by conversion from one of its possible types. Does nothing.</p></li>
 
-<li><p><a href="doc_result.md#outcome_v2_6f6309a5::hook_result_copy_construction(in_place_type_t-T-,U*) &quot;outcome_v2_6f6309a5::hook_result_copy_construction(in_place_type_t&lt;T&gt;, U *">hook_result_copy_construction(in_place_type_t&lt;T&gt;, U *)</a>&rdquo;) - The default instantiation hook implementation called when a <code>result</code> is created by copying from another <code>result</code>. Does nothing.</p></li>
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::hook_result_copy_construction(in_place_type_t-T-,U*) &quot;outcome_v2_1737b49b::hook_result_copy_construction(in_place_type_t&lt;T&gt;, U *">hook_result_copy_construction(in_place_type_t&lt;T&gt;, U *)</a>&rdquo;) - The default instantiation hook implementation called when a <code>result</code> is created by copying from another <code>result</code>. Does nothing.</p></li>
 
-<li><p><a href="doc_result.md#outcome_v2_6f6309a5::hook_result_in_place_construction(in_place_type_t-T-,U*) &quot;outcome_v2_6f6309a5::hook_result_in_place_construction(in_place_type_t&lt;T&gt;, U *">hook_result_in_place_construction(in_place_type_t&lt;T&gt;, U *)</a>&rdquo;) - The default instantiation hook implementation called when a <code>result</code> is created by in place construction. Does nothing.</p></li>
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::hook_result_in_place_construction(in_place_type_t-T-,U*) &quot;outcome_v2_1737b49b::hook_result_in_place_construction(in_place_type_t&lt;T&gt;, U *">hook_result_in_place_construction(in_place_type_t&lt;T&gt;, U *)</a>&rdquo;) - The default instantiation hook implementation called when a <code>result</code> is created by in place construction. Does nothing.</p></li>
 
-<li><p><a href="doc_result.md#outcome_v2_6f6309a5::hook_result_move_construction(in_place_type_t-T-,U*) &quot;outcome_v2_6f6309a5::hook_result_move_construction(in_place_type_t&lt;T&gt;, U *">hook_result_move_construction(in_place_type_t&lt;T&gt;, U *)</a>&rdquo;) - The default instantiation hook implementation called when a <code>result</code> is created by moving from another <code>result</code>. Does nothing.</p></li>
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::hook_result_move_construction(in_place_type_t-T-,U*) &quot;outcome_v2_1737b49b::hook_result_move_construction(in_place_type_t&lt;T&gt;, U *">hook_result_move_construction(in_place_type_t&lt;T&gt;, U *)</a>&rdquo;) - The default instantiation hook implementation called when a <code>result</code> is created by moving from another <code>result</code>. Does nothing.</p></li>
 
-<li><p><a href="doc_result.md#outcome_v2_6f6309a5::no_error_type" title="outcome_v2_6f6309a5::no_error_type">no_error_type</a> - Placeholder type to indicate there is no error type</p></li>
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::no_error_type" title="outcome_v2_1737b49b::no_error_type">no_error_type</a> - Placeholder type to indicate there is no error type</p></li>
 
-<li><p><a href="doc_outcome.md#outcome_v2_6f6309a5::no_exception_type" title="outcome_v2_6f6309a5::no_exception_type">no_exception_type</a> - Placeholder type to indicate there is no exception type</p></li>
+<li><p><a href="doc_outcome.md#outcome_v2_1737b49b::no_exception_type" title="outcome_v2_1737b49b::no_exception_type">no_exception_type</a> - Placeholder type to indicate there is no exception type</p></li>
 
-<li><p><a href="doc_outcome.md#outcome_v2_6f6309a5::no_payload_type" title="outcome_v2_6f6309a5::no_payload_type">no_payload_type</a> - Placeholder type to indicate there is no payload type</p></li>
+<li><p><a href="doc_outcome.md#outcome_v2_1737b49b::no_payload_type" title="outcome_v2_1737b49b::no_payload_type">no_payload_type</a> - Placeholder type to indicate there is no payload type</p></li>
 
-<li><p><a href="doc_result.md#outcome_v2_6f6309a5::no_value_type" title="outcome_v2_6f6309a5::no_value_type">no_value_type</a> - Placeholder type to indicate there is no value type</p></li>
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::no_value_type" title="outcome_v2_1737b49b::no_value_type">no_value_type</a> - Placeholder type to indicate there is no value type</p></li>
 
-<li><p><a href="doc_outcome.md#outcome_v2_6f6309a5::operator!=(constresult-T,U,V-&amp;,constoutcome-R,S,P,N-&amp;) &quot;outcome_v2_6f6309a5::operator!=(const result&lt;T, U, V&gt; &amp;, const outcome&lt;R, S, P, N&gt; &amp;">operator!=(const result&lt;T, U, V&gt; &amp;, const outcome&lt;R, S, P, N&gt; &amp;)</a>&rdquo;) - True if the result is not equal to the outcome</p></li>
+<li><p><a href="doc_outcome.md#outcome_v2_1737b49b::operator!=(constresult-T,U,V-&amp;,constoutcome-R,S,P,N-&amp;) &quot;outcome_v2_1737b49b::operator!=(const result&lt;T, U, V&gt; &amp;, const outcome&lt;R, S, P, N&gt; &amp;">operator!=(const result&lt;T, U, V&gt; &amp;, const outcome&lt;R, S, P, N&gt; &amp;)</a>&rdquo;) - True if the result is not equal to the outcome</p></li>
 
-<li><p><a href="doc_outcome.md#outcome_v2_6f6309a5::operator==(constresult-T,U,V-&amp;,constoutcome-R,S,P,N-&amp;) &quot;outcome_v2_6f6309a5::operator==(const result&lt;T, U, V&gt; &amp;, const outcome&lt;R, S, P, N&gt; &amp;">operator==(const result&lt;T, U, V&gt; &amp;, const outcome&lt;R, S, P, N&gt; &amp;)</a>&rdquo;) - True if the result is equal to the outcome</p></li>
+<li><p><a href="doc_iostream_support.md#outcome_v2_1737b49b::operator--(std::ostream&amp;,constoutcome-R,S,P,N-&amp;) &quot;outcome_v2_1737b49b::operator&lt;&lt;(std::ostream &amp;, const outcome&lt;R, S, P, N&gt; &amp;">operator&lt;&lt;(std::ostream &amp;, const outcome&lt;R, S, P, N&gt; &amp;)</a>&rdquo;) - Serialise an outcome</p></li>
 
-<li><p><a href="doc_outcome.md#outcome_v2_6f6309a5::outcome-R,S,P,NoValuePolicy-" title="outcome_v2_6f6309a5::outcome\&lt;R, S, P, NoValuePolicy\&gt;">outcome</a> - Used to return from functions (i) a value and (a positive status and/or a payload) or (ii) no value and (a negative status and/or a payload). <code>constexpr</code> capable.</p></li>
+<li><p><a href="doc_iostream_support.md#outcome_v2_1737b49b::operator--(std::ostream&amp;,constresult-R,S,P-&amp;) &quot;outcome_v2_1737b49b::operator&lt;&lt;(std::ostream &amp;, const result&lt;R, S, P&gt; &amp;">operator&lt;&lt;(std::ostream &amp;, const result&lt;R, S, P&gt; &amp;)</a>&rdquo;) - Serialise a result</p></li>
 
-<li><p><a href="doc_result.md#outcome_v2_6f6309a5::result-R,S,NoValuePolicy-" title="outcome_v2_6f6309a5::result\&lt;R, S, NoValuePolicy\&gt;">result</a> - Used to return from functions (i) a value (ii) a value and a positive status or (iii) no value and a negative status. <code>constexpr</code> capable.</p></li>
+<li><p><a href="doc_outcome.md#outcome_v2_1737b49b::operator==(constresult-T,U,V-&amp;,constoutcome-R,S,P,N-&amp;) &quot;outcome_v2_1737b49b::operator==(const result&lt;T, U, V&gt; &amp;, const outcome&lt;R, S, P, N&gt; &amp;">operator==(const result&lt;T, U, V&gt; &amp;, const outcome&lt;R, S, P, N&gt; &amp;)</a>&rdquo;) - True if the result is equal to the outcome</p></li>
 
-<li><p><a href="doc_try.md#outcome_v2_6f6309a5::try_operation_return_as(T&amp;&amp;) &quot;outcome_v2_6f6309a5::try_operation_return_as(T &amp;&amp;">try_operation_return_as(T &amp;&amp;)</a>&rdquo;) - Customisation point for changing what the <code>OUTCOME_TRY</code> macros do. This function defaults to returning <code>std::move(v).as_void()</code>.</p></li>
+<li><p><a href="doc_iostream_support.md#outcome_v2_1737b49b::operator--(std::istream&amp;,outcome-R,S,P,N-&amp;) &quot;outcome_v2_1737b49b::operator&gt;&gt;(std::istream &amp;, outcome&lt;R, S, P, N&gt; &amp;">operator&gt;&gt;(std::istream &amp;, outcome&lt;R, S, P, N&gt; &amp;)</a>&rdquo;) - Deserialise an outcome</p></li>
+
+<li><p><a href="doc_iostream_support.md#outcome_v2_1737b49b::operator--(std::istream&amp;,result-R,S,P-&amp;) &quot;outcome_v2_1737b49b::operator&gt;&gt;(std::istream &amp;, result&lt;R, S, P&gt; &amp;">operator&gt;&gt;(std::istream &amp;, result&lt;R, S, P&gt; &amp;)</a>&rdquo;) - Deserialise a result</p></li>
+
+<li><p><a href="doc_outcome.md#outcome_v2_1737b49b::outcome-R,S,P,NoValuePolicy-" title="outcome_v2_1737b49b::outcome\&lt;R, S, P, NoValuePolicy\&gt;">outcome</a> - Used to return from functions (i) a value and (a positive status and/or a payload) or (ii) no value and (a negative status and/or a payload). <code>constexpr</code> capable.</p></li>
+
+<li><p><a href="doc_iostream_support.md#outcome_v2_1737b49b::print(constoutcome-R,S,P,N-&amp;) &quot;outcome_v2_1737b49b::print(const outcome&lt;R, S, P, N&gt; &amp;">print(const outcome&lt;R, S, P, N&gt; &amp;)</a>&rdquo;) - Debug print an outcome</p></li>
+
+<li><p><a href="doc_iostream_support.md#outcome_v2_1737b49b::print(constresult-R,S,P-&amp;) &quot;outcome_v2_1737b49b::print(const result&lt;R, S, P&gt; &amp;">print(const result&lt;R, S, P&gt; &amp;)</a>&rdquo;) - Debug print a result</p></li>
+
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::result-R,S,NoValuePolicy-" title="outcome_v2_1737b49b::result\&lt;R, S, NoValuePolicy\&gt;">result</a> - Used to return from functions (i) a value (ii) a value and a positive status or (iii) no value and a negative status. <code>constexpr</code> capable.</p></li>
+
+<li><p><a href="doc_outcome.md#outcome_v2_1737b49b::swap(outcome-R,S,P,N-&amp;,outcome-R,S,P,N-&amp;) &quot;outcome_v2_1737b49b::swap(outcome&lt;R, S, P, N&gt; &amp;, outcome&lt;R, S, P, N&gt; &amp;">swap(outcome&lt;R, S, P, N&gt; &amp;, outcome&lt;R, S, P, N&gt; &amp;)</a>&rdquo;) - Specialise swap for outcome.</p></li>
+
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::swap(result-R,S,P-&amp;,result-R,S,P-&amp;) &quot;outcome_v2_1737b49b::swap(result&lt;R, S, P&gt; &amp;, result&lt;R, S, P&gt; &amp;">swap(result&lt;R, S, P&gt; &amp;, result&lt;R, S, P&gt; &amp;)</a>&rdquo;) - Specialise swap for result.</p></li>
+
+<li><p><a href="doc_try.md#outcome_v2_1737b49b::try_operation_return_as(T&amp;&amp;) &quot;outcome_v2_1737b49b::try_operation_return_as(T &amp;&amp;">try_operation_return_as(T &amp;&amp;)</a>&rdquo;) - Customisation point for changing what the <code>OUTCOME_TRY</code> macros do. This function defaults to returning <code>std::move(v).as_void()</code>.</p></li>
 </ul></li>
 
-<li><p><code>outcome_v2_6f6309a5::impl</code></p>
+<li><p><code>outcome_v2_1737b49b::impl</code></p>
 
 <ul>
-<li><p><a href="doc_outcome.md#outcome_v2_6f6309a5::impl::outcome_exception_observers-Base,R,S,P,NoValuePolicy-" title="outcome_v2_6f6309a5::impl::outcome_exception_observers\&lt;Base, R, S, P, NoValuePolicy\&gt;">outcome_exception_observers</a> - The exception observers implementation of <code>outcome&lt;R, S, P&gt;</code>. Only appears separate due to standardese limitations.</p></li>
+<li><p><a href="doc_outcome.md#outcome_v2_1737b49b::impl::outcome_exception_observers-Base,R,S,P,NoValuePolicy-" title="outcome_v2_1737b49b::impl::outcome_exception_observers\&lt;Base, R, S, P, NoValuePolicy\&gt;">outcome_exception_observers</a> - The exception observers implementation of <code>outcome&lt;R, S, P&gt;</code>. Only appears separate due to standardese limitations.</p></li>
 
-<li><p><a href="doc_outcome.md#outcome.hpp" title="outcome_v2_6f6309a5::impl::outcome_exception_observers\&lt;Base, R, S, void, NoValuePolicy\&gt;">outcome_exception_observers&lt;Base, R, S, void, NoValuePolicy&gt;</a></p></li>
+<li><p><a href="doc_outcome.md#outcome.hpp" title="outcome_v2_1737b49b::impl::outcome_exception_observers\&lt;Base, R, S, void, NoValuePolicy\&gt;">outcome_exception_observers&lt;Base, R, S, void, NoValuePolicy&gt;</a></p></li>
 
-<li><p><a href="doc_outcome.md#outcome_v2_6f6309a5::impl::outcome_failure_observers-Base,R,S,P,NoValuePolicy-" title="outcome_v2_6f6309a5::impl::outcome_failure_observers\&lt;Base, R, S, P, NoValuePolicy\&gt;">outcome_failure_observers</a> - The failure observers implementation of <code>outcome&lt;R, S, P&gt;</code>. Only appears separate due to standardese limitations.</p></li>
+<li><p><a href="doc_outcome.md#outcome_v2_1737b49b::impl::outcome_failure_observers-Base,R,S,P,NoValuePolicy-" title="outcome_v2_1737b49b::impl::outcome_failure_observers\&lt;Base, R, S, P, NoValuePolicy\&gt;">outcome_failure_observers</a> - The failure observers implementation of <code>outcome&lt;R, S, P&gt;</code>. Only appears separate due to standardese limitations.</p></li>
 
-<li><p><a href="doc_outcome.md#outcome.hpp" title="outcome_v2_6f6309a5::impl::outcome_failure_observers\&lt;Base, R, std::error_code, std::exception_ptr, NoValuePolicy\&gt;">outcome_failure_observers&lt;Base, R, std::error_code, std::exception_ptr, NoValuePolicy&gt;</a></p></li>
+<li><p><a href="doc_outcome.md#outcome.hpp" title="outcome_v2_1737b49b::impl::outcome_failure_observers\&lt;Base, R, std::error_code, std::exception_ptr, NoValuePolicy\&gt;">outcome_failure_observers&lt;Base, R, std::error_code, std::exception_ptr, NoValuePolicy&gt;</a></p></li>
 
-<li><p><a href="doc_outcome.md#outcome_v2_6f6309a5::impl::outcome_payload_observers-Base,R,S,P,NoValuePolicy-" title="outcome_v2_6f6309a5::impl::outcome_payload_observers\&lt;Base, R, S, P, NoValuePolicy\&gt;">outcome_payload_observers</a> - The payload observers implementation of <code>outcome&lt;R, S, P&gt;</code>. Only appears separate due to standardese limitations.</p></li>
+<li><p><a href="doc_outcome.md#outcome_v2_1737b49b::impl::outcome_payload_observers-Base,R,S,P,NoValuePolicy-" title="outcome_v2_1737b49b::impl::outcome_payload_observers\&lt;Base, R, S, P, NoValuePolicy\&gt;">outcome_payload_observers</a> - The payload observers implementation of <code>outcome&lt;R, S, P&gt;</code>. Only appears separate due to standardese limitations.</p></li>
 
-<li><p><a href="doc_outcome.md#outcome.hpp" title="outcome_v2_6f6309a5::impl::outcome_payload_observers\&lt;Base, R, S, void, NoValuePolicy\&gt;">outcome_payload_observers&lt;Base, R, S, void, NoValuePolicy&gt;</a></p></li>
+<li><p><a href="doc_outcome.md#outcome.hpp" title="outcome_v2_1737b49b::impl::outcome_payload_observers\&lt;Base, R, S, void, NoValuePolicy\&gt;">outcome_payload_observers&lt;Base, R, S, void, NoValuePolicy&gt;</a></p></li>
 
-<li><p><a href="doc_result.md#outcome_v2_6f6309a5::impl::result_error_observers-Base,EC,NoValuePolicy-" title="outcome_v2_6f6309a5::impl::result_error_observers\&lt;Base, EC, NoValuePolicy\&gt;">result_error_observers</a> - The error observers implementation of <code>result&lt;R, EC, NoValuePolicy&gt;</code>. Only appears separate due to standardese limitations.</p></li>
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::impl::result_error_observers-Base,EC,NoValuePolicy-" title="outcome_v2_1737b49b::impl::result_error_observers\&lt;Base, EC, NoValuePolicy\&gt;">result_error_observers</a> - The error observers implementation of <code>result&lt;R, EC, NoValuePolicy&gt;</code>. Only appears separate due to standardese limitations.</p></li>
 
-<li><p><a href="doc_result.md#result.hpp" title="outcome_v2_6f6309a5::impl::result_error_observers\&lt;Base, void, NoValuePolicy\&gt;">result_error_observers&lt;Base, void, NoValuePolicy&gt;</a></p></li>
+<li><p><a href="doc_result.md#result.hpp" title="outcome_v2_1737b49b::impl::result_error_observers\&lt;Base, void, NoValuePolicy\&gt;">result_error_observers&lt;Base, void, NoValuePolicy&gt;</a></p></li>
 
-<li><p><a href="doc_result.md#outcome_v2_6f6309a5::impl::result_final-R,S,NoValuePolicy-" title="outcome_v2_6f6309a5::impl::result_final\&lt;R, S, NoValuePolicy\&gt;">result_final</a> - The assembled implementation type of <code>result&lt;R, EC, NoValuePolicy&gt;</code>. Only appears separate due to standardese limitations.</p></li>
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::impl::result_final-R,S,NoValuePolicy-" title="outcome_v2_1737b49b::impl::result_final\&lt;R, S, NoValuePolicy\&gt;">result_final</a> - The assembled implementation type of <code>result&lt;R, EC, NoValuePolicy&gt;</code>. Only appears separate due to standardese limitations.</p></li>
 
-<li><p><a href="doc_result.md#outcome_v2_6f6309a5::impl::result_storage-R,EC,NoValuePolicy-" title="outcome_v2_6f6309a5::impl::result_storage\&lt;R, EC, NoValuePolicy\&gt;">result_storage</a> - The base implementation type of <code>result&lt;R, EC, NoValuePolicy&gt;</code>. Only appears separate due to standardese limitations.</p></li>
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::impl::result_storage-R,EC,NoValuePolicy-" title="outcome_v2_1737b49b::impl::result_storage\&lt;R, EC, NoValuePolicy\&gt;">result_storage</a> - The base implementation type of <code>result&lt;R, EC, NoValuePolicy&gt;</code>. Only appears separate due to standardese limitations.</p></li>
 
-<li><p><a href="doc_result.md#outcome_v2_6f6309a5::impl::result_value_observers-Base,R,NoValuePolicy-" title="outcome_v2_6f6309a5::impl::result_value_observers\&lt;Base, R, NoValuePolicy\&gt;">result_value_observers</a> - The value observers implementation of <code>result&lt;R, EC, NoValuePolicy&gt;</code>. Only appears separate due to standardese limitations.</p></li>
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::impl::result_value_observers-Base,R,NoValuePolicy-" title="outcome_v2_1737b49b::impl::result_value_observers\&lt;Base, R, NoValuePolicy\&gt;">result_value_observers</a> - The value observers implementation of <code>result&lt;R, EC, NoValuePolicy&gt;</code>. Only appears separate due to standardese limitations.</p></li>
 
-<li><p><a href="doc_result.md#result.hpp" title="outcome_v2_6f6309a5::impl::result_value_observers\&lt;Base, void, NoValuePolicy\&gt;">result_value_observers&lt;Base, void, NoValuePolicy&gt;</a></p></li>
+<li><p><a href="doc_result.md#result.hpp" title="outcome_v2_1737b49b::impl::result_value_observers\&lt;Base, void, NoValuePolicy\&gt;">result_value_observers&lt;Base, void, NoValuePolicy&gt;</a></p></li>
 
-<li><p><a href="doc_result.md#result.hpp" title="outcome_v2_6f6309a5::impl::select_result_impl\&lt;R, EC, NoValuePolicy\&gt;">select_result_impl</a></p></li>
+<li><p><a href="doc_result.md#result.hpp" title="outcome_v2_1737b49b::impl::select_result_impl\&lt;R, EC, NoValuePolicy\&gt;">select_result_impl</a></p></li>
 </ul></li>
 
-<li><p><code>outcome_v2_6f6309a5::policy</code></p>
+<li><p><code>outcome_v2_1737b49b::policy</code></p>
 
 <ul>
-<li><p><a href="doc_outcome.md#outcome_v2_6f6309a5::policy::default_outcome_policy-R,S,P-" title="outcome_v2_6f6309a5::policy::default_outcome_policy\&lt;R, S, P\&gt;">default_outcome_policy</a> - Default <code>outcome&lt;R, S, P&gt;</code> policy selector.</p></li>
+<li><p><a href="doc_outcome.md#outcome_v2_1737b49b::policy::default_outcome_policy-R,S,P-" title="outcome_v2_1737b49b::policy::default_outcome_policy\&lt;R, S, P\&gt;">default_outcome_policy</a> - Default <code>outcome&lt;R, S, P&gt;</code> policy selector.</p></li>
 
-<li><p><a href="doc_result.md#outcome_v2_6f6309a5::policy::default_result_policy-EC-" title="outcome_v2_6f6309a5::policy::default_result_policy\&lt;EC\&gt;">default_result_policy</a> - Default <code>result&lt;R, S&gt;</code> policy selector.</p></li>
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::policy::default_result_policy-EC-" title="outcome_v2_1737b49b::policy::default_result_policy\&lt;EC\&gt;">default_result_policy</a> - Default <code>result&lt;R, S&gt;</code> policy selector.</p></li>
 
-<li><p><a href="doc_result.md#outcome_v2_6f6309a5::policy::error_code_throw_as_system_error-EC-" title="outcome_v2_6f6309a5::policy::error_code_throw_as_system_error\&lt;EC\&gt;">error_code_throw_as_system_error</a> - Policy interpreting EC as a type implementing the <code>std::error_code</code> contract and any wide attempt to access the successful state throws the <code>error_code</code> wrapped into a <code>std::system_error</code></p></li>
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::policy::error_code_throw_as_system_error-EC-" title="outcome_v2_1737b49b::policy::error_code_throw_as_system_error\&lt;EC\&gt;">error_code_throw_as_system_error</a> - Policy interpreting EC as a type implementing the <code>std::error_code</code> contract and any wide attempt to access the successful state throws the <code>error_code</code> wrapped into a <code>std::system_error</code></p></li>
 
-<li><p><a href="doc_outcome.md#outcome_v2_6f6309a5::policy::error_code_throw_as_system_error_exception_rethrow-R,S,P-" title="outcome_v2_6f6309a5::policy::error_code_throw_as_system_error_exception_rethrow\&lt;R, S, P\&gt;">error_code_throw_as_system_error_exception_rethrow</a> - Policy interpreting S as a type implementing the <code>std::error_code</code> contract, E as a type implementing the <code>std::exception_ptr</code> contract, and any wide attempt to access the successful state throws the <code>exception_ptr</code> if available, then the <code>error_code</code> wrapped into a <code>std::system_error</code>.</p></li>
+<li><p><a href="doc_outcome.md#outcome_v2_1737b49b::policy::error_code_throw_as_system_error_exception_rethrow-R,S,P-" title="outcome_v2_1737b49b::policy::error_code_throw_as_system_error_exception_rethrow\&lt;R, S, P\&gt;">error_code_throw_as_system_error_exception_rethrow</a> - Policy interpreting S as a type implementing the <code>std::error_code</code> contract, E as a type implementing the <code>std::exception_ptr</code> contract, and any wide attempt to access the successful state throws the <code>exception_ptr</code> if available, then the <code>error_code</code> wrapped into a <code>std::system_error</code>.</p></li>
 
-<li><p><a href="doc_result.md#outcome_v2_6f6309a5::policy::exception_ptr_rethrow-EC-" title="outcome_v2_6f6309a5::policy::exception_ptr_rethrow\&lt;EC\&gt;">exception_ptr_rethrow</a> - Policy interpreting EC as a type implementing the <code>std::exception_ptr</code> contract and any wide attempt to access the successful state calls <code>std::rethrow_exception()</code>.</p></li>
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::policy::exception_ptr_rethrow-EC-" title="outcome_v2_1737b49b::policy::exception_ptr_rethrow\&lt;EC\&gt;">exception_ptr_rethrow</a> - Policy interpreting EC as a type implementing the <code>std::exception_ptr</code> contract and any wide attempt to access the successful state calls <code>std::rethrow_exception()</code>.</p></li>
 
-<li><p><a href="doc_result.md#outcome_v2_6f6309a5::policy::terminate" title="outcome_v2_6f6309a5::policy::terminate">terminate</a> - Policy implementing any wide attempt to access the successful state as calling <code>std::terminate</code></p></li>
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::policy::terminate" title="outcome_v2_1737b49b::policy::terminate">terminate</a> - Policy implementing any wide attempt to access the successful state as calling <code>std::terminate</code></p></li>
 
-<li><p><a href="doc_result.md#outcome_v2_6f6309a5::policy::throw_directly-EC-" title="outcome_v2_6f6309a5::policy::throw_directly\&lt;EC\&gt;">throw_directly</a> - Policy interpreting EC as a type to be thrown directly during wide checks.</p></li>
+<li><p><a href="doc_result.md#outcome_v2_1737b49b::policy::throw_directly-EC-" title="outcome_v2_1737b49b::policy::throw_directly\&lt;EC\&gt;">throw_directly</a> - Policy interpreting EC as a type to be thrown directly during wide checks.</p></li>
 </ul></li>
 
-<li><p><code>outcome_v2_6f6309a5::trait</code> - Namespace for traits</p>
+<li><p><code>outcome_v2_1737b49b::trait</code> - Namespace for traits</p>
 
 <ul>
-<li><a href="doc_outcome.md#outcome_v2_6f6309a5::trait::is_exception_ptr-P-" title="outcome_v2_6f6309a5::trait::is_exception_ptr\&lt;P\&gt;">is_exception_ptr</a> - Trait for whether type <code>P</code> is to be considered a payload to an exception.</li>
+<li><a href="doc_outcome.md#outcome_v2_1737b49b::trait::is_exception_ptr-P-" title="outcome_v2_1737b49b::trait::is_exception_ptr\&lt;P\&gt;">is_exception_ptr</a> - Trait for whether type <code>P</code> is to be considered a payload to an exception.</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -557,6 +586,17 @@ active
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                    
                 
                     
             
@@ -592,7 +632,7 @@ active
             <a class="nav nav-prev" href="/outcome/tutorial/" title="Tutorial"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/outcome/api-reference/doc_try.md/" title="Try operations" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/outcome/api-reference/iostream_support.md/" title="iostream support" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
