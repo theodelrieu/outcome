@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title>iostream support :: Outcome documentation</title>
+    <title>Utilities :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/api-reference/iostream_support.md/">
+  <body class="" data-url="/outcome/api-reference/doc_utils.md/">
     <nav id="sidebar" class="">
   <div id="header-wrapper">
     <div id="header">
@@ -173,7 +173,7 @@ parent
         
          
           <li data-nav-id="/outcome/api-reference/doc_utils.md/" class="dd-item
-         
+         active
           ">
             <a href="/outcome/api-reference/doc_utils.md/">
             <span>Utilities</span> 
@@ -184,7 +184,7 @@ parent
         
          
           <li data-nav-id="/outcome/api-reference/iostream_support.md/" class="dd-item
-         active
+         
           ">
             <a href="/outcome/api-reference/iostream_support.md/">
             <span>iostream support</span> 
@@ -306,7 +306,7 @@ parent
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/API%20reference/doc_iostream_support.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/API%20reference/doc_utils.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -330,7 +330,7 @@ parent
 
 
 
- <a href='/outcome/'>Home</a> > <a href='/outcome/api-reference/'>API reference</a> > iostream support
+ <a href='/outcome/'>Home</a> > <a href='/outcome/api-reference/'>API reference</a> > Utilities
 
  
 
@@ -343,14 +343,9 @@ parent
     <div class="wrapper">
 <nav id="TableOfContents">
 <ul>
-<li><a href="#header-file-iostream-support-hpp-a-id-iostream-support-hpp-a">Header file <code>iostream_support.hpp</code><a id="iostream_support.hpp"></a></a>
+<li><a href="#header-file-utils-hpp-a-id-utils-hpp-a">Header file <code>utils.hpp</code><a id="utils.hpp"></a></a>
 <ul>
-<li><a href="#input-operator-outcome-v2-xxx-operator-a-id-outcome-v2-xxx-operator-std-istream-result-r-s-p-a">Input operator <code>outcome_v2_xxx::operator&gt;&gt;</code><a id="outcome_v2_xxx::operator--(std::istream&,result-R,S,P-&)"></a></a></li>
-<li><a href="#output-operator-outcome-v2-xxx-operator-a-id-outcome-v2-xxx-operator-std-ostream-constresult-r-s-p-a">Output operator <code>outcome_v2_xxx::operator&lt;&lt;</code><a id="outcome_v2_xxx::operator--(std::ostream&,constresult-R,S,P-&)"></a></a></li>
-<li><a href="#function-template-outcome-v2-xxx-print-a-id-outcome-v2-xxx-print-constresult-r-s-p-a">Function template <code>outcome_v2_xxx::print</code><a id="outcome_v2_xxx::print(constresult-R,S,P-&)"></a></a></li>
-<li><a href="#input-operator-outcome-v2-xxx-operator-a-id-outcome-v2-xxx-operator-std-istream-outcome-r-s-p-n-a">Input operator <code>outcome_v2_xxx::operator&gt;&gt;</code><a id="outcome_v2_xxx::operator--(std::istream&,outcome-R,S,P,N-&)"></a></a></li>
-<li><a href="#output-operator-outcome-v2-xxx-operator-a-id-outcome-v2-xxx-operator-std-ostream-constoutcome-r-s-p-n-a">Output operator <code>outcome_v2_xxx::operator&lt;&lt;</code><a id="outcome_v2_xxx::operator--(std::ostream&,constoutcome-R,S,P,N-&)"></a></a></li>
-<li><a href="#function-template-outcome-v2-xxx-print-a-id-outcome-v2-xxx-print-constoutcome-r-s-p-n-a">Function template <code>outcome_v2_xxx::print</code><a id="outcome_v2_xxx::print(constoutcome-R,S,P,N-&)"></a></a></li>
+<li><a href="#function-outcome-v2-xxx-error-from-exception-a-id-outcome-v2-xxx-error-from-exception-std-exception-ptr-std-error-code-a">Function <code>outcome_v2_xxx::error_from_exception</code><a id="outcome_v2_xxx::error_from_exception(std::exception_ptr&&,std::error_code)"></a></a></li>
 </ul></li>
 </ul>
 </nav>
@@ -362,7 +357,7 @@ parent
         
         <div id="body-inner">
           
-            <h1>iostream support</h1>
+            <h1>Utilities</h1>
           
 
 
@@ -370,72 +365,22 @@ parent
 
 
 
-<h1 id="header-file-iostream-support-hpp-a-id-iostream-support-hpp-a">Header file <code>iostream_support.hpp</code><a id="iostream_support.hpp"></a></h1>
+<h1 id="header-file-utils-hpp-a-id-utils-hpp-a">Header file <code>utils.hpp</code><a id="utils.hpp"></a></h1>
 
-<pre><code class="language-cpp">#define <a href='doc_iostream_support.md#iostream_support.hpp'>OUTCOME_IOSTREAM_SUPPORT_HPP</a>
+<pre><code class="language-cpp">#define <a href='doc_utils.md#utils.hpp'>OUTCOME_ERROR_FROM_EXCEPTION_HPP</a>
 
 namespace <a href='doc_try.md#try.hpp'>outcome_v2_xxx</a>
 {
-    template &lt;class R, class S, class P&gt;
-    <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::istream'>std::istream</a>&amp; <a href='doc_iostream_support.md#outcome_v2_xxx::operator--(std::istream&,result-R,S,P-&)'>operator&gt;&gt;</a>(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::istream'>std::istream</a>&amp; s, <a href='doc_result.md#outcome_v2_xxx::result-R,S,NoValuePolicy-'>result&lt;R, S, P&gt;</a>&amp; v);
-    
-    template &lt;class R, class S, class P&gt;
-    <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::ostream'>std::ostream</a>&amp; <a href='doc_iostream_support.md#outcome_v2_xxx::operator--(std::ostream&,constresult-R,S,P-&)'>operator&lt;&lt;</a>(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::ostream'>std::ostream</a>&amp; s, const <a href='doc_result.md#outcome_v2_xxx::result-R,S,NoValuePolicy-'>result&lt;R, S, P&gt;</a>&amp; v);
-    
-    template &lt;class R, class S, class P&gt;
-    <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::string'>std::string</a> <a href='doc_iostream_support.md#outcome_v2_xxx::print(constresult-R,S,P-&)'>print</a>(const <a href='doc_result.md#outcome_v2_xxx::result-R,S,NoValuePolicy-'>result&lt;R, S, P&gt;</a>&amp; v);
-    
-    template &lt;class R, class S, class P, class N&gt;
-    <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::istream'>std::istream</a>&amp; <a href='doc_iostream_support.md#outcome_v2_xxx::operator--(std::istream&,outcome-R,S,P,N-&)'>operator&gt;&gt;</a>(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::istream'>std::istream</a>&amp; s, <a href='doc_outcome.md#outcome_v2_xxx::outcome-R,S,P,NoValuePolicy-'>outcome&lt;R, S, P, N&gt;</a>&amp; v);
-    
-    template &lt;class R, class S, class P, class N&gt;
-    <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::ostream'>std::ostream</a>&amp; <a href='doc_iostream_support.md#outcome_v2_xxx::operator--(std::ostream&,constoutcome-R,S,P,N-&)'>operator&lt;&lt;</a>(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::ostream'>std::ostream</a>&amp; s, const <a href='doc_outcome.md#outcome_v2_xxx::outcome-R,S,P,NoValuePolicy-'>outcome&lt;R, S, P, N&gt;</a>&amp; v);
-    
-    template &lt;class R, class S, class P, class N&gt;
-    <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::string'>std::string</a> <a href='doc_iostream_support.md#outcome_v2_xxx::print(constoutcome-R,S,P,N-&)'>print</a>(const <a href='doc_outcome.md#outcome_v2_xxx::outcome-R,S,P,NoValuePolicy-'>outcome&lt;R, S, P, N&gt;</a>&amp; v);
+    <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::error_code'>std::error_code</a> <a href='doc_utils.md#outcome_v2_xxx::error_from_exception(std::exception_ptr&&,std::error_code)'>error_from_exception</a>(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::exception_ptr'>std::exception_ptr</a>&amp;&amp; ep, <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::error_code'>std::error_code</a> not_matched = std::make_error_code(std::errc::resource_unavailable_try_again)) noexcept;
 }</code></pre>
 
-<h2 id="input-operator-outcome-v2-xxx-operator-a-id-outcome-v2-xxx-operator-std-istream-result-r-s-p-a">Input operator <code>outcome_v2_xxx::operator&gt;&gt;</code><a id="outcome_v2_xxx::operator--(std::istream&,result-R,S,P-&)"></a></h2>
+<h2 id="function-outcome-v2-xxx-error-from-exception-a-id-outcome-v2-xxx-error-from-exception-std-exception-ptr-std-error-code-a">Function <code>outcome_v2_xxx::error_from_exception</code><a id="outcome_v2_xxx::error_from_exception(std::exception_ptr&&,std::error_code)"></a></h2>
 
-<pre><code class="language-cpp">template &lt;class R, class S, class P&gt;
-<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::istream'>std::istream</a>&amp; operator&gt;&gt;(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::istream'>std::istream</a>&amp; s, <a href='doc_result.md#outcome_v2_xxx::result-R,S,NoValuePolicy-'>result&lt;R, S, P&gt;</a>&amp; v);</code></pre>
+<pre><code class="language-cpp"><a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::error_code'>std::error_code</a> error_from_exception(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::exception_ptr'>std::exception_ptr</a>&amp;&amp; ep, <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::error_code'>std::error_code</a> not_matched = std::make_error_code(std::errc::resource_unavailable_try_again)) noexcept;</code></pre>
 
-<p>Deserialise a result</p>
+<p>Utility function which tries to match the exception in the pointer provided to an equivalent error code. Ought to work for all standard STL types. param e The pointer to an exception to convert. If matched, on exit this is reset to a null pointer. param not_matched The error code to return if we could not match the exception. Note that a null pointer in returns a null error code.</p>
 
-<h2 id="output-operator-outcome-v2-xxx-operator-a-id-outcome-v2-xxx-operator-std-ostream-constresult-r-s-p-a">Output operator <code>outcome_v2_xxx::operator&lt;&lt;</code><a id="outcome_v2_xxx::operator--(std::ostream&,constresult-R,S,P-&)"></a></h2>
-
-<pre><code class="language-cpp">template &lt;class R, class S, class P&gt;
-<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::ostream'>std::ostream</a>&amp; operator&lt;&lt;(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::ostream'>std::ostream</a>&amp; s, const <a href='doc_result.md#outcome_v2_xxx::result-R,S,NoValuePolicy-'>result&lt;R, S, P&gt;</a>&amp; v);</code></pre>
-
-<p>Serialise a result</p>
-
-<h2 id="function-template-outcome-v2-xxx-print-a-id-outcome-v2-xxx-print-constresult-r-s-p-a">Function template <code>outcome_v2_xxx::print</code><a id="outcome_v2_xxx::print(constresult-R,S,P-&)"></a></h2>
-
-<pre><code class="language-cpp">template &lt;class R, class S, class P&gt;
-<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::string'>std::string</a> print(const <a href='doc_result.md#outcome_v2_xxx::result-R,S,NoValuePolicy-'>result&lt;R, S, P&gt;</a>&amp; v);</code></pre>
-
-<p>Debug print a result</p>
-
-<h2 id="input-operator-outcome-v2-xxx-operator-a-id-outcome-v2-xxx-operator-std-istream-outcome-r-s-p-n-a">Input operator <code>outcome_v2_xxx::operator&gt;&gt;</code><a id="outcome_v2_xxx::operator--(std::istream&,outcome-R,S,P,N-&)"></a></h2>
-
-<pre><code class="language-cpp">template &lt;class R, class S, class P, class N&gt;
-<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::istream'>std::istream</a>&amp; operator&gt;&gt;(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::istream'>std::istream</a>&amp; s, <a href='doc_outcome.md#outcome_v2_xxx::outcome-R,S,P,NoValuePolicy-'>outcome&lt;R, S, P, N&gt;</a>&amp; v);</code></pre>
-
-<p>Deserialise an outcome</p>
-
-<h2 id="output-operator-outcome-v2-xxx-operator-a-id-outcome-v2-xxx-operator-std-ostream-constoutcome-r-s-p-n-a">Output operator <code>outcome_v2_xxx::operator&lt;&lt;</code><a id="outcome_v2_xxx::operator--(std::ostream&,constoutcome-R,S,P,N-&)"></a></h2>
-
-<pre><code class="language-cpp">template &lt;class R, class S, class P, class N&gt;
-<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::ostream'>std::ostream</a>&amp; operator&lt;&lt;(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::ostream'>std::ostream</a>&amp; s, const <a href='doc_outcome.md#outcome_v2_xxx::outcome-R,S,P,NoValuePolicy-'>outcome&lt;R, S, P, N&gt;</a>&amp; v);</code></pre>
-
-<p>Serialise an outcome</p>
-
-<h2 id="function-template-outcome-v2-xxx-print-a-id-outcome-v2-xxx-print-constoutcome-r-s-p-n-a">Function template <code>outcome_v2_xxx::print</code><a id="outcome_v2_xxx::print(constoutcome-R,S,P,N-&)"></a></h2>
-
-<pre><code class="language-cpp">template &lt;class R, class S, class P, class N&gt;
-<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::string'>std::string</a> print(const <a href='doc_outcome.md#outcome_v2_xxx::outcome-R,S,P,NoValuePolicy-'>outcome&lt;R, S, P, N&gt;</a>&amp; v);</code></pre>
-
-<p>Debug print an outcome</p>
+<p>effects Rethrows the exception in the pointer, and via a long sequence of <code>catch</code> clauses attempts to match the equivalent error code. If a match is found, the pointer is reset to null. If a match is not found, <em>not_matched</em> is returned instead and the pointer is left unmodified.</p>
 
 <hr />
 
@@ -546,17 +491,6 @@ namespace <a href='doc_try.md#try.hpp'>outcome_v2_xxx</a>
             
                 
                     
-                
-                
-                
-            
-        
-                    
-                        
-            
-            
-                
-                    
                     
                 
                 
@@ -564,14 +498,25 @@ namespace <a href='doc_try.md#try.hpp'>outcome_v2_xxx</a>
             
         
                     
-                
-                    
+                        
             
             
                 
                     
                         
                         
+                    
+                
+                
+                
+            
+        
+                    
+                
+                    
+            
+            
+                
                     
                 
                 
@@ -599,10 +544,10 @@ namespace <a href='doc_try.md#try.hpp'>outcome_v2_xxx</a>
 
 
         
-            <a class="nav nav-prev" href="/outcome/api-reference/doc_utils.md/" title="Utilities"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/outcome/api-reference/doc_try.md/" title="Try operations"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/outcome/faq/" title="Frequently asked questions" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/outcome/api-reference/iostream_support.md/" title="iostream support" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 

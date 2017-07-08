@@ -139,11 +139,22 @@ parent
     <ul>
         
          
-          <li data-nav-id="/outcome/api-reference/iostream_support.md/" class="dd-item
+          <li data-nav-id="/outcome/api-reference/doc_outcome.md/" class="dd-item
          
           ">
-            <a href="/outcome/api-reference/iostream_support.md/">
-            <span>iostream support</span> 
+            <a href="/outcome/api-reference/doc_outcome.md/">
+            <span>outcome&lt;R, S, P&gt;</span> 
+            
+
+            </a></li>
+         
+        
+         
+          <li data-nav-id="/outcome/api-reference/doc_result.md/" class="dd-item
+         active
+          ">
+            <a href="/outcome/api-reference/doc_result.md/">
+            <span>result&lt;R, S&gt;</span> 
             
 
             </a></li>
@@ -161,22 +172,22 @@ parent
          
         
          
-          <li data-nav-id="/outcome/api-reference/doc_outcome.md/" class="dd-item
+          <li data-nav-id="/outcome/api-reference/doc_utils.md/" class="dd-item
          
           ">
-            <a href="/outcome/api-reference/doc_outcome.md/">
-            <span>outcome&lt;R, S, P&gt;</span> 
+            <a href="/outcome/api-reference/doc_utils.md/">
+            <span>Utilities</span> 
             
 
             </a></li>
          
         
          
-          <li data-nav-id="/outcome/api-reference/doc_result.md/" class="dd-item
-         active
+          <li data-nav-id="/outcome/api-reference/iostream_support.md/" class="dd-item
+         
           ">
-            <a href="/outcome/api-reference/doc_result.md/">
-            <span>result&lt;R, S&gt;</span> 
+            <a href="/outcome/api-reference/iostream_support.md/">
+            <span>iostream support</span> 
             
 
             </a></li>
@@ -462,7 +473,7 @@ namespace <a href='doc_try.md#try.hpp'>outcome_v2_xxx</a>
     
     struct <a href='doc_result.md#outcome_v2_xxx::no_error_type'>no_error_type</a>;
     
-    namespace <a href='doc_outcome.md#outcome.hpp'>impl</a>
+    namespace <a href='doc_result.md#result.hpp'>impl</a>
     {
         template &lt;class R, class EC, class NoValuePolicy&gt;
         class <a href='doc_result.md#outcome_v2_xxx::impl::result_storage-R,EC,NoValuePolicy-'>result_storage</a>;
@@ -486,7 +497,7 @@ namespace <a href='doc_try.md#try.hpp'>outcome_v2_xxx</a>
         class <a href='doc_result.md#outcome_v2_xxx::impl::result_final-R,S,NoValuePolicy-'>result_final</a>;
     }
     
-    namespace <a href='doc_outcome.md#outcome.hpp'>policy</a>
+    namespace <a href='doc_result.md#outcome_v2_xxx::policy'>policy</a>
     {
         template &lt;class EC&gt;
         struct <a href='doc_result.md#outcome_v2_xxx::policy::throw_directly-EC-'>throw_directly</a>;
@@ -1759,6 +1770,21 @@ void swap(<a href='doc_result.md#outcome_v2_xxx::result-R,S,NoValuePolicy-'>resu
             
                 
                     
+                    
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
                 
                 
                 
@@ -1781,7 +1807,6 @@ void swap(<a href='doc_result.md#outcome_v2_xxx::result-R,S,NoValuePolicy-'>resu
             
                 
                     
-                    
                 
                 
                 
@@ -1793,9 +1818,6 @@ void swap(<a href='doc_result.md#outcome_v2_xxx::result-R,S,NoValuePolicy-'>resu
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1826,7 +1848,7 @@ void swap(<a href='doc_result.md#outcome_v2_xxx::result-R,S,NoValuePolicy-'>resu
             <a class="nav nav-prev" href="/outcome/api-reference/doc_outcome.md/" title="outcome&lt;R, S, P&gt;"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/outcome/faq/" title="Frequently asked questions" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/outcome/api-reference/doc_try.md/" title="Try operations" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 

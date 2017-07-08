@@ -139,11 +139,22 @@ active
     <ul>
         
          
-          <li data-nav-id="/outcome/api-reference/iostream_support.md/" class="dd-item
+          <li data-nav-id="/outcome/api-reference/doc_outcome.md/" class="dd-item
          
           ">
-            <a href="/outcome/api-reference/iostream_support.md/">
-            <span>iostream support</span> 
+            <a href="/outcome/api-reference/doc_outcome.md/">
+            <span>outcome&lt;R, S, P&gt;</span> 
+            
+
+            </a></li>
+         
+        
+         
+          <li data-nav-id="/outcome/api-reference/doc_result.md/" class="dd-item
+         
+          ">
+            <a href="/outcome/api-reference/doc_result.md/">
+            <span>result&lt;R, S&gt;</span> 
             
 
             </a></li>
@@ -161,22 +172,22 @@ active
          
         
          
-          <li data-nav-id="/outcome/api-reference/doc_outcome.md/" class="dd-item
+          <li data-nav-id="/outcome/api-reference/doc_utils.md/" class="dd-item
          
           ">
-            <a href="/outcome/api-reference/doc_outcome.md/">
-            <span>outcome&lt;R, S, P&gt;</span> 
+            <a href="/outcome/api-reference/doc_utils.md/">
+            <span>Utilities</span> 
             
 
             </a></li>
          
         
          
-          <li data-nav-id="/outcome/api-reference/doc_result.md/" class="dd-item
+          <li data-nav-id="/outcome/api-reference/iostream_support.md/" class="dd-item
          
           ">
-            <a href="/outcome/api-reference/doc_result.md/">
-            <span>result&lt;R, S&gt;</span> 
+            <a href="/outcome/api-reference/iostream_support.md/">
+            <span>iostream support</span> 
             
 
             </a></li>
@@ -344,6 +355,8 @@ active
 <li><p><a href="doc_result.md#result.hpp" title="OUTCOME_ENABLE_POSITIVE_STATUS">OUTCOME_ENABLE_POSITIVE_STATUS</a></p>
 
 <ul>
+<li><p><a href="doc_utils.md#utils.hpp" title="OUTCOME_ERROR_FROM_EXCEPTION_HPP">OUTCOME_ERROR_FROM_EXCEPTION_HPP</a></p></li>
+
 <li><p><a href="doc_iostream_support.md#iostream_support.hpp" title="OUTCOME_IOSTREAM_SUPPORT_HPP">OUTCOME_IOSTREAM_SUPPORT_HPP</a></p></li>
 
 <li><p><a href="doc_outcome.md#outcome.hpp" title="OUTCOME_OUTCOME_HPP">OUTCOME_OUTCOME_HPP</a></p></li>
@@ -374,6 +387,8 @@ active
 <li><p><a href="doc_outcome.md#outcome_v2_xxx::bad_outcome_access" title="outcome_v2_xxx::bad_outcome_access">bad_outcome_access</a> - Thrown when you try to access state in a <code>outcome&lt;T, EC, E&gt;</code> which isn&rsquo;t present.</p></li>
 
 <li><p><a href="doc_result.md#outcome_v2_xxx::bad_result_access" title="outcome_v2_xxx::bad_result_access">bad_result_access</a> - Thrown when you try to access state in a <code>result&lt;R, S&gt;</code> which isn&rsquo;t present.</p></li>
+
+<li><p><a href="doc_utils.md#outcome_v2_xxx::error_from_exception(std::exception_ptr&amp;&amp;,std::error_code) &quot;outcome_v2_xxx::error_from_exception(std::exception_ptr &amp;&amp;, std::error_code">error_from_exception(std::exception_ptr &amp;&amp;, std::error_code)</a>&rdquo;) - Utility function which tries to match the exception in the pointer provided to an equivalent error code. Ought to work for all standard STL types. param e The pointer to an exception to convert. If matched, on exit this is reset to a null pointer. param not_matched The error code to return if we could not match the exception. Note that a null pointer in returns a null error code.</p></li>
 
 <li><p><a href="doc_outcome.md#outcome_v2_xxx::hook_outcome_construction(in_place_type_t-T-,U*) &quot;outcome_v2_xxx::hook_outcome_construction(in_place_type_t&lt;T&gt;, U *">hook_outcome_construction(in_place_type_t&lt;T&gt;, U *)</a>&rdquo;) - The default instantiation hook implementation called when a <code>outcome</code> is first created by conversion from one of its possible types. Does nothing.</p></li>
 
@@ -597,6 +612,17 @@ active
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                    
                 
                     
             
@@ -632,7 +658,7 @@ active
             <a class="nav nav-prev" href="/outcome/tutorial/" title="Tutorial"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/outcome/api-reference/iostream_support.md/" title="iostream support" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/outcome/api-reference/doc_outcome.md/" title="outcome&lt;R, S, P&gt;" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
