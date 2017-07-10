@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title>Utilities :: Outcome documentation</title>
+    <title>Custom error code :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/api-reference/doc_utils.md/">
+  <body class="" data-url="/outcome/tutorial/error_code/">
     <nav id="sidebar" class="">
   <div id="header-wrapper">
     <div id="header">
@@ -123,7 +123,7 @@
 
 
 <li data-nav-id="/outcome/tutorial/" class="dd-item 
-
+parent
 
 
 ">
@@ -131,7 +131,7 @@
     <span>Tutorial</span>
 
     
-    <i class="fa fa-angle-right fa-lg category-icon"></i>
+    <i class="fa fa-angle-down fa-lg category-icon"></i>
     
     
     
@@ -140,7 +140,7 @@
         
          
           <li data-nav-id="/outcome/tutorial/error_code/" class="dd-item
-         
+         active
           ">
             <a href="/outcome/tutorial/error_code/">
             <span>Custom error code</span> 
@@ -159,7 +159,7 @@
 
 
 <li data-nav-id="/outcome/api-reference/" class="dd-item 
-parent
+
 
 
 ">
@@ -167,7 +167,7 @@ parent
     <span>API reference</span>
 
     
-    <i class="fa fa-angle-down fa-lg category-icon"></i>
+    <i class="fa fa-angle-right fa-lg category-icon"></i>
     
     
     
@@ -209,7 +209,7 @@ parent
         
          
           <li data-nav-id="/outcome/api-reference/doc_utils.md/" class="dd-item
-         active
+         
           ">
             <a href="/outcome/api-reference/doc_utils.md/">
             <span>Utilities</span> 
@@ -389,7 +389,7 @@ parent
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/API%20reference/doc_utils.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/error_code.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -413,7 +413,7 @@ parent
 
 
 
- <a href='/outcome/'>Home</a> > <a href='/outcome/api-reference/'>API reference</a> > Utilities
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > Custom error code
 
  
 
@@ -424,14 +424,7 @@ parent
             </div>
             <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents">
-<ul>
-<li><a href="#header-file-utils-hpp-a-id-utils-hpp-a">Header file <code>utils.hpp</code><a id="utils.hpp"></a></a>
-<ul>
-<li><a href="#function-outcome-v2-xxx-error-from-exception-a-id-outcome-v2-xxx-error-from-exception-std-exception-ptr-std-error-code-a">Function <code>outcome_v2_xxx::error_from_exception</code><a id="outcome_v2_xxx::error_from_exception(std::exception_ptr&&,std::error_code)"></a></a></li>
-</ul></li>
-</ul>
-</nav>
+
     </div>
 </div>
 
@@ -440,32 +433,30 @@ parent
         
         <div id="body-inner">
           
-            <h1>Utilities</h1>
+            <h1>Custom error code</h1>
           
 
 
 
 
+<p>TODO: This section will describe how you can plug your custom error enum, like:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">enum</span> <span class="k">class</span> <span class="nc">ConversionErrc</span>
+<span class="p">{</span>
+  <span class="n">EmptyString</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="n">IllegalChar</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="n">TooLong</span>     <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
 
+<p>into the Standard Library&rsquo;s <code>std::error_code</code> system by specializing type trait
+<code>std::is_error_code_enum</code> and defining an ADL-enabled function <code>make_error_code</code>.</p>
 
-<h1 id="header-file-utils-hpp-a-id-utils-hpp-a">Header file <code>utils.hpp</code><a id="utils.hpp"></a></h1>
-
-<pre><code class="language-cpp">#define <a href='doc_utils.md#utils.hpp'>OUTCOME_ERROR_FROM_EXCEPTION_HPP</a>
-
-namespace <a href='doc_try.md#try.hpp'>outcome_v2_xxx</a>
-{
-    <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::error_code'>std::error_code</a> <a href='doc_utils.md#outcome_v2_xxx::error_from_exception(std::exception_ptr&&,std::error_code)'>error_from_exception</a>(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::exception_ptr'>std::exception_ptr</a>&amp;&amp; ep, <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::error_code'>std::error_code</a> not_matched = std::make_error_code(std::errc::resource_unavailable_try_again)) noexcept;
-}</code></pre>
-
-<h2 id="function-outcome-v2-xxx-error-from-exception-a-id-outcome-v2-xxx-error-from-exception-std-exception-ptr-std-error-code-a">Function <code>outcome_v2_xxx::error_from_exception</code><a id="outcome_v2_xxx::error_from_exception(std::exception_ptr&&,std::error_code)"></a></h2>
-
-<pre><code class="language-cpp"><a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::error_code'>std::error_code</a> error_from_exception(<a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::exception_ptr'>std::exception_ptr</a>&amp;&amp; ep, <a href='http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search=std::error_code'>std::error_code</a> not_matched = std::make_error_code(std::errc::resource_unavailable_try_again)) noexcept;</code></pre>
-
-<p>Utility function which tries to match the exception in the pointer provided to an equivalent error code. Ought to work for all standard STL types. param e The pointer to an exception to convert. If matched, on exit this is reset to a null pointer. param not_matched The error code to return if we could not match the exception. Note that a null pointer in returns a null error code.</p>
-
-<p>effects Rethrows the exception in the pointer, and via a long sequence of <code>catch</code> clauses attempts to match the equivalent error code. If a match is found, the pointer is reset to null. If a match is not found, <em>not_matched</em> is returned instead and the pointer is left unmodified.</p>
-
-<hr />
+<p>For now, refer to this series of articles by Chris Kohlhoff:
+ * <a href="http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-1.html">System error support in C++0x - part 1</a>
+ * <a href="http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-2.html">System error support in C++0x - part 2</a>
+ * <a href="http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-3.html">System error support in C++0x - part 3</a>
+ * <a href="http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-4.html">System error support in C++0x - part 4</a>
+ * <a href="http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-5.html">System error support in C++0x - part 5</a></p>
 
 
 <footer class=" footline" >
@@ -526,29 +517,6 @@ namespace <a href='doc_try.md#try.hpp'>outcome_v2_xxx</a>
             
                 
                     
-                
-                
-                
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                    
-                
-                    
-            
-            
-                
-                    
                     
                 
                 
@@ -561,8 +529,6 @@ namespace <a href='doc_try.md#try.hpp'>outcome_v2_xxx</a>
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -570,10 +536,14 @@ namespace <a href='doc_try.md#try.hpp'>outcome_v2_xxx</a>
             
         
                     
-                        
+                
+                    
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -597,6 +567,16 @@ namespace <a href='doc_try.md#try.hpp'>outcome_v2_xxx</a>
             
                 
                     
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
                     
                 
                 
@@ -609,8 +589,16 @@ namespace <a href='doc_try.md#try.hpp'>outcome_v2_xxx</a>
             
                 
                     
+                
+                
+                
+            
+        
+                    
                         
-                        
+            
+            
+                
                     
                 
                 
@@ -684,10 +672,10 @@ namespace <a href='doc_try.md#try.hpp'>outcome_v2_xxx</a>
 
 
         
-            <a class="nav nav-prev" href="/outcome/api-reference/doc_try.md/" title="Try operations"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/outcome/tutorial/" title="Tutorial"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/outcome/api-reference/iostream_support.md/" title="iostream support" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/outcome/api-reference/" title="API reference" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
