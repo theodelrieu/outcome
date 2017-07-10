@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.24.1" />
+    <meta name="description" content="">
+
+
+    <title>outcome&lt;T, EC, E&gt; :: Outcome documentation</title>
+    <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
+    <link href="/outcome/css/nucleus.css" rel="stylesheet">
+    <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/outcome/css/hybrid.css" rel="stylesheet">
+    <link href="/outcome/css/featherlight.min.css" rel="stylesheet">
+    <link href="/outcome/css/horsey.css" rel="stylesheet">
+    <link href="/outcome/css/theme.css" rel="stylesheet">
+    <link rel="stylesheet" href="/outcome/css/bootstrap.min.css">
+    <script src="/outcome/js/jquery-2.x.min.js"></script>
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left {
+        display:none !important;
+      }
+    </style>
+
+    
+
+    <link href="/outcome/css/local.css" rel="stylesheet">
+
+  </head>
+  <body class="" data-url="/outcome/synopsis/outcome/">
+    <nav id="sidebar" class="">
+  <div id="header-wrapper">
+    <div id="header">
+       
+	<p>Outcome 2.0 library documentation</p>
+ 
+
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+<script type="text/javascript" src="/outcome/js/lunr.min.js"></script>
+<script type="text/javascript" src="/outcome/js/horsey.js"></script>
+<script type="text/javascript">
+    var baseurl = "https:\/\/ned14.github.io\/outcome\/";
+</script>
+<script type="text/javascript" src="/outcome/js/search.js"></script>
+
+    
+  </div>
+
+
+
+
+
+<div class="highlightable">
+    <ul class="topics">
+        
+        
+            <li data-nav-id="/outcome/" class="dd-item">
+            <a href="/outcome/"><i class="fa fa-fw fa-home"></i></a>
+            </li>
+        
+
+        
+
+
+
+
+<li data-nav-id="/outcome/requirements/" class="dd-item 
+
+
+
+">
+  <a href="/outcome/requirements/">
+    <span>Prerequisites</span>
+
+    
+    <i class="fa fa-angle-right fa-lg category-icon"></i>
+    
+    
+    
+  </a>
+    <ul>
+        
+        
+
+
+
+
+    </ul>
+</li>
+
+
+<li data-nav-id="/outcome/build/" class="dd-item 
+
+
+
+">
+  <a href="/outcome/build/">
+    <span>Build and install</span>
+
+    
+    <i class="fa fa-angle-right fa-lg category-icon"></i>
+    
+    
+    
+  </a>
+    <ul>
+        
+        
+
+
+
+
+    </ul>
+</li>
+
+
+<li data-nav-id="/outcome/tutorial/" class="dd-item 
+
+
+
+">
+  <a href="/outcome/tutorial/">
+    <span>Tutorial</span>
+
+    
+    <i class="fa fa-angle-right fa-lg category-icon"></i>
+    
+    
+    
+  </a>
+    <ul>
+        
+        
+
+
+
+
+    </ul>
+</li>
+
+
+<li data-nav-id="/outcome/api-reference/" class="dd-item 
+
+
+
+">
+  <a href="/outcome/api-reference/">
+    <span>API reference</span>
+
+    
+    <i class="fa fa-angle-right fa-lg category-icon"></i>
+    
+    
+    
+  </a>
+    <ul>
+        
+         
+          <li data-nav-id="/outcome/api-reference/doc_outcome.md/" class="dd-item
+         
+          ">
+            <a href="/outcome/api-reference/doc_outcome.md/">
+            <span>outcome&lt;R, S, P&gt;</span> 
+            
+
+            </a></li>
+         
+        
+         
+          <li data-nav-id="/outcome/api-reference/doc_result.md/" class="dd-item
+         
+          ">
+            <a href="/outcome/api-reference/doc_result.md/">
+            <span>result&lt;R, S&gt;</span> 
+            
+
+            </a></li>
+         
+        
+         
+          <li data-nav-id="/outcome/api-reference/doc_try.md/" class="dd-item
+         
+          ">
+            <a href="/outcome/api-reference/doc_try.md/">
+            <span>Try operations</span> 
+            
+
+            </a></li>
+         
+        
+         
+          <li data-nav-id="/outcome/api-reference/doc_utils.md/" class="dd-item
+         
+          ">
+            <a href="/outcome/api-reference/doc_utils.md/">
+            <span>Utilities</span> 
+            
+
+            </a></li>
+         
+        
+         
+          <li data-nav-id="/outcome/api-reference/iostream_support.md/" class="dd-item
+         
+          ">
+            <a href="/outcome/api-reference/iostream_support.md/">
+            <span>iostream support</span> 
+            
+
+            </a></li>
+         
+        
+        
+
+
+
+
+    </ul>
+</li>
+
+
+<li data-nav-id="/outcome/synopsis/" class="dd-item 
+parent
+
+
+">
+  <a href="/outcome/synopsis/">
+    <span>Synopsis</span>
+
+    
+    <i class="fa fa-angle-down fa-lg category-icon"></i>
+    
+    
+    
+  </a>
+    <ul>
+        
+         
+          <li data-nav-id="/outcome/synopsis/result/" class="dd-item
+         
+          ">
+            <a href="/outcome/synopsis/result/">
+            <span>result&lt;T, EC&gt;</span> 
+            
+
+            </a></li>
+         
+        
+         
+          <li data-nav-id="/outcome/synopsis/outcome/" class="dd-item
+         active
+          ">
+            <a href="/outcome/synopsis/outcome/">
+            <span>outcome&lt;T, EC, E&gt;</span> 
+            
+
+            </a></li>
+         
+        
+        
+
+
+
+
+    </ul>
+</li>
+
+
+<li data-nav-id="/outcome/faq/" class="dd-item 
+
+
+
+">
+  <a href="/outcome/faq/">
+    <span>Frequently asked questions</span>
+
+    
+    <i class="fa fa-angle-right fa-lg category-icon"></i>
+    
+    
+    
+  </a>
+    <ul>
+        
+        
+
+
+
+
+    </ul>
+</li>
+
+
+<li data-nav-id="/outcome/history/" class="dd-item 
+
+
+
+">
+  <a href="/outcome/history/">
+    <span>History</span>
+
+    
+    <i class="fa fa-angle-right fa-lg category-icon"></i>
+    
+    
+    
+  </a>
+    <ul>
+        
+        
+
+
+
+
+    </ul>
+</li>
+
+
+
+        
+        <section id="shortcuts">
+            
+                <li class="" role="">
+                    <h3>More</h3>
+                    <a href="https://github.com/ned14/outcome"><i class='fa fa-github'></i> Outcome 2.0 github repo</a>
+                    
+                </li>
+            
+                <li class="" role="">
+                    
+                    <a href="/outcome/credits"><i class='fa fa-bullhorn'></i> Acknowledgements</a>
+                    
+                </li>
+            
+        </section>    
+        
+        
+
+        
+    </ul>
+    
+     
+    <section id="footer">
+      <center>
+
+<a class="github-button" href="https://github.com/ned14/outcome/archive/master.zip" data-icon="octicon-cloud-download" aria-label="Download Outcome on GitHub">Download</a>
+
+
+<a class="github-button" href="https://github.com/ned14/outcome" data-icon="octicon-star" data-show-count="false" aria-label="Star Outcome on GitHub">Star</a>
+
+
+<a class="github-button" href="https://github.com/ned14/outcome/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork Outcome on GitHub">Fork</a>
+
+</center>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+    </section>
+  </div>
+</nav>
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+        
+          <div id="top-bar">
+            
+              
+              
+              
+            <div id="top-github-link">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/synopsis/outcome.md" target="blank">
+                <i class="fa fa-code-fork"></i>
+                Edit page
+              </a>
+            </div>
+              
+            
+
+            <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <span id="sidebar-toggle-span">
+                  <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                    <i class="fa fa-bars"></i>
+                  </a>
+                </span>
+                <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                <span class="links">
+                
+
+
+
+
+
+
+
+ <a href='/outcome/'>Home</a> > <a href='/outcome/synopsis/'>Synopsis</a> > outcome<T, EC, E>
+
+ 
+
+ 
+
+   
+                </span>
+            </div>
+            <div class="progress">
+    <div class="wrapper">
+
+    </div>
+</div>
+
+          </div>
+        
+        
+        <div id="body-inner">
+          
+            <h1>outcome&lt;T, EC, E&gt;</h1>
+          
+
+
+
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">template</span> <span class="o">&lt;</span>
+  <span class="k">class</span> <span class="nc">R</span><span class="p">,</span>
+  <span class="k">class</span> <span class="nc">S</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">error_code</span><span class="p">,</span>
+  <span class="k">class</span> <span class="nc">P</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">exception_ptr</span><span class="p">,</span>
+  <span class="k">class</span> <span class="nc">NoValuePolicy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">::</span><span class="n">default_outcome_policy</span><span class="o">&lt;</span><span class="n">R</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">P</span><span class="o">&gt;</span>
+<span class="o">&gt;</span>
+<span class="n">requires</span>
+  <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_void</span><span class="o">&lt;</span><span class="n">EC</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">||</span> <span class="n">std</span><span class="o">::</span><span class="n">is_default_constructible</span><span class="o">&lt;</span><span class="n">EC</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">)</span> 
+  <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_void</span><span class="o">&lt;</span><span class="n">P</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">||</span> <span class="n">std</span><span class="o">::</span><span class="n">is_default_constructible</span><span class="o">&lt;</span><span class="n">P</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">)</span>
+<span class="k">class</span> <span class="err">[[</span><span class="nc">nodiscard</span><span class="p">]]</span> <span class="n">outcome</span>
+<span class="p">{</span>
+<span class="nl">public:</span>
+  <span class="c1">/// \output_section Member types</span>
+  <span class="c1">//! The success type.</span>
+  <span class="k">using</span> <span class="n">value_type</span> <span class="o">=</span> <span class="n">R</span><span class="p">;</span>
+  <span class="c1">//! The S type configured</span>
+  <span class="k">using</span> <span class="n">status_error_type</span> <span class="o">=</span> <span class="n">S</span><span class="p">;</span>
+  <span class="c1">//! The failure type.</span>
+  <span class="k">using</span> <span class="n">error_type</span> <span class="o">=</span> <span class="n">S</span><span class="p">;</span>
+  <span class="c1">//! The P type configured.</span>
+  <span class="k">using</span> <span class="n">payload_exception_type</span> <span class="o">=</span> <span class="n">P</span><span class="p">;</span>
+  <span class="c1">//! The payload type, always `no_payload_type` if `trait::is_exception_ptr&lt;P&gt;` is true.</span>
+  <span class="k">using</span> <span class="n">payload_type</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="kt">conditional_t</span><span class="o">&lt;</span><span class="n">trait</span><span class="o">::</span><span class="n">is_exception_ptr</span><span class="o">&lt;</span><span class="n">P</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span> <span class="n">no_payload_type</span><span class="p">,</span> <span class="n">P</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="c1">//! The exception type, always `no_exception_type` if `trait::is_exception_ptr&lt;P&gt;` is false.</span>
+  <span class="k">using</span> <span class="n">exception_type</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="kt">conditional_t</span><span class="o">&lt;!</span><span class="n">trait</span><span class="o">::</span><span class="n">is_exception_ptr</span><span class="o">&lt;</span><span class="n">P</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span> <span class="n">no_exception_type</span><span class="p">,</span> <span class="n">P</span><span class="o">&gt;</span><span class="p">;</span>
+
+  <span class="c1">//! Used to rebind this outcome to a different outcome type</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span> <span class="o">=</span> <span class="n">S</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span> <span class="o">=</span> <span class="n">P</span><span class="o">&gt;</span> <span class="k">using</span> <span class="n">rebind</span> <span class="o">=</span> <span class="n">outcome</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">P</span><span class="o">&gt;</span><span class="p">;</span>
+
+  <span class="c1">//! Used to disable in place type construction when `value_type` is ambiguous with `error_type` or `payload_exception_type`.</span>
+  <span class="k">using</span> <span class="n">value_type_if_enabled</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="kt">conditional_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">error_type</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">||</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">payload_exception_type</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span> <span class="k">typename</span> <span class="n">base</span><span class="o">::</span><span class="n">_value_type</span><span class="p">,</span> <span class="n">value_type</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="c1">//! Used to disable in place type construction when `error_type` is ambiguous with `value_type` or `payload_exception_type`.</span>
+  <span class="k">using</span> <span class="n">error_type_if_enabled</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="kt">conditional_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">error_type</span><span class="p">,</span> <span class="n">value_type</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">||</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">error_type</span><span class="p">,</span> <span class="n">payload_exception_type</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span> <span class="k">typename</span> <span class="n">base</span><span class="o">::</span><span class="n">_error_type</span><span class="p">,</span> <span class="n">error_type</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="c1">//! Used to disable in place type construction when `payload_exception_type` is ambiguous with `value_type` or `error_type`.</span>
+  <span class="k">using</span> <span class="n">exception_type_if_enabled</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="kt">conditional_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">exception_type</span><span class="p">,</span> <span class="n">value_type</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">||</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">exception_type</span><span class="p">,</span> <span class="n">error_type</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span> <span class="n">disable_in_place_payload_exception_type</span><span class="p">,</span> <span class="n">exception_type</span><span class="o">&gt;</span><span class="p">;</span>
+
+  <span class="c1">/// \output_section Converting constructors</span>
+  <span class="cm">/*! Converting constructor to a successful outcome.</span>
+<span class="cm">  \tparam enable_value_converting_constructor</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param 1</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param t The value from which to initialise the `value_type`.</span>
+
+<span class="cm">  \effects Initialises the outcome with a `value_type`.</span>
+<span class="cm">  \requires Type T is constructible to `value_type`, is not constructible to `status_error_type`, is not constructible to `exception_type` and is not `outcome&lt;R, S, P&gt;` and not `in_place_type&lt;&gt;`.</span>
+<span class="cm">  \throws Any exception the construction of `value_type(T)` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_value_converting_constructor</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="n">outcome</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span><span class="n">t</span><span class="p">,</span> <span class="n">value_converting_constructor_tag</span> <span class="o">=</span> <span class="n">value_converting_constructor_tag</span><span class="p">())</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+  
+  <span class="cm">/*! Converting constructor to an errored outcome.</span>
+<span class="cm">  \tparam enable_error_converting_constructor</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param 1</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param t The value from which to initialise the `error_type`.</span>
+
+<span class="cm">  \effects Initialises the outcome with a `error_type`.</span>
+<span class="cm">  \requires `trait::status_type_is_negative&lt;EC&gt;` must be true; Type T is constructible to `error_type`,</span>
+<span class="cm">  is not constructible to `value_type`, is not constructible to `payload_exception_type`, and is not `outcome&lt;R, S, P&gt;` and not `in_place_type&lt;&gt;`.</span>
+<span class="cm">  \throws Any exception the construction of `error_type(T)` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_error_converting_constructor</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="n">outcome</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span><span class="n">t</span><span class="p">,</span> <span class="n">error_converting_constructor_tag</span> <span class="o">=</span> <span class="n">error_converting_constructor_tag</span><span class="p">())</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">error_type</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  <span class="cm">/*! Converting constructor to an errored outcome + payload/exception.</span>
+<span class="cm">  \tparam enable_error_payload_converting_constructor</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param 2</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param t The value from which to initialise the `error_type`.</span>
+<span class="cm">  \param u The value from which to initialise the `payload_exception_type`.</span>
+
+<span class="cm">  \effects Initialises the outcome with a `error_type` and a `payload_exception_type`.</span>
+<span class="cm">  \requires `trait::status_type_is_negative&lt;EC&gt;` must be true; Type T is constructible to `error_type`,</span>
+<span class="cm">  is not constructible to `value_type`, and is not `outcome&lt;R, S, P&gt;` and not `in_place_type&lt;&gt;`;</span>
+<span class="cm">  Type `U` is constructible to `payload_exception_type`, is not constructible to `value_type`.</span>
+<span class="cm">  \throws Any exception the construction of `error_type(T)` and `payload_exception_type(U)` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_error_payload_converting_constructor</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="n">outcome</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span><span class="n">t</span><span class="p">,</span> <span class="n">U</span> <span class="o">&amp;&amp;</span><span class="n">u</span><span class="p">,</span> <span class="n">error_payload_converting_constructor_tag</span> <span class="o">=</span> <span class="n">error_payload_converting_constructor_tag</span><span class="p">())</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">error_type</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">payload_exception_type</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  <span class="cm">/*! Special error condition converting constructor to an errored outcome.</span>
+<span class="cm">  \tparam enable_error_condition_converting_constructor</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param 1</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param t The error condition from which to initialise the `error_type`.</span>
+
+<span class="cm">  \effects Initialises the outcome with a `error_type` constructed via `make_error_code(t)`.</span>
+<span class="cm">  \requires `trait::status_type_is_negative&lt;EC&gt;` must be true; `std::is_error_condition_enum&lt;ErrorCondEnum&gt;` must be true,</span>
+<span class="cm">  `ErrorCondEnum` is not constructible to `value_type`, `error_type` nor `payload_exception_type`, and is not `outcome&lt;R, S, P&gt;` and not `in_place_type&lt;&gt;`;</span>
+<span class="cm">  Finally, the expression `error_type(make_error_code(ErrorCondEnum()))` must be valid.</span>
+<span class="cm">  \throws Any exception the construction of `error_type(make_error_code(t))` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">ErrorCondEnum</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TEXPR</span><span class="p">(</span><span class="n">error_type</span><span class="p">(</span><span class="n">make_error_code</span><span class="p">(</span><span class="n">ErrorCondEnum</span><span class="p">()))),</span>  <span class="c1">//</span>
+                    <span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_error_condition_converting_constructor</span><span class="o">&lt;</span><span class="n">ErrorCondEnum</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="n">outcome</span><span class="p">(</span><span class="n">ErrorCondEnum</span> <span class="o">&amp;&amp;</span><span class="n">t</span><span class="p">,</span> <span class="n">error_condition_converting_constructor_tag</span> <span class="o">=</span> <span class="n">error_condition_converting_constructor_tag</span><span class="p">())</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">noexcept</span><span class="p">(</span><span class="n">error_type</span><span class="p">(</span><span class="n">make_error_code</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">ErrorCondEnum</span><span class="o">&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">)))));</span>
+
+  <span class="cm">/*! Converting constructor to an excepted outcome.</span>
+<span class="cm">  \tparam enable_exception_converting_constructor</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param 1</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param t The value from which to initialise the `exception_type`.</span>
+
+<span class="cm">  \effects Initialises the outcome with a `exception_type`.</span>
+<span class="cm">  \requires `trait::is_exception_ptr&lt;P&gt;` must be true; Type T is constructible to `exception_type`,</span>
+<span class="cm">  is not constructible to `value_type`, is not constructible to `status_error_type`, and is not `outcome&lt;R, S, P&gt;` and not `in_place_type&lt;&gt;`.</span>
+<span class="cm">  \throws Any exception the construction of `exception_type(T)` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_exception_converting_constructor</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="n">outcome</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span><span class="n">t</span><span class="p">,</span> <span class="n">exception_converting_constructor_tag</span> <span class="o">=</span> <span class="n">exception_converting_constructor_tag</span><span class="p">())</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">exception_type</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  
+  <span class="cm">/*! Explicit converting copy constructor from a compatible outcome type.</span>
+<span class="cm">  \tparam enable_explicit_compatible_conversion</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param o The compatible outcome.</span>
+
+<span class="cm">  \effects Initialises the outcome with a copy of the compatible outcome.</span>
+<span class="cm">  \requires Both outcome&#39;s `value_type`, `error_type`, `status_type`, `payload_type` and `exception_type` need to be constructible, or the source `void`.</span>
+<span class="cm">  The source `value_type` cannot be `void`.</span>
+<span class="cm">  \throws Any exception the construction of `value_type(T)`, `status_error_type(U)` or `payload_exception_type(V)` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">,</span> <span class="k">class</span> <span class="nc">W</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_explicit_compatible_conversion</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">W</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="n">outcome</span><span class="p">(</span><span class="k">const</span> <span class="n">outcome</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">W</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">,</span>
+                             <span class="n">explicit_compatible_conversion_tag</span> <span class="o">=</span> <span class="n">explicit_compatible_conversion_tag</span><span class="p">())</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">status_error_type</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">payload_exception_type</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  <span class="cm">/*! Implicit converting copy constructor from a compatible outcome type.</span>
+<span class="cm">  \tparam enable_implicit_compatible_conversion</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param o The compatible outcome.</span>
+
+<span class="cm">  \effects Initialises the outcome with a copy of the compatible outcome.</span>
+<span class="cm">  \requires Both outcome&#39;s `error_type`, `status_type`, `payload_type` and `exception_type` need to be constructible, or the source `void`.</span>
+<span class="cm">  The source `value_type` must be `void`.</span>
+<span class="cm">  \throws Any exception the construction of `status_error_type(U)` or `payload_exception_type(V)` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">,</span> <span class="k">class</span> <span class="nc">W</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_implicit_compatible_conversion</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">W</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="n">outcome</span><span class="p">(</span><span class="k">const</span> <span class="n">outcome</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">W</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">,</span> <span class="n">implicit_compatible_conversion_tag</span> <span class="o">=</span> <span class="n">implicit_compatible_conversion_tag</span><span class="p">())</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">payload_exception_type</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  <span class="cm">/*! Explicit converting move constructor from a compatible outcome type.</span>
+<span class="cm">  \tparam enable_explicit_compatible_conversion</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param o The compatible outcome.</span>
+
+<span class="cm">  \effects Initialises the outcome with a move of the compatible outcome.</span>
+<span class="cm">  \requires Both outcome&#39;s `value_type`, `error_type`, `status_type`, `payload_type` and `exception_type` need to be constructible, or the source `void`.</span>
+<span class="cm">  The source `value_type` cannot be `void`.</span>
+<span class="cm">  \throws Any exception the construction of `value_type(T)`, `status_error_type(U)` or `payload_exception_type(V)` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">,</span> <span class="k">class</span> <span class="nc">W</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_explicit_compatible_conversion</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">W</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="n">outcome</span><span class="p">(</span><span class="n">outcome</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">W</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span><span class="n">o</span><span class="p">,</span> <span class="n">explicit_compatible_conversion_tag</span> <span class="o">=</span> <span class="n">explicit_compatible_conversion_tag</span><span class="p">())</span>
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">status_error_type</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">payload_exception_type</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  <span class="cm">/*! Implicit converting move constructor from a compatible outcome type.</span>
+<span class="cm">  \tparam enable_implicit_compatible_conversion</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param o The compatible outcome.</span>
+
+<span class="cm">  \effects Initialises the outcome with a move of the compatible outcome.</span>
+<span class="cm">  \requires Both outcome&#39;s `error_type`, `status_type`, `payload_type` and `exception_type` need to be constructible, or the source `void`.</span>
+<span class="cm">  The source `value_type` must be `void`.</span>
+<span class="cm">  \throws Any exception the construction of `status_error_type(U)` or `payload_exception_type(V)` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">,</span> <span class="k">class</span> <span class="nc">W</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_implicit_compatible_conversion</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">W</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="n">outcome</span><span class="p">(</span><span class="n">outcome</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">W</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span><span class="n">o</span><span class="p">,</span> <span class="n">implicit_compatible_conversion_tag</span> <span class="o">=</span> <span class="n">implicit_compatible_conversion_tag</span><span class="p">())</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">status_error_type</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">payload_exception_type</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  <span class="cm">/*! Explicit converting copy constructor from a compatible result type.</span>
+<span class="cm">  \tparam enable_explicit_compatible_conversion</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param o The compatible result.</span>
+
+<span class="cm">  \effects Initialises the outcome with a copy of the compatible result.</span>
+<span class="cm">  \requires Both outcome&#39;s `value_type`, `error_type` and `status_type` need to be constructible, or the source `void`.</span>
+<span class="cm">  The source `value_type` cannot be `void`.</span>
+<span class="cm">  \throws Any exception the construction of `value_type(T)`, `status_error_type(U)` or `payload_exception_type()` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">result_predicates</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">status_error_type</span><span class="p">,</span> <span class="n">error_type</span><span class="o">&gt;::</span><span class="k">template</span> <span class="n">enable_explicit_compatible_conversion</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="n">outcome</span><span class="p">(</span><span class="k">const</span> <span class="n">result</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">,</span> <span class="n">explicit_compatible_conversion_tag</span> <span class="o">=</span> <span class="n">explicit_compatible_conversion_tag</span><span class="p">())</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">status_error_type</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">payload_exception_type</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  <span class="cm">/*! Implicit converting copy constructor from a compatible result type.</span>
+<span class="cm">  \tparam enable_implicit_compatible_conversion</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param o The compatible result.</span>
+
+<span class="cm">  \effects Initialises the outcome with a copy of the compatible result.</span>
+<span class="cm">  \requires Both outcome&#39;s`error_type` and `status_type` need to be constructible, or the source `void`.</span>
+<span class="cm">  The source `value_type` must be `void`.</span>
+<span class="cm">  \throws Any exception the construction of`status_error_type(U)` or `payload_exception_type()` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">result_predicates</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">status_error_type</span><span class="p">,</span> <span class="n">error_type</span><span class="o">&gt;::</span><span class="k">template</span> <span class="n">enable_implicit_compatible_conversion</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="n">outcome</span><span class="p">(</span><span class="k">const</span> <span class="n">result</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">,</span> <span class="n">implicit_compatible_conversion_tag</span> <span class="o">=</span> <span class="n">implicit_compatible_conversion_tag</span><span class="p">())</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">status_error_type</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">payload_exception_type</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  <span class="cm">/*! Explicit converting move constructor from a compatible result type.</span>
+<span class="cm">  \tparam enable_explicit_compatible_conversion</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param o The compatible result.</span>
+
+<span class="cm">  \effects Initialises the outcome with a move of the compatible result.</span>
+<span class="cm">  \requires Both outcome&#39;s `value_type`, `error_type` and `status_type` need to be constructible, or the source `void`.</span>
+<span class="cm">  The source `value_type` cannot be `void`.</span>
+<span class="cm">  \throws Any exception the construction of `value_type(T)`, `status_error_type(U)` or `payload_exception_type()` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">result_predicates</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">status_error_type</span><span class="p">,</span> <span class="n">error_type</span><span class="o">&gt;::</span><span class="k">template</span> <span class="n">enable_explicit_compatible_conversion</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="n">outcome</span><span class="p">(</span><span class="n">result</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span><span class="n">o</span><span class="p">,</span> <span class="n">explicit_compatible_conversion_tag</span> <span class="o">=</span> <span class="n">explicit_compatible_conversion_tag</span><span class="p">())</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">status_error_type</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">payload_exception_type</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  <span class="cm">/*! Implicit converting move constructor from a compatible result type.</span>
+<span class="cm">  \tparam enable_implicit_compatible_conversion</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param o The compatible result.</span>
+
+<span class="cm">  \effects Initialises the outcome with a move of the compatible result.</span>
+<span class="cm">  \requires Both outcome&#39;s `error_type` and `status_type` need to be constructible, or the source `void`.</span>
+<span class="cm">  The source `value_type` must be `void`.</span>
+<span class="cm">  \throws Any exception the construction of `status_error_type(U)` or `payload_exception_type()` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">result_predicates</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">status_error_type</span><span class="p">,</span> <span class="n">error_type</span><span class="o">&gt;::</span><span class="k">template</span> <span class="n">enable_implicit_compatible_conversion</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="n">outcome</span><span class="p">(</span><span class="n">result</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span><span class="n">o</span><span class="p">,</span> <span class="n">implicit_compatible_conversion_tag</span> <span class="o">=</span> <span class="n">implicit_compatible_conversion_tag</span><span class="p">())</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">status_error_type</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">payload_exception_type</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  
+
+  <span class="c1">/// \output_section In place constructors</span>
+  <span class="cm">/*! Inplace constructor to a successful value.</span>
+<span class="cm">  \tparam 1</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param _ Tag type to indicate we are doing in place construction of `value_type`.</span>
+<span class="cm">  \param args Arguments with which to in place construct.</span>
+
+<span class="cm">  \effects Initialises the outcome with a `value_type`.</span>
+<span class="cm">  \requires `value_type` is void or `Args...` are constructible to `value_type`.</span>
+<span class="cm">  \throws Any exception the construction of `value_type(Args...)` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_inplace_value_constructor</span><span class="o">&lt;</span><span class="n">Args</span><span class="p">...</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="n">outcome</span><span class="p">(</span><span class="kt">in_place_type_t</span><span class="o">&lt;</span><span class="n">value_type_if_enabled</span><span class="o">&gt;</span> <span class="n">_</span><span class="p">,</span> <span class="n">Args</span> <span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  <span class="cm">/*! Inplace constructor to a successful value.</span>
+<span class="cm">  \tparam 2</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param _ Tag type to indicate we are doing in place construction of `value_type`.</span>
+<span class="cm">  \param il An initializer list with which to in place construct.</span>
+<span class="cm">  \param args Arguments with which to in place construct.</span>
+
+<span class="cm">  \effects Initialises the outcome with a `value_type`.</span>
+<span class="cm">  \requires The initializer list + `Args...` are constructible to `value_type`.</span>
+<span class="cm">  \throws Any exception the construction of `value_type(il, Args...)` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_inplace_value_constructor</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="n">outcome</span><span class="p">(</span><span class="kt">in_place_type_t</span><span class="o">&lt;</span><span class="n">value_type_if_enabled</span><span class="o">&gt;</span> <span class="n">_</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span> <span class="n">il</span><span class="p">,</span> <span class="n">Args</span> <span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  <span class="cm">/*! Inplace constructor to an unsuccessful error.</span>
+<span class="cm">  \tparam 1</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param _ Tag type to indicate we are doing in place construction of `error_type`.</span>
+<span class="cm">  \param args Arguments with which to in place construct.</span>
+
+<span class="cm">  \effects Initialises the outcome with a `error_type`.</span>
+<span class="cm">  \requires `trait::status_type_is_negative&lt;EC&gt;` must be true; `error_type` is void or `Args...` are constructible to `error_type`.</span>
+<span class="cm">  \throws Any exception the construction of `error_type(Args...)` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_inplace_error_constructor</span><span class="o">&lt;</span><span class="n">Args</span><span class="p">...</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="n">outcome</span><span class="p">(</span><span class="kt">in_place_type_t</span><span class="o">&lt;</span><span class="n">error_type_if_enabled</span><span class="o">&gt;</span> <span class="n">_</span><span class="p">,</span> <span class="n">Args</span> <span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">error_type</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  <span class="cm">/*! Inplace constructor to an unsuccessful error.</span>
+<span class="cm">  \tparam 2</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param _ Tag type to indicate we are doing in place construction of `error_type`.</span>
+<span class="cm">  \param il An initializer list with which to in place construct.</span>
+<span class="cm">  \param args Arguments with which to in place construct.</span>
+
+<span class="cm">  \effects Initialises the outcome with a `error_type`.</span>
+<span class="cm">  \requires `trait::status_type_is_negative&lt;EC&gt;` must be true; The initializer list + `Args...` are constructible to `error_type`.</span>
+<span class="cm">  \throws Any exception the construction of `error_type(il, Args...)` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_inplace_error_constructor</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="n">outcome</span><span class="p">(</span><span class="kt">in_place_type_t</span><span class="o">&lt;</span><span class="n">error_type_if_enabled</span><span class="o">&gt;</span> <span class="n">_</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span> <span class="n">il</span><span class="p">,</span> <span class="n">Args</span> <span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">error_type</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  <span class="cm">/*! Inplace constructor to an unsuccessful exception.</span>
+<span class="cm">  \tparam 1</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param _ Tag type to indicate we are doing in place construction of `exception_type`.</span>
+<span class="cm">  \param args Arguments with which to in place construct.</span>
+
+<span class="cm">  \effects Initialises the outcome with an `exception_type`.</span>
+<span class="cm">  \requires `exception_type` is void or `Args...` are constructible to `exception_type`.</span>
+<span class="cm">  \throws Any exception the construction of `exception_type(Args...)` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_inplace_exception_constructor</span><span class="o">&lt;</span><span class="n">Args</span><span class="p">...</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="n">outcome</span><span class="p">(</span><span class="kt">in_place_type_t</span><span class="o">&lt;</span><span class="n">exception_type_if_enabled</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Args</span> <span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">exception_type</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  <span class="cm">/*! Inplace constructor to an unsuccessful exception.</span>
+<span class="cm">  \tparam 2</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param _ Tag type to indicate we are doing in place construction of `exception_type`.</span>
+<span class="cm">  \param il An initializer list with which to in place construct.</span>
+<span class="cm">  \param args Arguments with which to in place construct.</span>
+
+<span class="cm">  \effects Initialises the outcome with an `exception_type`.</span>
+<span class="cm">  \requires The initializer list + `Args...` are constructible to `exception_type`.</span>
+<span class="cm">  \throws Any exception the construction of `exception_type(il, Args...)` might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_inplace_exception_constructor</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;</span><span class="p">))</span>
+  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="n">outcome</span><span class="p">(</span><span class="kt">in_place_type_t</span><span class="o">&lt;</span><span class="n">exception_type_if_enabled</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span> <span class="n">il</span><span class="p">,</span> <span class="n">Args</span> <span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> 
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">exception_type</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  
+  <span class="c1">/// \output_section Comparison operators</span>
+  <span class="cm">/*! True if equal to the other outcome.</span>
+<span class="cm">  \tparam 4</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \tparam 5</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \tparam 6</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param o The other outcome to compare to.</span>
+
+<span class="cm">  \effects Calls the `operator==` operation on each of the three stored items until one returns false.</span>
+<span class="cm">  \requires That the expression of calling `operator==` on each of the three stored items is a valid expression.</span>
+<span class="cm">  \throws Any exception the individual `operator==` operations might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">,</span> <span class="k">class</span> <span class="nc">W</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span>                                      <span class="c1">//</span>
+  <span class="n">OUTCOME_TEXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()),</span>  <span class="c1">//</span>
+  <span class="n">OUTCOME_TEXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">()),</span>  <span class="c1">//</span>
+  <span class="n">OUTCOME_TEXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">P</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span><span class="p">())</span>   <span class="c1">//</span>
+  <span class="p">)</span>
+  <span class="n">constexpr</span> <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">outcome</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">W</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">)</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">(</span>  <span class="c1">//</span>
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">())</span>                         <span class="c1">//</span>
+  <span class="o">&amp;&amp;</span> <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">())</span>                      <span class="c1">//</span>
+  <span class="o">&amp;&amp;</span> <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">P</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span><span class="p">()));</span>
+  <span class="cm">/*! True if not equal to the other outcome.</span>
+<span class="cm">  \tparam 4</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \tparam 5</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \tparam 6</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param o The other outcome to compare to.</span>
+
+<span class="cm">  \effects Calls the `operator!=` operation on each of the three stored items until one returns true.</span>
+<span class="cm">  \requires That the expression of calling `operator!=` on each of the three stored items is a valid expression.</span>
+<span class="cm">  \throws Any exception the individual `operator!=` operations might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">,</span> <span class="k">class</span> <span class="nc">W</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span>                                      <span class="c1">//</span>
+  <span class="n">OUTCOME_TEXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()),</span>  <span class="c1">//</span>
+  <span class="n">OUTCOME_TEXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">()),</span>  <span class="c1">//</span>
+  <span class="n">OUTCOME_TEXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">P</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span><span class="p">())</span>   <span class="c1">//</span>
+  <span class="p">)</span>
+  <span class="n">constexpr</span> <span class="kt">bool</span> <span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span> <span class="n">outcome</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">W</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">)</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">(</span>  <span class="c1">//</span>
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">())</span>                         <span class="c1">//</span>
+  <span class="o">&amp;&amp;</span> <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">())</span>                      <span class="c1">//</span>
+  <span class="o">&amp;&amp;</span> <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">P</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span><span class="p">()));</span>
+  <span class="cm">/*! True if equal to the other result.</span>
+<span class="cm">  \tparam 4</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \tparam 5</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param o The other result to compare to.</span>
+
+<span class="cm">  \effects Calls the `operator==` operation on each of the two stored items until one returns false.</span>
+<span class="cm">  \requires That the expression of calling `operator==` on each of the two stored items is a valid expression.</span>
+<span class="cm">  \throws Any exception the individual `operator==` operations might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span>                                      <span class="c1">//</span>
+  <span class="n">OUTCOME_TEXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()),</span>  <span class="c1">//</span>
+  <span class="n">OUTCOME_TEXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">())</span>   <span class="c1">//</span>
+  <span class="p">)</span>
+  <span class="n">constexpr</span> <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">result</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">)</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">(</span>  <span class="c1">//</span>
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">())</span>                     <span class="c1">//</span>
+  <span class="o">&amp;&amp;</span> <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">()));</span>
+  <span class="cm">/*! True if not equal to the other result.</span>
+<span class="cm">  \tparam 4</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \tparam 5</span>
+<span class="cm">  \exclude</span>
+<span class="cm">  \param o The other result to compare to.</span>
+
+<span class="cm">  \effects Calls the `operator!=` operation on each of the two stored items until one returns true.</span>
+<span class="cm">  \requires That the expression of calling `operator!=` on each of the two stored items is a valid expression.</span>
+<span class="cm">  \throws Any exception the individual `operator!=` operations might throw.</span>
+<span class="cm">  */</span>
+  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">)</span>
+  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span>                                      <span class="c1">//</span>
+  <span class="n">OUTCOME_TEXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()),</span>  <span class="c1">//</span>
+  <span class="n">OUTCOME_TEXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">())</span>   <span class="c1">//</span>
+  <span class="p">)</span>
+  <span class="n">constexpr</span> <span class="kt">bool</span> <span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span> <span class="n">result</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">)</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">(</span>  <span class="c1">//</span>
+  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">())</span>                     <span class="c1">//</span>
+  <span class="o">&amp;&amp;</span> <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">()));</span>
+
+  <span class="c1">/// \output_section Swap</span>
+  <span class="cm">/*! Swaps this result with another result</span>
+<span class="cm">  \effects Any `R` and/or `S` is swapped along with the metadata tracking them.</span>
+<span class="cm">  */</span>
+  <span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="n">outcome</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">)</span> <span class="n">noexcept</span><span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">is_nothrow_swappable</span><span class="o">&lt;</span><span class="n">value_type</span><span class="o">&gt;::</span><span class="n">value</span>           <span class="c1">//</span>
+                                 <span class="o">&amp;&amp;</span><span class="n">detail</span><span class="o">::</span><span class="n">is_nothrow_swappable</span><span class="o">&lt;</span><span class="n">status_error_type</span><span class="o">&gt;::</span><span class="n">value</span>  <span class="c1">//</span>
+                                 <span class="o">&amp;&amp;</span><span class="n">detail</span><span class="o">::</span><span class="n">is_nothrow_swappable</span><span class="o">&lt;</span><span class="n">payload_exception_type</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+
+  <span class="c1">/// \output_section Converters</span>
+  <span class="cm">/*! Returns this outcome rebound to void with any errored and payload state copied.</span>
+<span class="cm">  \requires This outcome to have a failed state, else whatever `assume_error()` would do.</span>
+<span class="cm">  */</span>
+  <span class="n">rebind</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">as_void</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;</span><span class="p">;</span>
+  <span class="cm">/*! Returns this outcome rebound to void with any errored and payload state moved.</span>
+<span class="cm">  \requires This outcome to have a failed state, else whatever `assume_error()` would do.</span>
+<span class="cm">  */</span>
+  <span class="n">rebind</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">as_void</span><span class="p">()</span> <span class="o">&amp;&amp;</span><span class="p">;</span>
+
+
+  
+  <span class="c1">/// \output_section Narrow state observers</span>
+  <span class="cm">/*! Access value without runtime checks.</span>
+<span class="cm">  \preconditions The result to have a successful state, otherwise it is undefined behaviour.</span>
+<span class="cm">  \returns Reference to the held `value_type` according to overload.</span>
+<span class="cm">  \group assume_value</span>
+<span class="cm">  */</span>
+  <span class="n">constexpr</span> <span class="n">value_type</span> <span class="o">&amp;</span><span class="n">assume_value</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">noexcept</span><span class="p">;</span>
+  <span class="c1">/// \group assume_value</span>
+  <span class="n">constexpr</span> <span class="k">const</span> <span class="n">value_type</span> <span class="o">&amp;</span><span class="n">assume_value</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;</span><span class="n">noexcept</span><span class="p">;</span>
+  <span class="c1">/// \group assume_value</span>
+  <span class="n">constexpr</span> <span class="n">value_type</span> <span class="o">&amp;&amp;</span><span class="n">assume_value</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">noexcept</span><span class="p">;</span>
+  <span class="c1">/// \group assume_value</span>
+  <span class="n">constexpr</span> <span class="k">const</span> <span class="n">value_type</span> <span class="o">&amp;&amp;</span><span class="n">assume_value</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;&amp;</span><span class="n">noexcept</span><span class="p">;</span>
+
+  <span class="c1">/// \output_section Wide state observers</span>
+  <span class="cm">/*! Access value with runtime checks.</span>
+<span class="cm">  \returns Reference to the held `value_type` according to overload.</span>
+<span class="cm">  \requires The result to have a successful state, else whatever `NoValuePolicy` says ought to happen.</span>
+<span class="cm">  \group value</span>
+<span class="cm">  */</span>
+  <span class="n">constexpr</span> <span class="n">value_type</span> <span class="o">&amp;</span><span class="n">value</span><span class="p">()</span> <span class="o">&amp;</span><span class="p">;</span>
+  <span class="c1">/// \group value</span>
+  <span class="n">constexpr</span> <span class="k">const</span> <span class="n">value_type</span> <span class="o">&amp;</span><span class="n">value</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;</span><span class="p">;</span>
+  <span class="c1">/// \group value</span>
+  <span class="n">constexpr</span> <span class="n">value_type</span> <span class="o">&amp;&amp;</span><span class="n">value</span><span class="p">()</span> <span class="o">&amp;&amp;</span><span class="p">;</span>
+  <span class="c1">/// \group value</span>
+  <span class="n">constexpr</span> <span class="k">const</span> <span class="n">value_type</span> <span class="o">&amp;&amp;</span><span class="n">value</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;&amp;</span><span class="p">;</span>
+
+  <span class="c1">/// \output_section Narrow state observers</span>
+  <span class="cm">/*! Access error without runtime checks.</span>
+<span class="cm">  \preconditions The result to have a failed state, otherwise it is undefined behaviour.</span>
+<span class="cm">  \returns Reference to the held `error_type` according to overload.</span>
+<span class="cm">  \group assume_error</span>
+<span class="cm">  */</span>
+  <span class="n">constexpr</span> <span class="n">error_type</span> <span class="o">&amp;</span><span class="n">assume_error</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">noexcept</span><span class="p">;</span>
+  <span class="c1">/// \group assume_error</span>
+  <span class="n">constexpr</span> <span class="k">const</span> <span class="n">error_type</span> <span class="o">&amp;</span><span class="n">assume_error</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;</span><span class="n">noexcept</span><span class="p">;</span>
+  <span class="c1">/// \group assume_error</span>
+  <span class="n">constexpr</span> <span class="n">error_type</span> <span class="o">&amp;&amp;</span><span class="n">assume_error</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">noexcept</span><span class="p">;</span>
+  <span class="c1">/// \group assume_error</span>
+  <span class="n">constexpr</span> <span class="k">const</span> <span class="n">error_type</span> <span class="o">&amp;&amp;</span><span class="n">assume_error</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;&amp;</span><span class="n">noexcept</span><span class="p">;</span>
+
+  <span class="c1">/// \output_section Wide state observers</span>
+  <span class="cm">/*! Access error with runtime checks.</span>
+<span class="cm">  \returns Reference to the held `error_type` according to overload.</span>
+<span class="cm">  \requires The result to have a failed state, else whatever `NoValuePolicy` says ought to happen.</span>
+<span class="cm">  \group error</span>
+<span class="cm">  */</span>
+  <span class="n">constexpr</span> <span class="n">error_type</span> <span class="o">&amp;</span><span class="n">error</span><span class="p">()</span> <span class="o">&amp;</span><span class="p">;</span>
+  <span class="c1">/// \group error</span>
+  <span class="n">constexpr</span> <span class="k">const</span> <span class="n">error_type</span> <span class="o">&amp;</span><span class="n">error</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;</span><span class="p">;</span>
+  <span class="c1">/// \group error</span>
+  <span class="n">constexpr</span> <span class="n">error_type</span> <span class="o">&amp;&amp;</span><span class="n">error</span><span class="p">()</span> <span class="o">&amp;&amp;</span><span class="p">;</span>
+  <span class="c1">/// \group error</span>
+  <span class="n">constexpr</span> <span class="k">const</span> <span class="n">error_type</span> <span class="o">&amp;&amp;</span><span class="n">error</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;&amp;</span><span class="p">;</span>
+
+<span class="c1">// Either of these two is present depending on this trait</span>
+<span class="cp">#if !trait::is_exception_ptr&lt;payload_exception_type&gt;</span>
+
+    <span class="c1">/// \output_section Narrow state observers</span>
+    <span class="cm">/*! Access payload without runtime checks.</span>
+<span class="cm">    \preconditions The outcome to have an payload state, otherwise it is undefined behaviour.</span>
+<span class="cm">    \returns Reference to the held `payload_type` according to overload.</span>
+<span class="cm">    \group assume_payload</span>
+<span class="cm">    */</span>
+    <span class="kr">inline</span> <span class="n">constexpr</span> <span class="n">payload_type</span> <span class="o">&amp;</span><span class="n">assume_payload</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">noexcept</span><span class="p">;</span>
+    <span class="c1">/// \group assume_payload</span>
+    <span class="kr">inline</span> <span class="n">constexpr</span> <span class="k">const</span> <span class="n">payload_type</span> <span class="o">&amp;</span><span class="n">assume_payload</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;</span><span class="n">noexcept</span><span class="p">;</span>
+    <span class="c1">/// \group assume_payload</span>
+    <span class="kr">inline</span> <span class="n">constexpr</span> <span class="n">payload_type</span> <span class="o">&amp;&amp;</span><span class="n">assume_payload</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">noexcept</span><span class="p">;</span>
+    <span class="c1">/// \group assume_payload</span>
+    <span class="kr">inline</span> <span class="n">constexpr</span> <span class="k">const</span> <span class="n">payload_type</span> <span class="o">&amp;&amp;</span><span class="n">assume_payload</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;&amp;</span><span class="n">noexcept</span><span class="p">;</span>
+
+    <span class="c1">/// \output_section Wide state observers</span>
+    <span class="cm">/*! Access payload with runtime checks.</span>
+<span class="cm">    \returns Reference to the held `payload_type` according to overload.</span>
+<span class="cm">    \requires The outcome to have an payload state, else whatever `NoValuePolicy` says ought to happen.</span>
+<span class="cm">    \group payload</span>
+<span class="cm">    */</span>
+    <span class="kr">inline</span> <span class="n">constexpr</span> <span class="n">payload_type</span> <span class="o">&amp;</span><span class="n">payload</span><span class="p">()</span> <span class="o">&amp;</span><span class="p">;</span>
+    <span class="c1">/// \group payload</span>
+    <span class="kr">inline</span> <span class="n">constexpr</span> <span class="k">const</span> <span class="n">payload_type</span> <span class="o">&amp;</span><span class="n">payload</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;</span><span class="p">;</span>
+    <span class="c1">/// \group payload</span>
+    <span class="kr">inline</span> <span class="n">constexpr</span> <span class="n">payload_type</span> <span class="o">&amp;&amp;</span><span class="n">payload</span><span class="p">()</span> <span class="o">&amp;&amp;</span><span class="p">;</span>
+    <span class="c1">/// \group payload</span>
+    <span class="kr">inline</span> <span class="n">constexpr</span> <span class="k">const</span> <span class="n">payload_type</span> <span class="o">&amp;&amp;</span><span class="n">payload</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;&amp;</span><span class="p">;</span>
+
+<span class="cp">#else</span>
+
+    <span class="c1">/// \output_section Narrow state observers</span>
+    <span class="cm">/*! Access exception without runtime checks.</span>
+<span class="cm">    \preconditions The outcome to have an exception state, otherwise it is undefined behaviour.</span>
+<span class="cm">    \returns Reference to the held `exception_type` according to overload.</span>
+<span class="cm">    \group assume_exception</span>
+<span class="cm">    */</span>
+    <span class="n">constexpr</span> <span class="kr">inline</span> <span class="n">exception_type</span> <span class="o">&amp;</span><span class="n">assume_exception</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">noexcept</span><span class="p">;</span>
+    <span class="c1">/// \group assume_exception</span>
+    <span class="n">constexpr</span> <span class="kr">inline</span> <span class="k">const</span> <span class="n">exception_type</span> <span class="o">&amp;</span><span class="n">assume_exception</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;</span><span class="n">noexcept</span><span class="p">;</span>
+    <span class="c1">/// \group assume_exception</span>
+    <span class="n">constexpr</span> <span class="kr">inline</span> <span class="n">exception_type</span> <span class="o">&amp;&amp;</span><span class="n">assume_exception</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">noexcept</span><span class="p">;</span>
+    <span class="c1">/// \group assume_exception</span>
+    <span class="n">constexpr</span> <span class="kr">inline</span> <span class="k">const</span> <span class="n">exception_type</span> <span class="o">&amp;&amp;</span><span class="n">assume_exception</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;&amp;</span><span class="n">noexcept</span><span class="p">;</span>
+
+    <span class="c1">/// \output_section Wide state observers</span>
+    <span class="cm">/*! Access exception with runtime checks.</span>
+<span class="cm">    \returns Reference to the held `exception_type` according to overload.</span>
+<span class="cm">    \requires The outcome to have an exception state, else whatever `NoValuePolicy` says ought to happen.</span>
+<span class="cm">    \group exception</span>
+<span class="cm">    */</span>
+    <span class="n">constexpr</span> <span class="kr">inline</span> <span class="n">exception_type</span> <span class="o">&amp;</span><span class="n">exception</span><span class="p">()</span> <span class="o">&amp;</span><span class="p">;</span>
+    <span class="c1">/// \group exception</span>
+    <span class="n">constexpr</span> <span class="kr">inline</span> <span class="k">const</span> <span class="n">exception_type</span> <span class="o">&amp;</span><span class="n">exception</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;</span><span class="p">;</span>
+    <span class="c1">/// \group exception</span>
+    <span class="n">constexpr</span> <span class="kr">inline</span> <span class="n">exception_type</span> <span class="o">&amp;&amp;</span><span class="n">exception</span><span class="p">()</span> <span class="o">&amp;&amp;</span><span class="p">;</span>
+    <span class="c1">/// \group exception</span>
+    <span class="n">constexpr</span> <span class="kr">inline</span> <span class="k">const</span> <span class="n">exception_type</span> <span class="o">&amp;&amp;</span><span class="n">exception</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;&amp;</span><span class="p">;</span>
+
+<span class="cp">#endif</span>
+
+
+  <span class="c1">/// \output_section State check observers</span>
+  <span class="cm">/*! Checks if has value.</span>
+<span class="cm">  \returns True if has value.</span>
+<span class="cm">  */</span>
+  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="k">operator</span> <span class="kt">bool</span><span class="p">()</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">;</span>
+  <span class="cm">/*! Checks if has value.</span>
+<span class="cm">  \returns True if has value.</span>
+<span class="cm">  */</span>
+  <span class="n">constexpr</span> <span class="kt">bool</span> <span class="n">has_value</span><span class="p">()</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">;</span>
+  <span class="cm">/*! Checks if has error.</span>
+<span class="cm">  \returns True if has error.</span>
+<span class="cm">  */</span>
+  <span class="n">constexpr</span> <span class="kt">bool</span> <span class="n">has_error</span><span class="p">()</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">;</span>
+  <span class="cm">/*! Checks if has payload.</span>
+<span class="cm">  \returns True if has payload.</span>
+<span class="cm">  */</span>
+  <span class="n">constexpr</span> <span class="kt">bool</span> <span class="n">has_payload</span><span class="p">()</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">;</span>
+  <span class="cm">/*! Checks if has exception.</span>
+<span class="cm">  \returns True if has exception.</span>
+<span class="cm">  */</span>
+  <span class="n">constexpr</span> <span class="kt">bool</span> <span class="n">has_exception</span><span class="p">()</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">;</span>
+  <span class="cm">/*! Checks if has error or exception.</span>
+<span class="cm">  \returns True if has error or exception.</span>
+<span class="cm">  */</span>
+  <span class="n">constexpr</span> <span class="kt">bool</span> <span class="n">has_failure</span><span class="p">()</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+
+      </div>
+    </div>
+
+    
+ 
+    
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+                
+                    
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+                
+            
+        
+                    
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                    
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                    
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                    
+                
+                    
+            
+            
+                
+                    
+                    
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+                
+            
+        
+                    
+                
+                    
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+                
+            
+        
+                    
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                    
+                
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/outcome/synopsis/result/" title="result&lt;T, EC&gt;"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/outcome/faq/" title="Frequently asked questions" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/outcome/js/clipboard.min.js"></script>
+    <script src="/outcome/js/featherlight.min.js"></script>
+    <script src="/outcome/js/html5shiv-printshiv.min.js"></script>
+    <script src="/outcome/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/outcome/js/modernizr.custom.71422.js"></script>
+    <script src="/outcome/js/learn.js"></script>
+    <script src="/outcome/js/hugo-learn.js"></script>
+
+    
+    <link href="/outcome/mermaid/mermaid.css" type="text/css" rel="stylesheet"/>
+    <script src="/outcome/mermaid/mermaid.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    
+
+    
+
+  </body>
+</html>
+

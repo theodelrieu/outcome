@@ -19,6 +19,24 @@
     </item>
     
     <item>
+      <title>result&lt;T, EC&gt;</title>
+      <link>https://ned14.github.io/outcome/synopsis/result/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/synopsis/result/</guid>
+      <description>template &amp;lt; class R, class S = std::error_code, class NoValuePolicy = policy::default_result_policy&amp;lt;S&amp;gt; &amp;gt; requires std::is_void&amp;lt;EC&amp;gt;::value || std::is_default_constructible&amp;lt;EC&amp;gt;::value class [[nodiscard]] result { public: /// \output_section Member types //! The success type. using value_type = R; //! The S type configured using status_error_type = S; //! The failure type. using error_type = S; //! Used to disable in place type construction when `value_type` and `error_type` are ambiguous. using value_type_if_enabled = typename base::_value_type; //!</description>
+    </item>
+    
+    <item>
+      <title>outcome&lt;T, EC, E&gt;</title>
+      <link>https://ned14.github.io/outcome/synopsis/outcome/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/synopsis/outcome/</guid>
+      <description>template &amp;lt; class R, class S = std::error_code, class P = std::exception_ptr, class NoValuePolicy = policy::default_outcome_policy&amp;lt;R, S, P&amp;gt; &amp;gt; requires (std::is_void&amp;lt;EC&amp;gt;::value || std::is_default_constructible&amp;lt;EC&amp;gt;::value) &amp;amp;&amp;amp; (std::is_void&amp;lt;P&amp;gt;::value || std::is_default_constructible&amp;lt;P&amp;gt;::value) class [[nodiscard]] outcome { public: /// \output_section Member types //! The success type. using value_type = R; //! The S type configured using status_error_type = S; //! The failure type. using error_type = S; //! The P type configured. using payload_exception_type = P; //!</description>
+    </item>
+    
+    <item>
       <title>result&lt;R, S&gt;</title>
       <link>https://ned14.github.io/outcome/api-reference/doc_result.md/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -70,7 +88,7 @@ Macro OUTCOME_TRYX #define OUTCOME_TRYX(m) If the outcome returned by expression
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://ned14.github.io/outcome/credits/</guid>
-      <description>github contributors .ghContributors{ display:flex; flex-flow: wrap; align-content: flex-start } .ghContributors  div{ width: 50% ; display: inline-flex; margin-bottom: 5px; } .ghContributors  div label{ padding-left: 4px ; } .ghContributors  div span{ font-size: x-small; padding-left: 4px ; }   @ned14 552 commits   @akrzemi1 2 commits   @jenkins-nedprod 1 commits   This pretty, modern C++ documentation  Hugo - static website generator of this documentation. hugo-theme-docdock - the Hugo theme used by this documentation.</description>
+      <description>github contributors .ghContributors{ display:flex; flex-flow: wrap; align-content: flex-start } .ghContributors  div{ width: 50% ; display: inline-flex; margin-bottom: 5px; } .ghContributors  div label{ padding-left: 4px ; } .ghContributors  div span{ font-size: x-small; padding-left: 4px ; }  This pretty, modern C++ documentation  Hugo - static website generator of this documentation. hugo-theme-docdock - the Hugo theme used by this documentation. Standardese - the API reference generator  Special thanks To Paul Bristow who proposed the name &amp;ldquo;Outcome&amp;rdquo; for the library after a very extended period of name bikeshedding on boost-dev.</description>
     </item>
     
   </channel>

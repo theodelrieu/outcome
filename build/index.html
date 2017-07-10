@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Hugo 0.24.1" />
-    <meta name="description" content="Giving thanks to those who made Outcome happen">
+    <meta name="description" content="">
 
 
-    <title>Acknowledgements :: Outcome documentation</title>
+    <title>Build and install :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/credits/">
+  <body class="" data-url="/outcome/build/">
     <nav id="sidebar" class="">
   <div id="header-wrapper">
     <div id="header">
@@ -98,15 +98,15 @@
 
 
 <li data-nav-id="/outcome/build/" class="dd-item 
-
-
+parent
+active
 
 ">
   <a href="/outcome/build/">
     <span>Build and install</span>
 
     
-    <i class="fa fa-angle-right fa-lg category-icon"></i>
+    <i class="fa fa-angle-down fa-lg category-icon"></i>
     
     
     
@@ -378,7 +378,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/credits.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/build/_index.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -396,7 +396,12 @@
                 <span class="links">
                 
 
- Acknowledgements
+
+
+
+ <a href='/outcome/'>Home</a> > Build and install
+
+ 
 
    
                 </span>
@@ -405,12 +410,8 @@
     <div class="wrapper">
 <nav id="TableOfContents">
 <ul>
-<li>
-<ul>
-<li><a href="#github-contributors">github contributors</a></li>
-<li><a href="#this-pretty-modern-c-documentation">This pretty, modern C++ documentation</a></li>
-</ul></li>
-<li><a href="#special-thanks">Special thanks</a></li>
+<li><a href="#running-the-unit-test-suite">Running the unit test suite</a></li>
+<li><a href="#modular-cmake-build-support">Modular CMake build support</a></li>
 </ul>
 </nav>
     </div>
@@ -421,7 +422,7 @@
         
         <div id="body-inner">
           
-            <h1>Acknowledgements</h1>
+            <h1>Build and install</h1>
           
 
 
@@ -429,70 +430,97 @@
 
 
 
-<h2 id="github-contributors">github contributors</h2>
+<p>Outcome v2 is feature complete, meeting the feedback from the Boost peer review in May 2017.
+It is an all new code base, written entirely from scratch during the month of June 2017.
+It is currently undergoing at least three months of maturation before being
+returned for a second review. As a result, consider this library to <strong>beta</strong>
+quality and subject change if a second review demands it.</p>
 
-<style type="text/css">
-.ghContributors{
-display:flex;
-flex-flow:  wrap;
-align-content: flex-start
-}
+<p>That said, the essentials here are the same as they were in v1. Indeed most code
+written for v1 should be convertible to v2 without too much effort.</p>
 
-.ghContributors > div{
-width: 50% ;
-display: inline-flex;
-margin-bottom: 5px;
-}
-.ghContributors > div label{
-padding-left: 4px ;
-}
-.ghContributors > div span{
-font-size: x-small;
-padding-left: 4px ;
-}
+<p>Given that v2 is still under development, it is currently best used as a git
+submodule to your project so you can keep abreast of bug fixes. Here is how:</p>
 
-</style>
-<div class="ghContributors">
-  
-  
+<pre><code>git submodule add https://github.com/ned14/outcome
+cd outcome
+git checkout develop
+git submodule update --init --recursive
+</code></pre>
 
-<h2 id="this-pretty-modern-c-documentation">This pretty, modern C++ documentation</h2>
+<p>After this you can bring Outcome into your code using:</p>
+
+<pre><code>#include &quot;outcome/include/outcome.hpp&quot;
+</code></pre>
+
+<p>That&rsquo;s it, you are ready to go. From time to time, you may wish to update to
+latest:</p>
+
+<pre><code>cd outcome
+git pull
+git submodule update
+</code></pre>
+
+<hr>
+
+<h1 id="running-the-unit-test-suite">Running the unit test suite</h1>
+
+<p>To run the unit test suite you will need cmake 3.1 or later installed.</p>
+
+<pre><code>mkdir build
+cd build
+cmake ..
+cmake --build .
+ctest
+</code></pre>
+
+<p>On some cmake generators (Visual Studio, Xcode) you may need to tell cmake build a configuration
+like Release or Debug. Similarly, ctest needs to be told the same e.g.</p>
+
+<pre><code>mkdir build
+cd build
+cmake ..
+cmake --build . --config Release
+ctest -C Release
+</code></pre>
+
+<p><a href="http://my.cdash.org/index.php?project=Boost.Outcome">Per commit, tests are run by Travis and uploaded to a CDash dashboard here</a>.</p>
+
+<hr>
+
+<h1 id="modular-cmake-build-support">Modular CMake build support</h1>
+
+<p>If you are using Outcome in a CMake project, Outcome is a &ldquo;modular cmake&rdquo; project
+using only modern cmake 3 throughout. This lets you add the Outcome directory as a
+cmake subdirectory with no unexpected consequence on the rest of your cmake. You will need
+to be using cmake 3.1 or better.</p>
+
+<pre><code>add_subdirectory(
+  &quot;${CMAKE_CURRENT_SOURCE_DIR}/outcome&quot;  # path to outcome source
+  &quot;${CMAKE_CURRENT_BINARY_DIR}/outcome&quot;  # your choice of where to put binaries
+  EXCLUDE_FROM_ALL                       # please only lazy build outcome on demand
+)
+</code></pre>
+
+<p>Outcome&rsquo;s cmake has the following useful products:</p>
 
 <ul>
-<li><a href="https://gohugo.io">Hugo</a> - static website generator of this documentation.</li>
-<li><a href="https://github.com/vjeantet/hugo-theme-docdock">hugo-theme-docdock</a> - the Hugo theme used by this documentation.</li>
-<li><a href="https://github.com/foonathan/standardese">Standardese</a> - the API reference generator</li>
+<li><code>outcome::hl</code> (target): the Outcome header only library. Add this to any
+<code>target_link_libraries()</code> in your cmake to bring in Outcome as a header only library. This will also
+add to your link (via <code>PUBLIC</code>) any debugger visualisation support files, any system library
+dependencies and also force all consuming executables to be configured with a minimum
+of C++ 14 as Outcome requires a minimum of that.</li>
+<li><code>outcome_TEST_TARGETS</code> (list): a list of targets which generate Outcome&rsquo;s test
+suite. You can append this to your own test suite if you wish to run Outcome&rsquo;s test
+suite along with your own.</li>
 </ul>
-
-<h1 id="special-thanks">Special thanks</h1>
-
-<p>To Paul Bristow who <a href="https://lists.boost.org/Archives/boost/2015/05/222687.php">
-proposed the name &ldquo;Outcome&rdquo;</a> for the library after a very extended
-period of name bikeshedding on boost-dev. I had been minded to call the library &ldquo;Boost.Donkey&rdquo;
-just to shut everyone up because the name bike shedding was getting ridiculous. But
-Outcome is a lot nicer, so thank you Paul.</p>
-
-<p>My heartfelt thanks to Charley Bay for acting as review manager for Outcome in May 2017.
-It is becoming ever harder to find a Boost review manager, so thank you! My thanks also
-to the CppCast team Rob Irving and Jason Turner for so quickly getting me on to CppCast
-to discuss <code>expected&lt;T, E&gt;</code> during the Outcome peer review to help publicise the review.</p>
-
-<p>More general thanks are due to those on boost-dev, Reddit and SG14 for extensive and often very detailed
-feedback on the library pretty much from its beginning. You are all too numerous to
-remember, but certainly Tongari and Andrzej Krzemienski come to mind as having engaged
-in particularly long discussion threads with tons of useful feedback which clarified my
-thinking. Andrzej also went through the documentation with a fine toothed comb before the
-review, finding many small errata and confusing wording.</p>
-
-<p>Finally, my thanks to Vicente for driving Expected from its beginnings to hopefully
-standardisation before 2020. It&rsquo;s many years of work getting something standardised, even
-more years than getting a library into Boost which as you can see from the history above
-took about three years.</p>
 
 
 <footer class=" footline" >
 	
 </footer>
+
+
 
 
 
@@ -536,6 +564,7 @@ took about three years.</p>
             
                 
                     
+                    
                 
                 
                 
@@ -547,6 +576,9 @@ took about three years.</p>
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -687,8 +719,10 @@ took about three years.</p>
 
 
         
+            <a class="nav nav-prev" href="/outcome/requirements/" title="Prerequisites"> <i class="fa fa-chevron-left"></i></a>
         
-            <a class="nav nav-next" href="/outcome/requirements/" title="Prerequisites" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+            <a class="nav nav-next" href="/outcome/tutorial/" title="Tutorial" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -715,4 +749,3 @@ took about three years.</p>
 
   </body>
 </html>
-
