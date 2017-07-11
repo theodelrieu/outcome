@@ -440,13 +440,13 @@ parent
 
 
 <p>TODO: This section will describe how you can plug your custom error enum, like:</p>
-<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">enum</span> <span class="k">class</span> <span class="nc">ConversionErrc</span>
-<span class="p">{</span>
-  <span class="n">EmptyString</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="n">IllegalChar</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-  <span class="n">TooLong</span>     <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #0000ff">enum</span> <span style="color: #0000ff">class</span> <span style="color: #2b91af">ConversionErrc</span>
+{
+  EmptyString = 1;
+  IllegalChar = 2;
+  TooLong     = 3;
+};
+</pre></div>
 
 <p>into the Standard Library&rsquo;s <code>std::error_code</code> system by specializing type trait
 <code>std::is_error_code_enum</code> and defining an ADL-enabled function <code>make_error_code</code>.</p>
@@ -686,8 +686,6 @@ parent
     <script src="/outcome/js/clipboard.min.js"></script>
     <script src="/outcome/js/featherlight.min.js"></script>
     <script src="/outcome/js/html5shiv-printshiv.min.js"></script>
-    <script src="/outcome/js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
     <script src="/outcome/js/modernizr.custom.71422.js"></script>
     <script src="/outcome/js/learn.js"></script>
     <script src="/outcome/js/hugo-learn.js"></script>

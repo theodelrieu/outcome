@@ -427,9 +427,9 @@ that are not exception-safe while retaining all information from the thrown exce
 
 <p>Function that may need to report failure needs to reflect that in its return type:</p>
 
-<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">auto</span> <span class="n">read_int_from_file</span><span class="p">(</span><span class="n">string_view</span> <span class="n">path</span><span class="p">)</span> <span class="n">noexcept</span>
-  <span class="o">-&gt;</span> <span class="n">outcome</span><span class="o">::</span><span class="n">result</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #0000ff">auto</span> read_int_from_file(string_view path) noexcept
+  -&gt; outcome::result&lt;<span style="color: #2b91af">int</span>&gt;;
+</pre></div>
 
 
 
@@ -438,35 +438,35 @@ the reason for failure.</p>
 
 <p>It is possible to inspect the returned state manualy:</p>
 
-<div class="highlight"><pre><code class="language-c++" data-lang="c++">	
-<span class="k">if</span> <span class="p">(</span><span class="k">auto</span> <span class="n">rslt</span> <span class="o">=</span> <span class="n">read_int_from_file</span><span class="p">(</span><span class="s">&quot;config.cfg&quot;</span><span class="p">))</span>
-  <span class="n">use_int</span><span class="p">(</span><span class="n">rslt</span><span class="p">.</span><span class="n">value</span><span class="p">());</span>
-<span class="k">else</span>
-  <span class="nf">report_error</span><span class="p">(</span><span class="n">rslt</span><span class="p">.</span><span class="n">error</span><span class="p">());</span> <span class="c1">// returns std::error_code</span>
-</code></pre></div>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">	
+<span style="color: #0000ff">if</span> (<span style="color: #0000ff">auto</span> rslt = read_int_from_file(<span style="color: #a31515">&quot;config.cfg&quot;</span>))
+  use_int(rslt.value());
+<span style="color: #0000ff">else</span>
+  report_error(rslt.error()); <span style="color: #008000">// returns std::error_code</span>
+</pre></div>
 
 
 
 <p>But most of the time you would inspect the object indirectly through a dedicated control statement. An implementation of <code>read_int_from_file</code> that has to (1) open the file, (2) read raw data to a buffer, and (3) interpret it as <code>int</code>, using the following three functions</p>
 
-<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">auto</span> <span class="n">open_file</span><span class="p">(</span><span class="n">string_view</span> <span class="n">path</span><span class="p">)</span> <span class="n">noexcept</span> <span class="o">-&gt;</span> <span class="n">outcome</span><span class="o">::</span><span class="n">result</span><span class="o">&lt;</span><span class="n">Handle</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="k">auto</span> <span class="n">read_data</span><span class="p">(</span><span class="n">Handle</span><span class="o">&amp;</span> <span class="n">h</span><span class="p">)</span>        <span class="n">noexcept</span> <span class="o">-&gt;</span> <span class="n">outcome</span><span class="o">::</span><span class="n">result</span><span class="o">&lt;</span><span class="n">Buffer</span><span class="o">&gt;</span><span class="p">;</span>     
-<span class="k">auto</span> <span class="n">parse</span><span class="p">(</span><span class="k">const</span> <span class="n">Buffer</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>      <span class="n">noexcept</span> <span class="o">-&gt;</span> <span class="n">outcome</span><span class="o">::</span><span class="n">result</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #0000ff">auto</span> open_file(string_view path) noexcept -&gt; outcome::result&lt;Handle&gt;;
+<span style="color: #0000ff">auto</span> read_data(Handle&amp; h)        noexcept -&gt; outcome::result&lt;Buffer&gt;;     
+<span style="color: #0000ff">auto</span> parse(<span style="color: #0000ff">const</span> Buffer&amp; b)      noexcept -&gt; outcome::result&lt;<span style="color: #2b91af">int</span>&gt;;
+</pre></div>
 
 
 
 <p>will look like this:</p>
 
-<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">auto</span> <span class="nf">read_int_from_file</span><span class="p">(</span><span class="n">string_view</span> <span class="n">path</span><span class="p">)</span> <span class="n">noexcept</span>
-  <span class="o">-&gt;</span> <span class="n">outcome</span><span class="o">::</span><span class="n">result</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span>
-<span class="p">{</span>
-  <span class="n">OUTCOME_TRY</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">open_file</span><span class="p">(</span><span class="n">path</span><span class="p">));</span>    <span class="c1">// decltype(handle) == Handle</span>
-  <span class="n">OUTCOME_TRY</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">read_data</span><span class="p">(</span><span class="n">handle</span><span class="p">));</span>  <span class="c1">// decltype(buffer) == Buffer</span>
-  <span class="n">OUTCOME_TRY</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">parse</span><span class="p">(</span><span class="n">buffer</span><span class="p">));</span>         <span class="c1">// decltype(val) == int</span>
-  <span class="k">return</span> <span class="n">val</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #0000ff">auto</span> read_int_from_file(string_view path) noexcept
+  -&gt; outcome::result&lt;<span style="color: #2b91af">int</span>&gt;
+{
+  OUTCOME_TRY(handle, open_file(path));    <span style="color: #008000">// decltype(handle) == Handle</span>
+  OUTCOME_TRY(buffer, read_data(handle));  <span style="color: #008000">// decltype(buffer) == Buffer</span>
+  OUTCOME_TRY(val, parse(buffer));         <span style="color: #008000">// decltype(val) == int</span>
+  <span style="color: #0000ff">return</span> val;
+}
+</pre></div>
 
 
 
@@ -695,8 +695,6 @@ into the standard C++ library.</p>
     <script src="/outcome/js/clipboard.min.js"></script>
     <script src="/outcome/js/featherlight.min.js"></script>
     <script src="/outcome/js/html5shiv-printshiv.min.js"></script>
-    <script src="/outcome/js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
     <script src="/outcome/js/modernizr.custom.71422.js"></script>
     <script src="/outcome/js/learn.js"></script>
     <script src="/outcome/js/hugo-learn.js"></script>

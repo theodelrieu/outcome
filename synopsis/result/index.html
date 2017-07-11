@@ -439,378 +439,378 @@ parent
 
 
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">template</span> <span class="o">&lt;</span>
-  <span class="k">class</span> <span class="nc">R</span><span class="p">,</span>
-  <span class="k">class</span> <span class="nc">S</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">error_code</span><span class="p">,</span>
-  <span class="k">class</span> <span class="nc">NoValuePolicy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">::</span><span class="n">default_result_policy</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>
-<span class="n">requires</span> <span class="n">std</span><span class="o">::</span><span class="n">is_void</span><span class="o">&lt;</span><span class="n">EC</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">||</span> <span class="n">std</span><span class="o">::</span><span class="n">is_default_constructible</span><span class="o">&lt;</span><span class="n">EC</span><span class="o">&gt;::</span><span class="n">value</span>
-<span class="k">class</span> <span class="err">[[</span><span class="nc">nodiscard</span><span class="p">]]</span> <span class="n">result</span>
-<span class="p">{</span>
-<span class="nl">public:</span>
-  <span class="c1">/// \output_section Member types</span>
-  <span class="c1">//! The success type.</span>
-  <span class="k">using</span> <span class="n">value_type</span> <span class="o">=</span> <span class="n">R</span><span class="p">;</span>
-  <span class="c1">//! The S type configured</span>
-  <span class="k">using</span> <span class="n">status_error_type</span> <span class="o">=</span> <span class="n">S</span><span class="p">;</span>
-  <span class="c1">//! The failure type.</span>
-  <span class="k">using</span> <span class="n">error_type</span> <span class="o">=</span> <span class="n">S</span><span class="p">;</span>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #0000ff">template</span> &lt;
+  <span style="color: #0000ff">class</span> <span style="color: #2b91af">R</span>,
+  <span style="color: #0000ff">class</span> <span style="color: #2b91af">S</span> = std::error_code,
+  <span style="color: #0000ff">class</span> <span style="color: #2b91af">NoValuePolicy</span> = policy::default_result_policy&lt;S&gt;
+&gt;
+requires std::is_void&lt;EC&gt;::value || std::is_default_constructible&lt;EC&gt;::value
+<span style="color: #0000ff">class</span> <span style="border: 1px solid #FF0000">[[</span><span style="color: #2b91af">nodiscard</span>]] result
+{
+public:
+  <span style="color: #008000">/// \output_section Member types</span>
+  <span style="color: #008000">//! The success type.</span>
+  <span style="color: #0000ff">using</span> value_type = R;
+  <span style="color: #008000">//! The S type configured</span>
+  <span style="color: #0000ff">using</span> status_error_type = S;
+  <span style="color: #008000">//! The failure type.</span>
+  <span style="color: #0000ff">using</span> error_type = S;
 
-  <span class="c1">//! Used to disable in place type construction when `value_type` and `error_type` are ambiguous.</span>
-  <span class="k">using</span> <span class="n">value_type_if_enabled</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">base</span><span class="o">::</span><span class="n">_value_type</span><span class="p">;</span>
-  <span class="c1">//! Used to disable in place type construction when `value_type` and `error_type` are ambiguous.</span>
-  <span class="k">using</span> <span class="n">error_type_if_enabled</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">base</span><span class="o">::</span><span class="n">_error_type</span><span class="p">;</span>
+  <span style="color: #008000">//! Used to disable in place type construction when `value_type` and `error_type` are ambiguous.</span>
+  <span style="color: #0000ff">using</span> value_type_if_enabled = <span style="color: #0000ff">typename</span> base::_value_type;
+  <span style="color: #008000">//! Used to disable in place type construction when `value_type` and `error_type` are ambiguous.</span>
+  <span style="color: #0000ff">using</span> error_type_if_enabled = <span style="color: #0000ff">typename</span> base::_error_type;
 
-  <span class="c1">//! Used to rebind this result to a different result type.</span>
-  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span> <span class="o">=</span> <span class="n">S</span><span class="o">&gt;</span> <span class="k">using</span> <span class="n">rebind</span> <span class="o">=</span> <span class="n">result</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;</span><span class="p">;</span>
+  <span style="color: #008000">//! Used to rebind this result to a different result type.</span>
+  <span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span> = S&gt; <span style="color: #0000ff">using</span> rebind = result&lt;T, U&gt;;
 
-  <span class="c1">/// \output_section Default, copy/move constructors and assignment</span>
-  <span class="c1">//! Default construction is not permitted.</span>
-  <span class="n">result</span><span class="p">()</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
-  <span class="c1">//! Move construction available if `value_type` and `status_error_type` implement it.</span>
-  <span class="n">result</span><span class="p">(</span><span class="n">result</span> <span class="o">&amp;&amp;</span> <span class="cm">/*unused*/</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-  <span class="c1">//! Copy construction available if `value_type` and `status_error_type` implement it.</span>
-  <span class="n">result</span><span class="p">(</span><span class="k">const</span> <span class="n">result</span> <span class="o">&amp;</span> <span class="cm">/*unused*/</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-  <span class="c1">//! Move assignment available if `value_type` and `status_error_type` implement it.</span>
-  <span class="n">result</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">result</span> <span class="o">&amp;&amp;</span> <span class="cm">/*unused*/</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-  <span class="c1">//! Copy assignment available if `value_type` and `status_error_type` implement it.</span>
-  <span class="n">result</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">result</span> <span class="o">&amp;</span> <span class="cm">/*unused*/</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+  <span style="color: #008000">/// \output_section Default, copy/move constructors and assignment</span>
+  <span style="color: #008000">//! Default construction is not permitted.</span>
+  result() = <span style="color: #0000ff">delete</span>;
+  <span style="color: #008000">//! Move construction available if `value_type` and `status_error_type` implement it.</span>
+  result(result &amp;&amp; <span style="color: #008000">/*unused*/</span>) = <span style="color: #0000ff">default</span>;
+  <span style="color: #008000">//! Copy construction available if `value_type` and `status_error_type` implement it.</span>
+  result(<span style="color: #0000ff">const</span> result &amp; <span style="color: #008000">/*unused*/</span>) = <span style="color: #0000ff">default</span>;
+  <span style="color: #008000">//! Move assignment available if `value_type` and `status_error_type` implement it.</span>
+  result &amp;<span style="color: #0000ff">operator</span>=(result &amp;&amp; <span style="color: #008000">/*unused*/</span>) = <span style="color: #0000ff">default</span>;
+  <span style="color: #008000">//! Copy assignment available if `value_type` and `status_error_type` implement it.</span>
+  result &amp;<span style="color: #0000ff">operator</span>=(<span style="color: #0000ff">const</span> result &amp; <span style="color: #008000">/*unused*/</span>) = <span style="color: #0000ff">default</span>;
 
-  <span class="c1">/// \output_section Converting constructors</span>
-  <span class="cm">/*! Converting constructor to a successful result.</span>
-<span class="cm">  \tparam 1</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \param 1</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \param t The value from which to initialise the `value_type`.</span>
+  <span style="color: #008000">/// \output_section Converting constructors</span>
+  <span style="color: #008000">/*! Converting constructor to a successful result.</span>
+<span style="color: #008000">  \tparam 1</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param 1</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param t The value from which to initialise the `value_type`.</span>
 
-<span class="cm">  \effects Initialises the result with a `value_type`.</span>
-<span class="cm">  \requires Type T is constructible to `value_type`, is not constructible to `status_error_type`,</span>
-<span class="cm">  and is not `result&lt;R, S&gt;` and not `in_place_type&lt;&gt;`.</span>
-<span class="cm">  \throws Any exception the construction of `value_type(T)` might throw.</span>
-<span class="cm">  */</span>
-  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">)</span>
-  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_value_converting_constructor</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">))</span>
-  <span class="n">constexpr</span> <span class="n">result</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span><span class="n">t</span><span class="p">,</span> <span class="n">value_converting_constructor_tag</span> <span class="o">=</span> <span class="n">value_converting_constructor_tag</span><span class="p">())</span> 
-  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+<span style="color: #008000">  \effects Initialises the result with a `value_type`.</span>
+<span style="color: #008000">  \requires Type T is constructible to `value_type`, is not constructible to `status_error_type`,</span>
+<span style="color: #008000">  and is not `result&lt;R, S&gt;` and not `in_place_type&lt;&gt;`.</span>
+<span style="color: #008000">  \throws Any exception the construction of `value_type(T)` might throw.</span>
+<span style="color: #008000">  */</span>
+  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>)
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_value_converting_constructor&lt;T&gt;))
+  constexpr result(T &amp;&amp;t, value_converting_constructor_tag = value_converting_constructor_tag()) 
+  noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value);
 
-  <span class="cm">/*! Converting constructor to a failure result.</span>
-<span class="cm">  \tparam 1</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \param 1</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \param t The value from which to initialise the `error_type`.</span>
+  <span style="color: #008000">/*! Converting constructor to a failure result.</span>
+<span style="color: #008000">  \tparam 1</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param 1</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param t The value from which to initialise the `error_type`.</span>
 
-<span class="cm">  \effects Initialises the result with a `error_type`.</span>
-<span class="cm">  \requires `trait::status_type_is_negative&lt;EC&gt;` must be true; Type T is constructible to `error_type`,</span>
-<span class="cm">  is not constructible to `value_type`, and is not `result&lt;R, S&gt;` and not `in_place_type&lt;&gt;`.</span>
-<span class="cm">  \throws Any exception the construction of `error_type(T)` might throw.</span>
-<span class="cm">  */</span>
-  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">)</span>
-  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_error_converting_constructor</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">))</span>
-  <span class="n">constexpr</span> <span class="n">result</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span><span class="n">t</span><span class="p">,</span> <span class="n">error_converting_constructor_tag</span> <span class="o">=</span> <span class="n">error_converting_constructor_tag</span><span class="p">())</span> 
-  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">error_type</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+<span style="color: #008000">  \effects Initialises the result with a `error_type`.</span>
+<span style="color: #008000">  \requires `trait::status_type_is_negative&lt;EC&gt;` must be true; Type T is constructible to `error_type`,</span>
+<span style="color: #008000">  is not constructible to `value_type`, and is not `result&lt;R, S&gt;` and not `in_place_type&lt;&gt;`.</span>
+<span style="color: #008000">  \throws Any exception the construction of `error_type(T)` might throw.</span>
+<span style="color: #008000">  */</span>
+  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>)
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_error_converting_constructor&lt;T&gt;))
+  constexpr result(T &amp;&amp;t, error_converting_constructor_tag = error_converting_constructor_tag()) 
+  noexcept(std::is_nothrow_constructible&lt;error_type, T&gt;::value);
 
-  <span class="cm">/*! Special error condition converting constructor to a failure result.</span>
-<span class="cm">  \tparam 1</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \tparam 2</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \param 1</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \param t The error condition from which to initialise the `error_type`.</span>
+  <span style="color: #008000">/*! Special error condition converting constructor to a failure result.</span>
+<span style="color: #008000">  \tparam 1</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \tparam 2</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param 1</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param t The error condition from which to initialise the `error_type`.</span>
 
-<span class="cm">  \effects Initialises the result with a `error_type` constructed via `make_error_code(t)`.</span>
-<span class="cm">  \requires `trait::status_type_is_negative&lt;EC&gt;` must be true; `std::is_error_condition_enum&lt;ErrorCondEnum&gt;` must be true,</span>
-<span class="cm">  `ErrorCondEnum` is not constructible to `value_type` nor `error_type`, and is not `result&lt;R, S&gt;` and not `in_place_type&lt;&gt;`;</span>
-<span class="cm">  Finally, the expression `error_type(make_error_code(ErrorCondEnum()))` must be valid.</span>
-<span class="cm">  \throws Any exception the construction of `error_type(make_error_code(t))` might throw.</span>
-<span class="cm">  */</span>
-  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">ErrorCondEnum</span><span class="p">)</span>
-  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TEXPR</span><span class="p">(</span><span class="n">error_type</span><span class="p">(</span><span class="n">make_error_code</span><span class="p">(</span><span class="n">ErrorCondEnum</span><span class="p">()))),</span>  <span class="c1">//</span>
-                    <span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_error_condition_converting_constructor</span><span class="o">&lt;</span><span class="n">ErrorCondEnum</span><span class="o">&gt;</span><span class="p">))</span>
-  <span class="n">constexpr</span> <span class="n">result</span><span class="p">(</span><span class="n">ErrorCondEnum</span> <span class="o">&amp;&amp;</span><span class="n">t</span><span class="p">,</span> <span class="n">error_condition_converting_constructor_tag</span> <span class="o">=</span> <span class="n">error_condition_converting_constructor_tag</span><span class="p">())</span>
-  <span class="n">noexcept</span><span class="p">(</span><span class="n">noexcept</span><span class="p">(</span><span class="n">error_type</span><span class="p">(</span><span class="n">make_error_code</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">ErrorCondEnum</span><span class="o">&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">)))));</span>
-
-  
-  <span class="cm">/*! Explicit converting copy constructor from a compatible result type.</span>
-<span class="cm">  \tparam 3</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \param o The compatible result.</span>
-
-<span class="cm">  \effects Initialises the result with a copy of the compatible result.</span>
-<span class="cm">  \requires Both result&#39;s `value_type`, `error_type` and `status_type` need to be constructible, or the source `status_error_type` can be `void`.</span>
-<span class="cm">  The source `value_type` cannot be `void`.</span>
-<span class="cm">  \throws Any exception the construction of `value_type(T)` and `status_error_type(U)` might throw.</span>
-<span class="cm">  */</span>
-  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">)</span>
-  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_explicit_compatible_conversion</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span><span class="p">))</span>
-  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="n">result</span><span class="p">(</span><span class="k">const</span> <span class="n">result</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">,</span> <span class="n">explicit_compatible_conversion_tag</span> <span class="o">=</span> <span class="n">explicit_compatible_conversion_tag</span><span class="p">())</span>
-  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">status_error_type</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
-
-  <span class="cm">/*! Implicit converting copy constructor from a compatible result type.</span>
-<span class="cm">  \tparam 3</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \param o The compatible result.</span>
-
-<span class="cm">  \effects Initialises the result with a copy of the compatible result.</span>
-<span class="cm">  \requires Both result&#39;s `error_type` and `status_type` need to be constructible, and the source `value_type` must be `void`.</span>
-<span class="cm">  \throws Any exception the construction of `status_error_type(U)` might throw.</span>
-<span class="cm">  */</span>
-  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">)</span>
-  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_implicit_compatible_conversion</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span><span class="p">))</span>
-  <span class="n">constexpr</span> <span class="n">result</span><span class="p">(</span><span class="k">const</span> <span class="n">result</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">,</span> <span class="n">implicit_compatible_conversion_tag</span> <span class="o">=</span> <span class="n">implicit_compatible_conversion_tag</span><span class="p">())</span> 
-  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">status_error_type</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
-
-  <span class="cm">/*! Explicit converting move constructor from a compatible result type.</span>
-<span class="cm">  \tparam 3</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \param o The compatible result.</span>
-
-<span class="cm">  \effects Initialises the result with a move of the compatible result.</span>
-<span class="cm">  \requires Both result&#39;s `value_type`, `error_type` and `status_type` need to be constructible, or the source `status_error_type` can be `void`.</span>
-<span class="cm">  The source `value_type` cannot be `void`.</span>
-<span class="cm">  \throws Any exception the construction of `value_type(T)` and `status_error_type(U)` might throw.</span>
-<span class="cm">  */</span>
-  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">)</span>
-  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_explicit_compatible_conversion</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span><span class="p">))</span>
-  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="n">result</span><span class="p">(</span><span class="n">result</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span><span class="n">o</span><span class="p">,</span> <span class="n">explicit_compatible_conversion_tag</span> <span class="o">=</span> <span class="n">explicit_compatible_conversion_tag</span><span class="p">())</span> 
-  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">status_error_type</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
-
-  <span class="cm">/*! Implicit converting move constructor from a compatible result type.</span>
-<span class="cm">  \tparam 3</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \param o The compatible result.</span>
-
-<span class="cm">  \effects Initialises the result with a move of the compatible result.</span>
-<span class="cm">  \requires Both result&#39;s `error_type` and `status_type` need to be constructible, and the source `value_type` must be `void`.</span>
-<span class="cm">  \throws Any exception the construction of `status_error_type(U)` might throw.</span>
-<span class="cm">  */</span>
-  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">)</span>
-  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_implicit_compatible_conversion</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span><span class="p">))</span>
-  <span class="n">constexpr</span> <span class="n">result</span><span class="p">(</span><span class="n">result</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span><span class="n">o</span><span class="p">,</span> <span class="n">implicit_compatible_conversion_tag</span> <span class="o">=</span> <span class="n">implicit_compatible_conversion_tag</span><span class="p">())</span> 
-  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">status_error_type</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+<span style="color: #008000">  \effects Initialises the result with a `error_type` constructed via `make_error_code(t)`.</span>
+<span style="color: #008000">  \requires `trait::status_type_is_negative&lt;EC&gt;` must be true; `std::is_error_condition_enum&lt;ErrorCondEnum&gt;` must be true,</span>
+<span style="color: #008000">  `ErrorCondEnum` is not constructible to `value_type` nor `error_type`, and is not `result&lt;R, S&gt;` and not `in_place_type&lt;&gt;`;</span>
+<span style="color: #008000">  Finally, the expression `error_type(make_error_code(ErrorCondEnum()))` must be valid.</span>
+<span style="color: #008000">  \throws Any exception the construction of `error_type(make_error_code(t))` might throw.</span>
+<span style="color: #008000">  */</span>
+  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">ErrorCondEnum</span>)
+  OUTCOME_TREQUIRES(OUTCOME_TEXPR(error_type(make_error_code(ErrorCondEnum()))),  <span style="color: #008000">//</span>
+                    OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_error_condition_converting_constructor&lt;ErrorCondEnum&gt;))
+  constexpr result(ErrorCondEnum &amp;&amp;t, error_condition_converting_constructor_tag = error_condition_converting_constructor_tag())
+  noexcept(noexcept(error_type(make_error_code(std::forward&lt;ErrorCondEnum&gt;(t)))));
 
   
-  <span class="c1">/// \output_section In place constructors</span>
-  <span class="cm">/*! Inplace constructor to a successful result.</span>
-<span class="cm">  \tparam 1</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \param _ Tag type to indicate we are doing in place construction of `value_type`.</span>
-<span class="cm">  \param args Arguments with which to in place construct.</span>
+  <span style="color: #008000">/*! Explicit converting copy constructor from a compatible result type.</span>
+<span style="color: #008000">  \tparam 3</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param o The compatible result.</span>
 
-<span class="cm">  \effects Initialises the result with a `value_type`.</span>
-<span class="cm">  \requires `value_type` is void or `Args...` are constructible to `value_type`.</span>
-<span class="cm">  \throws Any exception the construction of `value_type(Args...)` might throw.</span>
-<span class="cm">  */</span>
-  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="p">)</span>
-  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_inplace_value_constructor</span><span class="o">&lt;</span><span class="n">Args</span><span class="p">...</span><span class="o">&gt;</span><span class="p">))</span>
-  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="n">result</span><span class="p">(</span><span class="kt">in_place_type_t</span><span class="o">&lt;</span><span class="n">value_type_if_enabled</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Args</span> <span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> 
-  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+<span style="color: #008000">  \effects Initialises the result with a copy of the compatible result.</span>
+<span style="color: #008000">  \requires Both result&#39;s `value_type`, `error_type` and `status_type` need to be constructible, or the source `status_error_type` can be `void`.</span>
+<span style="color: #008000">  The source `value_type` cannot be `void`.</span>
+<span style="color: #008000">  \throws Any exception the construction of `value_type(T)` and `status_error_type(U)` might throw.</span>
+<span style="color: #008000">  */</span>
+  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>)
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_explicit_compatible_conversion&lt;T, U, V&gt;))
+  constexpr <span style="color: #0000ff">explicit</span> result(<span style="color: #0000ff">const</span> result&lt;T, U, V&gt; &amp;o, explicit_compatible_conversion_tag = explicit_compatible_conversion_tag())
+  noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value &amp;&amp;std::is_nothrow_constructible&lt;status_error_type, U&gt;::value);
 
-  <span class="cm">/*! Inplace constructor to a successful result.</span>
-<span class="cm">  \tparam 2</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \param _ Tag type to indicate we are doing in place construction of `value_type`.</span>
-<span class="cm">  \param il An initializer list with which to in place construct.</span>
-<span class="cm">  \param args Arguments with which to in place construct.</span>
+  <span style="color: #008000">/*! Implicit converting copy constructor from a compatible result type.</span>
+<span style="color: #008000">  \tparam 3</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param o The compatible result.</span>
 
-<span class="cm">  \effects Initialises the result with a `value_type`.</span>
-<span class="cm">  \requires The initializer list + `Args...` are constructible to `value_type`.</span>
-<span class="cm">  \throws Any exception the construction of `value_type(il, Args...)` might throw.</span>
-<span class="cm">  */</span>
-  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="p">)</span>
-  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_inplace_value_constructor</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;</span><span class="p">))</span>
-  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="n">result</span><span class="p">(</span><span class="kt">in_place_type_t</span><span class="o">&lt;</span><span class="n">value_type_if_enabled</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span> <span class="n">il</span><span class="p">,</span> <span class="n">Args</span> <span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> 
-  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">value_type</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+<span style="color: #008000">  \effects Initialises the result with a copy of the compatible result.</span>
+<span style="color: #008000">  \requires Both result&#39;s `error_type` and `status_type` need to be constructible, and the source `value_type` must be `void`.</span>
+<span style="color: #008000">  \throws Any exception the construction of `status_error_type(U)` might throw.</span>
+<span style="color: #008000">  */</span>
+  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>)
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_implicit_compatible_conversion&lt;T, U, V&gt;))
+  constexpr result(<span style="color: #0000ff">const</span> result&lt;T, U, V&gt; &amp;o, implicit_compatible_conversion_tag = implicit_compatible_conversion_tag()) 
+  noexcept(std::is_nothrow_constructible&lt;status_error_type, U&gt;::value);
 
-  <span class="cm">/*! Inplace constructor to a failure result.</span>
-<span class="cm">  \tparam 1</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \param _ Tag type to indicate we are doing in place construction of `error_type`.</span>
-<span class="cm">  \param args Arguments with which to in place construct.</span>
+  <span style="color: #008000">/*! Explicit converting move constructor from a compatible result type.</span>
+<span style="color: #008000">  \tparam 3</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param o The compatible result.</span>
 
-<span class="cm">  \effects Initialises the result with a `error_type`.</span>
-<span class="cm">  \requires `trait::status_type_is_negative&lt;EC&gt;` must be true; `error_type` is void or `Args...` are constructible to `error_type`.</span>
-<span class="cm">  \throws Any exception the construction of `error_type(Args...)` might throw.</span>
-<span class="cm">  */</span>
-  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="p">)</span>
-  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_inplace_error_constructor</span><span class="o">&lt;</span><span class="n">Args</span><span class="p">...</span><span class="o">&gt;</span><span class="p">))</span>
-  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="n">result</span><span class="p">(</span><span class="kt">in_place_type_t</span><span class="o">&lt;</span><span class="n">error_type_if_enabled</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Args</span> <span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> 
-  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">error_type</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+<span style="color: #008000">  \effects Initialises the result with a move of the compatible result.</span>
+<span style="color: #008000">  \requires Both result&#39;s `value_type`, `error_type` and `status_type` need to be constructible, or the source `status_error_type` can be `void`.</span>
+<span style="color: #008000">  The source `value_type` cannot be `void`.</span>
+<span style="color: #008000">  \throws Any exception the construction of `value_type(T)` and `status_error_type(U)` might throw.</span>
+<span style="color: #008000">  */</span>
+  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>)
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_explicit_compatible_conversion&lt;T, U, V&gt;))
+  constexpr <span style="color: #0000ff">explicit</span> result(result&lt;T, U, V&gt; &amp;&amp;o, explicit_compatible_conversion_tag = explicit_compatible_conversion_tag()) 
+  noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value &amp;&amp;std::is_nothrow_constructible&lt;status_error_type, U&gt;::value);
 
-  <span class="cm">/*! Inplace constructor to a failure result.</span>
-<span class="cm">  \tparam 2</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \param _ Tag type to indicate we are doing in place construction of `error_type`.</span>
-<span class="cm">  \param il An initializer list with which to in place construct.</span>
-<span class="cm">  \param args Arguments with which to in place construct.</span>
+  <span style="color: #008000">/*! Implicit converting move constructor from a compatible result type.</span>
+<span style="color: #008000">  \tparam 3</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param o The compatible result.</span>
 
-<span class="cm">  \effects Initialises the result with a `error_type`.</span>
-<span class="cm">  \requires `trait::status_type_is_negative&lt;EC&gt;` must be true; The initializer list + `Args...` are constructible to `error_type`.</span>
-<span class="cm">  \throws Any exception the construction of `error_type(il, Args...)` might throw.</span>
-<span class="cm">  */</span>
-  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="p">)</span>
-  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_inplace_error_constructor</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;</span><span class="p">))</span>
-  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="n">result</span><span class="p">(</span><span class="kt">in_place_type_t</span><span class="o">&lt;</span><span class="n">error_type_if_enabled</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span> <span class="n">il</span><span class="p">,</span> <span class="n">Args</span> <span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> 
-  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_nothrow_constructible</span><span class="o">&lt;</span><span class="n">error_type</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
-
-  <span class="cm">/*! Implicit inplace constructor to successful or failure result.</span>
-<span class="cm">  \tparam 3</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \param args Arguments with which to in place construct.</span>
-
-<span class="cm">  \effects Calls the appropriate `in_place_type_t&lt;...&gt;` constructor depending on constructibility of args.</span>
-<span class="cm">  \requires That the args can construct exactly one of `value_type` or `error_type`.</span>
-<span class="cm">  \throws Any exception the `in_place_type_t&lt;...&gt;` constructor might throw.</span>
-<span class="cm">  */</span>
-  <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">A1</span><span class="p">,</span> <span class="k">class</span> <span class="nc">A2</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="p">)</span>
-  <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span><span class="n">OUTCOME_TPRED</span><span class="p">(</span><span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">enable_inplace_value_error_constructor</span><span class="o">&lt;</span><span class="n">A1</span><span class="p">,</span> <span class="n">A2</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;</span><span class="p">))</span>
-  <span class="n">constexpr</span> <span class="n">result</span><span class="p">(</span><span class="n">A1</span> <span class="o">&amp;&amp;</span><span class="n">a1</span><span class="p">,</span> <span class="n">A2</span> <span class="o">&amp;&amp;</span><span class="n">a2</span><span class="p">,</span> <span class="n">Args</span> <span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="n">noexcept</span><span class="p">(</span><span class="n">noexcept</span><span class="p">(</span><span class="k">typename</span> <span class="n">predicate</span><span class="o">::</span><span class="k">template</span> <span class="n">choose_inplace_value_error_constructor</span><span class="o">&lt;</span><span class="n">A1</span><span class="p">,</span> <span class="n">A2</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">A1</span><span class="o">&gt;</span><span class="p">(),</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">A2</span><span class="o">&gt;</span><span class="p">(),</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">()...)));</span>
+<span style="color: #008000">  \effects Initialises the result with a move of the compatible result.</span>
+<span style="color: #008000">  \requires Both result&#39;s `error_type` and `status_type` need to be constructible, and the source `value_type` must be `void`.</span>
+<span style="color: #008000">  \throws Any exception the construction of `status_error_type(U)` might throw.</span>
+<span style="color: #008000">  */</span>
+  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>)
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_implicit_compatible_conversion&lt;T, U, V&gt;))
+  constexpr result(result&lt;T, U, V&gt; &amp;&amp;o, implicit_compatible_conversion_tag = implicit_compatible_conversion_tag()) 
+  noexcept(std::is_nothrow_constructible&lt;status_error_type, U&gt;::value);
 
   
-  <span class="c1">/// \output_section Swap</span>
-  <span class="cm">/*! Swaps this result with another result</span>
-<span class="cm">  \effects Any `R` and/or `S` is swapped along with the metadata tracking them.</span>
-<span class="cm">  */</span>
-  <span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="n">result</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">)</span> <span class="n">noexcept</span><span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">is_nothrow_swappable</span><span class="o">&lt;</span><span class="n">value_type</span><span class="o">&gt;::</span><span class="n">value</span>  <span class="c1">//</span>
-                                <span class="o">&amp;&amp;</span><span class="n">detail</span><span class="o">::</span><span class="n">is_nothrow_swappable</span><span class="o">&lt;</span><span class="n">status_error_type</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span>
+  <span style="color: #008000">/// \output_section In place constructors</span>
+  <span style="color: #008000">/*! Inplace constructor to a successful result.</span>
+<span style="color: #008000">  \tparam 1</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param _ Tag type to indicate we are doing in place construction of `value_type`.</span>
+<span style="color: #008000">  \param args Arguments with which to in place construct.</span>
 
-  <span class="c1">/// \output_section Converters</span>
-  <span class="cm">/*! Returns this result rebound to void with any errored state copied.</span>
-<span class="cm">  \requires This result to have a failed state, else whatever `assume_error()` would do.</span>
-<span class="cm">  */</span>
-  <span class="n">rebind</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">as_void</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;</span><span class="p">;</span>
-  <span class="cm">/*! Returns this result rebound to void with any errored state moved.</span>
-<span class="cm">  \requires This result to have a failed state, else whatever `assume_error()` would do.</span>
-<span class="cm">  */</span>
-  <span class="n">rebind</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">as_void</span><span class="p">()</span> <span class="o">&amp;&amp;</span><span class="p">;</span>
+<span style="color: #008000">  \effects Initialises the result with a `value_type`.</span>
+<span style="color: #008000">  \requires `value_type` is void or `Args...` are constructible to `value_type`.</span>
+<span style="color: #008000">  \throws Any exception the construction of `value_type(Args...)` might throw.</span>
+<span style="color: #008000">  */</span>
+  OUTCOME_TEMPLATE(class... Args)
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_inplace_value_constructor&lt;Args...&gt;))
+  constexpr <span style="color: #0000ff">explicit</span> result(<span style="color: #2b91af">in_place_type_t</span>&lt;value_type_if_enabled&gt;, Args &amp;&amp;... args) 
+  noexcept(std::is_nothrow_constructible&lt;value_type, Args...&gt;::value);
+
+  <span style="color: #008000">/*! Inplace constructor to a successful result.</span>
+<span style="color: #008000">  \tparam 2</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param _ Tag type to indicate we are doing in place construction of `value_type`.</span>
+<span style="color: #008000">  \param il An initializer list with which to in place construct.</span>
+<span style="color: #008000">  \param args Arguments with which to in place construct.</span>
+
+<span style="color: #008000">  \effects Initialises the result with a `value_type`.</span>
+<span style="color: #008000">  \requires The initializer list + `Args...` are constructible to `value_type`.</span>
+<span style="color: #008000">  \throws Any exception the construction of `value_type(il, Args...)` might throw.</span>
+<span style="color: #008000">  */</span>
+  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, class... Args)
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_inplace_value_constructor&lt;std::initializer_list&lt;U&gt;, Args...&gt;))
+  constexpr <span style="color: #0000ff">explicit</span> result(<span style="color: #2b91af">in_place_type_t</span>&lt;value_type_if_enabled&gt;, std::initializer_list&lt;U&gt; il, Args &amp;&amp;... args) 
+  noexcept(std::is_nothrow_constructible&lt;value_type, std::initializer_list&lt;U&gt;, Args...&gt;::value);
+
+  <span style="color: #008000">/*! Inplace constructor to a failure result.</span>
+<span style="color: #008000">  \tparam 1</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param _ Tag type to indicate we are doing in place construction of `error_type`.</span>
+<span style="color: #008000">  \param args Arguments with which to in place construct.</span>
+
+<span style="color: #008000">  \effects Initialises the result with a `error_type`.</span>
+<span style="color: #008000">  \requires `trait::status_type_is_negative&lt;EC&gt;` must be true; `error_type` is void or `Args...` are constructible to `error_type`.</span>
+<span style="color: #008000">  \throws Any exception the construction of `error_type(Args...)` might throw.</span>
+<span style="color: #008000">  */</span>
+  OUTCOME_TEMPLATE(class... Args)
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_inplace_error_constructor&lt;Args...&gt;))
+  constexpr <span style="color: #0000ff">explicit</span> result(<span style="color: #2b91af">in_place_type_t</span>&lt;error_type_if_enabled&gt;, Args &amp;&amp;... args) 
+  noexcept(std::is_nothrow_constructible&lt;error_type, Args...&gt;::value);
+
+  <span style="color: #008000">/*! Inplace constructor to a failure result.</span>
+<span style="color: #008000">  \tparam 2</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param _ Tag type to indicate we are doing in place construction of `error_type`.</span>
+<span style="color: #008000">  \param il An initializer list with which to in place construct.</span>
+<span style="color: #008000">  \param args Arguments with which to in place construct.</span>
+
+<span style="color: #008000">  \effects Initialises the result with a `error_type`.</span>
+<span style="color: #008000">  \requires `trait::status_type_is_negative&lt;EC&gt;` must be true; The initializer list + `Args...` are constructible to `error_type`.</span>
+<span style="color: #008000">  \throws Any exception the construction of `error_type(il, Args...)` might throw.</span>
+<span style="color: #008000">  */</span>
+  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, class... Args)
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_inplace_error_constructor&lt;std::initializer_list&lt;U&gt;, Args...&gt;))
+  constexpr <span style="color: #0000ff">explicit</span> result(<span style="color: #2b91af">in_place_type_t</span>&lt;error_type_if_enabled&gt;, std::initializer_list&lt;U&gt; il, Args &amp;&amp;... args) 
+  noexcept(std::is_nothrow_constructible&lt;error_type, std::initializer_list&lt;U&gt;, Args...&gt;::value);
+
+  <span style="color: #008000">/*! Implicit inplace constructor to successful or failure result.</span>
+<span style="color: #008000">  \tparam 3</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param args Arguments with which to in place construct.</span>
+
+<span style="color: #008000">  \effects Calls the appropriate `in_place_type_t&lt;...&gt;` constructor depending on constructibility of args.</span>
+<span style="color: #008000">  \requires That the args can construct exactly one of `value_type` or `error_type`.</span>
+<span style="color: #008000">  \throws Any exception the `in_place_type_t&lt;...&gt;` constructor might throw.</span>
+<span style="color: #008000">  */</span>
+  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">A1</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">A2</span>, class... Args)
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_inplace_value_error_constructor&lt;A1, A2, Args...&gt;))
+  constexpr result(A1 &amp;&amp;a1, A2 &amp;&amp;a2, Args &amp;&amp;... args) noexcept(noexcept(<span style="color: #0000ff">typename</span> predicate::<span style="color: #0000ff">template</span> choose_inplace_value_error_constructor&lt;A1, A2, Args...&gt;(std::declval&lt;A1&gt;(), std::declval&lt;A2&gt;(), std::declval&lt;Args&gt;()...)));
 
   
-  <span class="c1">/// \output_section Narrow state observers</span>
-  <span class="cm">/*! Access value without runtime checks.</span>
-<span class="cm">  \preconditions The result to have a successful state, otherwise it is undefined behaviour.</span>
-<span class="cm">  \returns Reference to the held `value_type` according to overload.</span>
-<span class="cm">  \group assume_value</span>
-<span class="cm">  */</span>
-  <span class="n">constexpr</span> <span class="n">value_type</span> <span class="o">&amp;</span><span class="n">assume_value</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">noexcept</span><span class="p">;</span>
-  <span class="c1">/// \group assume_value</span>
-  <span class="n">constexpr</span> <span class="k">const</span> <span class="n">value_type</span> <span class="o">&amp;</span><span class="n">assume_value</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;</span><span class="n">noexcept</span><span class="p">;</span>
-  <span class="c1">/// \group assume_value</span>
-  <span class="n">constexpr</span> <span class="n">value_type</span> <span class="o">&amp;&amp;</span><span class="n">assume_value</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">noexcept</span><span class="p">;</span>
-  <span class="c1">/// \group assume_value</span>
-  <span class="n">constexpr</span> <span class="k">const</span> <span class="n">value_type</span> <span class="o">&amp;&amp;</span><span class="n">assume_value</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;&amp;</span><span class="n">noexcept</span><span class="p">;</span>
+  <span style="color: #008000">/// \output_section Swap</span>
+  <span style="color: #008000">/*! Swaps this result with another result</span>
+<span style="color: #008000">  \effects Any `R` and/or `S` is swapped along with the metadata tracking them.</span>
+<span style="color: #008000">  */</span>
+  <span style="color: #2b91af">void</span> swap(result &amp;o) noexcept(detail::is_nothrow_swappable&lt;value_type&gt;::value  <span style="color: #008000">//</span>
+                                &amp;&amp;detail::is_nothrow_swappable&lt;status_error_type&gt;::value);
 
-  <span class="c1">/// \output_section Wide state observers</span>
-  <span class="cm">/*! Access value with runtime checks.</span>
-<span class="cm">  \returns Reference to the held `value_type` according to overload.</span>
-<span class="cm">  \requires The result to have a successful state, else whatever `NoValuePolicy` says ought to happen.</span>
-<span class="cm">  \group value</span>
-<span class="cm">  */</span>
-  <span class="n">constexpr</span> <span class="n">value_type</span> <span class="o">&amp;</span><span class="n">value</span><span class="p">()</span> <span class="o">&amp;</span><span class="p">;</span>
-  <span class="c1">/// \group value</span>
-  <span class="n">constexpr</span> <span class="k">const</span> <span class="n">value_type</span> <span class="o">&amp;</span><span class="n">value</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;</span><span class="p">;</span>
-  <span class="c1">/// \group value</span>
-  <span class="n">constexpr</span> <span class="n">value_type</span> <span class="o">&amp;&amp;</span><span class="n">value</span><span class="p">()</span> <span class="o">&amp;&amp;</span><span class="p">;</span>
-  <span class="c1">/// \group value</span>
-  <span class="n">constexpr</span> <span class="k">const</span> <span class="n">value_type</span> <span class="o">&amp;&amp;</span><span class="n">value</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;&amp;</span><span class="p">;</span>
+  <span style="color: #008000">/// \output_section Converters</span>
+  <span style="color: #008000">/*! Returns this result rebound to void with any errored state copied.</span>
+<span style="color: #008000">  \requires This result to have a failed state, else whatever `assume_error()` would do.</span>
+<span style="color: #008000">  */</span>
+  rebind&lt;<span style="color: #2b91af">void</span>&gt; as_void() <span style="color: #0000ff">const</span> &amp;;
+  <span style="color: #008000">/*! Returns this result rebound to void with any errored state moved.</span>
+<span style="color: #008000">  \requires This result to have a failed state, else whatever `assume_error()` would do.</span>
+<span style="color: #008000">  */</span>
+  rebind&lt;<span style="color: #2b91af">void</span>&gt; as_void() &amp;&amp;;
 
-  <span class="c1">/// \output_section Narrow state observers</span>
-  <span class="cm">/*! Access error without runtime checks.</span>
-<span class="cm">  \preconditions The result to have a failed state, otherwise it is undefined behaviour.</span>
-<span class="cm">  \returns Reference to the held `error_type` according to overload.</span>
-<span class="cm">  \group assume_error</span>
-<span class="cm">  */</span>
-  <span class="n">constexpr</span> <span class="n">error_type</span> <span class="o">&amp;</span><span class="n">assume_error</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">noexcept</span><span class="p">;</span>
-  <span class="c1">/// \group assume_error</span>
-  <span class="n">constexpr</span> <span class="k">const</span> <span class="n">error_type</span> <span class="o">&amp;</span><span class="n">assume_error</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;</span><span class="n">noexcept</span><span class="p">;</span>
-  <span class="c1">/// \group assume_error</span>
-  <span class="n">constexpr</span> <span class="n">error_type</span> <span class="o">&amp;&amp;</span><span class="n">assume_error</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">noexcept</span><span class="p">;</span>
-  <span class="c1">/// \group assume_error</span>
-  <span class="n">constexpr</span> <span class="k">const</span> <span class="n">error_type</span> <span class="o">&amp;&amp;</span><span class="n">assume_error</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;&amp;</span><span class="n">noexcept</span><span class="p">;</span>
+  
+  <span style="color: #008000">/// \output_section Narrow state observers</span>
+  <span style="color: #008000">/*! Access value without runtime checks.</span>
+<span style="color: #008000">  \preconditions The result to have a successful state, otherwise it is undefined behaviour.</span>
+<span style="color: #008000">  \returns Reference to the held `value_type` according to overload.</span>
+<span style="color: #008000">  \group assume_value</span>
+<span style="color: #008000">  */</span>
+  constexpr value_type &amp;assume_value() &amp; noexcept;
+  <span style="color: #008000">/// \group assume_value</span>
+  constexpr <span style="color: #0000ff">const</span> value_type &amp;assume_value() <span style="color: #0000ff">const</span> &amp;noexcept;
+  <span style="color: #008000">/// \group assume_value</span>
+  constexpr value_type &amp;&amp;assume_value() &amp;&amp; noexcept;
+  <span style="color: #008000">/// \group assume_value</span>
+  constexpr <span style="color: #0000ff">const</span> value_type &amp;&amp;assume_value() <span style="color: #0000ff">const</span> &amp;&amp;noexcept;
 
-  <span class="c1">/// \output_section Wide state observers</span>
-  <span class="cm">/*! Access error with runtime checks.</span>
-<span class="cm">  \returns Reference to the held `error_type` according to overload.</span>
-<span class="cm">  \requires The result to have a failed state, else whatever `NoValuePolicy` says ought to happen.</span>
-<span class="cm">  \group error</span>
-<span class="cm">  */</span>
-  <span class="n">constexpr</span> <span class="n">error_type</span> <span class="o">&amp;</span><span class="n">error</span><span class="p">()</span> <span class="o">&amp;</span><span class="p">;</span>
-  <span class="c1">/// \group error</span>
-  <span class="n">constexpr</span> <span class="k">const</span> <span class="n">error_type</span> <span class="o">&amp;</span><span class="n">error</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;</span><span class="p">;</span>
-  <span class="c1">/// \group error</span>
-  <span class="n">constexpr</span> <span class="n">error_type</span> <span class="o">&amp;&amp;</span><span class="n">error</span><span class="p">()</span> <span class="o">&amp;&amp;</span><span class="p">;</span>
-  <span class="c1">/// \group error</span>
-  <span class="n">constexpr</span> <span class="k">const</span> <span class="n">error_type</span> <span class="o">&amp;&amp;</span><span class="n">error</span><span class="p">()</span> <span class="k">const</span> <span class="o">&amp;&amp;</span><span class="p">;</span>
+  <span style="color: #008000">/// \output_section Wide state observers</span>
+  <span style="color: #008000">/*! Access value with runtime checks.</span>
+<span style="color: #008000">  \returns Reference to the held `value_type` according to overload.</span>
+<span style="color: #008000">  \requires The result to have a successful state, else whatever `NoValuePolicy` says ought to happen.</span>
+<span style="color: #008000">  \group value</span>
+<span style="color: #008000">  */</span>
+  constexpr value_type &amp;value() &amp;;
+  <span style="color: #008000">/// \group value</span>
+  constexpr <span style="color: #0000ff">const</span> value_type &amp;value() <span style="color: #0000ff">const</span> &amp;;
+  <span style="color: #008000">/// \group value</span>
+  constexpr value_type &amp;&amp;value() &amp;&amp;;
+  <span style="color: #008000">/// \group value</span>
+  constexpr <span style="color: #0000ff">const</span> value_type &amp;&amp;value() <span style="color: #0000ff">const</span> &amp;&amp;;
+
+  <span style="color: #008000">/// \output_section Narrow state observers</span>
+  <span style="color: #008000">/*! Access error without runtime checks.</span>
+<span style="color: #008000">  \preconditions The result to have a failed state, otherwise it is undefined behaviour.</span>
+<span style="color: #008000">  \returns Reference to the held `error_type` according to overload.</span>
+<span style="color: #008000">  \group assume_error</span>
+<span style="color: #008000">  */</span>
+  constexpr error_type &amp;assume_error() &amp; noexcept;
+  <span style="color: #008000">/// \group assume_error</span>
+  constexpr <span style="color: #0000ff">const</span> error_type &amp;assume_error() <span style="color: #0000ff">const</span> &amp;noexcept;
+  <span style="color: #008000">/// \group assume_error</span>
+  constexpr error_type &amp;&amp;assume_error() &amp;&amp; noexcept;
+  <span style="color: #008000">/// \group assume_error</span>
+  constexpr <span style="color: #0000ff">const</span> error_type &amp;&amp;assume_error() <span style="color: #0000ff">const</span> &amp;&amp;noexcept;
+
+  <span style="color: #008000">/// \output_section Wide state observers</span>
+  <span style="color: #008000">/*! Access error with runtime checks.</span>
+<span style="color: #008000">  \returns Reference to the held `error_type` according to overload.</span>
+<span style="color: #008000">  \requires The result to have a failed state, else whatever `NoValuePolicy` says ought to happen.</span>
+<span style="color: #008000">  \group error</span>
+<span style="color: #008000">  */</span>
+  constexpr error_type &amp;error() &amp;;
+  <span style="color: #008000">/// \group error</span>
+  constexpr <span style="color: #0000ff">const</span> error_type &amp;error() <span style="color: #0000ff">const</span> &amp;;
+  <span style="color: #008000">/// \group error</span>
+  constexpr error_type &amp;&amp;error() &amp;&amp;;
+  <span style="color: #008000">/// \group error</span>
+  constexpr <span style="color: #0000ff">const</span> error_type &amp;&amp;error() <span style="color: #0000ff">const</span> &amp;&amp;;
 
 
-  <span class="c1">/// \output_section State check observers</span>
-  <span class="cm">/*! Checks if has value.</span>
-<span class="cm">  \returns True if has value.</span>
-<span class="cm">  */</span>
-  <span class="n">constexpr</span> <span class="k">explicit</span> <span class="k">operator</span> <span class="kt">bool</span><span class="p">()</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">;</span>
-  <span class="cm">/*! Checks if has value.</span>
-<span class="cm">  \returns True if has value.</span>
-<span class="cm">  */</span>
-  <span class="n">constexpr</span> <span class="kt">bool</span> <span class="n">has_value</span><span class="p">()</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">;</span>
-  <span class="cm">/*! Checks if has error.</span>
-<span class="cm">  \returns True if has error.</span>
-<span class="cm">  */</span>
-  <span class="n">constexpr</span> <span class="kt">bool</span> <span class="n">has_error</span><span class="p">()</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">;</span>
-  <span class="cm">/*! Checks if has payload.</span>
-<span class="cm">  \returns True if has payload.</span>
-<span class="cm">  */</span>
-  <span class="n">constexpr</span> <span class="kt">bool</span> <span class="n">has_payload</span><span class="p">()</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">;</span>
-  <span class="cm">/*! Checks if has exception.</span>
-<span class="cm">  \returns True if has exception.</span>
-<span class="cm">  */</span>
-  <span class="n">constexpr</span> <span class="kt">bool</span> <span class="n">has_exception</span><span class="p">()</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">;</span>
-  <span class="cm">/*! Checks if has error or exception.</span>
-<span class="cm">  \returns True if has error or exception.</span>
-<span class="cm">  */</span>
-  <span class="n">constexpr</span> <span class="kt">bool</span> <span class="n">has_failure</span><span class="p">()</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">;</span>
+  <span style="color: #008000">/// \output_section State check observers</span>
+  <span style="color: #008000">/*! Checks if has value.</span>
+<span style="color: #008000">  \returns True if has value.</span>
+<span style="color: #008000">  */</span>
+  constexpr <span style="color: #0000ff">explicit</span> <span style="color: #0000ff">operator</span> <span style="color: #2b91af">bool</span>() <span style="color: #0000ff">const</span> noexcept;
+  <span style="color: #008000">/*! Checks if has value.</span>
+<span style="color: #008000">  \returns True if has value.</span>
+<span style="color: #008000">  */</span>
+  constexpr <span style="color: #2b91af">bool</span> has_value() <span style="color: #0000ff">const</span> noexcept;
+  <span style="color: #008000">/*! Checks if has error.</span>
+<span style="color: #008000">  \returns True if has error.</span>
+<span style="color: #008000">  */</span>
+  constexpr <span style="color: #2b91af">bool</span> has_error() <span style="color: #0000ff">const</span> noexcept;
+  <span style="color: #008000">/*! Checks if has payload.</span>
+<span style="color: #008000">  \returns True if has payload.</span>
+<span style="color: #008000">  */</span>
+  constexpr <span style="color: #2b91af">bool</span> has_payload() <span style="color: #0000ff">const</span> noexcept;
+  <span style="color: #008000">/*! Checks if has exception.</span>
+<span style="color: #008000">  \returns True if has exception.</span>
+<span style="color: #008000">  */</span>
+  constexpr <span style="color: #2b91af">bool</span> has_exception() <span style="color: #0000ff">const</span> noexcept;
+  <span style="color: #008000">/*! Checks if has error or exception.</span>
+<span style="color: #008000">  \returns True if has error or exception.</span>
+<span style="color: #008000">  */</span>
+  constexpr <span style="color: #2b91af">bool</span> has_failure() <span style="color: #0000ff">const</span> noexcept;
 
-  <span class="c1">/// \output_section Comparison operators</span>
-  <span class="cm">/*! True if equal to the other result.</span>
-<span class="cm">  \tparam 4</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \tparam 5</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \param o The other result to compare to.</span>
+  <span style="color: #008000">/// \output_section Comparison operators</span>
+  <span style="color: #008000">/*! True if equal to the other result.</span>
+<span style="color: #008000">  \tparam 4</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \tparam 5</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param o The other result to compare to.</span>
 
-<span class="cm">  \effects Calls the `operator==` operation on each of the two stored items until one returns false.</span>
-<span class="cm">  \requires That the expression of calling `operator==` on each of the two stored items is a valid expression.</span>
-<span class="cm">  \throws Any exception the individual `operator==` operations might throw.</span>
-<span class="cm">  */</span>
-    <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">)</span>
-    <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span>                                      <span class="c1">//</span>
-    <span class="n">OUTCOME_TEXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()),</span>  <span class="c1">//</span>
-    <span class="n">OUTCOME_TEXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">())</span>   <span class="c1">//</span>
-    <span class="p">)</span>
-  <span class="n">constexpr</span> <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">result_final</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">)</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">(</span>  <span class="c1">//</span>
-  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">())</span>                           <span class="c1">//</span>
-  <span class="o">&amp;&amp;</span> <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">()));</span>
-  <span class="cm">/*! True if not equal to the other result.</span>
-<span class="cm">  \tparam 4</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \tparam 5</span>
-<span class="cm">  \exclude</span>
-<span class="cm">  \param o The other result to compare to.</span>
+<span style="color: #008000">  \effects Calls the `operator==` operation on each of the two stored items until one returns false.</span>
+<span style="color: #008000">  \requires That the expression of calling `operator==` on each of the two stored items is a valid expression.</span>
+<span style="color: #008000">  \throws Any exception the individual `operator==` operations might throw.</span>
+<span style="color: #008000">  */</span>
+    OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>)
+    OUTCOME_TREQUIRES(                                      <span style="color: #008000">//</span>
+    OUTCOME_TEXPR(std::declval&lt;R&gt;() == std::declval&lt;T&gt;()),  <span style="color: #008000">//</span>
+    OUTCOME_TEXPR(std::declval&lt;S&gt;() == std::declval&lt;U&gt;())   <span style="color: #008000">//</span>
+    )
+  constexpr <span style="color: #2b91af">bool</span> <span style="color: #0000ff">operator</span>==(<span style="color: #0000ff">const</span> result_final&lt;T, U, V&gt; &amp;o) <span style="color: #0000ff">const</span> noexcept(  <span style="color: #008000">//</span>
+  noexcept(std::declval&lt;R&gt;() == std::declval&lt;T&gt;())                           <span style="color: #008000">//</span>
+  &amp;&amp; noexcept(std::declval&lt;S&gt;() == std::declval&lt;U&gt;()));
+  <span style="color: #008000">/*! True if not equal to the other result.</span>
+<span style="color: #008000">  \tparam 4</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \tparam 5</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param o The other result to compare to.</span>
 
-<span class="cm">  \effects Calls the `operator!=` operation on each of the two stored items until one returns true.</span>
-<span class="cm">  \requires That the expression of calling `operator!=` on each of the two stored items is a valid expression.</span>
-<span class="cm">  \throws Any exception the individual `operator!=` operations might throw.</span>
-<span class="cm">  */</span>
-    <span class="n">OUTCOME_TEMPLATE</span><span class="p">(</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span> <span class="nc">V</span><span class="p">)</span>
-    <span class="n">OUTCOME_TREQUIRES</span><span class="p">(</span>                                      <span class="c1">//</span>
-    <span class="n">OUTCOME_TEXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()),</span>  <span class="c1">//</span>
-    <span class="n">OUTCOME_TEXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">())</span>   <span class="c1">//</span>
-    <span class="p">)</span>
-  <span class="n">constexpr</span> <span class="kt">bool</span> <span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span> <span class="n">result_final</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">)</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">(</span>  <span class="c1">//</span>
-  <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">())</span>                           <span class="c1">//</span>
-  <span class="o">&amp;&amp;</span> <span class="n">noexcept</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">()));</span>
-<span class="p">};</span>
-</code></pre></div>
+<span style="color: #008000">  \effects Calls the `operator!=` operation on each of the two stored items until one returns true.</span>
+<span style="color: #008000">  \requires That the expression of calling `operator!=` on each of the two stored items is a valid expression.</span>
+<span style="color: #008000">  \throws Any exception the individual `operator!=` operations might throw.</span>
+<span style="color: #008000">  */</span>
+    OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>)
+    OUTCOME_TREQUIRES(                                      <span style="color: #008000">//</span>
+    OUTCOME_TEXPR(std::declval&lt;R&gt;() != std::declval&lt;T&gt;()),  <span style="color: #008000">//</span>
+    OUTCOME_TEXPR(std::declval&lt;S&gt;() != std::declval&lt;U&gt;())   <span style="color: #008000">//</span>
+    )
+  constexpr <span style="color: #2b91af">bool</span> <span style="color: #0000ff">operator</span>!=(<span style="color: #0000ff">const</span> result_final&lt;T, U, V&gt; &amp;o) <span style="color: #0000ff">const</span> noexcept(  <span style="color: #008000">//</span>
+  noexcept(std::declval&lt;R&gt;() != std::declval&lt;T&gt;())                           <span style="color: #008000">//</span>
+  &amp;&amp; noexcept(std::declval&lt;S&gt;() != std::declval&lt;U&gt;()));
+};
+</pre></div>
 
 
 <footer class=" footline" >
@@ -1040,8 +1040,6 @@ parent
     <script src="/outcome/js/clipboard.min.js"></script>
     <script src="/outcome/js/featherlight.min.js"></script>
     <script src="/outcome/js/html5shiv-printshiv.min.js"></script>
-    <script src="/outcome/js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
     <script src="/outcome/js/modernizr.custom.71422.js"></script>
     <script src="/outcome/js/learn.js"></script>
     <script src="/outcome/js/hugo-learn.js"></script>
