@@ -421,6 +421,11 @@ active
     <div class="wrapper">
 <nav id="TableOfContents">
 <ul>
+<li>
+<ul>
+<li><a href="#usage-as-a-single-header-file">Usage as a single header file</a></li>
+<li><a href="#usage-as-a-git-submodule">Usage as a git submodule</a></li>
+</ul></li>
 <li><a href="#running-the-unit-test-suite">Running the unit test suite</a></li>
 <li><a href="#modular-cmake-build-support">Modular CMake build support</a></li>
 </ul>
@@ -449,6 +454,23 @@ quality and subject change if a second review demands it.</p>
 
 <p>That said, the essentials here are the same as they were in v1. Indeed most code
 written for v1 should be convertible to v2 without too much effort.</p>
+
+<h2 id="usage-as-a-single-header-file">Usage as a single header file</h2>
+
+<p>Outcome v2 comes in single header file form. This is regenerated per commit. To fetch
+on Linux:</p>
+
+<pre><code>wget https://github.com/ned14/outcome/tree/develop/single-header/outcome.hpp
+</code></pre>
+
+<p>On BSD and OS X:</p>
+
+<pre><code>fetch https://github.com/ned14/outcome/tree/develop/single-header/outcome.hpp
+</code></pre>
+
+<p>On Windows, simply download the raw file from above and place it wherever it suits you.</p>
+
+<h2 id="usage-as-a-git-submodule">Usage as a git submodule</h2>
 
 <p>Given that v2 is still under development, it is currently best used as a git
 submodule to your project so you can keep abreast of bug fixes. Here is how:</p>
