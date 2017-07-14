@@ -439,24 +439,147 @@ parent
 
 
 
-<p>TODO: This section will describe how you can plug your custom error enum, like:</p>
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #0000ff">enum</span> <span style="color: #0000ff">class</span> <span style="color: #2b91af">ConversionErrc</span>
+<p>This section illustrates how you can hook into the <code>std::error_code</code> system from
+the Standard Library in order to work with your own set of error codes. As is usually
+the case in C++, doing this is straightforward but requires typing boilerplate
+to tell the C++ STL about your custom error type. This is not part of Outcome library,
+but we still provide this short guide here, because how to do this is not well documented [1].</p>
+
+<p>Suppose you want to report all reasons for failure in conveting an <code>std::string</code> to a non-negative <code>int</code>.
+The list is:</p>
+
+<ul>
+<li><code>EmptyString</code> &ndash; the input string is empty,</li>
+<li><code>IllegalChar</code> &ndash; input contains characters that are not digits,</li>
+<li><code>TooLong</code> &ndash; input represents a number, but this number would not fit into a variable of type <code>int</code>.</li>
+</ul>
+
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #0000ff">#include &lt;iostream&gt;</span>
+<span style="color: #0000ff">#include &lt;string&gt;        </span><span style="color: #008000">// for string printing</span>
+<span style="color: #0000ff">#include &lt;system_error&gt;  </span><span style="color: #008000">// bring in std::error_code et al</span>
+
+<span style="color: #008000">// This is the custom error code enum</span>
+<span style="color: #0000ff">enum</span> <span style="color: #0000ff">class</span> <span style="color: #2b91af">ConversionErrc</span>
 {
-  EmptyString = 1;
-  IllegalChar = 2;
-  TooLong     = 3;
+  EmptyString = 1, <span style="color: #008000">// 0 is never an error</span>
+  IllegalChar = 2,
+  TooLong     = 3,
 };
+
+<span style="color: #0000ff">namespace</span> std
+{
+  <span style="color: #008000">// Tell the C++ 11 STL metaprogramming that enum MathError::valid_errors</span>
+  <span style="color: #008000">// is registered with the standard error code system</span>
+  <span style="color: #0000ff">template</span> &lt;&gt; <span style="color: #0000ff">struct</span> is_error_code_enum&lt;ConversionErrc&gt; : std::true_type
+  {
+  };
+}
+
+<span style="color: #0000ff">namespace</span> detail
+{
+  <span style="color: #008000">// Define a custom error code category derived from std::error_category</span>
+  <span style="color: #0000ff">class</span> <span style="color: #2b91af">ConversionErrc_category</span> : <span style="color: #0000ff">public</span> std::error_category
+  {
+  public:
+    <span style="color: #008000">// Return a short descriptive name for the category</span>
+    <span style="color: #0000ff">virtual</span> <span style="color: #0000ff">const</span> <span style="color: #2b91af">char</span> *name() <span style="color: #0000ff">const</span> noexcept override final { <span style="color: #0000ff">return</span> <span style="color: #a31515">&quot;MathError&quot;</span>; }
+    <span style="color: #008000">// Return what each enum means in text</span>
+    <span style="color: #0000ff">virtual</span> std::string message(<span style="color: #2b91af">int</span> c) <span style="color: #0000ff">const</span> override final
+    {
+      <span style="color: #0000ff">switch</span> (<span style="color: #0000ff">static_cast</span>&lt;ConversionErrc&gt;(c))
+      {
+      <span style="color: #0000ff">case</span> ConversionErrc::EmptyString:
+        <span style="color: #0000ff">return</span> <span style="color: #a31515">&quot;converting empty string&quot;</span>;
+      <span style="color: #0000ff">case</span> ConversionErrc::IllegalChar:
+        <span style="color: #0000ff">return</span> <span style="color: #a31515">&quot;got non-digit chatr when converting to a number&quot;</span>;
+      <span style="color: #0000ff">case</span> ConversionErrc::TooLong:
+        <span style="color: #0000ff">return</span> <span style="color: #a31515">&quot;the number would not fit into memory&quot;</span>;
+      default:
+        <span style="color: #0000ff">return</span> <span style="color: #a31515">&quot;unknown&quot;</span>;
+      }
+    }
+    <span style="color: #008000">// OPTIONAL: Allow generic error conditions to be compared to me</span>
+    <span style="color: #0000ff">virtual</span> std::error_condition default_error_condition(<span style="color: #2b91af">int</span> c) <span style="color: #0000ff">const</span> noexcept override final
+    {
+      <span style="color: #0000ff">switch</span> (<span style="color: #0000ff">static_cast</span>&lt;ConversionErrc&gt;(c))
+      {
+      <span style="color: #0000ff">case</span> ConversionErrc::EmptyString:
+        <span style="color: #0000ff">return</span> make_error_condition(std::errc::invalid_argument);
+      <span style="color: #0000ff">case</span> ConversionErrc::IllegalChar:
+        <span style="color: #0000ff">return</span> make_error_condition(std::errc::invalid_argument);
+      <span style="color: #0000ff">case</span> ConversionErrc::TooLong:
+        <span style="color: #0000ff">return</span> make_error_condition(std::errc::result_out_of_range);
+      default:
+        <span style="color: #008000">// I have no mapping for this code</span>
+        <span style="color: #0000ff">return</span> std::error_condition(c, *<span style="color: #0000ff">this</span>);
+      }
+    }
+  };
+}
+
+<span style="color: #008000">// Declare a global function returning a static instance of the custom category</span>
+<span style="color: #0000ff">extern</span> <span style="color: #0000ff">const</span> detail::ConversionErrc_category &amp;ConversionErrc_category()
+{
+  <span style="color: #0000ff">static</span> detail::ConversionErrc_category c;
+  <span style="color: #0000ff">return</span> c;
+}
+
+
+<span style="color: #008000">// Overload the global make_error_code() free function with our</span>
+<span style="color: #008000">// custom enum. It will be found via ADL by the compiler if needed.</span>
+<span style="color: #0000ff">inline</span> std::error_code make_error_code(ConversionErrc e)
+{
+  <span style="color: #0000ff">return</span> {<span style="color: #0000ff">static_cast</span>&lt;<span style="color: #2b91af">int</span>&gt;(e), ConversionErrc_category()};
+}
+
+<span style="color: #2b91af">int</span> main(<span style="color: #2b91af">void</span>)
+{
+  <span style="color: #008000">// Note that we can now supply ConversionErrc directly to error_code</span>
+  std::error_code ec = ConversionErrc::IllegalChar;
+
+  std::cout &lt;&lt; <span style="color: #a31515">&quot;ConversionErrc::IllegalChar is printed by std::error_code as &quot;</span>
+    &lt;&lt; ec &lt;&lt; <span style="color: #a31515">&quot; with explanatory message &quot;</span> &lt;&lt; ec.message() &lt;&lt; std::endl;
+
+  <span style="color: #008000">// We can compare ConversionErrc containing error codes to generic conditions</span>
+  std::cout &lt;&lt; <span style="color: #a31515">&quot;ec is equivalent to std::errc::invalid_argument = &quot;</span>
+    &lt;&lt; (ec == std::errc::invalid_argument) &lt;&lt; std::endl;
+  std::cout &lt;&lt; <span style="color: #a31515">&quot;ec is equivalent to std::errc::result_out_of_range = &quot;</span>
+    &lt;&lt; (ec == std::errc::result_out_of_range) &lt;&lt; std::endl;
+  <span style="color: #0000ff">return</span> 0;
+}
 </pre></div>
 
-<p>into the Standard Library&rsquo;s <code>std::error_code</code> system by specializing type trait
-<code>std::is_error_code_enum</code> and defining an ADL-enabled function <code>make_error_code</code>.</p>
 
-<p>For now, refer to this series of articles by Chris Kohlhoff:
-- <a href="http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-1.html">System error support in C++0x - part 1</a>
-- <a href="http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-2.html">System error support in C++0x - part 2</a>
-- <a href="http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-3.html">System error support in C++0x - part 3</a>
-- <a href="http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-4.html">System error support in C++0x - part 4</a>
-- <a href="http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-5.html">System error support in C++0x - part 5</a></p>
+
+<p>This might look like a lot of extra boilerplate over simply using your custom
+error code enum directly, but look at the advantages:</p>
+
+<ol>
+<li>Any code which can speak <code>std::error_code</code> can now work with errors from your
+code, AND without being recompiled.</li>
+<li><code>std::system_error</code> can now wrap your custom error codes seamlessly, allowing
+your custom error code to be converted into a C++ exception <em>and back out again</em>
+without losing information.</li>
+<li><code>std::error_code</code> knows how to print itself, and will print your custom error
+code without extra work from you. As usually you&rsquo;d need to define a print routine
+for any custom error code you&rsquo;d write anyway, there is actually very little extra
+boilerplate here.</li>
+<li>If you implement the <code>default_error_condition()</code> override, you can allow code
+exclusively written to understand <code>std::errc</code> alone to examine your custom error
+code domain for equivalence to the standard error conditions, AND without being
+recompiled.</li>
+</ol>
+
+<p>[1]: The only documentation I&rsquo;m aware of is the quite old guide by Chris Kohlhoff, founder of
+ASIO and the Networking TS:</p>
+
+<ul>
+<li><a href="http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-1.html">http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-1.html</a></li>
+<li><a href="http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-2.html">http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-2.html</a></li>
+<li><a href="http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-3.html">http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-3.html</a></li>
+<li><a href="http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-4.html">http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-4.html</a></li>
+<li><a href="http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-5.html">http://blog.think-async.com/2010/04/system-error-support-in-c0x-part-5.html</a></li>
+</ul>
 
 
 <footer class=" footline" >
