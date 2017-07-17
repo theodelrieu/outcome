@@ -561,12 +561,13 @@ outcome::result&lt;<span style="color: #2b91af">int</span>&gt; s {outcome::in_pl
 
 
 
-<ol>
-<li>You test if <code>result</code> object represents a cuccessful operation with contextual conversion to <code>bool</code>.</li>
-<li>Function <code>value</code> extracts the successfully returned result.</li>
-<li>Function <code>error</code> allows you to inspect the error sub-object, representing information about the reason for failure.</li>
-<li>Macro <code>OUTCOME_TRY</code> represents a control statement. It implies that function call in the second argument returns a <code>result&lt;&gt;</code>. It is defined as:</li>
-</ol>
+<p>#1. You test if <code>result</code> object represents a cuccessful operation with contextual conversion to <code>bool</code>.</p>
+
+<p>#2. Function <code>value</code> extracts the successfully returned result.</p>
+
+<p>#3. Function <code>error</code> allows you to inspect the error sub-object, representing information about the reason for failure.</p>
+
+<p>#4. Macro <code>OUTCOME_TRY</code> represents a control statement. It implies that function call in the second argument returns a <code>result&lt;&gt;</code>. It is defined as:</p>
 
 <div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #008000">/*static*/</span> outcome::result&lt;BigInt&gt; BigInt::fromString(<span style="color: #0000ff">const</span> std::string&amp; s)
 </pre></div>
@@ -575,10 +576,9 @@ outcome::result&lt;<span style="color: #2b91af">int</span>&gt; s {outcome::in_pl
 
 <p>Our control statement means: if <code>fromString</code> returned failure, this same error information should be returned from <code>print_half</code>, even though the type of <code>result&lt;&gt;</code> is different. If <code>fromString</code> returned success, we create  variable <code>i</code> of type <code>int</code> with the value returned from <code>fromString</code>. If control goes to subsequent line, it means <code>fromString</code> succeeded and variable of type <code>int</code> is in scope.</p>
 
-<ol>
-<li>Function <code>as_void</code> must only be called on  a <code>result&lt;&gt;</code> object representing failure. It returns object of type <code>result&lt;void&gt;</code> containing the same error object, and can be converted to any <code>result&lt;T&gt;</code>, in particular to <code>result&lt;void&gt;</code>, while still preserving the same error information.</li>
-<li>Function <code>success</code> returns an object of type <code>result&lt;foid&gt;</code> representing success.</li>
-</ol>
+<p>#5. In the return statement we extract the error information and use it to initialize the return value from <code>print_half</code>.</p>
+
+<p>#6. Function <code>success</code> returns an object of type <code>result&lt;foid&gt;</code> representing success.</p>
 
 <h2 id="todo-more-material-will-be-provided-in-time">TODO: more material will be provided in time&hellip;</h2>
 
