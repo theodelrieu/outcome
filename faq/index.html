@@ -419,7 +419,11 @@ active
             </div>
             <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+<ul>
+<li><a href="#why-is-implicit-default-construction-disabled">Why is implicit default construction disabled?</a></li>
+</ul>
+</nav>
     </div>
 </div>
 
@@ -434,7 +438,40 @@ active
 
 
 
-<p>Todo</p>
+
+
+<h1 id="why-is-implicit-default-construction-disabled">Why is implicit default construction disabled?</h1>
+
+<p>This was one of the more interesting points of discussion during the peer review of
+Outcome v1. v1 had a formal empty state. This came with many advantages, but it
+was not felt to be STL idiomatic as <code>std::optional&lt;result&lt;T&gt;&gt;</code> is what was meant, so
+v2 has eliminated any legal possibility of being empty.</p>
+
+<p>The <code>expected&lt;T, E&gt;</code> proposal of that time (May 2017) did permit default construction
+if its <code>T</code> type allowed default construction. This was specifically done to make
+<code>expected&lt;T, E&gt;</code> more useful in STL containers as one can say resize a vector without
+having to supply an <code>expected&lt;T, E&gt;</code> instance to fill the new items with. However
+there was some unease with that design choice, because it may cause programmers to
+use some type <code>T</code> whose default constructed state is overloaded with additional meaning,
+typically &ldquo;to be filled&rdquo; i.e. a de facto empty state via choosing a magic value.</p>
+
+<p>For the v2 redesign, the various arguments during the v1 review were considered.
+Unlike <code>expected&lt;T, E&gt;</code> which is intended to be a general purpose Either monad
+vocabulary type, Outcome&rsquo;s types are meant primarily for returning success or failure
+from functions. The API should therefore encourage the programmer to not overload
+the successful type with additional meaning of &ldquo;to be filled&rdquo; e.g. <code>result&lt;std::optional&lt;T&gt;&gt;</code>.
+The decision was therefore taken to disable <em>implicit</em> default construction, but
+still permit <em>explicit</em> default construction by making the programmer spell out their
+intention with extra typing.</p>
+
+<p>To therefore explicitly default construct a <code>result&lt;T&gt;</code> or <code>outcome&lt;T&gt;</code>, use one
+of these forms as is the most appropriate for the use case:</p>
+
+<ol>
+<li>Construct with just <code>in_place_type&lt;T&gt;</code> e.g. <code>result&lt;T&gt;(in_place_type&lt;T&gt;)</code>.</li>
+<li>Construct via <code>success()</code> e.g. <code>outcome&lt;T&gt;(success())</code>.</li>
+<li>Construct from a <code>void</code> form e.g. <code>result&lt;T&gt;(result&lt;void&gt;(in_place_type&lt;void&gt;))</code>.</li>
+</ol>
 
 
 <footer class=" footline" >
