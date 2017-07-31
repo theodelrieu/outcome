@@ -255,6 +255,28 @@ parent
     <ul>
         
          
+          <li data-nav-id="/outcome/synopsis/success/" class="dd-item
+         
+          ">
+            <a href="/outcome/synopsis/success/">
+            <span>success&lt;T&gt;</span> 
+            
+
+            </a></li>
+         
+        
+         
+          <li data-nav-id="/outcome/synopsis/failure/" class="dd-item
+         
+          ">
+            <a href="/outcome/synopsis/failure/">
+            <span>failure&lt;EC, E&gt;</span> 
+            
+
+            </a></li>
+         
+        
+         
           <li data-nav-id="/outcome/synopsis/result/" class="dd-item
          
           ">
@@ -469,9 +491,9 @@ public:
   <span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span> = S, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span> = P&gt; <span style="color: #0000ff">using</span> rebind = outcome&lt;T, U, P&gt;;
 
   <span style="color: #008000">//! Used to disable in place type construction when `value_type` is ambiguous with `error_type` or `payload_exception_type`.</span>
-  <span style="color: #0000ff">using</span> value_type_if_enabled = std::<span style="color: #2b91af">conditional_t</span>&lt;std::is_same&lt;value_type, error_type&gt;::value || std::is_same&lt;value_type, payload_exception_type&gt;::value, <span style="color: #0000ff">typename</span> base::_value_type, value_type&gt;;
+  <span style="color: #0000ff">using</span> value_type_if_enabled = std::<span style="color: #2b91af">conditional_t</span>&lt;std::is_same&lt;value_type, error_type&gt;::value || std::is_same&lt;value_type, payload_exception_type&gt;::value, disable_in_place_value_type, value_type&gt;;
   <span style="color: #008000">//! Used to disable in place type construction when `error_type` is ambiguous with `value_type` or `payload_exception_type`.</span>
-  <span style="color: #0000ff">using</span> error_type_if_enabled = std::<span style="color: #2b91af">conditional_t</span>&lt;std::is_same&lt;error_type, value_type&gt;::value || std::is_same&lt;error_type, payload_exception_type&gt;::value, <span style="color: #0000ff">typename</span> base::_error_type, error_type&gt;;
+  <span style="color: #0000ff">using</span> error_type_if_enabled = std::<span style="color: #2b91af">conditional_t</span>&lt;std::is_same&lt;error_type, value_type&gt;::value || std::is_same&lt;error_type, payload_exception_type&gt;::value, disable_in_place_error_type, error_type&gt;;
   <span style="color: #008000">//! Used to disable in place type construction when `payload_exception_type` is ambiguous with `value_type` or `error_type`.</span>
   <span style="color: #0000ff">using</span> exception_type_if_enabled = std::<span style="color: #2b91af">conditional_t</span>&lt;std::is_same&lt;exception_type, value_type&gt;::value || std::is_same&lt;exception_type, error_type&gt;::value, disable_in_place_payload_exception_type, exception_type&gt;;
 
@@ -566,125 +588,61 @@ public:
 
   
   <span style="color: #008000">/*! Explicit converting copy constructor from a compatible outcome type.</span>
-<span style="color: #008000">  \tparam enable_explicit_compatible_conversion</span>
+<span style="color: #008000">  \tparam 4</span>
 <span style="color: #008000">  \exclude</span>
 <span style="color: #008000">  \param o The compatible outcome.</span>
 
 <span style="color: #008000">  \effects Initialises the outcome with a copy of the compatible outcome.</span>
 <span style="color: #008000">  \requires Both outcome&#39;s `value_type`, `error_type`, `status_type`, `payload_type` and `exception_type` need to be constructible, or the source `void`.</span>
-<span style="color: #008000">  The source `value_type` cannot be `void`.</span>
 <span style="color: #008000">  \throws Any exception the construction of `value_type(T)`, `status_error_type(U)` or `payload_exception_type(V)` might throw.</span>
 <span style="color: #008000">  */</span>
   OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">W</span>)
-  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_explicit_compatible_conversion&lt;T, U, V, W&gt;))
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_compatible_conversion&lt;T, U, V, W&gt;))
   constexpr <span style="color: #0000ff">explicit</span> outcome(<span style="color: #0000ff">const</span> outcome&lt;T, U, V, W&gt; &amp;o,
                              explicit_compatible_conversion_tag = explicit_compatible_conversion_tag()) 
   noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value &amp;&amp;std::is_nothrow_constructible&lt;status_error_type, U&gt;::value &amp;&amp;std::is_nothrow_constructible&lt;payload_exception_type, V&gt;::value);
 
-  <span style="color: #008000">/*! Implicit converting copy constructor from a compatible outcome type.</span>
-<span style="color: #008000">  \tparam enable_implicit_compatible_conversion</span>
-<span style="color: #008000">  \exclude</span>
-<span style="color: #008000">  \param o The compatible outcome.</span>
-
-<span style="color: #008000">  \effects Initialises the outcome with a copy of the compatible outcome.</span>
-<span style="color: #008000">  \requires Both outcome&#39;s `error_type`, `status_type`, `payload_type` and `exception_type` need to be constructible, or the source `void`.</span>
-<span style="color: #008000">  The source `value_type` must be `void`.</span>
-<span style="color: #008000">  \throws Any exception the construction of `status_error_type(U)` or `payload_exception_type(V)` might throw.</span>
-<span style="color: #008000">  */</span>
-  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">W</span>)
-  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_implicit_compatible_conversion&lt;T, U, V, W&gt;))
-  constexpr outcome(<span style="color: #0000ff">const</span> outcome&lt;T, U, V, W&gt; &amp;o, implicit_compatible_conversion_tag = implicit_compatible_conversion_tag()) 
-  noexcept(std::is_nothrow_constructible&lt;payload_exception_type, V&gt;::value);
-
   <span style="color: #008000">/*! Explicit converting move constructor from a compatible outcome type.</span>
-<span style="color: #008000">  \tparam enable_explicit_compatible_conversion</span>
+<span style="color: #008000">  \tparam 4</span>
 <span style="color: #008000">  \exclude</span>
 <span style="color: #008000">  \param o The compatible outcome.</span>
 
 <span style="color: #008000">  \effects Initialises the outcome with a move of the compatible outcome.</span>
 <span style="color: #008000">  \requires Both outcome&#39;s `value_type`, `error_type`, `status_type`, `payload_type` and `exception_type` need to be constructible, or the source `void`.</span>
-<span style="color: #008000">  The source `value_type` cannot be `void`.</span>
 <span style="color: #008000">  \throws Any exception the construction of `value_type(T)`, `status_error_type(U)` or `payload_exception_type(V)` might throw.</span>
 <span style="color: #008000">  */</span>
   OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">W</span>)
-  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_explicit_compatible_conversion&lt;T, U, V, W&gt;))
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_compatible_conversion&lt;T, U, V, W&gt;))
   constexpr <span style="color: #0000ff">explicit</span> outcome(outcome&lt;T, U, V, W&gt; &amp;&amp;o, explicit_compatible_conversion_tag = explicit_compatible_conversion_tag())
   noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value &amp;&amp;std::is_nothrow_constructible&lt;status_error_type, U&gt;::value &amp;&amp;std::is_nothrow_constructible&lt;payload_exception_type, V&gt;::value);
 
-  <span style="color: #008000">/*! Implicit converting move constructor from a compatible outcome type.</span>
-<span style="color: #008000">  \tparam enable_implicit_compatible_conversion</span>
-<span style="color: #008000">  \exclude</span>
-<span style="color: #008000">  \param o The compatible outcome.</span>
-
-<span style="color: #008000">  \effects Initialises the outcome with a move of the compatible outcome.</span>
-<span style="color: #008000">  \requires Both outcome&#39;s `error_type`, `status_type`, `payload_type` and `exception_type` need to be constructible, or the source `void`.</span>
-<span style="color: #008000">  The source `value_type` must be `void`.</span>
-<span style="color: #008000">  \throws Any exception the construction of `status_error_type(U)` or `payload_exception_type(V)` might throw.</span>
-<span style="color: #008000">  */</span>
-  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">W</span>)
-  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_implicit_compatible_conversion&lt;T, U, V, W&gt;))
-  constexpr outcome(outcome&lt;T, U, V, W&gt; &amp;&amp;o, implicit_compatible_conversion_tag = implicit_compatible_conversion_tag()) 
-  noexcept(std::is_nothrow_constructible&lt;status_error_type, U&gt;::value &amp;&amp;std::is_nothrow_constructible&lt;payload_exception_type, V&gt;::value);
-
   <span style="color: #008000">/*! Explicit converting copy constructor from a compatible result type.</span>
-<span style="color: #008000">  \tparam enable_explicit_compatible_conversion</span>
+<span style="color: #008000">  \tparam 3</span>
 <span style="color: #008000">  \exclude</span>
 <span style="color: #008000">  \param o The compatible result.</span>
 
 <span style="color: #008000">  \effects Initialises the outcome with a copy of the compatible result.</span>
 <span style="color: #008000">  \requires Both outcome&#39;s `value_type`, `error_type` and `status_type` need to be constructible, or the source `void`.</span>
-<span style="color: #008000">  The source `value_type` cannot be `void`.</span>
 <span style="color: #008000">  \throws Any exception the construction of `value_type(T)`, `status_error_type(U)` or `payload_exception_type()` might throw.</span>
 <span style="color: #008000">  */</span>
   OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>)
-  OUTCOME_TREQUIRES(OUTCOME_TPRED(detail::result_predicates&lt;value_type, status_error_type, error_type&gt;::<span style="color: #0000ff">template</span> enable_explicit_compatible_conversion&lt;T, U, V&gt;))
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(detail::result_predicates&lt;value_type, status_error_type, error_type&gt;::<span style="color: #0000ff">template</span> enable_compatible_conversion&lt;T, U, V&gt;))
   constexpr <span style="color: #0000ff">explicit</span> outcome(<span style="color: #0000ff">const</span> result&lt;T, U, V&gt; &amp;o, explicit_compatible_conversion_tag = explicit_compatible_conversion_tag()) 
   noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value &amp;&amp;std::is_nothrow_constructible&lt;status_error_type, U&gt;::value &amp;&amp;std::is_nothrow_constructible&lt;payload_exception_type&gt;::value);
 
-  <span style="color: #008000">/*! Implicit converting copy constructor from a compatible result type.</span>
-<span style="color: #008000">  \tparam enable_implicit_compatible_conversion</span>
-<span style="color: #008000">  \exclude</span>
-<span style="color: #008000">  \param o The compatible result.</span>
-
-<span style="color: #008000">  \effects Initialises the outcome with a copy of the compatible result.</span>
-<span style="color: #008000">  \requires Both outcome&#39;s`error_type` and `status_type` need to be constructible, or the source `void`.</span>
-<span style="color: #008000">  The source `value_type` must be `void`.</span>
-<span style="color: #008000">  \throws Any exception the construction of`status_error_type(U)` or `payload_exception_type()` might throw.</span>
-<span style="color: #008000">  */</span>
-  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>)
-  OUTCOME_TREQUIRES(OUTCOME_TPRED(detail::result_predicates&lt;value_type, status_error_type, error_type&gt;::<span style="color: #0000ff">template</span> enable_implicit_compatible_conversion&lt;T, U, V&gt;))
-  constexpr outcome(<span style="color: #0000ff">const</span> result&lt;T, U, V&gt; &amp;o, implicit_compatible_conversion_tag = implicit_compatible_conversion_tag()) 
-  noexcept(std::is_nothrow_constructible&lt;status_error_type, U&gt;::value &amp;&amp;std::is_nothrow_constructible&lt;payload_exception_type&gt;::value);
-
   <span style="color: #008000">/*! Explicit converting move constructor from a compatible result type.</span>
-<span style="color: #008000">  \tparam enable_explicit_compatible_conversion</span>
+<span style="color: #008000">  \tparam 3</span>
 <span style="color: #008000">  \exclude</span>
 <span style="color: #008000">  \param o The compatible result.</span>
 
 <span style="color: #008000">  \effects Initialises the outcome with a move of the compatible result.</span>
 <span style="color: #008000">  \requires Both outcome&#39;s `value_type`, `error_type` and `status_type` need to be constructible, or the source `void`.</span>
-<span style="color: #008000">  The source `value_type` cannot be `void`.</span>
 <span style="color: #008000">  \throws Any exception the construction of `value_type(T)`, `status_error_type(U)` or `payload_exception_type()` might throw.</span>
 <span style="color: #008000">  */</span>
   OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>)
-  OUTCOME_TREQUIRES(OUTCOME_TPRED(detail::result_predicates&lt;value_type, status_error_type, error_type&gt;::<span style="color: #0000ff">template</span> enable_explicit_compatible_conversion&lt;T, U, V&gt;))
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(detail::result_predicates&lt;value_type, status_error_type, error_type&gt;::<span style="color: #0000ff">template</span> enable_compatible_conversion&lt;T, U, V&gt;))
   constexpr <span style="color: #0000ff">explicit</span> outcome(result&lt;T, U, V&gt; &amp;&amp;o, explicit_compatible_conversion_tag = explicit_compatible_conversion_tag()) 
   noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value &amp;&amp;std::is_nothrow_constructible&lt;status_error_type, U&gt;::value &amp;&amp;std::is_nothrow_constructible&lt;payload_exception_type&gt;::value);
-
-  <span style="color: #008000">/*! Implicit converting move constructor from a compatible result type.</span>
-<span style="color: #008000">  \tparam enable_implicit_compatible_conversion</span>
-<span style="color: #008000">  \exclude</span>
-<span style="color: #008000">  \param o The compatible result.</span>
-
-<span style="color: #008000">  \effects Initialises the outcome with a move of the compatible result.</span>
-<span style="color: #008000">  \requires Both outcome&#39;s `error_type` and `status_type` need to be constructible, or the source `void`.</span>
-<span style="color: #008000">  The source `value_type` must be `void`.</span>
-<span style="color: #008000">  \throws Any exception the construction of `status_error_type(U)` or `payload_exception_type()` might throw.</span>
-<span style="color: #008000">  */</span>
-  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>)
-  OUTCOME_TREQUIRES(OUTCOME_TPRED(detail::result_predicates&lt;value_type, status_error_type, error_type&gt;::<span style="color: #0000ff">template</span> enable_implicit_compatible_conversion&lt;T, U, V&gt;))
-  constexpr outcome(result&lt;T, U, V&gt; &amp;&amp;o, implicit_compatible_conversion_tag = implicit_compatible_conversion_tag()) 
-  noexcept(std::is_nothrow_constructible&lt;status_error_type, U&gt;::value &amp;&amp;std::is_nothrow_constructible&lt;payload_exception_type&gt;::value);
 
   
 
@@ -796,91 +754,141 @@ public:
   constexpr outcome(A1 &amp;&amp;a1, A2 &amp;&amp;a2, Args &amp;&amp;... args) noexcept(noexcept(<span style="color: #0000ff">typename</span> predicate::<span style="color: #0000ff">template</span> choose_inplace_value_error_exception_constructor&lt;A1, A2, Args...&gt;(std::declval&lt;A1&gt;(), std::declval&lt;A2&gt;(), std::declval&lt;Args&gt;()...)));
 
   
+  <span style="color: #008000">/// \output_section Tagged constructors</span>
+  <span style="color: #008000">/*! Implicit tagged constructor of a successful outcome.</span>
+<span style="color: #008000">  \param o The compatible success type sugar.</span>
+
+<span style="color: #008000">  \effects Initialises the outcome with a default constructed success type.</span>
+<span style="color: #008000">  \requires  `value_type` to be default constructible, or `void`.</span>
+<span style="color: #008000">  \throws Any exception the construction of `value_type()` might throw.</span>
+<span style="color: #008000">  */</span>
+  constexpr outcome(<span style="color: #0000ff">const</span> success_type&lt;<span style="color: #2b91af">void</span>&gt; &amp;o) noexcept(std::is_nothrow_default_constructible&lt;value_type&gt;::value);
+  
+  <span style="color: #008000">/*! Implicit tagged constructor of a successful outcome.</span>
+<span style="color: #008000">  \tparam 1</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param o The compatible success type sugar.</span>
+
+<span style="color: #008000">  \effects Initialises the outcome with a copy of the value in the type sugar.</span>
+<span style="color: #008000">  \requires Both outcome and success&#39; `value_type` need to be constructible. The source cannot be `void`.</span>
+<span style="color: #008000">  \throws Any exception the construction of `value_type(T)` might throw.</span>
+<span style="color: #008000">  */</span>
+  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>)
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(!std::is_void&lt;T&gt;::value &amp;&amp; predicate::<span style="color: #0000ff">template</span> enable_compatible_conversion&lt;T, <span style="color: #2b91af">void</span>, <span style="color: #2b91af">void</span>, <span style="color: #2b91af">void</span>&gt;))
+  constexpr outcome(<span style="color: #0000ff">const</span> success_type&lt;T&gt; &amp;o) noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value);
+  
+  <span style="color: #008000">/*! Implicit tagged constructor of a successful outcome.</span>
+<span style="color: #008000">  \tparam 1</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param o The compatible success type sugar.</span>
+
+<span style="color: #008000">  \effects Initialises the outcome with a move of the value in the type sugar.</span>
+<span style="color: #008000">  \requires Both outcome and success&#39; `value_type` need to be constructible. The source cannot be `void`.</span>
+<span style="color: #008000">  \throws Any exception the construction of `value_type(T)` might throw.</span>
+<span style="color: #008000">  */</span>
+  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>)
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(!std::is_void&lt;T&gt;::value &amp;&amp; predicate::<span style="color: #0000ff">template</span> enable_compatible_conversion&lt;T, <span style="color: #2b91af">void</span>, <span style="color: #2b91af">void</span>, <span style="color: #2b91af">void</span>&gt;))
+  constexpr outcome(success_type&lt;T&gt; &amp;&amp;o) noexcept(std::is_nothrow_constructible&lt;value_type, T&gt;::value);
+  
+  <span style="color: #008000">/*! Implicit tagged constructor of a failure outcome.</span>
+<span style="color: #008000">  \tparam 2</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param o The compatible failure type sugar.</span>
+
+<span style="color: #008000">  \effects Initialises the outcome with a copy of the error and/or exception in the type sugar.</span>
+<span style="color: #008000">  \requires Both outcome and failure&#39;s `error_type` and `exception_type` need to be constructible, or the source can be `void`.</span>
+<span style="color: #008000">  \throws Any exception the construction of `error_type(T)` and/or `exception_type(U)` might throw.</span>
+<span style="color: #008000">  */</span>
+  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>)
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_compatible_conversion&lt;<span style="color: #2b91af">void</span>, T, U, <span style="color: #2b91af">void</span>&gt;))
+  constexpr outcome(<span style="color: #0000ff">const</span> failure_type&lt;T, U&gt; &amp;o) noexcept(std::is_nothrow_constructible&lt;error_type, T&gt;::value &amp;&amp;std::is_nothrow_constructible&lt;exception_type, U&gt;::value);
+
+  <span style="color: #008000">/*! Implicit tagged constructor of a failure outcome.</span>
+<span style="color: #008000">  \tparam 2</span>
+<span style="color: #008000">  \exclude</span>
+<span style="color: #008000">  \param o The compatible failure type sugar.</span>
+
+<span style="color: #008000">  \effects Initialises the outcome with a copy of the error and/or exception in the type sugar.</span>
+<span style="color: #008000">  \requires Both outcome and failure&#39;s `error_type` and `exception_type` need to be constructible, or the source can be `void`.</span>
+<span style="color: #008000">  \throws Any exception the construction of `error_type(T)` and/or `exception_type(U)` might throw.</span>
+<span style="color: #008000">  */</span>
+  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>)
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(predicate::<span style="color: #0000ff">template</span> enable_compatible_conversion&lt;<span style="color: #2b91af">void</span>, T, U, <span style="color: #2b91af">void</span>&gt;))
+  constexpr outcome(failure_type&lt;T, U&gt; &amp;&amp;o) noexcept(std::is_nothrow_constructible&lt;error_type, T&gt;::value &amp;&amp;std::is_nothrow_constructible&lt;exception_type, U&gt;::value);
+  
   <span style="color: #008000">/// \output_section Comparison operators</span>
+  <span style="color: #0000ff">using</span> base::<span style="color: #0000ff">operator</span>==;
+  <span style="color: #0000ff">using</span> base::<span style="color: #0000ff">operator</span>!=;
   <span style="color: #008000">/*! True if equal to the other outcome.</span>
-<span style="color: #008000">  \tparam 4</span>
-<span style="color: #008000">  \exclude</span>
-<span style="color: #008000">  \tparam 5</span>
-<span style="color: #008000">  \exclude</span>
-<span style="color: #008000">  \tparam 6</span>
-<span style="color: #008000">  \exclude</span>
 <span style="color: #008000">  \param o The other outcome to compare to.</span>
 
-<span style="color: #008000">  \effects Calls the `operator==` operation on each of the three stored items until one returns false.</span>
-<span style="color: #008000">  \requires That the expression of calling `operator==` on each of the three stored items is a valid expression.</span>
+<span style="color: #008000">  \effects If a valid expression to do so, calls the `operator==` operation on each</span>
+<span style="color: #008000">  of the three stored items returning true if both are true. Otherwise returns false.</span>
 <span style="color: #008000">  \throws Any exception the individual `operator==` operations might throw.</span>
 <span style="color: #008000">  */</span>
-  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">W</span>)
-  OUTCOME_TREQUIRES(                                      <span style="color: #008000">//</span>
-  OUTCOME_TEXPR(std::declval&lt;R&gt;() == std::declval&lt;T&gt;()),  <span style="color: #008000">//</span>
-  OUTCOME_TEXPR(std::declval&lt;S&gt;() == std::declval&lt;U&gt;()),  <span style="color: #008000">//</span>
-  OUTCOME_TEXPR(std::declval&lt;P&gt;() == std::declval&lt;V&gt;())   <span style="color: #008000">//</span>
-  )
-  constexpr <span style="color: #2b91af">bool</span> <span style="color: #0000ff">operator</span>==(<span style="color: #0000ff">const</span> outcome&lt;T, U, V, W&gt; &amp;o) <span style="color: #0000ff">const</span> noexcept(  <span style="color: #008000">//</span>
-  noexcept(std::declval&lt;R&gt;() == std::declval&lt;T&gt;())                         <span style="color: #008000">//</span>
-  &amp;&amp; noexcept(std::declval&lt;S&gt;() == std::declval&lt;U&gt;())                      <span style="color: #008000">//</span>
-  &amp;&amp; noexcept(std::declval&lt;P&gt;() == std::declval&lt;V&gt;()));
+  <span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">W</span>&gt;
+  constexpr <span style="color: #2b91af">bool</span> <span style="color: #0000ff">operator</span>==(<span style="color: #0000ff">const</span> outcome&lt;T, U, V, W&gt; &amp;o) <span style="color: #0000ff">const</span> noexcept(                                        <span style="color: #008000">//</span>
+  noexcept(detail::safe_compare_equal(std::declval&lt;detail::devoid&lt;R&gt;&gt;(), std::declval&lt;detail::devoid&lt;T&gt;&gt;()))     <span style="color: #008000">//</span>
+  &amp;&amp; noexcept(detail::safe_compare_equal(std::declval&lt;detail::devoid&lt;S&gt;&gt;(), std::declval&lt;detail::devoid&lt;U&gt;&gt;()))  <span style="color: #008000">//</span>
+  &amp;&amp; noexcept(detail::safe_compare_equal(std::declval&lt;detail::devoid&lt;P&gt;&gt;(), std::declval&lt;detail::devoid&lt;V&gt;&gt;())));
+  
+  <span style="color: #008000">/*! True if equal to the failure type sugar.</span>
+<span style="color: #008000">  \param o The failure type sugar to compare to.</span>
+
+<span style="color: #008000">  \effects If a valid expression to do so, calls the `operator==` operation on the failure items returning true if equal. Otherwise returns false.</span>
+<span style="color: #008000">  \throws Any exception the `operator==` operations might throw.</span>
+<span style="color: #008000">  */</span>
+  <span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>&gt;
+  constexpr <span style="color: #2b91af">bool</span> <span style="color: #0000ff">operator</span>==(<span style="color: #0000ff">const</span> failure_type&lt;T, U, false&gt; &amp;o) <span style="color: #0000ff">const</span> noexcept(                               <span style="color: #008000">//</span>
+  noexcept(detail::safe_compare_equal(std::declval&lt;detail::devoid&lt;S&gt;&gt;(), std::declval&lt;detail::devoid&lt;T&gt;&gt;()))  <span style="color: #008000">//</span>
+  &amp;&amp; noexcept(detail::safe_compare_equal(std::declval&lt;detail::devoid&lt;P&gt;&gt;(), std::declval&lt;detail::devoid&lt;U&gt;&gt;())));
+  
+  <span style="color: #008000">/*! True if equal to the failure type sugar.</span>
+<span style="color: #008000">  \param o The failure type sugar to compare to.</span>
+
+<span style="color: #008000">  \effects If a valid expression to do so, calls the `operator==` operation on the failure items returning true if equal. Otherwise returns false.</span>
+<span style="color: #008000">  \throws Any exception the `operator==` operations might throw.</span>
+<span style="color: #008000">  */</span>
+  <span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>&gt;
+  constexpr <span style="color: #2b91af">bool</span> <span style="color: #0000ff">operator</span>==(<span style="color: #0000ff">const</span> failure_type&lt;T, U, true&gt; &amp;o) <span style="color: #0000ff">const</span> noexcept(                                <span style="color: #008000">//</span>
+  noexcept(detail::safe_compare_equal(std::declval&lt;detail::devoid&lt;S&gt;&gt;(), std::declval&lt;detail::devoid&lt;T&gt;&gt;()))  <span style="color: #008000">//</span>
+  &amp;&amp; noexcept(detail::safe_compare_equal(std::declval&lt;detail::devoid&lt;P&gt;&gt;(), std::declval&lt;detail::devoid&lt;U&gt;&gt;())));
+  
   <span style="color: #008000">/*! True if not equal to the other outcome.</span>
-<span style="color: #008000">  \tparam 4</span>
-<span style="color: #008000">  \exclude</span>
-<span style="color: #008000">  \tparam 5</span>
-<span style="color: #008000">  \exclude</span>
-<span style="color: #008000">  \tparam 6</span>
-<span style="color: #008000">  \exclude</span>
 <span style="color: #008000">  \param o The other outcome to compare to.</span>
 
-<span style="color: #008000">  \effects Calls the `operator!=` operation on each of the three stored items until one returns true.</span>
-<span style="color: #008000">  \requires That the expression of calling `operator!=` on each of the three stored items is a valid expression.</span>
+<span style="color: #008000">  \effects If a valid expression to do so, calls the `operator!=` operation on each</span>
+<span style="color: #008000">  of the three stored items, returning true if any are not equal. Otherwise returns true.</span>
 <span style="color: #008000">  \throws Any exception the individual `operator!=` operations might throw.</span>
 <span style="color: #008000">  */</span>
-  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">W</span>)
-  OUTCOME_TREQUIRES(                                      <span style="color: #008000">//</span>
-  OUTCOME_TEXPR(std::declval&lt;R&gt;() != std::declval&lt;T&gt;()),  <span style="color: #008000">//</span>
-  OUTCOME_TEXPR(std::declval&lt;S&gt;() != std::declval&lt;U&gt;()),  <span style="color: #008000">//</span>
-  OUTCOME_TEXPR(std::declval&lt;P&gt;() != std::declval&lt;V&gt;())   <span style="color: #008000">//</span>
-  )
-  constexpr <span style="color: #2b91af">bool</span> <span style="color: #0000ff">operator</span>!=(<span style="color: #0000ff">const</span> outcome&lt;T, U, V, W&gt; &amp;o) <span style="color: #0000ff">const</span> noexcept(  <span style="color: #008000">//</span>
-  noexcept(std::declval&lt;R&gt;() != std::declval&lt;T&gt;())                         <span style="color: #008000">//</span>
-  &amp;&amp; noexcept(std::declval&lt;S&gt;() != std::declval&lt;U&gt;())                      <span style="color: #008000">//</span>
-  &amp;&amp; noexcept(std::declval&lt;P&gt;() != std::declval&lt;V&gt;()));
-  <span style="color: #008000">/*! True if equal to the other result.</span>
-<span style="color: #008000">  \tparam 4</span>
-<span style="color: #008000">  \exclude</span>
-<span style="color: #008000">  \tparam 5</span>
-<span style="color: #008000">  \exclude</span>
-<span style="color: #008000">  \param o The other result to compare to.</span>
+  <span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">W</span>&gt;
+  constexpr <span style="color: #2b91af">bool</span> <span style="color: #0000ff">operator</span>!=(<span style="color: #0000ff">const</span> outcome&lt;T, U, V, W&gt; &amp;o) <span style="color: #0000ff">const</span> noexcept(                                           <span style="color: #008000">//</span>
+  noexcept(detail::safe_compare_notequal(std::declval&lt;detail::devoid&lt;R&gt;&gt;(), std::declval&lt;detail::devoid&lt;T&gt;&gt;()))     <span style="color: #008000">//</span>
+  &amp;&amp; noexcept(detail::safe_compare_notequal(std::declval&lt;detail::devoid&lt;S&gt;&gt;(), std::declval&lt;detail::devoid&lt;U&gt;&gt;()))  <span style="color: #008000">//</span>
+  &amp;&amp; noexcept(detail::safe_compare_notequal(std::declval&lt;detail::devoid&lt;P&gt;&gt;(), std::declval&lt;detail::devoid&lt;V&gt;&gt;())));
+  
+  <span style="color: #008000">/*! True if not equal to the failure type sugar.</span>
+<span style="color: #008000">  \param o The failure type sugar to compare to.</span>
 
-<span style="color: #008000">  \effects Calls the `operator==` operation on each of the two stored items until one returns false.</span>
-<span style="color: #008000">  \requires That the expression of calling `operator==` on each of the two stored items is a valid expression.</span>
-<span style="color: #008000">  \throws Any exception the individual `operator==` operations might throw.</span>
+<span style="color: #008000">  \effects If a valid expression to do so, calls the `operator!=` operation on the failure items returning true if not equal. Otherwise returns true.</span>
+<span style="color: #008000">  \throws Any exception the `operator!=` operations might throw.</span>
 <span style="color: #008000">  */</span>
-  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>)
-  OUTCOME_TREQUIRES(                                      <span style="color: #008000">//</span>
-  OUTCOME_TEXPR(std::declval&lt;R&gt;() == std::declval&lt;T&gt;()),  <span style="color: #008000">//</span>
-  OUTCOME_TEXPR(std::declval&lt;S&gt;() == std::declval&lt;U&gt;())   <span style="color: #008000">//</span>
-  )
-  constexpr <span style="color: #2b91af">bool</span> <span style="color: #0000ff">operator</span>==(<span style="color: #0000ff">const</span> result&lt;T, U, V&gt; &amp;o) <span style="color: #0000ff">const</span> noexcept(  <span style="color: #008000">//</span>
-  noexcept(std::declval&lt;R&gt;() == std::declval&lt;T&gt;())                     <span style="color: #008000">//</span>
-  &amp;&amp; noexcept(std::declval&lt;S&gt;() == std::declval&lt;U&gt;()));
-  <span style="color: #008000">/*! True if not equal to the other result.</span>
-<span style="color: #008000">  \tparam 4</span>
-<span style="color: #008000">  \exclude</span>
-<span style="color: #008000">  \tparam 5</span>
-<span style="color: #008000">  \exclude</span>
-<span style="color: #008000">  \param o The other result to compare to.</span>
+  <span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>&gt;
+  constexpr <span style="color: #2b91af">bool</span> <span style="color: #0000ff">operator</span>!=(<span style="color: #0000ff">const</span> failure_type&lt;T, U, false&gt; &amp;o) <span style="color: #0000ff">const</span> noexcept(                                  <span style="color: #008000">//</span>
+  noexcept(detail::safe_compare_notequal(std::declval&lt;detail::devoid&lt;S&gt;&gt;(), std::declval&lt;detail::devoid&lt;T&gt;&gt;()))  <span style="color: #008000">//</span>
+  &amp;&amp; noexcept(detail::safe_compare_notequal(std::declval&lt;detail::devoid&lt;P&gt;&gt;(), std::declval&lt;detail::devoid&lt;U&gt;&gt;())));
+  
+  <span style="color: #008000">/*! True if not equal to the failure type sugar.</span>
+<span style="color: #008000">  \param o The failure type sugar to compare to.</span>
 
-<span style="color: #008000">  \effects Calls the `operator!=` operation on each of the two stored items until one returns true.</span>
-<span style="color: #008000">  \requires That the expression of calling `operator!=` on each of the two stored items is a valid expression.</span>
-<span style="color: #008000">  \throws Any exception the individual `operator!=` operations might throw.</span>
+<span style="color: #008000">  \effects If a valid expression to do so, calls the `operator!=` operation on the failure items returning true if not equal. Otherwise returns false.</span>
+<span style="color: #008000">  \throws Any exception the `operator!=` operations might throw.</span>
 <span style="color: #008000">  */</span>
-  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">V</span>)
-  OUTCOME_TREQUIRES(                                      <span style="color: #008000">//</span>
-  OUTCOME_TEXPR(std::declval&lt;R&gt;() != std::declval&lt;T&gt;()),  <span style="color: #008000">//</span>
-  OUTCOME_TEXPR(std::declval&lt;S&gt;() != std::declval&lt;U&gt;())   <span style="color: #008000">//</span>
-  )
-  constexpr <span style="color: #2b91af">bool</span> <span style="color: #0000ff">operator</span>!=(<span style="color: #0000ff">const</span> result&lt;T, U, V&gt; &amp;o) <span style="color: #0000ff">const</span> noexcept(  <span style="color: #008000">//</span>
-  noexcept(std::declval&lt;R&gt;() != std::declval&lt;T&gt;())                     <span style="color: #008000">//</span>
-  &amp;&amp; noexcept(std::declval&lt;S&gt;() != std::declval&lt;U&gt;()));
+  <span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>&gt;
+  constexpr <span style="color: #2b91af">bool</span> <span style="color: #0000ff">operator</span>!=(<span style="color: #0000ff">const</span> failure_type&lt;T, U, true&gt; &amp;o) <span style="color: #0000ff">const</span> noexcept(                                   <span style="color: #008000">//</span>
+  noexcept(detail::safe_compare_notequal(std::declval&lt;detail::devoid&lt;S&gt;&gt;(), std::declval&lt;detail::devoid&lt;T&gt;&gt;()))  <span style="color: #008000">//</span>
+  &amp;&amp; noexcept(detail::safe_compare_notequal(std::declval&lt;detail::devoid&lt;P&gt;&gt;(), std::declval&lt;detail::devoid&lt;U&gt;&gt;())));
+  
 
   <span style="color: #008000">/// \output_section Swap</span>
   <span style="color: #008000">/*! Swaps this result with another result</span>
@@ -891,15 +899,14 @@ public:
                                  &amp;&amp;detail::is_nothrow_swappable&lt;payload_exception_type&gt;::value);
 
   <span style="color: #008000">/// \output_section Converters</span>
-  <span style="color: #008000">/*! Returns this outcome rebound to void with any errored and payload state copied.</span>
+  <span style="color: #008000">/*! Returns this outcome as a `failure_type` with any errored and/or excepted state copied.</span>
 <span style="color: #008000">  \requires This outcome to have a failed state, else whatever `assume_error()` would do.</span>
 <span style="color: #008000">  */</span>
-  rebind&lt;<span style="color: #2b91af">void</span>&gt; as_void() <span style="color: #0000ff">const</span> &amp;;
-  <span style="color: #008000">/*! Returns this outcome rebound to void with any errored and payload state moved.</span>
+  <span style="color: #0000ff">auto</span> as_failure() <span style="color: #0000ff">const</span> &amp;;
+  <span style="color: #008000">/*! Returns this outcome as a `failure_type` with any errored and/or excepted state moved.</span>
 <span style="color: #008000">  \requires This outcome to have a failed state, else whatever `assume_error()` would do.</span>
 <span style="color: #008000">  */</span>
-  rebind&lt;<span style="color: #2b91af">void</span>&gt; as_void() &amp;&amp;;
-
+  <span style="color: #0000ff">auto</span> as_failure() &amp;&amp;;
 
   
   <span style="color: #008000">/// \output_section Narrow state observers</span>
@@ -1213,6 +1220,28 @@ public:
                     
                         
                         
+                    
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
                     
                 
                 

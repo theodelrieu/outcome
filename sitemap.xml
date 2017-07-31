@@ -19,7 +19,7 @@
   </url>
   
   <url>
-    <loc>https://ned14.github.io/outcome/synopsis/result/</loc>
+    <loc>https://ned14.github.io/outcome/synopsis/success/</loc>
   </url>
   
   <url>
@@ -31,7 +31,7 @@
   </url>
   
   <url>
-    <loc>https://ned14.github.io/outcome/synopsis/outcome/</loc>
+    <loc>https://ned14.github.io/outcome/synopsis/failure/</loc>
   </url>
   
   <url>
@@ -51,7 +51,15 @@
   </url>
   
   <url>
+    <loc>https://ned14.github.io/outcome/synopsis/result/</loc>
+  </url>
+  
+  <url>
     <loc>https://ned14.github.io/outcome/api-reference/doc_utils.md/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/synopsis/outcome/</loc>
   </url>
   
   <url>

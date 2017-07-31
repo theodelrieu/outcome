@@ -19,21 +19,21 @@
     </item>
     
     <item>
-      <title>result&lt;T, EC&gt;</title>
-      <link>https://ned14.github.io/outcome/synopsis/result/</link>
+      <title>success&lt;T&gt;</title>
+      <link>https://ned14.github.io/outcome/synopsis/success/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://ned14.github.io/outcome/synopsis/result/</guid>
-      <description>template &amp;lt; class R, class S = std::error_code, class NoValuePolicy = policy::default_result_policy&amp;lt;S&amp;gt; &amp;gt; requires std::is_void&amp;lt;EC&amp;gt;::value || std::is_default_constructible&amp;lt;EC&amp;gt;::value class [[nodiscard]] result { public: /// \output_section Member types //! The success type. using value_type = R; //! The S type configured using status_error_type = S; //! The failure type. using error_type = S; //! Used to disable in place type construction when `value_type` and `error_type` are ambiguous. using value_type_if_enabled = typename base::_value_type; //!</description>
+      <guid>https://ned14.github.io/outcome/synopsis/success/</guid>
+      <description>/*! Type sugar for implicitly constructing a `result&amp;lt;&amp;gt;` with a successful state. */ template &amp;lt;class T&amp;gt; struct success { //! The type of the successful state. using value_type = T; //! The value of the successful state. value_type value; constexpr success(T &amp;amp;&amp;amp;v) : value(std::move(v)) { } constexpr success(const T &amp;amp;v) : value(v) { } }; /*! Type sugar for implicitly constructing a `result&amp;lt;&amp;gt;` with a successful state. */ template &amp;lt;&amp;gt; struct success&amp;lt;void&amp;gt; { //!</description>
     </item>
     
     <item>
-      <title>outcome&lt;T, EC, E&gt;</title>
-      <link>https://ned14.github.io/outcome/synopsis/outcome/</link>
+      <title>failure&lt;EC, E&gt;</title>
+      <link>https://ned14.github.io/outcome/synopsis/failure/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://ned14.github.io/outcome/synopsis/outcome/</guid>
-      <description>template &amp;lt; class R, class S = std::error_code, class P = std::exception_ptr, class NoValuePolicy = policy::default_outcome_policy&amp;lt;R, S, P&amp;gt; &amp;gt; requires (std::is_void&amp;lt;EC&amp;gt;::value || std::is_default_constructible&amp;lt;EC&amp;gt;::value) &amp;amp;&amp;amp; (std::is_void&amp;lt;P&amp;gt;::value || std::is_default_constructible&amp;lt;P&amp;gt;::value) class [[nodiscard]] outcome { public: /// \output_section Member types //! The success type. using value_type = R; //! The S type configured using status_error_type = S; //! The failure type. using error_type = S; //! The P type configured. using payload_exception_type = P; //!</description>
+      <guid>https://ned14.github.io/outcome/synopsis/failure/</guid>
+      <description>template &amp;lt;class EC, class E, bool e_is_exception_ptr = trait::is_exception_ptr&amp;lt;E&amp;gt;::value&amp;gt; struct failure; template &amp;lt;class EC, class E&amp;gt; using failure_type = failure&amp;lt;EC, E&amp;gt;; /*! Type sugar for implicitly constructing a `result&amp;lt;&amp;gt;` with a failure state of error code and payload. */ template &amp;lt;class EC, class P&amp;gt; struct failure&amp;lt;EC, P, false&amp;gt; { //! The type of the error code using error_type = EC; //! The type of the payload using payload_type = P; //!</description>
     </item>
     
     <item>
@@ -65,12 +65,30 @@ Macro OUTCOME_TRYX #define OUTCOME_TRYX(m) If the outcome returned by expression
     </item>
     
     <item>
+      <title>result&lt;T, EC&gt;</title>
+      <link>https://ned14.github.io/outcome/synopsis/result/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/synopsis/result/</guid>
+      <description>template &amp;lt; class R, class S = std::error_code, class NoValuePolicy = policy::default_result_policy&amp;lt;S&amp;gt; &amp;gt; requires std::is_void&amp;lt;EC&amp;gt;::value || std::is_default_constructible&amp;lt;EC&amp;gt;::value class [[nodiscard]] result { public: /// \output_section Member types //! The success type. using value_type = R; //! The S type configured using status_error_type = S; //! The failure type. using error_type = S; //! Used to disable in place type construction when `value_type` and `error_type` are ambiguous. using value_type_if_enabled = typename base::_value_type; //!</description>
+    </item>
+    
+    <item>
       <title>Utilities</title>
       <link>https://ned14.github.io/outcome/api-reference/doc_utils.md/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://ned14.github.io/outcome/api-reference/doc_utils.md/</guid>
       <description>Header file utils.hpp #define OUTCOME_ERROR_FROM_EXCEPTION_HPP namespace outcome_v2_xxx { std::error_code error_from_exception(std::exception_ptr&amp;amp;&amp;amp; ep, std::error_code not_matched = std::make_error_code(std::errc::resource_unavailable_try_again)) noexcept; } Function outcome_v2_xxx::error_from_exception std::error_code error_from_exception(std::exception_ptr&amp;amp;&amp;amp; ep, std::error_code not_matched = std::make_error_code(std::errc::resource_unavailable_try_again)) noexcept; Utility function which tries to match the exception in the pointer provided to an equivalent error code. Ought to work for all standard STL types. param e The pointer to an exception to convert. If matched, on exit this is reset to a null pointer.</description>
+    </item>
+    
+    <item>
+      <title>outcome&lt;T, EC, E&gt;</title>
+      <link>https://ned14.github.io/outcome/synopsis/outcome/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/synopsis/outcome/</guid>
+      <description>template &amp;lt; class R, class S = std::error_code, class P = std::exception_ptr, class NoValuePolicy = policy::default_outcome_policy&amp;lt;R, S, P&amp;gt; &amp;gt; requires (std::is_void&amp;lt;EC&amp;gt;::value || std::is_default_constructible&amp;lt;EC&amp;gt;::value) &amp;amp;&amp;amp; (std::is_void&amp;lt;P&amp;gt;::value || std::is_default_constructible&amp;lt;P&amp;gt;::value) class [[nodiscard]] outcome { public: /// \output_section Member types //! The success type. using value_type = R; //! The S type configured using status_error_type = S; //! The failure type. using error_type = S; //! The P type configured. using payload_exception_type = P; //!</description>
     </item>
     
     <item>
@@ -97,7 +115,7 @@ Macro OUTCOME_TRYX #define OUTCOME_TRYX(m) If the outcome returned by expression
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://ned14.github.io/outcome/credits/</guid>
-      <description>github contributors .ghContributors{ display:flex; flex-flow: wrap; align-content: flex-start } .ghContributors  div{ width: 50% ; display: inline-flex; margin-bottom: 5px; } .ghContributors  div label{ padding-left: 4px ; } .ghContributors  div span{ font-size: x-small; padding-left: 4px ; }  This pretty, modern C++ documentation  Hugo - static website generator of this documentation. hugo-theme-docdock - the Hugo theme used by this documentation. Standardese - the API reference generator  Special thanks To Paul Bristow who proposed the name &amp;ldquo;Outcome&amp;rdquo; for the library after a very extended period of name bikeshedding on boost-dev.</description>
+      <description>github contributors .ghContributors{ display:flex; flex-flow: wrap; align-content: flex-start } .ghContributors  div{ width: 50% ; display: inline-flex; margin-bottom: 5px; } .ghContributors  div label{ padding-left: 4px ; } .ghContributors  div span{ font-size: x-small; padding-left: 4px ; }   @ned14 591 commits   @akrzemi1 8 commits   @jenkins-nedprod 1 commits   This pretty, modern C++ documentation  Hugo - static website generator of this documentation. hugo-theme-docdock - the Hugo theme used by this documentation.</description>
     </item>
     
   </channel>

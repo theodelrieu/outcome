@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title>Home :: Outcome documentation</title>
+    <title>failure&lt;EC, E&gt; :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/">
+  <body class="" data-url="/outcome/synopsis/failure/">
     <nav id="sidebar" class="">
   <div id="header-wrapper">
     <div id="header">
@@ -239,7 +239,7 @@
 
 
 <li data-nav-id="/outcome/synopsis/" class="dd-item 
-
+parent
 
 
 ">
@@ -247,7 +247,7 @@
     <span>Synopsis</span>
 
     
-    <i class="fa fa-angle-right fa-lg category-icon"></i>
+    <i class="fa fa-angle-down fa-lg category-icon"></i>
     
     
     
@@ -267,7 +267,7 @@
         
          
           <li data-nav-id="/outcome/synopsis/failure/" class="dd-item
-         
+         active
           ">
             <a href="/outcome/synopsis/failure/">
             <span>failure&lt;EC, E&gt;</span> 
@@ -405,103 +405,141 @@
         <div id="overlay"></div>
         <div class="padding highlightable">
         
+          <div id="top-bar">
+            
+              
+              
+              
+            <div id="top-github-link">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/synopsis/failure.md" target="blank">
+                <i class="fa fa-code-fork"></i>
+                Edit page
+              </a>
+            </div>
+              
+            
+
+            <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <span id="sidebar-toggle-span">
+                  <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                    <i class="fa fa-bars"></i>
+                  </a>
+                </span>
+                <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                <span class="links">
+                
+
+
+
+
+
+
+
+ <a href='/outcome/'>Home</a> > <a href='/outcome/synopsis/'>Synopsis</a> > failure<EC, E>
+
+ 
+
+ 
+
+   
+                </span>
+            </div>
+            <div class="progress">
+    <div class="wrapper">
+
+    </div>
+</div>
+
+          </div>
+        
         
         <div id="body-inner">
+          
+            <h1>failure&lt;EC, E&gt;</h1>
           
 
 
 
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fa fa-bars"></i> navigation</a>
-</span>
 
- 
-
-
-<h1 id="outcome-2-0-library">Outcome 2.0 library</h1>
-
-<p>Outcome is a C++14 library for reporting and handling function failures.
-It can be used as a substitute for, or a complement to, exception handling mechanism.</p>
-
-<p>One use case is for contexts where using C++ exception handling is unsuitable for different reasons:</p>
-
-<ul>
-<li>The high relative cost of throwing and catching a C++ exception,</li>
-<li>Making some or all control paths explicitly detailed to aid code correctness auditing,
- as opposed to having hidden control paths caused by exceptions potentially thrown from any place,</li>
-<li>Company&rsquo;s policy to compile with exceptions disabled,</li>
-<li>Maintaining a code base that was never designed with exception-safety in mind,</li>
-<li>Parts of the programs/frameworks that themselves implement exception handling and cannot
- afford to use exceptions, like propagating failure reports across threads, tasks, fibers&hellip;</li>
-</ul>
-
-<p>Another use case is to replace &lsquo;dual&rsquo; interfaces,
-like ones in <a href="http://www.boost.org/doc/libs/1_64_0/libs/filesystem/doc/index.htm">Boost.Filesystem</a>,
-where almost each function comes in two overloads, one throwing an exception,
-the other populating an <code>error_code</code> output argument. With Outcome, you can have only one function
-returning a composite return type, and it is through using this return value that you decide whether
-to handle failures locally, or to launch stack unwinding.</p>
-
-<p>Outcome can also be used to plug components that potentially throw exceptions into parts of the program
-that are not exception-safe while retaining all information from the thrown exception objects.</p>
-
-<h2 id="sample-usage">Sample usage</h2>
-
-<p>Function that may need to report failure needs to reflect that in its return type:</p>
-
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #0000ff">auto</span> read_int_from_file(string_view path) noexcept
-  -&gt; outcome::result&lt;<span style="color: #2b91af">int</span>&gt;;
-</pre></div>
-
-
-
-<p>Function <code>read_int_from_file</code> will either return an <code>int</code> or information about
-the reason for failure.</p>
-
-<p>It is possible to inspect the returned state manualy:</p>
-
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">	
-<span style="color: #0000ff">if</span> (<span style="color: #0000ff">auto</span> rslt = read_int_from_file(<span style="color: #a31515">&quot;config.cfg&quot;</span>))
-  use_int(rslt.value());
-<span style="color: #0000ff">else</span>
-  report_error(rslt.error()); <span style="color: #008000">// returns std::error_code</span>
-</pre></div>
-
-
-
-<p>But most of the time you would inspect the object indirectly through a dedicated control statement. An implementation of <code>read_int_from_file</code> that has to (1) open the file, (2) read raw data to a buffer, and (3) interpret it as <code>int</code>, using the following three functions</p>
-
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #0000ff">auto</span> open_file(string_view path) noexcept -&gt; outcome::result&lt;Handle&gt;;
-<span style="color: #0000ff">auto</span> read_data(Handle&amp; h)        noexcept -&gt; outcome::result&lt;Buffer&gt;;     
-<span style="color: #0000ff">auto</span> parse(<span style="color: #0000ff">const</span> Buffer&amp; b)      noexcept -&gt; outcome::result&lt;<span style="color: #2b91af">int</span>&gt;;
-</pre></div>
-
-
-
-<p>will look like this:</p>
-
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #0000ff">auto</span> read_int_from_file(string_view path) noexcept
-  -&gt; outcome::result&lt;<span style="color: #2b91af">int</span>&gt;
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">EC</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">E</span>, <span style="color: #2b91af">bool</span> e_is_exception_ptr = trait::is_exception_ptr&lt;E&gt;::value&gt; <span style="color: #0000ff">struct</span> failure;
+<span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">EC</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">E</span>&gt; <span style="color: #0000ff">using</span> failure_type = failure&lt;EC, E&gt;;
+<span style="color: #008000">/*! Type sugar for implicitly constructing a `result&lt;&gt;` with a failure state of error code and payload.</span>
+<span style="color: #008000">*/</span>
+<span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">EC</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">P</span>&gt; <span style="color: #0000ff">struct</span> failure&lt;EC, P, false&gt;
 {
-  OUTCOME_TRY(handle, open_file(path));    <span style="color: #008000">// decltype(handle) == Handle</span>
-  OUTCOME_TRY(buffer, read_data(handle));  <span style="color: #008000">// decltype(buffer) == Buffer</span>
-  OUTCOME_TRY(val, parse(buffer));         <span style="color: #008000">// decltype(val) == int</span>
-  <span style="color: #0000ff">return</span> val;
-}
+  <span style="color: #008000">//! The type of the error code</span>
+  <span style="color: #0000ff">using</span> error_type = EC;
+  <span style="color: #008000">//! The type of the payload</span>
+  <span style="color: #0000ff">using</span> payload_type = P;
+  <span style="color: #008000">//! The type of the exception</span>
+  <span style="color: #0000ff">using</span> exception_type = <span style="color: #2b91af">void</span>;
+  <span style="color: #008000">//! The error code</span>
+  error_type error;
+  <span style="color: #008000">//! The payload</span>
+  payload_type payload;
+};
+<span style="color: #008000">/*! Type sugar for implicitly constructing a `result&lt;&gt;` with a failure state of error code and exception.</span>
+<span style="color: #008000">*/</span>
+<span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">EC</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">E</span>&gt; <span style="color: #0000ff">struct</span> failure&lt;EC, E, true&gt;
+{
+  <span style="color: #008000">//! The type of the error code</span>
+  <span style="color: #0000ff">using</span> error_type = EC;
+  <span style="color: #008000">//! The type of the payload</span>
+  <span style="color: #0000ff">using</span> payload_type = <span style="color: #2b91af">void</span>;
+  <span style="color: #008000">//! The type of the exception</span>
+  <span style="color: #0000ff">using</span> exception_type = E;
+  <span style="color: #008000">//! The error code</span>
+  error_type error;
+  <span style="color: #008000">//! The exception</span>
+  exception_type exception;
+};
+<span style="color: #008000">/*! Type sugar for implicitly constructing a `result&lt;&gt;` with a failure state of error code.</span>
+<span style="color: #008000">*/</span>
+<span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">EC</span>&gt; <span style="color: #0000ff">struct</span> failure&lt;EC, <span style="color: #2b91af">void</span>, false&gt;
+{
+  <span style="color: #008000">//! The type of the error code</span>
+  <span style="color: #0000ff">using</span> error_type = EC;
+  <span style="color: #008000">//! The type of the payload</span>
+  <span style="color: #0000ff">using</span> payload_type = <span style="color: #2b91af">void</span>;
+  <span style="color: #008000">//! The type of the exception</span>
+  <span style="color: #0000ff">using</span> exception_type = <span style="color: #2b91af">void</span>;
+  <span style="color: #008000">//! The error code</span>
+  error_type error;
+};
+<span style="color: #008000">/*! Type sugar for implicitly constructing a `result&lt;&gt;` with a failure state of payload.</span>
+<span style="color: #008000">*/</span>
+<span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">P</span>&gt; <span style="color: #0000ff">struct</span> failure&lt;<span style="color: #2b91af">void</span>, P, false&gt;
+{
+  <span style="color: #008000">//! The type of the error code</span>
+  <span style="color: #0000ff">using</span> error_type = <span style="color: #2b91af">void</span>;
+  <span style="color: #008000">//! The type of the payload</span>
+  <span style="color: #0000ff">using</span> payload_type = P;
+  <span style="color: #008000">//! The type of the exception</span>
+  <span style="color: #0000ff">using</span> exception_type = <span style="color: #2b91af">void</span>;
+  <span style="color: #008000">//! The payload</span>
+  payload_type payload;
+};
+<span style="color: #008000">/*! Type sugar for implicitly constructing a `result&lt;&gt;` with a failure state of exception.</span>
+<span style="color: #008000">*/</span>
+<span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">E</span>&gt; <span style="color: #0000ff">struct</span> failure&lt;<span style="color: #2b91af">void</span>, E, true&gt;
+{
+  <span style="color: #008000">//! The type of the error code</span>
+  <span style="color: #0000ff">using</span> error_type = <span style="color: #2b91af">void</span>;
+  <span style="color: #008000">//! The type of the payload</span>
+  <span style="color: #0000ff">using</span> payload_type = <span style="color: #2b91af">void</span>;
+  <span style="color: #008000">//! The type of the exception</span>
+  <span style="color: #0000ff">using</span> exception_type = E;
+  <span style="color: #008000">//! The exception</span>
+  exception_type exception;
+};
 </pre></div>
 
 
-
-<p>Each occurence of <code>OUTCOME_TRY</code> is a control statement. If the returned <code>result&lt;T&gt;</code> contains an error information, the function is immediatelly returned with <code>result&lt;U&gt;</code> containing the same error information; otherwise object of type <code>T</code> is move-constructed on the stack.</p>
-
-<div class="notices note" ><p>This is the v2 Outcome designed in response to feedback from a <a href="https://lists.boost.org/boost-announce/2017/06/0510.php">Boost peer review held in
-May 2017</a>. This library
-is expected to pass a second Boost peer review, and be submitted to WG21 for standardisation
-into the standard C++ library.</p>
-</div>
-
+<footer class=" footline" >
 	
-  
+</footer>
+
+
 
       </div>
     </div>
@@ -645,16 +683,6 @@ into the standard C++ library.</p>
             
                 
                     
-                
-                
-                
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -667,6 +695,9 @@ into the standard C++ library.</p>
             
                 
                     
+                        
+                        
+                    
                 
                 
                 
@@ -677,6 +708,21 @@ into the standard C++ library.</p>
             
             
                 
+                    
+                    
+                
+                
+                
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -727,8 +773,10 @@ into the standard C++ library.</p>
 
 
         
+            <a class="nav nav-prev" href="/outcome/synopsis/success/" title="success&lt;T&gt;"> <i class="fa fa-chevron-left"></i></a>
         
-            <a class="nav nav-next" href="/outcome/requirements/" title="Prerequisites" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+            <a class="nav nav-next" href="/outcome/synopsis/result/" title="result&lt;T, EC&gt;" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -753,3 +801,4 @@ into the standard C++ library.</p>
 
   </body>
 </html>
+
