@@ -448,6 +448,7 @@ active
 <li><a href="#outcome-2-0-namespace">Outcome 2.0 namespace</a></li>
 <li><a href="#creating-result">Creating <code>result&lt;&gt;</code></a></li>
 <li><a href="#inspecting-result">Inspecting <code>result&lt;&gt;</code></a></li>
+<li><a href="#try-operations"><code>TRY</code> operations</a></li>
 <li><a href="#todo-more-material-will-be-provided-in-time">TODO: more material will be provided in time&hellip;</a></li>
 </ul></li>
 </ul>
@@ -484,7 +485,7 @@ updated version, getting closer to <code>outcome::v2</code>.</p>
 
 <h2 id="creating-result">Creating <code>result&lt;&gt;</code></h2>
 
-<p>We will define a function that converts an <code>std::string</code> to an <code>int</code>. This function can fail for a number of reasons,
+<p>We will define a function that converts an <code>std::string</code> to an <code>int</code>. This function can fail for a number of reasons;
 if it does we want to communicate the failure reason.</p>
 
 <div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::result&lt;<span style="color: #2b91af">int</span>&gt; convert(<span style="color: #0000ff">const</span> std::string&amp; str) noexcept;
@@ -493,10 +494,10 @@ if it does we want to communicate the failure reason.</p>
 
 
 <p>Class template <code>result&lt;T, EC&gt;</code> has two template parameters. The first (<code>T</code>) represents the type of the object
-returned from the function upon succes; the second (<code>EC</code>) is type of object storing information about the reason
+returned from the function upon succes; the second (<code>EC</code>) is type of object containing information about the reason
 for failure when function fails. A <code>result&lt;T, EC&gt;</code> object either stores a <code>T</code> or an <code>EC</code> at any given moment,
 and is therefore conceptually similar to <code>boost::variant&lt;T, EC&gt;</code>. <code>EC</code> is defaulted to <code>std::error_code</code>.
-If both <code>T</code> and <code>EC</code> are trivially copyable, <code>result&lt;T, EC&gt;</code> is alfrom antso trivially copyable.</p>
+If both <code>T</code> and <code>EC</code> are trivially copyable, <code>result&lt;T, EC&gt;</code> is also trivially copyable.</p>
 
 <p>Now, we will define an enumeration describing different failure situations during conversion.</p>
 
@@ -548,36 +549,36 @@ outcome::result&lt;<span style="color: #2b91af">int</span>&gt; s {outcome::in_pl
 
 <h2 id="inspecting-result">Inspecting <code>result&lt;&gt;</code></h2>
 
-<p>Suppose we will be wiriting function <code>print_halve</code> that takes an integral number (however big) represented in <code>std::string</code> and outputs a nuber which is twice smaller:</p>
+<p>Suppose we will be wiriting function <code>print_halve</code> that takes an integral number (however big) represented as an <code>std::string</code> and outputs a number which is twice smaller:</p>
 
 <div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::result&lt;<span style="color: #2b91af">void</span>&gt; print_half(<span style="color: #0000ff">const</span> std::string&amp; text);
 </pre></div>
 
 
 
-<p>Type <code>result&lt;void&gt;</code> means that there is no value to be retuned upon success, but that the operation might still fail, and we may be interested in inspecting the cause of the failure. Class template <code>rebind</code> is declared with attribute <code>[[nodiscard]]</code>, which means compiler will warn you if you forget to inspect the returned object.</p>
+<p>Type <code>result&lt;void&gt;</code> means that there is no value to be retuned upon success, but that the operation might still fail, and we may be interested in inspecting the cause of the failure. Class template <code>result</code> is declared with attribute <code>[[nodiscard]]</code>, which means compiler will warn you if you forget to inspect the returned object.</p>
 
-<p>The implementation will do the following: if the integral number can be represnted by an <code>int</code>, we will convert to <code>int</code> and use its arithmetical operations. If the number is too large, we will fall back to using a custom <code>BigInt</code> implementation taht needs to allocate memory. In the implementation we will use function <code>convert</code> defined in the previous section.</p>
+<p>The implementation will do the following: if the integral number can be represnted by an <code>int</code>, we will convert to <code>int</code> and use its arithmetical operations. If the number is too large, we will fall back to using a custom <code>BigInt</code> implementation that needs to allocate memory. In the implementation we will use function <code>convert</code> defined in the previous section.</p>
 
 <div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::result&lt;<span style="color: #2b91af">void</span>&gt; print_half(<span style="color: #0000ff">const</span> std::string&amp; text)
 {
-    <span style="color: #0000ff">if</span> (outcome::result&lt;<span style="color: #2b91af">int</span>&gt; r = convert(text))
+    <span style="color: #0000ff">if</span> (outcome::result&lt;<span style="color: #2b91af">int</span>&gt; r = convert(text))         <span style="color: #008000">// #1</span>
     {
-        std::cout &lt;&lt; (r.value() / 2) &lt;&lt; std::endl;
+        std::cout &lt;&lt; (r.value() / 2) &lt;&lt; std::endl;      <span style="color: #008000">// #2</span>
     }
     <span style="color: #0000ff">else</span>
     {
-        <span style="color: #0000ff">if</span> (r.error() == ConversionErrc::TooLong)
+        <span style="color: #0000ff">if</span> (r.error() == ConversionErrc::TooLong)       <span style="color: #008000">// #3 </span>
         {
-            OUTCOME_TRY (i, BigInt::fromString(text));
+            OUTCOME_TRY (i, BigInt::fromString(text));  <span style="color: #008000">// #4</span>
             std::cout &lt;&lt; i.half() &lt;&lt; std::endl;
         }
         <span style="color: #0000ff">else</span>
         {
-            <span style="color: #0000ff">return</span> r.error();
+            <span style="color: #0000ff">return</span> r.as_failure();                      <span style="color: #008000">// #5</span>
         }
     }
-    <span style="color: #0000ff">return</span> outcome::success();  
+    <span style="color: #0000ff">return</span> outcome::success();                          <span style="color: #008000">// #6</span>
 }
 </pre></div>
 
@@ -589,7 +590,7 @@ outcome::result&lt;<span style="color: #2b91af">int</span>&gt; s {outcome::in_pl
 
 <p>#3. Function <code>error</code> allows you to inspect the error sub-object, representing information about the reason for failure.</p>
 
-<p>#4. Macro <code>OUTCOME_TRY</code> represents a control statement. It implies that function call in the second argument returns a <code>result&lt;&gt;</code>. It is defined as:</p>
+<p>#4. Macro <code>OUTCOME_TRY</code> represents a control statement. It implies that the function call in the second argument returns a <code>result&lt;&gt;</code>. It is defined as:</p>
 
 <div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #008000">/*static*/</span> outcome::result&lt;BigInt&gt; BigInt::fromString(<span style="color: #0000ff">const</span> std::string&amp; s)
 </pre></div>
@@ -598,13 +599,69 @@ outcome::result&lt;<span style="color: #2b91af">int</span>&gt; s {outcome::in_pl
 
 <p>Our control statement means: if <code>fromString</code> returned failure, this same error information should be returned from <code>print_half</code>, even though the type of <code>result&lt;&gt;</code> is different. If <code>fromString</code> returned success, we create  variable <code>i</code> of type <code>int</code> with the value returned from <code>fromString</code>. If control goes to subsequent line, it means <code>fromString</code> succeeded and variable of type <code>int</code> is in scope.</p>
 
-<p>#5. In the return statement we extract the error information and use it to initialize the return value from <code>print_half</code>.</p>
+<p>#5. In the return statement we extract the error information and use it to initialize the return value from <code>print_half</code>. We could have written <code>return r.error();</code> instead,
+    and it would have the same effect, but it would not work if we were using <code>outcome&lt;&gt;</code> instead of <code>result&lt;&gt;</code> &ndash; this will be covered later.</p>
 
-<p>#6. Function <code>success</code> returns an object of type <code>result&lt;foid&gt;</code> representing success.</p>
+<p>#6. Function <code>success</code> returns an object of type <code>result&lt;void&gt;</code> representing success.</p>
+
+<h2 id="try-operations"><code>TRY</code> operations</h2>
+
+<p>In the implementation of function <code>print_half</code> we have seen the usage of the macro <code>OUTCOME_TRY</code>:</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">OUTCOME_TRY (i, BigInt::fromString(text));
+</pre></div>
+
+<p>This control statement is raughly equivalent to:</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #0000ff">auto</span>&amp;&amp; __result = BigInt::fromString(text);
+<span style="color: #0000ff">if</span> (!__result)
+  <span style="color: #0000ff">return</span> __result.as_failure();
+<span style="color: #0000ff">auto</span>&amp;&amp; i = __result.value();
+</pre></div>
+
+<p>Where <code>__result</code> is a unique name.</p>
+
+<p>Additionally, in GCC and Clang which provide an extension to C++ known as
+<a href="https://gcc.gnu.org/onlinedocs/gcc/Statement-Exprs.html" title="GCC docs on statement expressions">statement expressions</a>
+it is possible to use an alternative macro: <code>OUTCOME_TRYX</code>, which is an expression. With the above macro, the above declaration of variable <code>i</code> can be rewritten to:</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #2b91af">int</span> i = OUTCOME_TRYX (BigInt::fromString(text));
+</pre></div>
+
+<p>This has an advantage that you can use it any place where you can put an expression, e.g., in &ldquo;simple initialization&rdquo;:</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #0000ff">if</span> (<span style="color: #2b91af">int</span> i = OUTCOME_TRYX(BigInt::fromString(text)))
+  use_a_non_zero_int(i);
+</pre></div>
+
+<p>or in as a subexpression of a bigger full expression:</p>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #2b91af">int</span> ans = OUTCOME_TRYX(BigInt::fromString(<span style="color: #a31515">&quot;1&quot;</span>)) + OUTCOME_TRYX(BigInt::fromString(<span style="color: #a31515">&quot;2&quot;</span>));
+</pre></div>
+
+<div class="notices note" ><p>This macro makes use of a proprietary extension in GCC and clang and is not
+portable. The macro is not made available on unsupported compilers,
+so you can test for its presence using <code>#ifdef OUTCOME_TRYX</code>.</p>
+</div>
+
+
+<p>Macro <code>OUTCOME_TRY</code> does two things:
+1. It extracts a <code>T</code> from <code>result&lt;T&gt;</code> (or <code>outcome&lt;T&gt;</code>).
+2. It declares a dependency between statements: If the &ldquo;tried&rdquo; statement fails, the next statement is not executed.</p>
+
+<p>When you are calling functions that return <code>result&lt;void&gt;</code> the first of the two things does not mak sense. You then have to use macro <code>OUTCOME_TRYV</code> instead. Let&rsquo;s use our function <code>print_half</code>:</p>
+
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::result&lt;<span style="color: #2b91af">void</span>&gt; test()
+{
+  OUTCOME_TRYV (print_half(<span style="color: #a31515">&quot;2&quot;</span>));
+  OUTCOME_TRYV (print_half(<span style="color: #a31515">&quot;X&quot;</span>));
+  OUTCOME_TRYV (print_half(<span style="color: #a31515">&quot;4&quot;</span>)); <span style="color: #008000">// will not execute</span>
+  <span style="color: #0000ff">return</span> outcome::success();
+}
+</pre></div>
+
+
+
+<p>The first statement will succeed. The second statement will &ldquo;fail&rdquo;, i.e. it will return an errored result. This will cause an immediate return and the subsequent statements will be skipped.</p>
 
 <h2 id="todo-more-material-will-be-provided-in-time">TODO: more material will be provided in time&hellip;</h2>
 
-<p>This will include TRY operations, customizing <code>result</code> and using outcome</p>
+<p>This will include customizing <code>result</code> and using outcome&hellip;</p>
 
 <div class="mermaid" align="center" >
 graph TD
