@@ -443,7 +443,11 @@ active
     <div class="wrapper">
 <nav id="TableOfContents">
 <ul>
+<li>
+<ul>
 <li><a href="#why-is-implicit-default-construction-disabled">Why is implicit default construction disabled?</a></li>
+<li><a href="#how-far-away-from-the-proposed-std-expected-t-e-is-outcome-s-checked-t-e">How far away from the proposed <code>std::expected&lt;T, E&gt;</code> is Outcome&rsquo;s <code>checked&lt;T, E&gt;</code>?</a></li>
+</ul></li>
 </ul>
 </nav>
     </div>
@@ -462,7 +466,7 @@ active
 
 
 
-<h1 id="why-is-implicit-default-construction-disabled">Why is implicit default construction disabled?</h1>
+<h2 id="why-is-implicit-default-construction-disabled">Why is implicit default construction disabled?</h2>
 
 <p>This was one of the more interesting points of discussion during the peer review of
 Outcome v1. v1 had a formal empty state. This came with many advantages, but it
@@ -494,6 +498,129 @@ of these forms as is the most appropriate for the use case:</p>
 <li>Construct via <code>success()</code> e.g. <code>outcome&lt;T&gt;(success())</code>.</li>
 <li>Construct from a <code>void</code> form e.g. <code>result&lt;T&gt;(result&lt;void&gt;(in_place_type&lt;void&gt;))</code>.</li>
 </ol>
+
+<h2 id="how-far-away-from-the-proposed-std-expected-t-e-is-outcome-s-checked-t-e">How far away from the proposed <code>std::expected&lt;T, E&gt;</code> is Outcome&rsquo;s <code>checked&lt;T, E&gt;</code>?</h2>
+
+<p>Not far, in fact after the Boost.Outcome peer review in May 2017, Expected moved
+much closer to Outcome. Here are the remaining differences which represent the
+divergence of consensus opinion between the Boost peer review and WG21 on the proper
+design for this object:</p>
+
+<ol>
+<li><code>checked&lt;T, E&gt;</code> has no default constructor. Expected has a default constructor if
+<code>T</code> has a default constructor.</li>
+<li><code>checked&lt;T, E&gt;</code> uses the same constructor design as <code>std::variant&lt;...&gt;</code>. Expected
+uses the constructor design of <code>std::optional&lt;T&gt;</code>.</li>
+<li><code>checked&lt;T, E&gt;</code> cannot be modified after construction except by assignment.
+Expected provides an <code>.emplace()</code> modifier.</li>
+<li><code>checked&lt;T, E&gt;</code> permits implicit construction from both <code>T</code> and <code>E</code> when
+unambiguous. Expected permits implicit construction from <code>T</code> alone.</li>
+<li><code>checked&lt;T, E&gt;</code> does not permit <code>T</code> and <code>E</code> to be the same, and becomes annoying
+to use if they are constructible into one another (implicit construction self-disables).
+Expected permits <code>T</code> and <code>E</code> to be the same.</li>
+<li><code>checked&lt;T, E&gt;</code> throws <code>bad_result_access_with&lt;E&gt;</code> instead of Expected&rsquo;s
+<code>bad_expected_access&lt;E&gt;</code>.</li>
+<li><code>checked&lt;T, E&gt;</code> models <code>std::variant&lt;...&gt;</code>. Expected models <code>std::optional&lt;T&gt;</code>. Thus:
+
+<ul>
+<li><code>checked&lt;T, E&gt;</code> does not provide <code>operator*()</code> nor <code>operator-&gt;</code></li>
+<li><code>checked&lt;T, E&gt;</code> <code>.error()</code> is wide (i.e. throws on incorrect use) like <code>.value()</code>.
+Expected&rsquo;s <code>.error()</code> is narrow (UB on incorrect use). (<code>checked&lt;T, E&gt;</code> provides
+<code>.assume_value()</code> and <code>.assume_error()</code> for narrow (UB causing) observers)</li>
+</ul></li>
+<li><code>checked&lt;T, E&gt;</code> uses <code>success&lt;T&gt;</code> and <code>failure&lt;E&gt;</code> type sugars for disambiguation.
+Expected uses <code>unexpected&lt;E&gt;</code> only.</li>
+</ol>
+
+<p>In fact, the two are sufficiently close in design that a highly conforming <code>expected&lt;T, E&gt;</code>
+can be implemented by wrapping up <code>checked&lt;T, E&gt;</code> with the missing functionality:</p>
+
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #008000">/* Here is a fairly conforming implementation of P0323R3 `expected&lt;T, E&gt;` using `checked&lt;T, E&gt;`.</span>
+<span style="color: #008000">It passes the reference test suite for P0323R3 at</span>
+<span style="color: #008000">https://github.com/viboes/std-make/blob/master/test/expected/expected_pass.cpp with modifications</span>
+<span style="color: #008000">only to move the test much closer to the P0323R3 Expected, as the reference test suite is for a</span>
+<span style="color: #008000">much older proposed Expected.</span>
+
+<span style="color: #008000">Known differences from P0323R3 in this implementation:</span>
+<span style="color: #008000">- `T` and `E` cannot be the same type.</span>
+<span style="color: #008000">- No variant storage is implemented.</span>
+<span style="color: #008000">*/</span>
+
+<span style="color: #0000ff">namespace</span> detail
+{
+  <span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">E</span>&gt; <span style="color: #0000ff">using</span> expected_result = OUTCOME_V2_NAMESPACE::checked&lt;T, E&gt;;
+  <span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">E</span>&gt; <span style="color: #0000ff">struct</span> enable_default_constructor : <span style="color: #0000ff">public</span> expected_result&lt;T, E&gt;
+  {
+    <span style="color: #0000ff">using</span> base = expected_result&lt;T, E&gt;;
+    <span style="color: #0000ff">using</span> base::base;
+    constexpr enable_default_constructor()
+        : base{OUTCOME_V2_NAMESPACE::in_place_type&lt;T&gt;}
+    {
+    }
+  };
+  <span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">E</span>&gt; <span style="color: #0000ff">using</span> select_expected_base = std::<span style="color: #2b91af">conditional_t</span>&lt;std::is_default_constructible&lt;T&gt;::value, enable_default_constructor&lt;T, E&gt;, expected_result&lt;T, E&gt;&gt;;
+}
+<span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">T</span>, <span style="color: #0000ff">class</span> <span style="color: #2b91af">E</span>&gt; <span style="color: #0000ff">class</span> <span style="color: #2b91af">expected</span> : <span style="color: #0000ff">public</span> detail::select_expected_base&lt;T, E&gt;
+{
+  static_assert(!std::is_same&lt;T, E&gt;::value, <span style="color: #a31515">&quot;T and E cannot be the same in this expected implementation&quot;</span>);
+  <span style="color: #0000ff">using</span> base = detail::select_expected_base&lt;T, E&gt;;
+
+public:
+  <span style="color: #008000">// Inherit base&#39;s constructors</span>
+  <span style="color: #0000ff">using</span> base::base;
+  expected() = <span style="color: #0000ff">default</span>;
+
+  <span style="color: #008000">// Expected takes in_place not in_place_type</span>
+  <span style="color: #0000ff">template</span> &lt;class... Args&gt;
+  constexpr <span style="color: #0000ff">explicit</span> expected(<span style="color: #2b91af">in_place_t</span> <span style="color: #008000">/*unused*/</span>, Args &amp;&amp;... args)
+      : base{OUTCOME_V2_NAMESPACE::in_place_type&lt;T&gt;, std::forward&lt;Args&gt;(args)...}
+  {
+  }
+
+  <span style="color: #008000">// Expected always accepts a T even if ambiguous</span>
+  OUTCOME_TEMPLATE(<span style="color: #0000ff">class</span> <span style="color: #2b91af">U</span>)
+  OUTCOME_TREQUIRES(OUTCOME_TPRED(std::is_constructible&lt;T, U&gt;::value))
+  constexpr expected(U &amp;&amp;v)
+      : base{OUTCOME_V2_NAMESPACE::in_place_type&lt;T&gt;, std::forward&lt;U&gt;(v)}
+  {
+  }
+
+  <span style="color: #008000">// Expected has an emplace() modifier</span>
+  <span style="color: #0000ff">template</span> &lt;class... Args&gt; <span style="color: #2b91af">void</span> emplace(Args &amp;&amp;... args) { *<span style="color: #0000ff">static_cast</span>&lt;base *&gt;(<span style="color: #0000ff">this</span>) = base{OUTCOME_V2_NAMESPACE::in_place_type&lt;T&gt;, std::forward&lt;Args&gt;(args)...}; }
+
+  <span style="color: #008000">// Expected has a narrow operator* and operator-&gt;</span>
+  constexpr <span style="color: #0000ff">const</span> T &amp;<span style="color: #0000ff">operator</span>*() <span style="color: #0000ff">const</span> &amp; { <span style="color: #0000ff">return</span> base::assume_value(); }
+  constexpr T &amp;<span style="color: #0000ff">operator</span>*() &amp; { <span style="color: #0000ff">return</span> base::assume_value(); }
+  constexpr <span style="color: #0000ff">const</span> T &amp;&amp;<span style="color: #0000ff">operator</span>*() <span style="color: #0000ff">const</span> &amp;&amp; { <span style="color: #0000ff">return</span> base::assume_value(); }
+  constexpr T &amp;&amp;<span style="color: #0000ff">operator</span>*() &amp;&amp; { <span style="color: #0000ff">return</span> base::assume_value(); }
+  constexpr <span style="color: #0000ff">const</span> T *<span style="color: #0000ff">operator</span>-&gt;() <span style="color: #0000ff">const</span> { <span style="color: #0000ff">return</span> &amp;base::assume_value(); }
+  constexpr T *<span style="color: #0000ff">operator</span>-&gt;() { <span style="color: #0000ff">return</span> &amp;base::assume_value(); }
+
+  <span style="color: #008000">// Expected has a narrow error() observer</span>
+  constexpr <span style="color: #0000ff">const</span> E &amp;error() <span style="color: #0000ff">const</span> &amp; { <span style="color: #0000ff">return</span> base::assume_error(); }
+  constexpr E &amp;error() &amp; { <span style="color: #0000ff">return</span> base::assume_error(); }
+  constexpr <span style="color: #0000ff">const</span> E &amp;&amp;error() <span style="color: #0000ff">const</span> &amp;&amp; { <span style="color: #0000ff">return</span> base::assume_error(); }
+  constexpr E &amp;error() &amp;&amp; { <span style="color: #0000ff">return</span> base::assume_error(); }
+};
+<span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">E</span>&gt; <span style="color: #0000ff">class</span> <span style="color: #2b91af">expected</span>&lt;<span style="color: #2b91af">void</span>, E&gt; : <span style="color: #0000ff">public</span> OUTCOME_V2_NAMESPACE::result&lt;<span style="color: #2b91af">void</span>, E, OUTCOME_V2_NAMESPACE::policy::throw_bad_result_access&lt;E&gt;&gt;
+{
+  <span style="color: #0000ff">using</span> base = OUTCOME_V2_NAMESPACE::result&lt;<span style="color: #2b91af">void</span>, E, OUTCOME_V2_NAMESPACE::policy::throw_bad_result_access&lt;E&gt;&gt;;
+
+public:
+  <span style="color: #008000">// Inherit base constructors</span>
+  <span style="color: #0000ff">using</span> base::base;
+
+  <span style="color: #008000">// Expected has a narrow operator* and operator-&gt;</span>
+  constexpr <span style="color: #2b91af">void</span> <span style="color: #0000ff">operator</span>*() <span style="color: #0000ff">const</span> { base::assume_value(); }
+  constexpr <span style="color: #2b91af">void</span> <span style="color: #0000ff">operator</span>-&gt;() <span style="color: #0000ff">const</span> { base::assume_value(); }
+};
+<span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">E</span>&gt; <span style="color: #0000ff">using</span> unexpected = OUTCOME_V2_NAMESPACE::failure_type&lt;E&gt;;
+<span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">E</span>&gt; unexpected&lt;E&gt; make_unexpected(E &amp;&amp;arg) { <span style="color: #0000ff">return</span> OUTCOME_V2_NAMESPACE::failure&lt;E&gt;(std::forward&lt;E&gt;(arg)); }
+<span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">E</span>, class... Args&gt; unexpected&lt;E&gt; make_unexpected(Args &amp;&amp;... args) { <span style="color: #0000ff">return</span> OUTCOME_V2_NAMESPACE::failure&lt;E&gt;(std::forward&lt;Args&gt;(args)...); }
+<span style="color: #0000ff">template</span> &lt;<span style="color: #0000ff">class</span> <span style="color: #2b91af">E</span>&gt; <span style="color: #0000ff">using</span> bad_expected_access = OUTCOME_V2_NAMESPACE::bad_result_access_with&lt;E&gt;;
+</pre></div>
+
+
 
 
 <footer class=" footline" >
