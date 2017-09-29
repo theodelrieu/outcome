@@ -530,6 +530,7 @@ Expected&rsquo;s <code>.error()</code> is narrow (UB on incorrect use). (<code>c
 </ul></li>
 <li><code>checked&lt;T, E&gt;</code> uses <code>success&lt;T&gt;</code> and <code>failure&lt;E&gt;</code> type sugars for disambiguation.
 Expected uses <code>unexpected&lt;E&gt;</code> only.</li>
+<li><code>checked&lt;T, E&gt;</code> requires <code>E</code> to be default constructible.</li>
 </ol>
 
 <p>In fact, the two are sufficiently close in design that a highly conforming <code>expected&lt;T, E&gt;</code>
@@ -543,7 +544,8 @@ can be implemented by wrapping up <code>checked&lt;T, E&gt;</code> with the miss
 
 <span style="color: #008000">Known differences from P0323R3 in this implementation:</span>
 <span style="color: #008000">- `T` and `E` cannot be the same type.</span>
-<span style="color: #008000">- No variant storage is implemented.</span>
+<span style="color: #008000">- `E` must be default constructible.</span>
+<span style="color: #008000">- No variant storage is implemented (note the Expected proposal does not actually require this).</span>
 <span style="color: #008000">*/</span>
 
 <span style="color: #0000ff">namespace</span> detail
