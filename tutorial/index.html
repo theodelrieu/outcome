@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="generator" content="Hugo 0.24.1" />
+    <meta name="generator" content="Hugo 0.29" />
     <meta name="description" content="">
 
 
@@ -14,7 +14,10 @@
     <link href="/outcome/css/hybrid.css" rel="stylesheet">
     <link href="/outcome/css/featherlight.min.css" rel="stylesheet">
     <link href="/outcome/css/horsey.css" rel="stylesheet">
+    
     <link href="/outcome/css/theme.css" rel="stylesheet">
+    
+    
     <link rel="stylesheet" href="/outcome/css/bootstrap.min.css">
     <script src="/outcome/js/jquery-2.x.min.js"></script>
     <style type="text/css">
@@ -29,17 +32,14 @@
 
   </head>
   <body class="" data-url="/outcome/tutorial/">
-    <nav id="sidebar" class="">
+    <nav id="sidebar" class=""><div class="highlightable">
   <div id="header-wrapper">
-    <div id="header">
-       
+    <div id="header"> 
 	<p>Outcome 2.0 library documentation</p>
  
 
 
-    </div>
-    
-        <div class="searchbox">
+    </div><div class="searchbox">
     <label for="search-by"><i class="fa fa-search"></i></label>
     <input data-search-input id="search-by" type="text" placeholder="Search...">
     <span data-search-clear=""><i class="fa fa-close"></i></span>
@@ -51,340 +51,88 @@
 </script>
 <script type="text/javascript" src="/outcome/js/search.js"></script>
 
-    
   </div>
 
 
-
-
-
-<div class="highlightable">
     <ul class="topics">
-        
-        
             <li data-nav-id="/outcome/" class="dd-item">
             <a href="/outcome/"><i class="fa fa-fw fa-home"></i></a>
             </li>
-        
-
-        
-
-
-
-
-<li data-nav-id="/outcome/requirements/" class="dd-item 
-
-
-
-">
-  <a href="/outcome/requirements/">
-    <span>Prerequisites</span>
-
-    
-    <i class="fa fa-angle-right fa-lg category-icon"></i>
-    
-    
-    
-  </a>
-    <ul>
-        
-        
-
-
-
-
-    </ul>
-</li>
-
-
-<li data-nav-id="/outcome/build/" class="dd-item 
-
-
-
-">
-  <a href="/outcome/build/">
-    <span>Build and install</span>
-
-    
-    <i class="fa fa-angle-right fa-lg category-icon"></i>
-    
-    
-    
-  </a>
-    <ul>
-        
-        
-
-
-
-
-    </ul>
-</li>
-
-
-<li data-nav-id="/outcome/tutorial/" class="dd-item 
-parent
-active
-
-">
-  <a href="/outcome/tutorial/">
-    <span>Tutorial</span>
-
-    
-    <i class="fa fa-angle-down fa-lg category-icon"></i>
-    
-    
-    
-  </a>
-    <ul>
-        
-         
-          <li data-nav-id="/outcome/tutorial/error_code/" class="dd-item
-         
-          ">
-            <a href="/outcome/tutorial/error_code/">
-            <span>Custom error code</span> 
-            
-
-            </a></li>
-         
-        
-        
-
-
-
-
-    </ul>
-</li>
-
-
-<li data-nav-id="/outcome/api-reference/" class="dd-item 
-
-
-
-">
-  <a href="/outcome/api-reference/">
-    <span>API reference</span>
-
-    
-    <i class="fa fa-angle-right fa-lg category-icon"></i>
-    
-    
-    
-  </a>
-    <ul>
-        
-         
-          <li data-nav-id="/outcome/api-reference/doc_outcome.md/" class="dd-item
-         
-          ">
-            <a href="/outcome/api-reference/doc_outcome.md/">
-            <span>outcome&lt;R, S, P&gt;</span> 
-            
-
-            </a></li>
-         
-        
-         
-          <li data-nav-id="/outcome/api-reference/doc_result.md/" class="dd-item
-         
-          ">
-            <a href="/outcome/api-reference/doc_result.md/">
-            <span>result&lt;R, S&gt;</span> 
-            
-
-            </a></li>
-         
-        
-         
-          <li data-nav-id="/outcome/api-reference/doc_try.md/" class="dd-item
-         
-          ">
-            <a href="/outcome/api-reference/doc_try.md/">
-            <span>Try operations</span> 
-            
-
-            </a></li>
-         
-        
-         
-          <li data-nav-id="/outcome/api-reference/doc_utils.md/" class="dd-item
-         
-          ">
-            <a href="/outcome/api-reference/doc_utils.md/">
-            <span>Utilities</span> 
-            
-
-            </a></li>
-         
-        
-         
-          <li data-nav-id="/outcome/api-reference/iostream_support.md/" class="dd-item
-         
-          ">
-            <a href="/outcome/api-reference/iostream_support.md/">
-            <span>iostream support</span> 
-            
-
-            </a></li>
-         
-        
-        
-
-
-
-
-    </ul>
-</li>
-
-
-<li data-nav-id="/outcome/synopsis/" class="dd-item 
-
-
-
-">
-  <a href="/outcome/synopsis/">
-    <span>Synopsis</span>
-
-    
-    <i class="fa fa-angle-right fa-lg category-icon"></i>
-    
-    
-    
-  </a>
-    <ul>
-        
-         
-          <li data-nav-id="/outcome/synopsis/success/" class="dd-item
-         
-          ">
-            <a href="/outcome/synopsis/success/">
-            <span>success&lt;T&gt;</span> 
-            
-
-            </a></li>
-         
-        
-         
-          <li data-nav-id="/outcome/synopsis/failure/" class="dd-item
-         
-          ">
-            <a href="/outcome/synopsis/failure/">
-            <span>failure&lt;EC, E&gt;</span> 
-            
-
-            </a></li>
-         
-        
-         
-          <li data-nav-id="/outcome/synopsis/result/" class="dd-item
-         
-          ">
-            <a href="/outcome/synopsis/result/">
-            <span>result&lt;T, EC&gt;</span> 
-            
-
-            </a></li>
-         
-        
-         
-          <li data-nav-id="/outcome/synopsis/outcome/" class="dd-item
-         
-          ">
-            <a href="/outcome/synopsis/outcome/">
-            <span>outcome&lt;T, EC, E&gt;</span> 
-            
-
-            </a></li>
-         
-        
-        
-
-
-
-
-    </ul>
-</li>
-
-
-<li data-nav-id="/outcome/faq/" class="dd-item 
-
-
-
-">
-  <a href="/outcome/faq/">
-    <span>Frequently asked questions</span>
-
-    
-    <i class="fa fa-angle-right fa-lg category-icon"></i>
-    
-    
-    
-  </a>
-    <ul>
-        
-        
-
-
-
-
-    </ul>
-</li>
-
-
-<li data-nav-id="/outcome/history/" class="dd-item 
-
-
-
-">
-  <a href="/outcome/history/">
-    <span>History</span>
-
-    
-    <i class="fa fa-angle-right fa-lg category-icon"></i>
-    
-    
-    
-  </a>
-    <ul>
-        
-        
-
-
-
-
-    </ul>
-</li>
-
-
-
-        
+    <li data-nav-id="/outcome/requirements/" class="dd-item">
+      <a href="/outcome/requirements/">
+        <span>Prerequisites</span>
+      </a>
+    </li>
+    <li data-nav-id="/outcome/build/" class="dd-item">
+      <a href="/outcome/build/">
+        <span>Build and install</span>
+      </a>
+    </li>
+    <li data-nav-id="/outcome/tutorial/" class="dd-item parent active">
+      <a href="/outcome/tutorial/">
+        <span>Tutorial</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </a>
+        <ul>
+      <li data-nav-id="/outcome/tutorial/error_code/" class="dd-item">
+        <a href="/outcome/tutorial/error_code/">
+          <span>Custom error code</span>
+        </a>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/outcome/api-reference/" class="dd-item">
+      <a href="/outcome/api-reference/">
+        <span>API reference</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </a>
+        <ul>
+      <li data-nav-id="/outcome/api-reference/doc_outcome.md/" class="dd-item">
+        <a href="/outcome/api-reference/doc_outcome.md/">
+          <span>outcome&lt;R, S, P&gt;</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/api-reference/doc_result.md/" class="dd-item">
+        <a href="/outcome/api-reference/doc_result.md/">
+          <span>result&lt;R, S&gt;</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/api-reference/doc_try.md/" class="dd-item">
+        <a href="/outcome/api-reference/doc_try.md/">
+          <span>Try operations</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/api-reference/doc_utils.md/" class="dd-item">
+        <a href="/outcome/api-reference/doc_utils.md/">
+          <span>Utilities</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/api-reference/iostream_support.md/" class="dd-item">
+        <a href="/outcome/api-reference/iostream_support.md/">
+          <span>iostream support</span>
+        </a>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/outcome/faq/" class="dd-item">
+      <a href="/outcome/faq/">
+        <span>Frequently asked questions</span>
+      </a>
+    </li>
+    <li data-nav-id="/outcome/history/" class="dd-item">
+      <a href="/outcome/history/">
+        <span>History</span>
+      </a>
+    </li>
         <section id="shortcuts">
-            
-                <li class="" role="">
-                    <h3>More</h3>
-                    <a href="https://github.com/ned14/outcome"><i class='fa fa-github'></i> Outcome 2.0 github repo</a>
-                    
-                </li>
-            
-                <li class="" role="">
-                    
-                    <a href="/outcome/credits"><i class='fa fa-bullhorn'></i> Acknowledgements</a>
-                    
-                </li>
-            
-        </section>    
-        
-        
-
-        
+                <li class="" role=""><h3>More</h3><a href="https://github.com/ned14/outcome" target="_blank" rel="noopener"><i class='fa fa-github'></i> Outcome 2.0 github repo</a></li>
+                <li class="" role=""><a href="/outcome/credits" target="_blank" rel="noopener"><i class='fa fa-bullhorn'></i> Acknowledgements</a></li>
+        </section>
     </ul>
-    
-     
-    <section id="footer">
-      <center>
 
-<a class="github-button" href="https://github.com/ned14/outcome/archive/master.zip" data-icon="octicon-cloud-download" aria-label="Download Outcome on GitHub">Download</a>
+
+    <section id="footer"><center>
+
+<a class="github-button" href="https://dedi4.nedprod.com/static/files/outcome-v2.0-source-latest.tar.xz" data-icon="octicon-cloud-download" aria-label="Download Outcome">Download</a>
 
 
 <a class="github-button" href="https://github.com/ned14/outcome" data-icon="octicon-star" data-show-count="false" aria-label="Star Outcome on GitHub">Star</a>
@@ -415,11 +163,7 @@ active
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
-            </div>
-              
-            
-
-            <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+            </div><div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                 <span id="sidebar-toggle-span">
                   <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
                     <i class="fa fa-bars"></i>
@@ -473,12 +217,13 @@ active
 
 <p>It is recommended that you refer to entities from this Outcome 2.0 via the following namespace alias:</p>
 
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #0000ff">namespace</span> outcome = OUTCOME_V2_NAMESPACE;
-</pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+<span class="s3e8">namespace</span> outcome = OUTCOME_V2_NAMESPACE;
+</code></pre>
+</div>
 
 
-
-<p>As patches and modifications are applied to this library, namespaces get added in order
+<p>As patches and modifications are applied to this library, namespaces get permuted in order
 not to break any backward compatibility. At some point namespace <code>outcome::v2</code> will be defined,
 and this will be the prefered namespace. Until then <code>OUTCOME_V2_NAMESPACE</code> denotes the most recently
 updated version, getting closer to <code>outcome::v2</code>.</p>
@@ -488,9 +233,10 @@ updated version, getting closer to <code>outcome::v2</code>.</p>
 <p>We will define a function that converts an <code>std::string</code> to an <code>int</code>. This function can fail for a number of reasons;
 if it does we want to communicate the failure reason.</p>
 
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::checked&lt;<span style="color: #2b91af">int</span>&gt; convert(<span style="color: #0000ff">const</span> std::string&amp; str) noexcept;
-</pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+outcome::checked&lt;<span class="s3ee">int</span>&gt; convert(<span class="s3e8">const</span> std::string&amp; str) <span class="s3e8">noexcept</span>;
+</code></pre>
+</div>
 
 
 <p>Class template <code>checked&lt;T, EC&gt;</code> has two template parameters. The first (<code>T</code>) represents the type of the object
@@ -507,17 +253,18 @@ of <code>result&lt;T, EC&gt;</code>. Anything we say about <code>checked&lt;&gt;
 
 <p>Now, we will define an enumeration describing different failure situations during conversion.</p>
 
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #0000ff">enum</span> <span style="color: #0000ff">class</span> <span style="color: #2b91af">ConversionErrc</span>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+<span class="s3e8">enum</span> <span class="s3e8">class</span> <span class="s7d4">ConversionErrc</span>
 {
-  EmptyString = 1, <span style="color: #008000">// 0 is never an error</span>
-  IllegalChar = 2,
+  EmptyString = 1, <span class="s1770">// 0 is never an error
+</span><span class="s1770"></span>  IllegalChar = 2,
   TooLong     = 3,
 };
 
-<span style="color: #008000">// all boilerplate necessary to plug ConversionErrc</span>
-<span style="color: #008000">// into std::error_code framework</span>
-</pre></div>
-
+<span class="s1770">// all boilerplate necessary to plug ConversionErrc
+</span><span class="s1770">// into std::error_code framework
+</span><span class="s1770"></span></code></pre>
+</div>
 
 
 <p>Assume we have plugged it into <code>std::error_code</code> framework, as described in <a href="error_code">this section</a>.</p>
@@ -525,69 +272,72 @@ of <code>result&lt;T, EC&gt;</code>. Anything we say about <code>checked&lt;&gt;
 <p>One notable effect of such plugging is that <code>ConversionErrc</code> is now convertible to <code>std::error_code</code>.
 Now we can implement function <code>convert</code> as follows:</p>
 
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::checked&lt;<span style="color: #2b91af">int</span>&gt; convert(<span style="color: #0000ff">const</span> std::string&amp; str) noexcept
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+outcome::checked&lt;<span class="s3ee">int</span>&gt; convert(<span class="s3e8">const</span> std::string&amp; str) <span class="s3e8">noexcept</span>
 {
-  <span style="color: #0000ff">if</span> (str.empty())
-    <span style="color: #0000ff">return</span> ConversionErrc::EmptyString;
+  <span class="s3e8">if</span> (str.empty())
+    <span class="s3e8">return</span> ConversionErrc::EmptyString;
     
-  <span style="color: #0000ff">if</span> (!std::all_of(str.begin(), str.end(), ::isdigit))
-    <span style="color: #0000ff">return</span> ConversionErrc::IllegalChar;
+  <span class="s3e8">if</span> (!std::all_of(str.begin(), str.end(), ::isdigit))
+    <span class="s3e8">return</span> ConversionErrc::IllegalChar;
     
-  <span style="color: #0000ff">if</span> (str.length() &gt; 9)
-    <span style="color: #0000ff">return</span> ConversionErrc::TooLong;
+  <span class="s3e8">if</span> (str.length() &gt; 9)
+    <span class="s3e8">return</span> ConversionErrc::TooLong;
   
-  <span style="color: #0000ff">return</span> atoi(str.c_str());
+  <span class="s3e8">return</span> atoi(str.c_str());
 }
-</pre></div>
-
+</code></pre>
+</div>
 
 
 <p><code>checked&lt;T, EC&gt;</code> is convertible from any <code>T2</code> convertible to <code>T</code> as well as any <code>EC2</code> convertible to <code>EC</code>,
 provided that the conversion is not ambiguous. If some type <code>X</code> is both convertible to <code>T</code> and <code>EC</code>,
 conversion to <code>checked&lt;T, EC&gt;</code> fails to compile. In this case you need to use one of the tagged constructors:</p>
 
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">	
-outcome::checked&lt;<span style="color: #2b91af">int</span>&gt; r {outcome::in_place_type&lt;std::error_code&gt;, ConversionErrc::EmptyString};
-outcome::checked&lt;<span style="color: #2b91af">int</span>&gt; s {outcome::in_place_type&lt;<span style="color: #2b91af">int</span>&gt;, 1};
-</pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">	
+outcome::checked&lt;<span class="s3ee">int</span>&gt; r {outcome::in_place_type&lt;std::error_code&gt;, ConversionErrc::EmptyString};
+outcome::checked&lt;<span class="s3ee">int</span>&gt; s {outcome::in_place_type&lt;<span class="s3ee">int</span>&gt;, 1};
+</code></pre>
+</div>
 
 
 <h2 id="inspecting-checked">Inspecting <code>checked&lt;&gt;</code></h2>
 
 <p>Suppose we will be writing function <code>print_half</code> that takes an integral number (however big) represented as an <code>std::string</code> and outputs a number which is twice smaller:</p>
 
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::checked&lt;<span style="color: #2b91af">void</span>&gt; print_half(<span style="color: #0000ff">const</span> std::string&amp; text);
-</pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+outcome::checked&lt;<span class="s3ee">void</span>&gt; print_half(<span class="s3e8">const</span> std::string&amp; text);
+</code></pre>
+</div>
 
 
 <p>Type <code>checked&lt;void&gt;</code> means that there is no value to be retuned upon success, but that the operation might still fail, and we may be interested in inspecting the cause of the failure. Class template <code>checked&lt;&gt;</code> is declared with attribute <code>[[nodiscard]]</code>, which means compiler will warn you if you forget to inspect the returned object (in C++ 17 or later).</p>
 
 <p>The implementation will do the following: if the integral number can be represnted by an <code>int</code>, we will convert to <code>int</code> and use its arithmetical operations. If the number is too large, we will fall back to using a custom <code>BigInt</code> implementation that needs to allocate memory. In the implementation we will use function <code>convert</code> defined in the previous section.</p>
 
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::checked&lt;<span style="color: #2b91af">void</span>&gt; print_half(<span style="color: #0000ff">const</span> std::string&amp; text)
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+outcome::checked&lt;<span class="s3ee">void</span>&gt; print_half(<span class="s3e8">const</span> std::string&amp; text)
 {
-    <span style="color: #0000ff">if</span> (outcome::checked&lt;<span style="color: #2b91af">int</span>&gt; r = convert(text))        <span style="color: #008000">// #1</span>
+    <span class="s3e8">if</span> (outcome::checked&lt;<span class="s3ee">int</span>&gt; r = convert(text))        <span class="s1770">// #1
+</span><span class="s1770"></span>    {
+        std::cout &lt;&lt; (r.value() / 2) &lt;&lt; std::endl;      <span class="s1770">// #2
+</span><span class="s1770"></span>    }
+    <span class="s3e8">else</span>
     {
-        std::cout &lt;&lt; (r.value() / 2) &lt;&lt; std::endl;      <span style="color: #008000">// #2</span>
-    }
-    <span style="color: #0000ff">else</span>
-    {
-        <span style="color: #0000ff">if</span> (r.error() == ConversionErrc::TooLong)       <span style="color: #008000">// #3 </span>
-        {
-            OUTCOME_TRY (i, BigInt::fromString(text));  <span style="color: #008000">// #4</span>
-            std::cout &lt;&lt; i.half() &lt;&lt; std::endl;
+        <span class="s3e8">if</span> (r.error() == ConversionErrc::TooLong)       <span class="s1770">// #3 
+</span><span class="s1770"></span>        {
+            OUTCOME_TRY (i, BigInt::fromString(text));  <span class="s1770">// #4
+</span><span class="s1770"></span>            std::cout &lt;&lt; i.half() &lt;&lt; std::endl;
         }
-        <span style="color: #0000ff">else</span>
+        <span class="s3e8">else</span>
         {
-            <span style="color: #0000ff">return</span> r.as_failure();                      <span style="color: #008000">// #5</span>
-        }
+            <span class="s3e8">return</span> r.as_failure();                      <span class="s1770">// #5
+</span><span class="s1770"></span>        }
     }
-    <span style="color: #0000ff">return</span> outcome::success();                          <span style="color: #008000">// #6</span>
-}
-</pre></div>
-
+    <span class="s3e8">return</span> outcome::success();                          <span class="s1770">// #6
+</span><span class="s1770"></span>}
+</code></pre>
+</div>
 
 
 <p>#1. You test if <code>checked&lt;&gt;</code> object represents a successful operation with contextual conversion to <code>bool</code>.</p>
@@ -598,9 +348,10 @@ outcome::checked&lt;<span style="color: #2b91af">int</span>&gt; s {outcome::in_p
 
 <p>#4. Macro <code>OUTCOME_TRY</code> represents a control statement. It implies that the function call in the second argument returns a <code>checked&lt;&gt;</code>. It is defined as:</p>
 
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #008000">/*static*/</span> outcome::checked&lt;BigInt&gt; BigInt::fromString(<span style="color: #0000ff">const</span> std::string&amp; s)
-</pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+<span class="s1770">/*static*/</span> outcome::checked&lt;BigInt&gt; BigInt::fromString(<span class="s3e8">const</span> std::string&amp; s)
+</code></pre>
+</div>
 
 
 <p>Our control statement means: if <code>fromString</code> returned failure, this same error information should be returned from <code>print_half</code>, even though the type of <code>checked&lt;&gt;</code> is different. If <code>fromString</code> returned success, we create  variable <code>i</code> of type <code>int</code> with the value returned from <code>fromString</code>. If control goes to subsequent line, it means <code>fromString</code> succeeded and variable of type <code>int</code> is in scope.</p>
@@ -614,33 +365,28 @@ all <code>result</code> and <code>outcome</code> types into a successful return,
 <h2 id="try-operations"><code>TRY</code> operations</h2>
 
 <p>In the implementation of function <code>print_half</code> we have seen the usage of the macro <code>OUTCOME_TRY</code>:</p>
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">OUTCOME_TRY (i, BigInt::fromString(text));
-</pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">OUTCOME_TRY (i, BigInt::fromString(text));</code></pre>
+</div>
 <p>This control statement is raughly equivalent to:</p>
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #0000ff">auto</span>&amp;&amp; __result = BigInt::fromString(text);
-<span style="color: #0000ff">if</span> (!__result)
-  <span style="color: #0000ff">return</span> __result.as_failure();
-<span style="color: #0000ff">auto</span>&amp;&amp; i = __result.value();
-</pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="s3e8">auto</span>&amp;&amp; __result = BigInt::fromString(text);
+<span class="s3e8">if</span> (!__result)
+  <span class="s3e8">return</span> __result.as_failure();
+<span class="s3e8">auto</span>&amp;&amp; i = __result.value();</code></pre>
+</div>
 <p>Where <code>__result</code> is a unique name.</p>
 
 <p>Additionally, in GCC and Clang which provide an extension to C++ known as
 <a href="https://gcc.gnu.org/onlinedocs/gcc/Statement-Exprs.html" title="GCC docs on statement expressions">statement expressions</a>
 it is possible to use an alternative macro: <code>OUTCOME_TRYX</code>, which is an expression. With the above macro, the above declaration of variable <code>i</code> can be rewritten to:</p>
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #2b91af">int</span> i = OUTCOME_TRYX (BigInt::fromString(text));
-</pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="s3ee">int</span> i = OUTCOME_TRYX (BigInt::fromString(text));</code></pre>
+</div>
 <p>This has an advantage that you can use it any place where you can put an expression, e.g., in &ldquo;simple initialization&rdquo;:</p>
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #0000ff">if</span> (<span style="color: #2b91af">int</span> i = OUTCOME_TRYX(BigInt::fromString(text)))
-  use_a_non_zero_int(i);
-</pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="s3e8">if</span> (<span class="s3ee">int</span> i = OUTCOME_TRYX(BigInt::fromString(text)))
+  use_a_non_zero_int(i);</code></pre>
+</div>
 <p>or in as a subexpression of a bigger full expression:</p>
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #2b91af">int</span> ans = OUTCOME_TRYX(BigInt::fromString(<span style="color: #a31515">&quot;1&quot;</span>)) + OUTCOME_TRYX(BigInt::fromString(<span style="color: #a31515">&quot;2&quot;</span>));
-</pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="s3ee">int</span> ans = OUTCOME_TRYX(BigInt::fromString(<span class="sc1c"></span><span class="sc1c">&#34;1&#34;</span>)) + OUTCOME_TRYX(BigInt::fromString(<span class="sc1c"></span><span class="sc1c">&#34;2&#34;</span>));</code></pre>
+</div>
 <div class="notices note" ><p>This macro makes use of a proprietary extension in GCC and clang and is not
 portable. The macro is not made available on unsupported compilers,
 so you can test for its presence using <code>#ifdef OUTCOME_TRYX</code>.</p>
@@ -653,15 +399,16 @@ so you can test for its presence using <code>#ifdef OUTCOME_TRYX</code>.</p>
 
 <p>When you are calling functions that return <code>checked&lt;void&gt;</code> the first of the two things does not make sense. You then have to use macro <code>OUTCOME_TRYV</code> instead. Let&rsquo;s use our function <code>print_half</code>:</p>
 
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::checked&lt;<span style="color: #2b91af">void</span>&gt; test()
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+outcome::checked&lt;<span class="s3ee">void</span>&gt; test()
 {
-  OUTCOME_TRYV (print_half(<span style="color: #a31515">&quot;2&quot;</span>));
-  OUTCOME_TRYV (print_half(<span style="color: #a31515">&quot;X&quot;</span>));
-  OUTCOME_TRYV (print_half(<span style="color: #a31515">&quot;4&quot;</span>)); <span style="color: #008000">// will not execute</span>
-  <span style="color: #0000ff">return</span> outcome::success();
+  OUTCOME_TRYV (print_half(<span class="sc1c"></span><span class="sc1c">&#34;2&#34;</span>));
+  OUTCOME_TRYV (print_half(<span class="sc1c"></span><span class="sc1c">&#34;X&#34;</span>));
+  OUTCOME_TRYV (print_half(<span class="sc1c"></span><span class="sc1c">&#34;4&#34;</span>)); <span class="s1770">// will not execute
+</span><span class="s1770"></span>  <span class="s3e8">return</span> outcome::success();
 }
-</pre></div>
-
+</code></pre>
+</div>
 
 
 <p>The first statement will succeed. The second statement will &ldquo;fail&rdquo;, i.e. it will return an errored checked. This will cause an immediate return and the subsequent statements will be skipped.</p>
@@ -692,6 +439,9 @@ graph TD
 
 
 
+
+        
+
       </div>
     </div>
 
@@ -700,250 +450,28 @@ graph TD
     
 
     <div id="navigation">
-        
-        
-        
-        
-            
-            
-                
-                    
-                    
-                
-                
-                
-                    
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-                
-            
-        
-                    
-                
-                    
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                    
-                
-                    
-            
-            
-                
-                    
-                    
-                
-                
-                
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-                
-            
-        
-                    
-                
-                    
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                    
-                
-                    
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                    
-                
-                    
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                    
-                
-                    
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                    
-                
-            
-        
-        
-        
-
-
-        
-            <a class="nav nav-prev" href="/outcome/build/" title="Build and install"> <i class="fa fa-chevron-left"></i></a>
-        
-        
-            <a class="nav nav-next" href="/outcome/tutorial/error_code/" title="Custom error code" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
-        
+        <a class="nav nav-prev" href="/outcome/build/" title="Build and install"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/error_code/" title="Custom error code" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
-    </div>
+    </div>    
+
     <script src="/outcome/js/clipboard.min.js"></script>
-    <script src="/outcome/js/featherlight.min.js"></script>
-    <script src="/outcome/js/html5shiv-printshiv.min.js"></script>
-    <script src="/outcome/js/modernizr.custom.71422.js"></script>
-    <script src="/outcome/js/learn.js"></script>
-    <script src="/outcome/js/hugo-learn.js"></script>
+<script src="/outcome/js/featherlight.min.js"></script>
+<script src="/outcome/js/html5shiv-printshiv.min.js"></script>
 
-    
-    <link href="/outcome/mermaid/mermaid.css" type="text/css" rel="stylesheet"/>
-    <script src="/outcome/mermaid/mermaid.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
-    
 
+<script src="/outcome/js/modernizr.custom.71422.js"></script>
+<script src="/outcome/js/learn.js"></script>
+<script src="/outcome/js/hugo-learn.js"></script>
+
+
+<link href="/outcome/mermaid/mermaid.css" type="text/css" rel="stylesheet"/>
+<script src="/outcome/mermaid/mermaid.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
     
 
   </body>
