@@ -446,8 +446,8 @@ active
 <li>
 <ul>
 <li><a href="#outcome-2-0-namespace">Outcome 2.0 namespace</a></li>
-<li><a href="#creating-result">Creating <code>result&lt;&gt;</code></a></li>
-<li><a href="#inspecting-result">Inspecting <code>result&lt;&gt;</code></a></li>
+<li><a href="#creating-checked">Creating <code>checked&lt;&gt;</code></a></li>
+<li><a href="#inspecting-checked">Inspecting <code>checked&lt;&gt;</code></a></li>
 <li><a href="#try-operations"><code>TRY</code> operations</a></li>
 <li><a href="#todo-more-material-will-be-provided-in-time">TODO: more material will be provided in time&hellip;</a></li>
 </ul></li>
@@ -483,21 +483,27 @@ not to break any backward compatibility. At some point namespace <code>outcome::
 and this will be the prefered namespace. Until then <code>OUTCOME_V2_NAMESPACE</code> denotes the most recently
 updated version, getting closer to <code>outcome::v2</code>.</p>
 
-<h2 id="creating-result">Creating <code>result&lt;&gt;</code></h2>
+<h2 id="creating-checked">Creating <code>checked&lt;&gt;</code></h2>
 
 <p>We will define a function that converts an <code>std::string</code> to an <code>int</code>. This function can fail for a number of reasons;
 if it does we want to communicate the failure reason.</p>
 
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::result&lt;<span style="color: #2b91af">int</span>&gt; convert(<span style="color: #0000ff">const</span> std::string&amp; str) noexcept;
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::checked&lt;<span style="color: #2b91af">int</span>&gt; convert(<span style="color: #0000ff">const</span> std::string&amp; str) noexcept;
 </pre></div>
 
 
 
-<p>Class template <code>result&lt;T, EC&gt;</code> has two template parameters. The first (<code>T</code>) represents the type of the object
-returned from the function upon succes; the second (<code>EC</code>) is type of object containing information about the reason
-for failure when function fails. A <code>result&lt;T, EC&gt;</code> object either stores a <code>T</code> or an <code>EC</code> at any given moment,
-and is therefore conceptually similar to <code>boost::variant&lt;T, EC&gt;</code>. <code>EC</code> is defaulted to <code>std::error_code</code>.
-If both <code>T</code> and <code>EC</code> are trivially copyable, <code>result&lt;T, EC&gt;</code> is also trivially copyable.</p>
+<p>Class template <code>checked&lt;T, EC&gt;</code> has two template parameters. The first (<code>T</code>) represents the type of the object
+returned from the function upon success; the second (<code>EC</code>) is the type of object containing information about the reason
+for failure when the function fails. A <code>checked&lt;T, EC&gt;</code> object either stores a <code>T</code> or an <code>EC</code> at any given moment,
+and is therefore conceptually similar to <code>variant&lt;T, EC&gt;</code>. <code>EC</code> is defaulted to <code>std::error_code</code>.
+If both <code>T</code> and <code>EC</code> are trivially copyable, <code>checked&lt;T, EC&gt;</code> is also trivially copyable.</p>
+
+<div class="notices note" ><p>Both <code>unchecked&lt;T, EC&gt;</code> and <code>checked&lt;T, EC&gt;</code> are simplified typedefs for <code>result&lt;T, EC&gt;</code>, but are instances
+of <code>result&lt;T, EC&gt;</code>. Anything we say about <code>checked&lt;&gt;</code> can also be said about <code>unchecked&lt;T, EC&gt;</code> and
+<code>result&lt;T, EC&gt;</code> unless otherwise specified.</p>
+</div>
+
 
 <p>Now, we will define an enumeration describing different failure situations during conversion.</p>
 
@@ -519,7 +525,7 @@ If both <code>T</code> and <code>EC</code> are trivially copyable, <code>result&
 <p>One notable effect of such plugging is that <code>ConversionErrc</code> is now convertible to <code>std::error_code</code>.
 Now we can implement function <code>convert</code> as follows:</p>
 
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::result&lt;<span style="color: #2b91af">int</span>&gt; convert(<span style="color: #0000ff">const</span> std::string&amp; str) noexcept
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::checked&lt;<span style="color: #2b91af">int</span>&gt; convert(<span style="color: #0000ff">const</span> std::string&amp; str) noexcept
 {
   <span style="color: #0000ff">if</span> (str.empty())
     <span style="color: #0000ff">return</span> ConversionErrc::EmptyString;
@@ -536,33 +542,33 @@ Now we can implement function <code>convert</code> as follows:</p>
 
 
 
-<p><code>result&lt;T, EC&gt;</code> is convertible from any <code>T2</code> convertible to <code>T</code> as well as any <code>EC2</code> convertible to <code>EC</code>,
+<p><code>checked&lt;T, EC&gt;</code> is convertible from any <code>T2</code> convertible to <code>T</code> as well as any <code>EC2</code> convertible to <code>EC</code>,
 provided that the conversion is not ambiguous. If some type <code>X</code> is both convertible to <code>T</code> and <code>EC</code>,
-conversion to <code>result&lt;T, EC&gt;</code> fails to compile. In this case you need to use one of the tagged constructors:</p>
+conversion to <code>checked&lt;T, EC&gt;</code> fails to compile. In this case you need to use one of the tagged constructors:</p>
 
 <div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">	
-outcome::result&lt;<span style="color: #2b91af">int</span>&gt; r {outcome::in_place_type&lt;std::error_code&gt;, ConversionErrc::EmptyString};
-outcome::result&lt;<span style="color: #2b91af">int</span>&gt; s {outcome::in_place_type&lt;<span style="color: #2b91af">int</span>&gt;, 1};
+outcome::checked&lt;<span style="color: #2b91af">int</span>&gt; r {outcome::in_place_type&lt;std::error_code&gt;, ConversionErrc::EmptyString};
+outcome::checked&lt;<span style="color: #2b91af">int</span>&gt; s {outcome::in_place_type&lt;<span style="color: #2b91af">int</span>&gt;, 1};
 </pre></div>
 
 
 
-<h2 id="inspecting-result">Inspecting <code>result&lt;&gt;</code></h2>
+<h2 id="inspecting-checked">Inspecting <code>checked&lt;&gt;</code></h2>
 
-<p>Suppose we will be writing function <code>print_halve</code> that takes an integral number (however big) represented as an <code>std::string</code> and outputs a number which is twice smaller:</p>
+<p>Suppose we will be writing function <code>print_half</code> that takes an integral number (however big) represented as an <code>std::string</code> and outputs a number which is twice smaller:</p>
 
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::result&lt;<span style="color: #2b91af">void</span>&gt; print_half(<span style="color: #0000ff">const</span> std::string&amp; text);
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::checked&lt;<span style="color: #2b91af">void</span>&gt; print_half(<span style="color: #0000ff">const</span> std::string&amp; text);
 </pre></div>
 
 
 
-<p>Type <code>result&lt;void&gt;</code> means that there is no value to be retuned upon success, but that the operation might still fail, and we may be interested in inspecting the cause of the failure. Class template <code>result</code> is declared with attribute <code>[[nodiscard]]</code>, which means compiler will warn you if you forget to inspect the returned object.</p>
+<p>Type <code>checked&lt;void&gt;</code> means that there is no value to be retuned upon success, but that the operation might still fail, and we may be interested in inspecting the cause of the failure. Class template <code>checked&lt;&gt;</code> is declared with attribute <code>[[nodiscard]]</code>, which means compiler will warn you if you forget to inspect the returned object (in C++ 17 or later).</p>
 
 <p>The implementation will do the following: if the integral number can be represnted by an <code>int</code>, we will convert to <code>int</code> and use its arithmetical operations. If the number is too large, we will fall back to using a custom <code>BigInt</code> implementation that needs to allocate memory. In the implementation we will use function <code>convert</code> defined in the previous section.</p>
 
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::result&lt;<span style="color: #2b91af">void</span>&gt; print_half(<span style="color: #0000ff">const</span> std::string&amp; text)
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::checked&lt;<span style="color: #2b91af">void</span>&gt; print_half(<span style="color: #0000ff">const</span> std::string&amp; text)
 {
-    <span style="color: #0000ff">if</span> (outcome::result&lt;<span style="color: #2b91af">int</span>&gt; r = convert(text))         <span style="color: #008000">// #1</span>
+    <span style="color: #0000ff">if</span> (outcome::checked&lt;<span style="color: #2b91af">int</span>&gt; r = convert(text))        <span style="color: #008000">// #1</span>
     {
         std::cout &lt;&lt; (r.value() / 2) &lt;&lt; std::endl;      <span style="color: #008000">// #2</span>
     }
@@ -584,25 +590,26 @@ outcome::result&lt;<span style="color: #2b91af">int</span>&gt; s {outcome::in_pl
 
 
 
-<p>#1. You test if <code>result</code> object represents a cuccessful operation with contextual conversion to <code>bool</code>.</p>
+<p>#1. You test if <code>checked&lt;&gt;</code> object represents a successful operation with contextual conversion to <code>bool</code>.</p>
 
-<p>#2. Function <code>value</code> extracts the successfully returned result.</p>
+<p>#2. Function <code>.value()</code> extracts the successfully returned <code>BigInt</code>.</p>
 
-<p>#3. Function <code>error</code> allows you to inspect the error sub-object, representing information about the reason for failure.</p>
+<p>#3. Function <code>.error()</code> allows you to inspect the error sub-object, representing information about the reason for failure.</p>
 
-<p>#4. Macro <code>OUTCOME_TRY</code> represents a control statement. It implies that the function call in the second argument returns a <code>result&lt;&gt;</code>. It is defined as:</p>
+<p>#4. Macro <code>OUTCOME_TRY</code> represents a control statement. It implies that the function call in the second argument returns a <code>checked&lt;&gt;</code>. It is defined as:</p>
 
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #008000">/*static*/</span> outcome::result&lt;BigInt&gt; BigInt::fromString(<span style="color: #0000ff">const</span> std::string&amp; s)
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span style="color: #008000">/*static*/</span> outcome::checked&lt;BigInt&gt; BigInt::fromString(<span style="color: #0000ff">const</span> std::string&amp; s)
 </pre></div>
 
 
 
-<p>Our control statement means: if <code>fromString</code> returned failure, this same error information should be returned from <code>print_half</code>, even though the type of <code>result&lt;&gt;</code> is different. If <code>fromString</code> returned success, we create  variable <code>i</code> of type <code>int</code> with the value returned from <code>fromString</code>. If control goes to subsequent line, it means <code>fromString</code> succeeded and variable of type <code>int</code> is in scope.</p>
+<p>Our control statement means: if <code>fromString</code> returned failure, this same error information should be returned from <code>print_half</code>, even though the type of <code>checked&lt;&gt;</code> is different. If <code>fromString</code> returned success, we create  variable <code>i</code> of type <code>int</code> with the value returned from <code>fromString</code>. If control goes to subsequent line, it means <code>fromString</code> succeeded and variable of type <code>int</code> is in scope.</p>
 
 <p>#5. In the return statement we extract the error information and use it to initialize the return value from <code>print_half</code>. We could have written <code>return r.error();</code> instead,
-    and it would have the same effect, but it would not work if we were using <code>outcome&lt;&gt;</code> instead of <code>result&lt;&gt;</code> &ndash; this will be covered later.</p>
+    and it would have the same effect, but it would not work if we were using <code>outcome&lt;&gt;</code> instead of <code>checked&lt;&gt;</code> &ndash; this will be covered later.</p>
 
-<p>#6. Function <code>success</code> returns an object of type <code>result&lt;void&gt;</code> representing success.</p>
+<p>#6. Function <code>success()</code> returns an object of type <code>success&lt;void&gt;</code> representing success. This is implicitly converted by
+all <code>result</code> and <code>outcome</code> types into a successful return, default constructing any <code>T</code> if necessary.</p>
 
 <h2 id="try-operations"><code>TRY</code> operations</h2>
 
@@ -644,9 +651,9 @@ so you can test for its presence using <code>#ifdef OUTCOME_TRYX</code>.</p>
 1. It extracts a <code>T</code> from <code>result&lt;T&gt;</code> (or <code>outcome&lt;T&gt;</code>).
 2. It declares a dependency between statements: If the &ldquo;tried&rdquo; statement fails, the next statement is not executed.</p>
 
-<p>When you are calling functions that return <code>result&lt;void&gt;</code> the first of the two things does not mak sense. You then have to use macro <code>OUTCOME_TRYV</code> instead. Let&rsquo;s use our function <code>print_half</code>:</p>
+<p>When you are calling functions that return <code>checked&lt;void&gt;</code> the first of the two things does not make sense. You then have to use macro <code>OUTCOME_TRYV</code> instead. Let&rsquo;s use our function <code>print_half</code>:</p>
 
-<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::result&lt;<span style="color: #2b91af">void</span>&gt; test()
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%">outcome::checked&lt;<span style="color: #2b91af">void</span>&gt; test()
 {
   OUTCOME_TRYV (print_half(<span style="color: #a31515">&quot;2&quot;</span>));
   OUTCOME_TRYV (print_half(<span style="color: #a31515">&quot;X&quot;</span>));
@@ -657,11 +664,13 @@ so you can test for its presence using <code>#ifdef OUTCOME_TRYX</code>.</p>
 
 
 
-<p>The first statement will succeed. The second statement will &ldquo;fail&rdquo;, i.e. it will return an errored result. This will cause an immediate return and the subsequent statements will be skipped.</p>
+<p>The first statement will succeed. The second statement will &ldquo;fail&rdquo;, i.e. it will return an errored checked. This will cause an immediate return and the subsequent statements will be skipped.</p>
 
 <h2 id="todo-more-material-will-be-provided-in-time">TODO: more material will be provided in time&hellip;</h2>
 
-<p>This will include customizing <code>result</code> and using outcome&hellip;</p>
+<p>First we will need to dive into <code>unchecked&lt;&gt;</code>, <code>checked&lt;&gt;</code> and <code>result&lt;&gt;</code>.</p>
+
+<p>Then customizing <code>result</code> and using outcome&hellip;</p>
 
 <div class="mermaid" align="center" >
 graph TD
