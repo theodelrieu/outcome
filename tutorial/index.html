@@ -190,8 +190,8 @@
 <li>
 <ul>
 <li><a href="#outcome-2-0-namespace">Outcome 2.0 namespace</a></li>
-<li><a href="#creating-checked">Creating <code>checked&lt;&gt;</code></a></li>
-<li><a href="#inspecting-checked">Inspecting <code>checked&lt;&gt;</code></a></li>
+<li><a href="#creating-unchecked">Creating <code>unchecked&lt;&gt;</code></a></li>
+<li><a href="#inspecting-unchecked">Inspecting <code>unchecked&lt;&gt;</code></a></li>
 <li><a href="#try-operations"><code>TRY</code> operations</a></li>
 <li><a href="#todo-more-material-will-be-provided-in-time">TODO: more material will be provided in time&hellip;</a></li>
 </ul></li>
@@ -228,26 +228,26 @@ not to break any backward compatibility. At some point namespace <code>outcome::
 and this will be the prefered namespace. Until then <code>OUTCOME_V2_NAMESPACE</code> denotes the most recently
 updated version, getting closer to <code>outcome::v2</code>.</p>
 
-<h2 id="creating-checked">Creating <code>checked&lt;&gt;</code></h2>
+<h2 id="creating-unchecked">Creating <code>unchecked&lt;&gt;</code></h2>
 
 <p>We will define a function that converts an <code>std::string</code> to an <code>int</code>. This function can fail for a number of reasons;
 if it does we want to communicate the failure reason.</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
-outcome::checked&lt;<span class="s3ee">int</span>&gt; convert(<span class="s3e8">const</span> std::string&amp; str) <span class="s3e8">noexcept</span>;
+outcome::unchecked&lt;<span class="s3ee">int</span>&gt; convert(<span class="s3e8">const</span> std::string&amp; str) <span class="s3e8">noexcept</span>;
 </code></pre>
 </div>
 
 
-<p>Class template <code>checked&lt;T, EC&gt;</code> has two template parameters. The first (<code>T</code>) represents the type of the object
+<p>Class template <code>unchecked&lt;T, EC&gt;</code> has two template parameters. The first (<code>T</code>) represents the type of the object
 returned from the function upon success; the second (<code>EC</code>) is the type of object containing information about the reason
-for failure when the function fails. A <code>checked&lt;T, EC&gt;</code> object either stores a <code>T</code> or an <code>EC</code> at any given moment,
+for failure when the function fails. A <code>unchecked&lt;T, EC&gt;</code> object either stores a <code>T</code> or an <code>EC</code> at any given moment,
 and is therefore conceptually similar to <code>variant&lt;T, EC&gt;</code>. <code>EC</code> is defaulted to <code>std::error_code</code>.
-If both <code>T</code> and <code>EC</code> are trivially copyable, <code>checked&lt;T, EC&gt;</code> is also trivially copyable.</p>
+If both <code>T</code> and <code>EC</code> are trivially copyable, <code>unchecked&lt;T, EC&gt;</code> is also trivially copyable.</p>
 
 <div class="notices note" ><p>Both <code>unchecked&lt;T, EC&gt;</code> and <code>checked&lt;T, EC&gt;</code> are simplified typedefs for <code>result&lt;T, EC&gt;</code>, but are instances
-of <code>result&lt;T, EC&gt;</code>. Anything we say about <code>checked&lt;&gt;</code> can also be said about <code>unchecked&lt;T, EC&gt;</code> and
-<code>result&lt;T, EC&gt;</code> unless otherwise specified.</p>
+of <code>result&lt;T, EC&gt;</code>. Anything we say about <code>unchecked&lt;&gt;</code> can also be said about <code>checked&lt;T, EC&gt;</code> and
+<code>result&lt;T, EC&gt;</code>, unless otherwise specified.</p>
 </div>
 
 
@@ -273,7 +273,7 @@ of <code>result&lt;T, EC&gt;</code>. Anything we say about <code>checked&lt;&gt;
 Now we can implement function <code>convert</code> as follows:</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
-outcome::checked&lt;<span class="s3ee">int</span>&gt; convert(<span class="s3e8">const</span> std::string&amp; str) <span class="s3e8">noexcept</span>
+outcome::unchecked&lt;<span class="s3ee">int</span>&gt; convert(<span class="s3e8">const</span> std::string&amp; str) <span class="s3e8">noexcept</span>
 {
   <span class="s3e8">if</span> (str.empty())
     <span class="s3e8">return</span> ConversionErrc::EmptyString;
@@ -290,35 +290,35 @@ outcome::checked&lt;<span class="s3ee">int</span>&gt; convert(<span class="s3e8"
 </div>
 
 
-<p><code>checked&lt;T, EC&gt;</code> is convertible from any <code>T2</code> convertible to <code>T</code> as well as any <code>EC2</code> convertible to <code>EC</code>,
+<p><code>unchecked&lt;T, EC&gt;</code> is convertible from any <code>T2</code> convertible to <code>T</code> as well as any <code>EC2</code> convertible to <code>EC</code>,
 provided that the conversion is not ambiguous. If some type <code>X</code> is both convertible to <code>T</code> and <code>EC</code>,
-conversion to <code>checked&lt;T, EC&gt;</code> fails to compile. In this case you need to use one of the tagged constructors:</p>
+conversion to <code>unchecked&lt;T, EC&gt;</code> fails to compile. In this case you need to use one of the tagged constructors:</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">	
-outcome::checked&lt;<span class="s3ee">int</span>&gt; r {outcome::in_place_type&lt;std::error_code&gt;, ConversionErrc::EmptyString};
-outcome::checked&lt;<span class="s3ee">int</span>&gt; s {outcome::in_place_type&lt;<span class="s3ee">int</span>&gt;, 1};
+outcome::unchecked&lt;<span class="s3ee">int</span>&gt; r {outcome::in_place_type&lt;std::error_code&gt;, ConversionErrc::EmptyString};
+outcome::unchecked&lt;<span class="s3ee">int</span>&gt; s {outcome::in_place_type&lt;<span class="s3ee">int</span>&gt;, 1};
 </code></pre>
 </div>
 
 
-<h2 id="inspecting-checked">Inspecting <code>checked&lt;&gt;</code></h2>
+<h2 id="inspecting-unchecked">Inspecting <code>unchecked&lt;&gt;</code></h2>
 
 <p>Suppose we will be writing function <code>print_half</code> that takes an integral number (however big) represented as an <code>std::string</code> and outputs a number which is twice smaller:</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
-outcome::checked&lt;<span class="s3ee">void</span>&gt; print_half(<span class="s3e8">const</span> std::string&amp; text);
+outcome::unchecked&lt;<span class="s3ee">void</span>&gt; print_half(<span class="s3e8">const</span> std::string&amp; text);
 </code></pre>
 </div>
 
 
-<p>Type <code>checked&lt;void&gt;</code> means that there is no value to be retuned upon success, but that the operation might still fail, and we may be interested in inspecting the cause of the failure. Class template <code>checked&lt;&gt;</code> is declared with attribute <code>[[nodiscard]]</code>, which means compiler will warn you if you forget to inspect the returned object (in C++ 17 or later).</p>
+<p>Type <code>unchecked&lt;void&gt;</code> means that there is no value to be retuned upon success, but that the operation might still fail, and we may be interested in inspecting the cause of the failure. Class template <code>unchecked&lt;&gt;</code> is declared with attribute <code>[[nodiscard]]</code>, which means compiler will warn you if you forget to inspect the returned object (in C++ 17 or later).</p>
 
 <p>The implementation will do the following: if the integral number can be represnted by an <code>int</code>, we will convert to <code>int</code> and use its arithmetical operations. If the number is too large, we will fall back to using a custom <code>BigInt</code> implementation that needs to allocate memory. In the implementation we will use function <code>convert</code> defined in the previous section.</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
-outcome::checked&lt;<span class="s3ee">void</span>&gt; print_half(<span class="s3e8">const</span> std::string&amp; text)
+outcome::unchecked&lt;<span class="s3ee">void</span>&gt; print_half(<span class="s3e8">const</span> std::string&amp; text)
 {
-    <span class="s3e8">if</span> (outcome::checked&lt;<span class="s3ee">int</span>&gt; r = convert(text))        <span class="s1770">// #1
+    <span class="s3e8">if</span> (outcome::unchecked&lt;<span class="s3ee">int</span>&gt; r = convert(text))        <span class="s1770">// #1
 </span><span class="s1770"></span>    {
         std::cout &lt;&lt; (r.value() / 2) &lt;&lt; std::endl;      <span class="s1770">// #2
 </span><span class="s1770"></span>    }
@@ -340,24 +340,24 @@ outcome::checked&lt;<span class="s3ee">void</span>&gt; print_half(<span class="s
 </div>
 
 
-<p>#1. You test if <code>checked&lt;&gt;</code> object represents a successful operation with contextual conversion to <code>bool</code>.</p>
+<p>#1. You test if <code>unchecked&lt;&gt;</code> object represents a successful operation with contextual conversion to <code>bool</code>.</p>
 
 <p>#2. Function <code>.value()</code> extracts the successfully returned <code>BigInt</code>.</p>
 
 <p>#3. Function <code>.error()</code> allows you to inspect the error sub-object, representing information about the reason for failure.</p>
 
-<p>#4. Macro <code>OUTCOME_TRY</code> represents a control statement. It implies that the function call in the second argument returns a <code>checked&lt;&gt;</code>. It is defined as:</p>
+<p>#4. Macro <code>OUTCOME_TRY</code> represents a control statement. It implies that the function call in the second argument returns a <code>unchecked&lt;&gt;</code>. It is defined as:</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
-<span class="s1770">/*static*/</span> outcome::checked&lt;BigInt&gt; BigInt::fromString(<span class="s3e8">const</span> std::string&amp; s)
+<span class="s1770">/*static*/</span> outcome::unchecked&lt;BigInt&gt; BigInt::fromString(<span class="s3e8">const</span> std::string&amp; s)
 </code></pre>
 </div>
 
 
-<p>Our control statement means: if <code>fromString</code> returned failure, this same error information should be returned from <code>print_half</code>, even though the type of <code>checked&lt;&gt;</code> is different. If <code>fromString</code> returned success, we create  variable <code>i</code> of type <code>int</code> with the value returned from <code>fromString</code>. If control goes to subsequent line, it means <code>fromString</code> succeeded and variable of type <code>int</code> is in scope.</p>
+<p>Our control statement means: if <code>fromString</code> returned failure, this same error information should be returned from <code>print_half</code>, even though the type of <code>unchecked&lt;&gt;</code> is different. If <code>fromString</code> returned success, we create  variable <code>i</code> of type <code>int</code> with the value returned from <code>fromString</code>. If control goes to subsequent line, it means <code>fromString</code> succeeded and variable of type <code>int</code> is in scope.</p>
 
 <p>#5. In the return statement we extract the error information and use it to initialize the return value from <code>print_half</code>. We could have written <code>return r.error();</code> instead,
-    and it would have the same effect, but it would not work if we were using <code>outcome&lt;&gt;</code> instead of <code>checked&lt;&gt;</code> &ndash; this will be covered later.</p>
+    and it would have the same effect, but it would not work if we were using <code>outcome&lt;&gt;</code> instead of <code>unchecked&lt;&gt;</code> &ndash; this will be covered later.</p>
 
 <p>#6. Function <code>success()</code> returns an object of type <code>success&lt;void&gt;</code> representing success. This is implicitly converted by
 all <code>result</code> and <code>outcome</code> types into a successful return, default constructing any <code>T</code> if necessary.</p>
@@ -397,10 +397,10 @@ so you can test for its presence using <code>#ifdef OUTCOME_TRYX</code>.</p>
 1. It extracts a <code>T</code> from <code>result&lt;T&gt;</code> (or <code>outcome&lt;T&gt;</code>).
 2. It declares a dependency between statements: If the &ldquo;tried&rdquo; statement fails, the next statement is not executed.</p>
 
-<p>When you are calling functions that return <code>checked&lt;void&gt;</code> the first of the two things does not make sense. You then have to use macro <code>OUTCOME_TRYV</code> instead. Let&rsquo;s use our function <code>print_half</code>:</p>
+<p>When you are calling functions that return <code>unchecked&lt;void&gt;</code> the first of the two things does not make sense. You then have to use macro <code>OUTCOME_TRYV</code> instead. Let&rsquo;s use our function <code>print_half</code>:</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
-outcome::checked&lt;<span class="s3ee">void</span>&gt; test()
+outcome::unchecked&lt;<span class="s3ee">void</span>&gt; test()
 {
   OUTCOME_TRYV (print_half(<span class="sc1c"></span><span class="sc1c">&#34;2&#34;</span>));
   OUTCOME_TRYV (print_half(<span class="sc1c"></span><span class="sc1c">&#34;X&#34;</span>));
@@ -411,7 +411,7 @@ outcome::checked&lt;<span class="s3ee">void</span>&gt; test()
 </div>
 
 
-<p>The first statement will succeed. The second statement will &ldquo;fail&rdquo;, i.e. it will return an errored checked. This will cause an immediate return and the subsequent statements will be skipped.</p>
+<p>The first statement will succeed. The second statement will &ldquo;fail&rdquo;, i.e. it will return an errored unchecked. This will cause an immediate return and the subsequent statements will be skipped.</p>
 
 <h2 id="todo-more-material-will-be-provided-in-time">TODO: more material will be provided in time&hellip;</h2>
 
