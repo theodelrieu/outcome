@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title>Try operations :: Outcome documentation</title>
+    <title>Inspecting unchecked&lt;T, EC&gt; :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/api-reference/doc_try.md/">
+  <body class="" data-url="/outcome/tutorial/unchecked/inspecting/">
     <nav id="sidebar" class=""><div class="highlightable">
   <div id="header-wrapper">
     <div id="header"> 
@@ -68,17 +68,19 @@
         <span>Build and install</span>
       </a>
     </li>
-    <li data-nav-id="/outcome/tutorial/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/" class="dd-item parent">
       <a href="/outcome/tutorial/">
-        <span>Tutorial</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>Tutorial</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
-    <li data-nav-id="/outcome/tutorial/unchecked/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/unchecked/" class="dd-item parent">
       <a href="/outcome/tutorial/unchecked/">
-        <span>unchecked&lt;T, EC&gt;</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>unchecked&lt;T, EC&gt;</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
-      <li data-nav-id="/outcome/tutorial/unchecked/inspecting/" class="dd-item">
+      <li data-nav-id="/outcome/tutorial/unchecked/inspecting/" class="dd-item active">
         <a href="/outcome/tutorial/unchecked/inspecting/">
           <span>Inspecting unchecked&lt;T, EC&gt;</span>
         </a>
@@ -97,10 +99,9 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/api-reference/" class="dd-item parent">
+    <li data-nav-id="/outcome/api-reference/" class="dd-item">
       <a href="/outcome/api-reference/">
-        <span>API reference</span>
-            <i class="fa fa-angle-down fa-lg category-icon"></i>
+        <span>API reference</span><i class="fa fa-angle-right fa-lg category-icon"></i>
       </a>
         <ul>
       <li data-nav-id="/outcome/api-reference/doc_outcome.md/" class="dd-item">
@@ -113,7 +114,7 @@
           <span>result&lt;R, S&gt;</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/api-reference/doc_try.md/" class="dd-item active">
+      <li data-nav-id="/outcome/api-reference/doc_try.md/" class="dd-item">
         <a href="/outcome/api-reference/doc_try.md/">
           <span>Try operations</span>
         </a>
@@ -176,7 +177,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/API%20reference/doc_try.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/unchecked/inspecting.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -196,7 +197,12 @@
 
 
 
- <a href='/outcome/'>Home</a> > <a href='/outcome/api-reference/'>API reference</a> > Try operations
+
+
+
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/unchecked/'>unchecked<T, EC></a> > Inspecting unchecked<T, EC>
+
+ 
 
  
 
@@ -207,17 +213,7 @@
             </div>
             <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents">
-<ul>
-<li><a href="#header-file-try-hpp-a-id-try-hpp-a">Header file <code>try.hpp</code><a id="try.hpp"></a></a>
-<ul>
-<li><a href="#macro-outcome-tryv-a-id-outcome-tryv-a">Macro <code>OUTCOME_TRYV</code><a id="OUTCOME_TRYV"></a></a></li>
-<li><a href="#macro-outcome-tryx-a-id-outcome-tryx-a">Macro <code>OUTCOME_TRYX</code><a id="OUTCOME_TRYX"></a></a></li>
-<li><a href="#macro-outcome-try-a-id-outcome-try-a">Macro <code>OUTCOME_TRY</code><a id="OUTCOME_TRY"></a></a></li>
-<li><a href="#function-template-outcome-v2-xxx-try-operation-return-as-a-id-outcome-v2-xxx-try-operation-return-as-t-a">Function template <code>outcome_v2_xxx::try_operation_return_as</code><a id="outcome_v2_xxx::try_operation_return_as(T&&)"></a></a></li>
-</ul></li>
-</ul>
-</nav>
+
     </div>
 </div>
 
@@ -226,72 +222,70 @@
         
         <div id="body-inner">
           
-            <h1>Try operations</h1>
+            <h1>Inspecting unchecked&lt;T, EC&gt;</h1>
           
 
 
 
 
+<p>Suppose we will be writing function <code>print_half</code> that takes an integral number (however big) represented as an <code>std::string</code> and outputs a number which is twice smaller:</p>
+
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+outcome::unchecked&lt;<span class="s3ee">void</span>&gt; print_half(<span class="s3e8">const</span> std::string&amp; text);
+</code></pre>
+</div>
 
 
-<h1 id="header-file-try-hpp-a-id-try-hpp-a">Header file <code>try.hpp</code><a id="try.hpp"></a></h1>
+<p>Type <code>unchecked&lt;void&gt;</code> means that there is no value to be retuned upon success, but that the operation might still fail, and we may be interested in inspecting the cause of the failure. Class template <code>unchecked&lt;&gt;</code> is declared with attribute <code>[[nodiscard]]</code>, which means compiler will warn you if you forget to inspect the returned object (in C++ 17 or later).</p>
 
-<pre><code class="language-cpp">#define <a href='doc_try.md#try.hpp'>OUTCOME_TRY_HPP</a>
+<p>The implementation will do the following: if the integral number can be represnted by an <code>int</code>, we will convert to <code>int</code> and use its arithmetical operations. If the number is too large, we will fall back to using a custom <code>BigInt</code> implementation that needs to allocate memory. In the implementation we will use function <code>convert</code> defined in the previous section.</p>
 
-#define <a href='doc_try.md#try.hpp'>OUTCOME_TRY_GLUE2</a>(x, y)
-
-#define <a href='doc_try.md#try.hpp'>OUTCOME_TRY_GLUE</a>(x, y)
-
-#define <a href='doc_try.md#try.hpp'>OUTCOME_TRY_UNIQUE_NAME</a>
-
-#define <a href='doc_try.md#try.hpp'>OUTCOME_TRYV2</a>(unique, m)
-
-#define <a href='doc_try.md#try.hpp'>OUTCOME_TRY2</a>(unique, v, m)
-
-#define <a href='doc_try.md#OUTCOME_TRYV'>OUTCOME_TRYV</a>(m)
-
-#define <a href='doc_try.md#OUTCOME_TRYX'>OUTCOME_TRYX</a>(m)
-
-#define <a href='doc_try.md#OUTCOME_TRY'>OUTCOME_TRY</a>(v, m)
-
-namespace <a href='doc_try.md#try.hpp'>outcome_v2_xxx</a>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+outcome::unchecked&lt;<span class="s3ee">void</span>&gt; print_half(<span class="s3e8">const</span> std::string&amp; text)
 {
-    template &lt;class T&gt;
-    typename T::template rebind&lt;void&gt; <a href='doc_try.md#outcome_v2_xxx::try_operation_return_as(T&&)'>try_operation_return_as</a>(T&amp;&amp; v);
-}</code></pre>
+    <span class="s3e8">if</span> (outcome::unchecked&lt;<span class="s3ee">int</span>&gt; r = convert(text))      <span class="s1770">// #1
+</span><span class="s1770"></span>    {
+        std::cout &lt;&lt; (r.value() / 2) &lt;&lt; std::endl;      <span class="s1770">// #2
+</span><span class="s1770"></span>    }
+    <span class="s3e8">else</span>
+    {
+        <span class="s3e8">if</span> (r.error() == ConversionErrc::TooLong)       <span class="s1770">// #3 
+</span><span class="s1770"></span>        {
+            OUTCOME_TRY (i, BigInt::fromString(text));  <span class="s1770">// #4
+</span><span class="s1770"></span>            std::cout &lt;&lt; i.half() &lt;&lt; std::endl;
+        }
+        <span class="s3e8">else</span>
+        {
+            <span class="s3e8">return</span> r.as_failure();                      <span class="s1770">// #5
+</span><span class="s1770"></span>        }
+    }
+    <span class="s3e8">return</span> outcome::success();                          <span class="s1770">// #6
+</span><span class="s1770"></span>}
+</code></pre>
+</div>
 
-<h2 id="macro-outcome-tryv-a-id-outcome-tryv-a">Macro <code>OUTCOME_TRYV</code><a id="OUTCOME_TRYV"></a></h2>
 
-<pre><code class="language-cpp">#define OUTCOME_TRYV(m)</code></pre>
+<p>#1. You test if <code>unchecked&lt;&gt;</code> object represents a successful operation with contextual conversion to <code>bool</code>.</p>
 
-<p>If the outcome returned by expression <em>m</em> is not valued, propagate any failure by immediately returning that failure state immediately</p>
+<p>#2. Function <code>.value()</code> extracts the successfully returned <code>BigInt</code>.</p>
 
-<h2 id="macro-outcome-tryx-a-id-outcome-tryx-a">Macro <code>OUTCOME_TRYX</code><a id="OUTCOME_TRYX"></a></h2>
+<p>#3. Function <code>.error()</code> allows you to inspect the error sub-object, representing information about the reason for failure.</p>
 
-<pre><code class="language-cpp">#define OUTCOME_TRYX(m)</code></pre>
+<p>#4. Macro <code>OUTCOME_TRY</code> represents a control statement. It implies that the function call in the second argument returns a <code>unchecked&lt;&gt;</code>. It is defined as:</p>
 
-<p>If the outcome returned by expression <em>m</em> is not valued, propagate any failure by immediately returning that failure state immediately, else become the unwrapped value as an expression. This makes <code>OUTCOME_TRYX(expr)</code> an expression which can be used exactly like the <code>try</code> operator in other languages.</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+<span class="s1770">/*static*/</span> outcome::unchecked&lt;BigInt&gt; BigInt::fromString(<span class="s3e8">const</span> std::string&amp; s)
+</code></pre>
+</div>
 
-<p>portable. The macro is not made available on unsupported compilers, so you can test for its presence using <code>#ifdef OUTCOME_TRYX</code>.</p>
 
-<h2 id="macro-outcome-try-a-id-outcome-try-a">Macro <code>OUTCOME_TRY</code><a id="OUTCOME_TRY"></a></h2>
+<p>Our control statement means: if <code>fromString</code> returned failure, this same error information should be returned from <code>print_half</code>, even though the type of <code>unchecked&lt;&gt;</code> is different. If <code>fromString</code> returned success, we create  variable <code>i</code> of type <code>int</code> with the value returned from <code>fromString</code>. If control goes to subsequent line, it means <code>fromString</code> succeeded and variable of type <code>int</code> is in scope.</p>
 
-<pre><code class="language-cpp">#define OUTCOME_TRY(v, m)</code></pre>
+<p>#5. In the return statement we extract the error information and use it to initialize the return value from <code>print_half</code>. We could have written <code>return r.error();</code> instead,
+    and it would have the same effect, but it would not work if we were using <code>outcome&lt;&gt;</code> instead of <code>unchecked&lt;&gt;</code> &ndash; this will be covered later.</p>
 
-<p>If the outcome returned by expression <em>m</em> is not valued, propagate any failure by immediately returning that failure immediately, else set *v( to the unwrapped value</p>
-
-<h2 id="function-template-outcome-v2-xxx-try-operation-return-as-a-id-outcome-v2-xxx-try-operation-return-as-t-a">Function template <code>outcome_v2_xxx::try_operation_return_as</code><a id="outcome_v2_xxx::try_operation_return_as(T&&)"></a></h2>
-
-<pre><code class="language-cpp">template &lt;class T&gt;
-typename T::template rebind&lt;void&gt; try_operation_return_as(T&amp;&amp; v);</code></pre>
-
-<p>Customisation point for changing what the <code>OUTCOME_TRY</code> macros do. This function defaults to returning <code>std::move(v).as_void()</code>.</p>
-
-<p><em>Effects</em>: Extracts any state apart from value into a <code>void</code> rebound equivalent.</p>
-
-<p><em>Requires</em>: The input value to have a <code>.as_void()</code> member function, and a <code>rebind</code> member template alias.</p>
-
-<hr />
+<p>#6. Function <code>success()</code> returns an object of type <code>success&lt;void&gt;</code> representing success. This is implicitly converted by
+all <code>result</code> and <code>outcome</code> types into a successful return, default constructing any <code>T</code> if necessary.</p>
 
 
 <footer class=" footline" >
@@ -311,8 +305,8 @@ typename T::template rebind&lt;void&gt; try_operation_return_as(T&amp;&amp; v);<
     
 
     <div id="navigation">
-        <a class="nav nav-prev" href="/outcome/api-reference/doc_result.md/" title="result&lt;R, S&gt;"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/api-reference/doc_utils.md/" title="Utilities" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/outcome/tutorial/unchecked/" title="unchecked&lt;T, EC&gt;"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/unchecked/try/" title="TRY operations" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>

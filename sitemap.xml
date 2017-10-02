@@ -11,6 +11,10 @@
   </url>
   
   <url>
+    <loc>https://ned14.github.io/outcome/tutorial/unchecked/inspecting/</loc>
+  </url>
+  
+  <url>
     <loc>https://ned14.github.io/outcome/tutorial/</loc>
   </url>
   
@@ -19,7 +23,15 @@
   </url>
   
   <url>
+    <loc>https://ned14.github.io/outcome/tutorial/unchecked/</loc>
+  </url>
+  
+  <url>
     <loc>https://ned14.github.io/outcome/api-reference/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/tutorial/unchecked/try/</loc>
   </url>
   
   <url>
@@ -27,7 +39,7 @@
   </url>
   
   <url>
-    <loc>https://ned14.github.io/outcome/tutorial/error_code/</loc>
+    <loc>https://ned14.github.io/outcome/tutorial/unchecked/error_code/</loc>
   </url>
   
   <url>
