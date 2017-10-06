@@ -16,7 +16,7 @@
       
       <guid>https://ned14.github.io/outcome/tutorial/unchecked/inspecting/</guid>
       <description>Suppose we will be writing function print_half that takes an integral number (however big) represented as an std::string and outputs a number which is twice smaller:
-outcome::unchecked&amp;lt;void&amp;gt; print_half(const std::string&amp;amp; text); Type unchecked&amp;lt;void&amp;gt; means that there is no value to be retuned upon success, but that the operation might still fail, and we may be interested in inspecting the cause of the failure. Class template unchecked&amp;lt;&amp;gt; is declared with attribute [[nodiscard]], which means compiler will warn you if you forget to inspect the returned object (in C++ 17 or later).</description>
+outcome::unchecked&amp;lt;void&amp;gt; print_half(const std::string&amp;amp; text);   Type unchecked&amp;lt;void&amp;gt; means that there is no value to be retuned upon success, but that the operation might still fail, and we may be interested in inspecting the cause of the failure. Class template unchecked&amp;lt;&amp;gt; is declared with attribute [[nodiscard]], which means compiler will warn you if you forget to inspect the returned object (in C++ 17 or later).</description>
     </item>
     
     <item>
@@ -55,7 +55,7 @@ Additionally, in GCC and Clang which provide an extension to C++ known as statem
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://ned14.github.io/outcome/credits/</guid>
-      <description>github contributors .ghContributors{display:flex;flex-flow: wrap;align-content: flex-start}.ghContributors  div{width: 50% ;display: inline-flex;margin-bottom: 5px;}.ghContributors  div label{padding-left: 4px ;}.ghContributors  div span{font-size: x-small;padding-left: 4px ;}@ned14652 commits@akrzemi19 commits@jenkins-nedprod1 commits This pretty, modern C++ documentation  Hugo - static website generator of this documentation. hugo-theme-docdock - the Hugo theme used by this documentation.</description>
+      <description>github contributors .ghContributors{ display:flex; flex-flow: wrap; align-content: flex-start } .ghContributors  div{ width: 50% ; display: inline-flex; margin-bottom: 5px; } .ghContributors  div label{ padding-left: 4px ; } .ghContributors  div span{ font-size: x-small; padding-left: 4px ; }  This pretty, modern C++ documentation  Hugo - static website generator of this documentation. hugo-theme-docdock - the Hugo theme used by this documentation. Standardese - the API reference generator  Special thanks To Paul Bristow who proposed the name &amp;ldquo;Outcome&amp;rdquo; for the library after a very extended period of name bikeshedding on boost-dev.</description>
     </item>
     
   </channel>
