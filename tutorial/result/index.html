@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title> :: Outcome documentation</title>
+    <title>result&lt;T, EC&gt; :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/_header/">
+  <body class="" data-url="/outcome/tutorial/result/">
     <nav id="sidebar" class=""><div class="highlightable">
   <div id="header-wrapper">
     <div id="header"> 
@@ -68,14 +68,16 @@
         <span>Build and install</span>
       </a>
     </li>
-    <li data-nav-id="/outcome/tutorial/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/" class="dd-item parent">
       <a href="/outcome/tutorial/">
-        <span>Tutorial</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>Tutorial</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
-    <li data-nav-id="/outcome/tutorial/result/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/result/" class="dd-item parent active">
       <a href="/outcome/tutorial/result/">
-        <span>result&lt;T, EC&gt;</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>result&lt;T, EC&gt;</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
       <li data-nav-id="/outcome/tutorial/result/inspecting/" class="dd-item">
@@ -144,7 +146,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/_header.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/result/_index.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -158,6 +160,16 @@
                 <span class="links">
                 
 
+
+
+
+
+
+
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > result<T, EC>
+
+ 
+
  
 
    
@@ -165,7 +177,15 @@
             </div>
             <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#outcome-2-0-namespace">Outcome 2.0 namespace</a></li>
+<li><a href="#creating-result">Creating <code>result&lt;&gt;</code></a></li>
+</ul></li>
+</ul>
+</nav>
     </div>
 </div>
 
@@ -174,18 +194,111 @@
         
         <div id="body-inner">
           
-            <h1></h1>
+            <h1>result&lt;T, EC&gt;</h1>
           
 
 
 
 
-<p>Outcome 2.0 library documentation</p>
+
+
+<h2 id="outcome-2-0-namespace">Outcome 2.0 namespace</h2>
+
+<p>It is recommended that you refer to entities from this Outcome 2.0 via the following namespace alias:</p>
+
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+<span class="s3e8">namespace</span> outcome = OUTCOME_V2_NAMESPACE;
+</code></pre>
+</div>
+
+
+<p>As patches and modifications are applied to this library, namespaces get permuted in order
+not to break any backward compatibility. At some point namespace <code>outcome::v2</code> will be defined,
+and this will be the prefered namespace. Until then <code>OUTCOME_V2_NAMESPACE</code> denotes the most recently
+updated version, getting closer to <code>outcome::v2</code>.</p>
+
+<h2 id="creating-result">Creating <code>result&lt;&gt;</code></h2>
+
+<p>We will define a function that converts an <code>std::string</code> to an <code>int</code>. This function can fail for a number of reasons;
+if it does we want to communicate the failure reason.</p>
+
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+outcome::result&lt;<span class="s3ee">int</span>&gt; convert(<span class="s3e8">const</span> std::string&amp; str) <span class="s3e8">noexcept</span>;
+</code></pre>
+</div>
+
+
+<p>Class template <code>result&lt;T, EC&gt;</code> has two template parameters. The first (<code>T</code>) represents the type of the object
+returned from the function upon success; the second (<code>EC</code>) is the type of object containing information about the reason
+for failure when the function fails. A <code>result&lt;T, EC&gt;</code> object either stores a <code>T</code> or an <code>EC</code> at any given moment,
+and is therefore conceptually similar to <code>variant&lt;T, EC&gt;</code>. <code>EC</code> is defaulted to <code>std::error_code</code>.
+If both <code>T</code> and <code>EC</code> are trivially copyable, <code>result&lt;T, EC&gt;</code> is also trivially copyable.</p>
+
+<p>Now, we will define an enumeration describing different failure situations during conversion.</p>
+
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+<span class="s3e8">enum</span> <span class="s3e8">class</span> <span class="s7d4">ConversionErrc</span>
+{
+  EmptyString = 1, <span class="s1770">// 0 is never an error
+</span><span class="s1770"></span>  IllegalChar = 2,
+  TooLong     = 3,
+};
+
+<span class="s1770">// all boilerplate necessary to plug ConversionErrc
+</span><span class="s1770">// into std::error_code framework
+</span><span class="s1770"></span></code></pre>
+</div>
+
+
+<p>Assume we have plugged it into <code>std::error_code</code> framework, as described in <a href="../error_code">this section</a>.</p>
+
+<p>One notable effect of such plugging is that <code>ConversionErrc</code> is now convertible to <code>std::error_code</code>.
+Now we can implement function <code>convert</code> as follows:</p>
+
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+outcome::result&lt;<span class="s3ee">int</span>&gt; convert(<span class="s3e8">const</span> std::string&amp; str) <span class="s3e8">noexcept</span>
+{
+  <span class="s3e8">if</span> (str.empty())
+    <span class="s3e8">return</span> ConversionErrc::EmptyString;
+    
+  <span class="s3e8">if</span> (!std::all_of(str.begin(), str.end(), ::isdigit))
+    <span class="s3e8">return</span> ConversionErrc::IllegalChar;
+    
+  <span class="s3e8">if</span> (str.length() &gt; 9)
+    <span class="s3e8">return</span> ConversionErrc::TooLong;
+  
+  <span class="s3e8">return</span> atoi(str.c_str());
+}
+</code></pre>
+</div>
+
+
+<p><code>result&lt;T, EC&gt;</code> is convertible from any <code>T2</code> convertible to <code>T</code> as well as any <code>EC2</code> convertible to <code>EC</code>,
+provided that the conversion is not ambiguous. If some type <code>X</code> is both convertible to <code>T</code> and <code>EC</code>,
+conversion to <code>result&lt;T, EC&gt;</code> fails to compile. In this case you need to use one of the tagged constructors:</p>
+
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">	
+outcome::result&lt;<span class="s3ee">int</span>&gt; r {outcome::in_place_type&lt;std::error_code&gt;, ConversionErrc::EmptyString};
+outcome::result&lt;<span class="s3ee">int</span>&gt; s {outcome::in_place_type&lt;<span class="s3ee">int</span>&gt;, 1};
+</code></pre>
+</div>
+
+
+<p>Or use helper factory functions:</p>
+
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">	
+outcome::result&lt;<span class="s3ee">int</span>&gt; r = outcome::failure(ConversionErrc::EmptyString); 
+outcome::result&lt;<span class="s3ee">int</span>&gt; s = outcome::success(1);
+</code></pre>
+</div>
+
 
 
 <footer class=" footline" >
 	
 </footer>
+
+
 
 
 
@@ -200,7 +313,8 @@
     
 
     <div id="navigation">
-        <a class="nav nav-next" href="/outcome/requirements/" title="Prerequisites" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/outcome/tutorial/" title="Tutorial"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/result/inspecting/" title="Inspecting result&lt;T, EC&gt;" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>
@@ -225,4 +339,3 @@
 
   </body>
 </html>
-

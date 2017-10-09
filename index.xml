@@ -10,21 +10,21 @@
     
     
     <item>
-      <title>Inspecting unchecked&lt;T, EC&gt;</title>
-      <link>https://ned14.github.io/outcome/tutorial/unchecked/inspecting/</link>
+      <title>Inspecting result&lt;T, EC&gt;</title>
+      <link>https://ned14.github.io/outcome/tutorial/result/inspecting/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://ned14.github.io/outcome/tutorial/unchecked/inspecting/</guid>
+      <guid>https://ned14.github.io/outcome/tutorial/result/inspecting/</guid>
       <description>Suppose we will be writing function print_half that takes an integral number (however big) represented as an std::string and outputs a number which is twice smaller:
-outcome::unchecked&amp;lt;void&amp;gt; print_half(const std::string&amp;amp; text);   Type unchecked&amp;lt;void&amp;gt; means that there is no value to be retuned upon success, but that the operation might still fail, and we may be interested in inspecting the cause of the failure. Class template unchecked&amp;lt;&amp;gt; is declared with attribute [[nodiscard]], which means compiler will warn you if you forget to inspect the returned object (in C++ 17 or later).</description>
+outcome::result&amp;lt;void&amp;gt; print_half(const std::string&amp;amp; text);   Type result&amp;lt;void&amp;gt; means that there is no value to be retuned upon success, but that the operation might still fail, and we may be interested in inspecting the cause of the failure. Class template result&amp;lt;&amp;gt; is declared with attribute [[nodiscard]], which means compiler will warn you if you forget to inspect the returned object (in C++ 17 or later).</description>
     </item>
     
     <item>
       <title>TRY operations</title>
-      <link>https://ned14.github.io/outcome/tutorial/unchecked/try/</link>
+      <link>https://ned14.github.io/outcome/tutorial/result/try/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://ned14.github.io/outcome/tutorial/unchecked/try/</guid>
+      <guid>https://ned14.github.io/outcome/tutorial/result/try/</guid>
       <description>In the implementation of function print_half we have seen the usage of the macro OUTCOME_TRY:
 OUTCOME_TRY (i, BigInt::fromString(text));  This control statement is raughly equivalent to:
 auto&amp;amp;&amp;amp; __result = BigInt::fromString(text); if (!__result) return __result.as_failure(); auto&amp;amp;&amp;amp; i = __result.value();  Where __result is a unique name.
@@ -33,10 +33,10 @@ Additionally, in GCC and Clang which provide an extension to C++ known as statem
     
     <item>
       <title>Custom error codes</title>
-      <link>https://ned14.github.io/outcome/tutorial/unchecked/error_code/</link>
+      <link>https://ned14.github.io/outcome/tutorial/error_code/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://ned14.github.io/outcome/tutorial/unchecked/error_code/</guid>
+      <guid>https://ned14.github.io/outcome/tutorial/error_code/</guid>
       <description>This section illustrates how you can hook into the std::error_code system from the Standard Library in order to work with your own set of error codes. As is usually the case in C++, doing this is straightforward but requires typing boilerplate to tell the C++ STL about your custom error type. This is not part of Outcome library, but we still provide this short guide here, because how to do this is not well documented [1].</description>
     </item>
     
