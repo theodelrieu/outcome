@@ -310,8 +310,8 @@ It cannot use <code>Layer1::f</code> directly as the later may throw an exceptio
     outcome::result&lt;<span class="s3ee">int</span>&gt; gr = Layer2NX::g();
     <span class="s3e8">if</span> (!gr) {
       <span class="s3e8">delete</span> resource;
-      <span class="s3e8">return</span> gr.as_failure();
-    }
+      <span class="s3e8">return</span> gr.as_failure();                <span class="s1770">// #2
+</span><span class="s1770"></span>    }
     
     ans += resource-&gt;use(gr.value());
     
