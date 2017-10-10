@@ -20,6 +20,16 @@ outcome::result&amp;lt;void&amp;gt; print_half(const std::string&amp;amp; text);
     </item>
     
     <item>
+      <title>Inspecting outcome&lt;T, EC, EP&gt;</title>
+      <link>https://ned14.github.io/outcome/tutorial/outcome/inspecting/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/outcome/inspecting/</guid>
+      <description>Continuing with the previous example, in Layer3 we obtain an outcome&amp;lt;double&amp;gt; which may store a double or an std::error_code or an std::exception_ptr. Layer3 uses exceptions to indicate failure, so we want to turn a failed result into an exception: if we are storing an std::exception_ptr just rethrow it. If we are storing an std::error_code throw it as std::system_error, which is designed to store std::error_codes:
+namespace Layer3 { auto run() -&amp;gt; double // may throw  { if (outcome::outcome&amp;lt;double&amp;gt; o = Layer2NX::fun()) return o.</description>
+    </item>
+    
+    <item>
       <title>TRY operations</title>
       <link>https://ned14.github.io/outcome/tutorial/result/try/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

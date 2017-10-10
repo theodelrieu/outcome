@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title> :: Outcome documentation</title>
+    <title>Inspecting outcome&lt;T, EC, EP&gt; :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/_header/">
+  <body class="" data-url="/outcome/tutorial/outcome/inspecting/">
     <nav id="sidebar" class=""><div class="highlightable">
   <div id="header-wrapper">
     <div id="header"> 
@@ -68,9 +68,10 @@
         <span>Build and install</span>
       </a>
     </li>
-    <li data-nav-id="/outcome/tutorial/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/" class="dd-item parent">
       <a href="/outcome/tutorial/">
-        <span>Tutorial</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>Tutorial</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
     <li data-nav-id="/outcome/tutorial/result/" class="dd-item">
@@ -90,12 +91,13 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/tutorial/outcome/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/outcome/" class="dd-item parent">
       <a href="/outcome/tutorial/outcome/">
-        <span>outcome&lt;T, EC, EP&gt;</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>outcome&lt;T, EC, EP&gt;</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
-      <li data-nav-id="/outcome/tutorial/outcome/inspecting/" class="dd-item">
+      <li data-nav-id="/outcome/tutorial/outcome/inspecting/" class="dd-item active">
         <a href="/outcome/tutorial/outcome/inspecting/">
           <span>Inspecting outcome&lt;T, EC, EP&gt;</span>
         </a>
@@ -156,7 +158,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/_header.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/outcome/inspecting.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -169,6 +171,21 @@
                 <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
                 <span class="links">
                 
+
+
+
+
+
+
+
+
+
+
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/outcome/'>outcome<T, EC, EP></a> > Inspecting outcome<T, EC, EP>
+
+ 
+
+ 
 
  
 
@@ -186,14 +203,38 @@
         
         <div id="body-inner">
           
-            <h1></h1>
+            <h1>Inspecting outcome&lt;T, EC, EP&gt;</h1>
           
 
 
 
 
-<p>Outcome 2.0 library documentation</p>
+<p>Continuing with the previous example, in <code>Layer3</code> we obtain an <code>outcome&lt;double&gt;</code> which may store a <code>double</code> or an <code>std::error_code</code> or an <code>std::exception_ptr</code>.
+<code>Layer3</code> uses exceptions to indicate failure, so we want to turn a failed result into an exception: if we are storing an <code>std::exception_ptr</code> just rethrow it.
+If we are storing an <code>std::error_code</code> throw it as <code>std::system_error</code>, which is designed to store <code>std::error_code</code>s:</p>
 
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+<span class="s3e8">namespace</span> Layer3
+{
+  <span class="s3e8">auto</span> run() -&gt; <span class="s3ee">double</span> <span class="s1770">// may throw
+</span><span class="s1770"></span>  {
+    <span class="s3e8">if</span> (outcome::outcome&lt;<span class="s3ee">double</span>&gt; o = Layer2NX::fun())
+      <span class="s3e8">return</span> o.value();
+    <span class="s3e8">else</span> if (o.has_exception())
+      std::rethrow_exception(o.exception());
+    <span class="s3e8">else</span>
+      <span class="s3e8">throw</span> std::system_error{o.error()};
+  }    
+}
+</code></pre>
+</div>
+
+
+<p>Function <code>has_exception</code> checks if it is <code>EP</code> (<code>std::exception_ptr</code>) that is stored, function <code>exception</code> accesses it. Similarly, function <code>error</code> accesses the <code>EC</code> (<code>std::error_code</code>) if it is stored.
+<code>outcome&lt;&gt;</code> has also function <code>has_failure</code> to check if either <code>EC</code> or <code>EP</code> is being stored. In fact, this pattern of &ldquo;unpacking&rdquo; <code>outcome&lt;&gt;</code>
+is so common that it has been implemented inside function <code>value</code>, so function <code>Layer3::run</code> could be written as:</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="s3e8">return</span> Layer2NX::fun().value();</code></pre>
+</div>
 
 <footer class=" footline" >
 	
@@ -212,7 +253,8 @@
     
 
     <div id="navigation">
-        <a class="nav nav-next" href="/outcome/requirements/" title="Prerequisites" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/outcome/tutorial/outcome/" title="outcome&lt;T, EC, EP&gt;"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/error_code/" title="Custom error codes" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>

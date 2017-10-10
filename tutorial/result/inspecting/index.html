@@ -92,6 +92,18 @@
     </li>
         </ul>
     </li>
+    <li data-nav-id="/outcome/tutorial/outcome/" class="dd-item">
+      <a href="/outcome/tutorial/outcome/">
+        <span>outcome&lt;T, EC, EP&gt;</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </a>
+        <ul>
+      <li data-nav-id="/outcome/tutorial/outcome/inspecting/" class="dd-item">
+        <a href="/outcome/tutorial/outcome/inspecting/">
+          <span>Inspecting outcome&lt;T, EC, EP&gt;</span>
+        </a>
+    </li>
+        </ul>
+    </li>
       <li data-nav-id="/outcome/tutorial/error_code/" class="dd-item">
         <a href="/outcome/tutorial/error_code/">
           <span>Custom error codes</span>
@@ -212,7 +224,7 @@ outcome::result&lt;<span class="s3ee">void</span>&gt; print_half(<span class="s3
 <div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
 outcome::result&lt;<span class="s3ee">void</span>&gt; print_half(<span class="s3e8">const</span> std::string&amp; text)
 {
-  <span class="s3e8">if</span> (outcome::result&lt;<span class="s3ee">int</span>&gt; r = convert(text))  <span class="s1770">// #1
+  <span class="s3e8">if</span> (outcome::result&lt;<span class="s3ee">int</span>&gt; r = convert(text))     <span class="s1770">// #1
 </span><span class="s1770"></span>  {
     std::cout &lt;&lt; (r.value() / 2) &lt;&lt; std::endl;    <span class="s1770">// #2
 </span><span class="s1770"></span>  }
