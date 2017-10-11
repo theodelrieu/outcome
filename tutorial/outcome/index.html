@@ -193,7 +193,7 @@
 <ul>
 <li>
 <ul>
-<li><a href="#outcome"><code>outcome</code></a></li>
+<li><a href="#outcome"><code>outcome&lt;&gt;</code></a></li>
 </ul></li>
 </ul>
 </nav>
@@ -213,18 +213,18 @@
 
 
 
-<h2 id="outcome"><code>outcome</code></h2>
+<h2 id="outcome"><code>outcome&lt;&gt;</code></h2>
 
 <p>Type <code>outcome&lt;T, EC, EP&gt;</code> can store either a <code>T</code> or an <code>EC</code> or an <code>EP</code>.
 The first parameter (<code>T</code>) represents a value returned from functions upon success.
 Both <code>EC</code> and <code>EP</code> represent the reason for function failure when function fails.
-Conceptually, <code>outcome&lt;T, EC, EP&gt;</code> can be thought of as <code>variant&lt;T, EC, EP&gt;</code> or <code>variant&lt;T, variant&lt;EC, EP&gt;&gt;</code>, or <code>result&lt;variant&lt;EC, EP&gt;&gt;</code>.
-<code>EC</code> defaults to <code>std::error_code</code> and <code>EP</code> defaults to <code>std::exception_ptr</code>. THe distinction is made into two types, <code>EC</code> and <code>EP</code> for the following reasosns:</p>
+Conceptually, <code>outcome&lt;T, EC, EP&gt;</code> can be thought of as <code>variant&lt;T, EC, EP&gt;</code> or <code>variant&lt;T, variant&lt;EC, EP&gt;&gt;</code>, or <code>result&lt;T, variant&lt;EC, EP&gt;&gt;</code>.
+<code>EC</code> defaults to <code>std::error_code</code> and <code>EP</code> defaults to <code>std::exception_ptr</code>. The distinction is made into two types, <code>EC</code> and <code>EP</code> for the following reasosns:</p>
 
 <ol>
 <li>The interface: <code>EC</code> is inspected in a different way that <code>EP</code>.</li>
 <li>Performance: handling of <code>EC</code> is optimized for POD types.</li>
-<li>Interoperability with <code>result&lt;T, EC&gt;</code>: like converisons.</li>
+<li>Interoperability with <code>result&lt;T, EC&gt;</code>.</li>
 </ol>
 
 <p><code>outcome&lt;T, EC, EP&gt;</code> is useful for transporting exceptions across layers of the program that was never designed with exception_ptr`safety in mind.</p>
