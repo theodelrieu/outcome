@@ -272,12 +272,13 @@ Expected&rsquo;s <code>.error()</code> is narrow (UB on incorrect use). (<code>c
 <li><code>checked&lt;T, E&gt;</code> uses <code>success&lt;T&gt;</code> and <code>failure&lt;E&gt;</code> type sugars for disambiguation.
 Expected uses <code>unexpected&lt;E&gt;</code> only.</li>
 <li><code>checked&lt;T, E&gt;</code> requires <code>E</code> to be default constructible.</li>
+<li><code>checked&lt;T, E&gt;</code> defaults <code>E</code> to <code>std::error_code</code>. Expected does not default <code>E</code>.</li>
 </ol>
 
 <p>In fact, the two are sufficiently close in design that a highly conforming <code>expected&lt;T, E&gt;</code>
-can be implemented by wrapping up <code>checked&lt;T, E&gt;</code> with the missing functionality:</p>
+can be implemented by wrapping up <code>checked&lt;T, E&gt;</code> with the differing functionality:</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
 <span class="s1770">/* Here is a fairly conforming implementation of P0323R3 `expected&lt;T, E&gt;` using `checked&lt;T, E&gt;`.
 </span><span class="s1770">It passes the reference test suite for P0323R3 at
 </span><span class="s1770">https://github.com/viboes/std-make/blob/master/test/expected/expected_pass.cpp with modifications
@@ -363,7 +364,7 @@ can be implemented by wrapping up <code>checked&lt;T, E&gt;</code> with the miss
 <span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">E</span>, class... Args&gt; unexpected&lt;E&gt; make_unexpected(Args &amp;&amp;... args) { <span class="s3e8">return</span> OUTCOME_V2_NAMESPACE::failure&lt;E&gt;(std::forward&lt;Args&gt;(args)...); }
 <span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">E</span>&gt; <span class="s3e8">using</span> bad_expected_access = OUTCOME_V2_NAMESPACE::bad_result_access_with&lt;E&gt;;
 </code></pre>
-</div>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/expected_implementation.cpp#L2" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
 
 

@@ -244,7 +244,7 @@ so you can test for its presence using <code>#ifdef OUTCOME_TRYX</code>.</p>
 
 <p>When you are calling functions that return <code>result&lt;void&gt;</code> the first of the two things does not make sense. You then have to use macro <code>OUTCOME_TRYV</code> instead. Let&rsquo;s use our function <code>print_half</code>:</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
 outcome::result&lt;<span class="s3ee">void</span>&gt; test()
 {
   OUTCOME_TRYV (print_half(<span class="sc1c"></span><span class="sc1c">&#34;2&#34;</span>));
@@ -253,7 +253,7 @@ outcome::result&lt;<span class="s3ee">void</span>&gt; test()
 </span><span class="s1770"></span>  <span class="s3e8">return</span> outcome::success();
 }
 </code></pre>
-</div>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/using_result.cpp#L138" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
 
 <p>The first statement will succeed. The second statement will &ldquo;fail&rdquo;, i.e. it will return an <em>errored</em> result. This will cause an immediate return and the subsequent statements will be skipped.</p>

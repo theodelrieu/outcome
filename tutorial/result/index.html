@@ -218,10 +218,10 @@
 
 <p>It is recommended that you refer to entities from this Outcome 2.0 via the following namespace alias:</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
 <span class="s3e8">namespace</span> outcome = OUTCOME_V2_NAMESPACE;
 </code></pre>
-</div>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/using_result.cpp#L8" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
 
 <p>As patches and modifications are applied to this library, namespaces get permuted in order
@@ -234,10 +234,10 @@ updated version, getting closer to <code>outcome::v2</code>.</p>
 <p>We will define a function that converts an <code>std::string</code> to an <code>int</code>. This function can fail for a number of reasons;
 if it does we want to communicate the failure reason.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
 outcome::result&lt;<span class="s3ee">int</span>&gt; convert(<span class="s3e8">const</span> std::string&amp; str) <span class="s3e8">noexcept</span>;
 </code></pre>
-</div>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/using_result.cpp#L12" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
 
 <p>Class template <code>result&lt;T, EC&gt;</code> has two template parameters. The first (<code>T</code>) represents the type of the object
@@ -248,7 +248,7 @@ If both <code>T</code> and <code>EC</code> are trivially copyable, <code>result&
 
 <p>Now, we will define an enumeration describing different failure situations during conversion.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
 <span class="s3e8">enum</span> <span class="s3e8">class</span> <span class="s7d4">ConversionErrc</span>
 {
   EmptyString = 1, <span class="s1770">// 0 is never an error
@@ -259,7 +259,7 @@ If both <code>T</code> and <code>EC</code> are trivially copyable, <code>result&
 <span class="s1770">// all boilerplate necessary to plug ConversionErrc
 </span><span class="s1770">// into std::error_code framework
 </span><span class="s1770"></span></code></pre>
-</div>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/using_result.cpp#L16" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
 
 <p>Assume we have plugged it into <code>std::error_code</code> framework, as described in <a href="../error_code">this section</a>.</p>
@@ -267,7 +267,7 @@ If both <code>T</code> and <code>EC</code> are trivially copyable, <code>result&
 <p>One notable effect of such plugging is that <code>ConversionErrc</code> is now convertible to <code>std::error_code</code>.
 Now we can implement function <code>convert</code> as follows:</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
 outcome::result&lt;<span class="s3ee">int</span>&gt; convert(<span class="s3e8">const</span> std::string&amp; str) <span class="s3e8">noexcept</span>
 {
   <span class="s3e8">if</span> (str.empty())
@@ -282,27 +282,27 @@ outcome::result&lt;<span class="s3ee">int</span>&gt; convert(<span class="s3e8">
   <span class="s3e8">return</span> atoi(str.c_str());
 }
 </code></pre>
-</div>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/using_result.cpp#L34" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
 
 <p><code>result&lt;T, EC&gt;</code> is convertible from any <code>T2</code> convertible to <code>T</code> as well as any <code>EC2</code> convertible to <code>EC</code>,
 provided that the conversion is not ambiguous. If some type <code>X</code> is both convertible to <code>T</code> and <code>EC</code>,
 conversion to <code>result&lt;T, EC&gt;</code> fails to compile. In this case you need to use one of the tagged constructors:</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">	
+<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">	
 outcome::result&lt;<span class="s3ee">int</span>&gt; r {outcome::in_place_type&lt;std::error_code&gt;, ConversionErrc::EmptyString};
 outcome::result&lt;<span class="s3ee">int</span>&gt; s {outcome::in_place_type&lt;<span class="s3ee">int</span>&gt;, 1};
 </code></pre>
-</div>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/using_result.cpp#L82" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
 
 <p>Or use helper factory functions:</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">	
+<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">	
 outcome::result&lt;<span class="s3ee">int</span>&gt; r = outcome::failure(ConversionErrc::EmptyString); 
 outcome::result&lt;<span class="s3ee">int</span>&gt; s = outcome::success(1);
 </code></pre>
-</div>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/using_result.cpp#L90" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
 
 
