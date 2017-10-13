@@ -290,7 +290,7 @@ outcome::result&lt;<span class="s3ee">int</span>&gt; convert(<span class="s3e8">
 provided that the conversion is not ambiguous. If some type <code>X</code> is both convertible to <code>T</code> and <code>EC</code>,
 conversion to <code>result&lt;T, EC&gt;</code> fails to compile. In this case you need to use one of the tagged constructors:</p>
 
-<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">	
+<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
 outcome::result&lt;<span class="s3ee">int</span>&gt; r {outcome::in_place_type&lt;std::error_code&gt;, ConversionErrc::EmptyString};
 outcome::result&lt;<span class="s3ee">int</span>&gt; s {outcome::in_place_type&lt;<span class="s3ee">int</span>&gt;, 1};
 </code></pre>
@@ -299,7 +299,7 @@ outcome::result&lt;<span class="s3ee">int</span>&gt; s {outcome::in_place_type&l
 
 <p>Or use helper factory functions:</p>
 
-<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">	
+<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
 outcome::result&lt;<span class="s3ee">int</span>&gt; r = outcome::failure(ConversionErrc::EmptyString); 
 outcome::result&lt;<span class="s3ee">int</span>&gt; s = outcome::success(1);
 </code></pre>
