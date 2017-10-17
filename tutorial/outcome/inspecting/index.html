@@ -102,6 +102,28 @@
           <span>Inspecting outcome&lt;T, EC, EP&gt;</span>
         </a>
     </li>
+    <li data-nav-id="/outcome/tutorial/outcome/payload/" class="dd-item">
+      <a href="/outcome/tutorial/outcome/payload/">
+        <span>Outcome with payload</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </a>
+        <ul>
+      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file/" class="dd-item">
+        <a href="/outcome/tutorial/outcome/payload/copy_file/">
+          <span>The Filesystem TS</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file2/" class="dd-item">
+        <a href="/outcome/tutorial/outcome/payload/copy_file2/">
+          <span>Upgrading the Filesystem TS</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file3/" class="dd-item">
+        <a href="/outcome/tutorial/outcome/payload/copy_file3/">
+          <span>Throwing filesystem_error</span>
+        </a>
+    </li>
+        </ul>
+    </li>
         </ul>
     </li>
       <li data-nav-id="/outcome/tutorial/error_code/" class="dd-item">
@@ -228,7 +250,7 @@ If we are storing an <code>std::error_code</code> throw it as <code>std::system_
   }    
 }
 </code></pre>
-</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/using_outcome.cpp#L104" class="code-snippet-url" target="_blank">View this code on Github</a></div>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/using_outcome.cpp#L103" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
 
 <p>Function <code>has_exception</code> checks if it is <code>EP</code> (<code>std::exception_ptr</code>) that is stored, function <code>exception</code> accesses it. Similarly, function <code>error</code> accesses the <code>EC</code> (<code>std::error_code</code>) if it is stored.
@@ -255,7 +277,7 @@ is so common that it has been implemented inside function <code>value</code>, so
 
     <div id="navigation">
         <a class="nav nav-prev" href="/outcome/tutorial/outcome/" title="outcome&lt;T, EC, EP&gt;"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/tutorial/error_code/" title="Custom error codes" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/outcome/payload/" title="Outcome with payload" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>

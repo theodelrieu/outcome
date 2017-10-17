@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title>Prerequisites :: Outcome documentation</title>
+    <title>The Filesystem TS :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/requirements/">
+  <body class="" data-url="/outcome/tutorial/outcome/payload/copy_file/">
     <nav id="sidebar" class=""><div class="highlightable">
   <div id="header-wrapper">
     <div id="header"> 
@@ -58,7 +58,7 @@
             <li data-nav-id="/outcome/" class="dd-item">
             <a href="/outcome/"><i class="fa fa-fw fa-home"></i></a>
             </li>
-    <li data-nav-id="/outcome/requirements/" class="dd-item parent active">
+    <li data-nav-id="/outcome/requirements/" class="dd-item">
       <a href="/outcome/requirements/">
         <span>Prerequisites</span>
       </a>
@@ -68,9 +68,10 @@
         <span>Build and install</span>
       </a>
     </li>
-    <li data-nav-id="/outcome/tutorial/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/" class="dd-item parent">
       <a href="/outcome/tutorial/">
-        <span>Tutorial</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>Tutorial</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
     <li data-nav-id="/outcome/tutorial/result/" class="dd-item">
@@ -90,37 +91,16 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/tutorial/outcome/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/outcome/" class="dd-item parent">
       <a href="/outcome/tutorial/outcome/">
-        <span>outcome&lt;T, EC, EP&gt;</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>outcome&lt;T, EC, EP&gt;</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
       <li data-nav-id="/outcome/tutorial/outcome/inspecting/" class="dd-item">
         <a href="/outcome/tutorial/outcome/inspecting/">
           <span>Inspecting outcome&lt;T, EC, EP&gt;</span>
         </a>
-    </li>
-    <li data-nav-id="/outcome/tutorial/outcome/payload/" class="dd-item">
-      <a href="/outcome/tutorial/outcome/payload/">
-        <span>Outcome with payload</span><i class="fa fa-angle-right fa-lg category-icon"></i>
-      </a>
-        <ul>
-      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file/" class="dd-item">
-        <a href="/outcome/tutorial/outcome/payload/copy_file/">
-          <span>The Filesystem TS</span>
-        </a>
-    </li>
-      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file2/" class="dd-item">
-        <a href="/outcome/tutorial/outcome/payload/copy_file2/">
-          <span>Upgrading the Filesystem TS</span>
-        </a>
-    </li>
-      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file3/" class="dd-item">
-        <a href="/outcome/tutorial/outcome/payload/copy_file3/">
-          <span>Throwing filesystem_error</span>
-        </a>
-    </li>
-        </ul>
     </li>
         </ul>
     </li>
@@ -179,7 +159,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/requirements/_index.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/outcome/payload/copy_file.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -196,7 +176,22 @@
 
 
 
- <a href='/outcome/'>Home</a> > Prerequisites
+
+
+
+
+
+
+
+
+
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/outcome/'>outcome<T, EC, EP></a> > <a href='/outcome/tutorial/outcome/payload/'>Outcome with payload</a> > The Filesystem TS
+
+ 
+
+ 
+
+ 
 
  
 
@@ -214,38 +209,52 @@
         
         <div id="body-inner">
           
-            <h1>Prerequisites</h1>
+            <h1>The Filesystem TS</h1>
           
 
 
 
 
-<p>Outcome is a header only C++ 14 library known to work on these compiler-platform combinations or better:</p>
+<p>To see how payload-transporting outcome might be useful, consider the
+<a href="http://en.cppreference.com/w/cpp/filesystem/copy_file"><code>copy_file()</code></a>
+API from the Filesystem TS:</p>
 
-<ul>
-<li>clang 4.0.1 (LLVM) [FreeBSD, Linux, OS X]</li>
-<li>GCC 6.3 [Linux]</li>
-<li>Visual Studio 2017 [Windows]</li>
-<li>XCode 9 [MacOS]</li>
-</ul>
+<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+<span class="s3e8">namespace</span> filesystem
+{
+  <span class="s1770">/*! Copies the file at path `from` to path `to`.
+</span><span class="s1770">  \returns True if file was successfully copied.
+</span><span class="s1770">  \throws On failure throws `filesystem_error(ec.message(), from, to, ec)` with
+</span><span class="s1770">  `ec` being the error code reported by the operating system.
+</span><span class="s1770">  */</span>
+  <span class="s3ee">bool</span> copy_file(<span class="s3e8">const</span> path &amp;from, <span class="s3e8">const</span> path &amp;to);
 
-<p>It is worth turning on C++ 17 if you can, there are many usability and performance improvements.
-If your compiler implements the Concepts TS, it is worth turning support on. Support is automatically
-detected and used.</p>
+  <span class="s1770">/*! Copies the file at path `from` to path `to`.
+</span><span class="s1770">  \returns True if file was successfully copied. If false, `ec` is written with
+</span><span class="s1770">  the error code reported by the operating system.
+</span><span class="s1770">  \throws Never throws.
+</span><span class="s1770">  */</span>
+  <span class="s3ee">bool</span> copy_file(<span class="s3e8">const</span> path &amp;from, <span class="s3e8">const</span> path &amp;to, std::error_code &amp;ec) <span class="s3e8">noexcept</span>;
+}
+</code></pre>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/outcome_payload.cpp#L19" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
-<p>Partially working compilers:</p>
 
-<ul>
-<li>GCC 5.4.1 is highly usable so long as you don&rsquo;t use Outcome in a <code>constexpr</code> evaluation context.</li>
-<li>clang 3.5 - 3.9 can compile varying degrees of the test suite, the problem is lack of complete and unbuggy C++ 14 language support.</li>
-</ul>
+<p>Before Outcome, the common design pattern was to provide throwing and non-throwing overloads
+of every API. As you can see above, the throwing API throws a <a href="http://en.cppreference.com/w/cpp/filesystem/filesystem_error"><code>filesystem::filesystem_error</code></a>
+exception type which carries additional information, specifically two paths. These paths may
+refer to the files which were the source of any failure. However the non-throwing overload
+does <strong>not</strong> provide this additional information, which can make it more annoying to use the
+non-throwing overload sometimes.</p>
+
+<p>What if we could replace these two overloads of every API in the Filesystem TS with a single API,
+and additionally have the non-throwing edition return the exact same additional information
+as the throwing edition?</p>
 
 
 <footer class=" footline" >
 	
 </footer>
-
-
 
 
 
@@ -260,8 +269,8 @@ detected and used.</p>
     
 
     <div id="navigation">
-        <a class="nav nav-prev" href="/outcome/" title="Home"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/build/" title="Build and install" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/outcome/tutorial/outcome/payload/" title="Outcome with payload"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/outcome/payload/copy_file2/" title="Upgrading the Filesystem TS" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>
@@ -286,3 +295,4 @@ detected and used.</p>
 
   </body>
 </html>
+

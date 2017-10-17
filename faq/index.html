@@ -100,6 +100,28 @@
           <span>Inspecting outcome&lt;T, EC, EP&gt;</span>
         </a>
     </li>
+    <li data-nav-id="/outcome/tutorial/outcome/payload/" class="dd-item">
+      <a href="/outcome/tutorial/outcome/payload/">
+        <span>Outcome with payload</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </a>
+        <ul>
+      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file/" class="dd-item">
+        <a href="/outcome/tutorial/outcome/payload/copy_file/">
+          <span>The Filesystem TS</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file2/" class="dd-item">
+        <a href="/outcome/tutorial/outcome/payload/copy_file2/">
+          <span>Upgrading the Filesystem TS</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file3/" class="dd-item">
+        <a href="/outcome/tutorial/outcome/payload/copy_file3/">
+          <span>Throwing filesystem_error</span>
+        </a>
+    </li>
+        </ul>
+    </li>
         </ul>
     </li>
       <li data-nav-id="/outcome/tutorial/error_code/" class="dd-item">
@@ -361,11 +383,17 @@ can be implemented by wrapping up <code>checked&lt;T, E&gt;</code> with the diff
   <span class="s3e8">constexpr</span> <span class="s3ee">void</span> <span class="s3e8">operator</span>-&gt;() <span class="s3e8">const</span> { base::assume_value(); }
 };
 <span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">E</span>&gt; <span class="s3e8">using</span> unexpected = OUTCOME_V2_NAMESPACE::failure_type&lt;E&gt;;
-<span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">E</span>&gt; unexpected&lt;E&gt; make_unexpected(E &amp;&amp;arg) { <span class="s3e8">return</span> OUTCOME_V2_NAMESPACE::failure&lt;E&gt;(std::forward&lt;E&gt;(arg)); }
-<span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">E</span>, class... Args&gt; unexpected&lt;E&gt; make_unexpected(Args &amp;&amp;... args) { <span class="s3e8">return</span> OUTCOME_V2_NAMESPACE::failure&lt;E&gt;(std::forward&lt;Args&gt;(args)...); }
+<span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">E</span>&gt; unexpected&lt;E&gt; make_unexpected(E &amp;&amp;arg)
+{
+  <span class="s3e8">return</span> OUTCOME_V2_NAMESPACE::failure&lt;E&gt;(std::forward&lt;E&gt;(arg));
+}
+<span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">E</span>, class... Args&gt; unexpected&lt;E&gt; make_unexpected(Args &amp;&amp;... args)
+{
+  <span class="s3e8">return</span> OUTCOME_V2_NAMESPACE::failure&lt;E&gt;(std::forward&lt;Args&gt;(args)...);
+}
 <span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">E</span>&gt; <span class="s3e8">using</span> bad_expected_access = OUTCOME_V2_NAMESPACE::bad_result_access_with&lt;E&gt;;
 </code></pre>
-</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/expected_implementation.cpp#L2" class="code-snippet-url" target="_blank">View this code on Github</a></div>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/expected_implementation.cpp#L4" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
 
 

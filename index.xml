@@ -10,6 +10,16 @@
     
     
     <item>
+      <title>The Filesystem TS</title>
+      <link>https://ned14.github.io/outcome/tutorial/outcome/payload/copy_file/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/outcome/payload/copy_file/</guid>
+      <description>To see how payload-transporting outcome might be useful, consider the copy_file() API from the Filesystem TS:
+namespace filesystem { /*! Copies the file at path `from` to path `to`. \returns True if file was successfully copied. \throws On failure throws `filesystem_error(ec.message(), from, to, ec)` with `ec` being the error code reported by the operating system. */ bool copy_file(const path &amp;amp;from, const path &amp;amp;to); /*! Copies the file at path `from` to path `to`.</description>
+    </item>
+    
+    <item>
       <title>Inspecting result&lt;T, EC&gt;</title>
       <link>https://ned14.github.io/outcome/tutorial/result/inspecting/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -17,6 +27,16 @@
       <guid>https://ned14.github.io/outcome/tutorial/result/inspecting/</guid>
       <description>Suppose we will be writing function print_half that takes an integral number (however big) represented as an std::string and outputs a number which is twice smaller:
 outcome::result&amp;lt;void&amp;gt; print_half(const std::string&amp;amp; text);  View this code on Github Type result&amp;lt;void&amp;gt; means that there is no value to be retuned upon success, but that the operation might still fail, and we may be interested in inspecting the cause of the failure. Class template result&amp;lt;&amp;gt; is declared with attribute [[nodiscard]], which means compiler will warn you if you forget to inspect the returned object (in C++ 17 or later).</description>
+    </item>
+    
+    <item>
+      <title>Upgrading the Filesystem TS</title>
+      <link>https://ned14.github.io/outcome/tutorial/outcome/payload/copy_file2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/outcome/payload/copy_file2/</guid>
+      <description>An Outcome based solution looks deceptively simple initially, but there is more to it than it appears.
+namespace filesystem2 { // Paths related to a failure. Also causes ADL discovery to check this namespace.  struct failure_info { path path1, path2; }; // Localise an outcome implementation specific to this namespace. Normally would just  // be `result`, but for clarity we&amp;#39;ll use `fs_result`.  template &amp;lt;class T&amp;gt; using fs_result = outcome::outcome&amp;lt;T, std::error_code, failure_info&amp;gt;; /*!</description>
     </item>
     
     <item>
@@ -39,6 +59,16 @@ namespace Layer3 { auto run() -&amp;gt; double // may throw  { if (outcome::outc
 OUTCOME_TRY (i, BigInt::fromString(text));  This control statement is raughly equivalent to:
 auto&amp;amp;&amp;amp; __result = BigInt::fromString(text); if (!__result) return __result.as_failure(); auto&amp;amp;&amp;amp; i = __result.value();  Where __result is a unique name.
 Additionally, in GCC and Clang which provide an extension to C++ known as statement expressions it is possible to use an alternative macro: OUTCOME_TRYX, which is an expression.</description>
+    </item>
+    
+    <item>
+      <title>Throwing filesystem_error</title>
+      <link>https://ned14.github.io/outcome/tutorial/outcome/payload/copy_file3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/outcome/payload/copy_file3/</guid>
+      <description>Telling Outcome how to throw a system error with payload is easy:
+namespace filesystem2 { // For outcome&amp;#39;s with error_code + payload configuration, this free function is discovered by ADL  // and called to implement throwing the error code with payload.  template &amp;lt;class T&amp;gt; inline void throw_as_system_error_with_payload(const fs_result&amp;lt;T&amp;gt; *src) { // Throw the exact same filesystem_error exception which the throwing copy_file() edition does.  throw filesystem_error(src-&amp;gt;error().message(), src-&amp;gt;payload().path1, src-&amp;gt;payload().path2, src-&amp;gt;error()); } }  View this code on Github Note that if you configure outcome&amp;lt;T, EC, P&amp;gt; in the error code + payload edition and forget to define this free function, if you then write code which could throw the error code + payload as an exception, you will get a helpful compile time error message reminding you that you have forgotten to define this function.</description>
     </item>
     
     <item>

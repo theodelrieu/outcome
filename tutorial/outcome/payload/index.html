@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title>Prerequisites :: Outcome documentation</title>
+    <title>Outcome with payload :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/requirements/">
+  <body class="" data-url="/outcome/tutorial/outcome/payload/">
     <nav id="sidebar" class=""><div class="highlightable">
   <div id="header-wrapper">
     <div id="header"> 
@@ -58,7 +58,7 @@
             <li data-nav-id="/outcome/" class="dd-item">
             <a href="/outcome/"><i class="fa fa-fw fa-home"></i></a>
             </li>
-    <li data-nav-id="/outcome/requirements/" class="dd-item parent active">
+    <li data-nav-id="/outcome/requirements/" class="dd-item">
       <a href="/outcome/requirements/">
         <span>Prerequisites</span>
       </a>
@@ -68,9 +68,10 @@
         <span>Build and install</span>
       </a>
     </li>
-    <li data-nav-id="/outcome/tutorial/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/" class="dd-item parent">
       <a href="/outcome/tutorial/">
-        <span>Tutorial</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>Tutorial</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
     <li data-nav-id="/outcome/tutorial/result/" class="dd-item">
@@ -90,9 +91,10 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/tutorial/outcome/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/outcome/" class="dd-item parent">
       <a href="/outcome/tutorial/outcome/">
-        <span>outcome&lt;T, EC, EP&gt;</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>outcome&lt;T, EC, EP&gt;</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
       <li data-nav-id="/outcome/tutorial/outcome/inspecting/" class="dd-item">
@@ -100,9 +102,10 @@
           <span>Inspecting outcome&lt;T, EC, EP&gt;</span>
         </a>
     </li>
-    <li data-nav-id="/outcome/tutorial/outcome/payload/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/outcome/payload/" class="dd-item parent active">
       <a href="/outcome/tutorial/outcome/payload/">
-        <span>Outcome with payload</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>Outcome with payload</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
       <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file/" class="dd-item">
@@ -179,7 +182,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/requirements/_index.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/outcome/payload/_index.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -196,7 +199,17 @@
 
 
 
- <a href='/outcome/'>Home</a> > Prerequisites
+
+
+
+
+
+
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/outcome/'>outcome<T, EC, EP></a> > Outcome with payload
+
+ 
+
+ 
 
  
 
@@ -214,31 +227,39 @@
         
         <div id="body-inner">
           
-            <h1>Prerequisites</h1>
+            <h1>Outcome with payload</h1>
           
 
 
 
 
-<p>Outcome is a header only C++ 14 library known to work on these compiler-platform combinations or better:</p>
+<p><code>outcome&lt;T, EC, EP&gt;</code> actually comes in two editions:</p>
 
 <ul>
-<li>clang 4.0.1 (LLVM) [FreeBSD, Linux, OS X]</li>
-<li>GCC 6.3 [Linux]</li>
-<li>Visual Studio 2017 [Windows]</li>
-<li>XCode 9 [MacOS]</li>
+<li>If <code>trait::is_exception_ptr&lt;EP&gt;</code> is true, you get the semantics we have seen already
+where any <code>EP</code> is rethrown before throwing a <code>system_error</code> exception made from <code>EC</code>.
+<code>EP</code> is accessed via a <code>.exception()</code> observer.</li>
+<li>If <code>trait::is_exception_ptr&lt;EP&gt;</code> is false, then <code>EP</code> is considered to be an additional
+payload accompanying the <code>EC</code>. In this situation, there is no <code>.exception()</code> observer,
+and instead there is a <code>.payload()</code> observer.</li>
 </ul>
 
-<p>It is worth turning on C++ 17 if you can, there are many usability and performance improvements.
-If your compiler implements the Concepts TS, it is worth turning support on. Support is automatically
-detected and used.</p>
+<p>It might seem strange that these two editions of <code>outcome&lt;&gt;</code> are not separate types,
+however they are in fact much more closely related than it appears initially.</p>
 
-<p>Partially working compilers:</p>
+<div class="mermaid" align="center" >
+graph LR
+    RESULT{"result#lt;T, EC#gt;"} --"result AND payload"--> OUTCOME1{"outcome#lt;T, EC, P#gt;"}
+    RESULT --"result OR exception_ptr"--> OUTCOME2{"outcome#lt;T, EC, EX#gt;"}
+    OUTCOME1 --> OUTCOME1a["if(has_payload())<br/>throw_as_system_error_with_payload();<br/>if(has_error())<br/>throw system_error(error());<br/>"]
+    OUTCOME2 --> OUTCOME2a["if(has_exception())<br/>rethrow_exception(exception());<br/>if(has_error())<br/>throw system_error(error());<br/>"]
+</div>
 
-<ul>
-<li>GCC 5.4.1 is highly usable so long as you don&rsquo;t use Outcome in a <code>constexpr</code> evaluation context.</li>
-<li>clang 3.5 - 3.9 can compile varying degrees of the test suite, the problem is lack of complete and unbuggy C++ 14 language support.</li>
-</ul>
+<p>The non-obvious part is that Outcome can be told how to convert an error code + payload
+into a customised exception throw i.e. to synthesise an exception ptr on demand. This
+is useful for a lot of reasons, not least that constructing an exception ptr is quite
+expensive (at least a few thousand CPU cycles), so constructing one just in case it might
+be thrown is therefore an unacceptable overhead.</p>
 
 
 <footer class=" footline" >
@@ -260,8 +281,8 @@ detected and used.</p>
     
 
     <div id="navigation">
-        <a class="nav nav-prev" href="/outcome/" title="Home"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/build/" title="Build and install" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/outcome/tutorial/outcome/inspecting/" title="Inspecting outcome&lt;T, EC, EP&gt;"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/outcome/payload/copy_file/" title="The Filesystem TS" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>

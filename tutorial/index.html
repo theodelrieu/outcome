@@ -101,6 +101,28 @@
           <span>Inspecting outcome&lt;T, EC, EP&gt;</span>
         </a>
     </li>
+    <li data-nav-id="/outcome/tutorial/outcome/payload/" class="dd-item">
+      <a href="/outcome/tutorial/outcome/payload/">
+        <span>Outcome with payload</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </a>
+        <ul>
+      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file/" class="dd-item">
+        <a href="/outcome/tutorial/outcome/payload/copy_file/">
+          <span>The Filesystem TS</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file2/" class="dd-item">
+        <a href="/outcome/tutorial/outcome/payload/copy_file2/">
+          <span>Upgrading the Filesystem TS</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file3/" class="dd-item">
+        <a href="/outcome/tutorial/outcome/payload/copy_file3/">
+          <span>Throwing filesystem_error</span>
+        </a>
+    </li>
+        </ul>
+    </li>
         </ul>
     </li>
       <li data-nav-id="/outcome/tutorial/error_code/" class="dd-item">
@@ -184,14 +206,7 @@
             </div>
             <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#todo-more-material-will-be-provided-in-time">TODO: more material will be provided in time&hellip;</a></li>
-</ul></li>
-</ul>
-</nav>
+
     </div>
 </div>
 
@@ -206,29 +221,10 @@
 
 
 
-
-
 <ol>
 <li><a href="result"><code>result&lt;T, EC&gt;</code></a></li>
 <li><a href="outcome"><code>outcome&lt;T, EC, EP&gt;</code></a></li>
 </ol>
-
-<h2 id="todo-more-material-will-be-provided-in-time">TODO: more material will be provided in time&hellip;</h2>
-
-<p>First we will need to dive into <code>result&lt;&gt;</code>.</p>
-
-<p>Then customizing <code>result</code> and using outcome&hellip;</p>
-
-<div class="mermaid" align="center" >
-graph TD
-    A1{"result#lt;T, E#gt;"} --"Success"--> B1["T value()"]
-    A1 --"Failure"--> C1["E error()"]
-    A2{"outcome#lt;T, EC, E|P#gt;"} --"Success"--> B2["T value()"]
-    A2 --"Failure"--> C2["EC error()"]
-    A2 --> D2(("Either"))
-    D2 --"Abort"--> E2["E exception()"]
-    D2 --"Payload"--> F2["P payload()"]
-</div>
 
 
 <footer class=" footline" >
