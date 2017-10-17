@@ -228,7 +228,8 @@
 <p>Gentle introduction to writing code with simple success-or-failure return types.</p>
 <ul><li>
 	<a href="/outcome/tutorial/result/inspecting/" >Inspecting result&lt;T, EC&gt;</a></li>
-<p></p><li>
+<p>Suppose we will be writing function print_half that takes an integral number (however big) represented as an std::string and outputs a number which is twice smaller:
+outcome::result&lt;void&gt; print_half(const std::string&amp; text);  View this code on Github Type result&lt;void&gt; means that there is no value to be retuned upon success, but that the operation might still fail, and we may be interested in inspecting the cause of the failure. Class template result&lt;&gt; is declared with attribute [[nodiscard]], which means compiler will warn you if you forget to inspect the returned object (in C++ 17 or later).</p><li>
 	<a href="/outcome/tutorial/result/try/" >TRY operations</a></li>
 <p></p>
 </ul><li>
@@ -242,10 +243,10 @@
 <p>Success-or-failure return types where extra information accompanies failure.</p>
 <ul><li>
 	<a href="/outcome/tutorial/payload/copy_file/" >The Filesystem TS</a></li>
-<p>To see how payload-transporting outcome might be useful, consider the copy_file() API from the Filesystem TS:
-namespace filesystem { /*! Copies the file at path `from` to path `to`. \returns True if file was successfully copied. \throws On failure throws `filesystem_error(ec.message(), from, to, ec)` with `ec` being the error code reported by the operating system. */ bool copy_file(const path &amp;from, const path &amp;to); /*! Copies the file at path `from` to path `to`.</p><li>
-	<a href="/outcome/tutorial/payload/copy_file2/" >Upgrading the Filesystem TS</a></li>
 <p></p><li>
+	<a href="/outcome/tutorial/payload/copy_file2/" >Upgrading the Filesystem TS</a></li>
+<p>An Outcome based solution looks deceptively simple initially, but there is more to it than it appears.
+namespace filesystem2 { // Paths related to a failure. Also causes ADL discovery to check this namespace.  struct failure_info { path path1, path2; }; // Localise an outcome implementation specific to this namespace. Normally would just  // be `result`, but for clarity we&#39;ll use `fs_result`.  template &lt;class T&gt; using fs_result = outcome::outcome&lt;T, std::error_code, failure_info&gt;; /*!</p><li>
 	<a href="/outcome/tutorial/payload/copy_file3/" >Throwing filesystem_error</a></li>
 <p></p>
 </ul><li>
