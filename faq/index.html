@@ -100,27 +100,27 @@
           <span>Inspecting outcome&lt;T, EC, EP&gt;</span>
         </a>
     </li>
-    <li data-nav-id="/outcome/tutorial/outcome/payload/" class="dd-item">
-      <a href="/outcome/tutorial/outcome/payload/">
-        <span>Outcome with payload</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        </ul>
+    </li>
+    <li data-nav-id="/outcome/tutorial/payload/" class="dd-item">
+      <a href="/outcome/tutorial/payload/">
+        <span>outcome&lt;T, EC, P&gt;</span><i class="fa fa-angle-right fa-lg category-icon"></i>
       </a>
         <ul>
-      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file/" class="dd-item">
-        <a href="/outcome/tutorial/outcome/payload/copy_file/">
+      <li data-nav-id="/outcome/tutorial/payload/copy_file/" class="dd-item">
+        <a href="/outcome/tutorial/payload/copy_file/">
           <span>The Filesystem TS</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file2/" class="dd-item">
-        <a href="/outcome/tutorial/outcome/payload/copy_file2/">
+      <li data-nav-id="/outcome/tutorial/payload/copy_file2/" class="dd-item">
+        <a href="/outcome/tutorial/payload/copy_file2/">
           <span>Upgrading the Filesystem TS</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file3/" class="dd-item">
-        <a href="/outcome/tutorial/outcome/payload/copy_file3/">
+      <li data-nav-id="/outcome/tutorial/payload/copy_file3/" class="dd-item">
+        <a href="/outcome/tutorial/payload/copy_file3/">
           <span>Throwing filesystem_error</span>
         </a>
-    </li>
-        </ul>
     </li>
         </ul>
     </li>
@@ -340,7 +340,7 @@ can be implemented by wrapping up <code>checked&lt;T, E&gt;</code> with the diff
 
   <span class="s1770">// Expected takes in_place not in_place_type
 </span><span class="s1770"></span>  <span class="s3e8">template</span> &lt;class... Args&gt;
-  <span class="s3e8">constexpr</span> <span class="s3e8">explicit</span> expected(in_place_t <span class="s1770">/*unused*/</span>, Args &amp;&amp;... args)
+  <span class="s3e8">constexpr</span> <span class="s3e8">explicit</span> expected(std::in_place_t <span class="s1770">/*unused*/</span>, Args &amp;&amp;... args)
       : base{OUTCOME_V2_NAMESPACE::in_place_type&lt;T&gt;, std::forward&lt;Args&gt;(args)...}
   {
   }

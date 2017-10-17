@@ -101,27 +101,27 @@
           <span>Inspecting outcome&lt;T, EC, EP&gt;</span>
         </a>
     </li>
-    <li data-nav-id="/outcome/tutorial/outcome/payload/" class="dd-item">
-      <a href="/outcome/tutorial/outcome/payload/">
-        <span>Outcome with payload</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        </ul>
+    </li>
+    <li data-nav-id="/outcome/tutorial/payload/" class="dd-item">
+      <a href="/outcome/tutorial/payload/">
+        <span>outcome&lt;T, EC, P&gt;</span><i class="fa fa-angle-right fa-lg category-icon"></i>
       </a>
         <ul>
-      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file/" class="dd-item">
-        <a href="/outcome/tutorial/outcome/payload/copy_file/">
+      <li data-nav-id="/outcome/tutorial/payload/copy_file/" class="dd-item">
+        <a href="/outcome/tutorial/payload/copy_file/">
           <span>The Filesystem TS</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file2/" class="dd-item">
-        <a href="/outcome/tutorial/outcome/payload/copy_file2/">
+      <li data-nav-id="/outcome/tutorial/payload/copy_file2/" class="dd-item">
+        <a href="/outcome/tutorial/payload/copy_file2/">
           <span>Upgrading the Filesystem TS</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/outcome/payload/copy_file3/" class="dd-item">
-        <a href="/outcome/tutorial/outcome/payload/copy_file3/">
+      <li data-nav-id="/outcome/tutorial/payload/copy_file3/" class="dd-item">
+        <a href="/outcome/tutorial/payload/copy_file3/">
           <span>Throwing filesystem_error</span>
         </a>
-    </li>
-        </ul>
     </li>
         </ul>
     </li>
@@ -221,10 +221,44 @@
 
 
 
-<ol>
-<li><a href="result"><code>result&lt;T, EC&gt;</code></a></li>
-<li><a href="outcome"><code>outcome&lt;T, EC, EP&gt;</code></a></li>
-</ol>
+
+
+<ul class="children children-li"><li>
+	<a href="/outcome/tutorial/result/" >result&lt;T, EC&gt;</a></li>
+<p>Gentle introduction to writing code with simple success-or-failure return types.</p>
+<ul><li>
+	<a href="/outcome/tutorial/result/inspecting/" >Inspecting result&lt;T, EC&gt;</a></li>
+<p></p><li>
+	<a href="/outcome/tutorial/result/try/" >TRY operations</a></li>
+<p></p>
+</ul><li>
+	<a href="/outcome/tutorial/outcome/" >outcome&lt;T, EC, EP&gt;</a></li>
+<p>Success-or-failure return types where failure can take two forms, expected failure and unexpected failure.</p>
+<ul><li>
+	<a href="/outcome/tutorial/outcome/inspecting/" >Inspecting outcome&lt;T, EC, EP&gt;</a></li>
+<p></p>
+</ul><li>
+	<a href="/outcome/tutorial/payload/" >outcome&lt;T, EC, P&gt;</a></li>
+<p>Success-or-failure return types where extra information accompanies failure.</p>
+<ul><li>
+	<a href="/outcome/tutorial/payload/copy_file/" >The Filesystem TS</a></li>
+<p>To see how payload-transporting outcome might be useful, consider the copy_file() API from the Filesystem TS:
+namespace filesystem { /*! Copies the file at path `from` to path `to`. \returns True if file was successfully copied. \throws On failure throws `filesystem_error(ec.message(), from, to, ec)` with `ec` being the error code reported by the operating system. */ bool copy_file(const path &amp;from, const path &amp;to); /*! Copies the file at path `from` to path `to`.</p><li>
+	<a href="/outcome/tutorial/payload/copy_file2/" >Upgrading the Filesystem TS</a></li>
+<p></p><li>
+	<a href="/outcome/tutorial/payload/copy_file3/" >Throwing filesystem_error</a></li>
+<p></p>
+</ul><li>
+	<a href="/outcome/tutorial/error_code/" >Custom error codes</a></li>
+<p>Illustrates how you can hook into the std::error_code system from the Standard Library in order to work with your own set of error codes.</p>
+<ul>
+</ul>
+</ul>
+
+
+
+
+
 
 
 <footer class=" footline" >
