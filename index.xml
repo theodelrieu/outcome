@@ -30,6 +30,16 @@ namespace filesystem { /*! Copies the file at path `from` to path `to`. \returns
     </item>
     
     <item>
+      <title>result&lt;udt, err&gt;.value()</title>
+      <link>https://ned14.github.io/outcome/tutorial/policies/happens/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/policies/happens/</guid>
+      <description>ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts 32767 ned@lyta:~/outcome/build_posix$  Apparently no exception was thrown? Correct. What actually happened was undefined behaviour. Let us turn on the undefined behaviour sanitiser and see what happens instead:
+ned@lyta:~/outcome/build_posix$ export UBSAN_OPTIONS=print_stacktrace=1 ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts /home/ned/outcome/doc/src/snippets/../../../include/outcome/policy/detail/common.hpp:42:9: runtime error: execution reached a __builtin_unreachable() call #0 0x42a0dc in outcome_v2_1c2d524c::policy::detail::base::_ub() (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x42a0dc) #1 0x42a028 in void outcome_v2_1c2d524c::policy::detail::base::narrow_value_check&amp;lt;outcome_v2_1c2d524c::detail::result_value_observers&amp;lt;outcome_v2_1c2d524c::detail::result_storage&amp;lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&amp;gt; &amp;gt;(outcome_v2_1c2d524c::detail::result_value_observers&amp;lt;outcome_v2_1c2d524c::detail::result_storage&amp;lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;*) (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x42a028) #2 0x429f0c in void outcome_v2_1c2d524c::policy::all_narrow::wide_value_check&amp;lt;outcome_v2_1c2d524c::detail::result_value_observers&amp;lt;outcome_v2_1c2d524c::detail::result_storage&amp;lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&amp;gt; &amp;gt;(outcome_v2_1c2d524c::detail::result_value_observers&amp;lt;outcome_v2_1c2d524c::detail::result_storage&amp;lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;*) (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x429f0c) #3 0x4298d6 in outcome_v2_1c2d524c::detail::result_value_observers&amp;lt;outcome_v2_1c2d524c::detail::result_storage&amp;lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;::value() &amp;amp; (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4298d6) #4 0x4295f1 in main (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4295f1) #5 0x7f3bd59c1f44 in __libc_start_main /build/eglibc-SvCtMH/eglibc-2.</description>
+    </item>
+    
+    <item>
       <title>ADL bridging</title>
       <link>https://ned14.github.io/outcome/tutorial/hooks/adl_bridging/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -145,7 +155,7 @@ But let&amp;rsquo;s keep going by intercepting any construction of our localised
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://ned14.github.io/outcome/credits/</guid>
-      <description>github contributors .ghContributors{ display:flex; flex-flow: wrap; align-content: flex-start } .ghContributors  div{ width: 50% ; display: inline-flex; margin-bottom: 5px; } .ghContributors  div label{ padding-left: 4px ; } .ghContributors  div span{ font-size: x-small; padding-left: 4px ; }   @ned14 684 commits   @akrzemi1 10 commits   @jenkins-nedprod 1 commits   This pretty, modern C++ documentation  Hugo - static website generator of this documentation. hugo-theme-docdock - the Hugo theme used by this documentation.</description>
+      <description>github contributors .ghContributors{ display:flex; flex-flow: wrap; align-content: flex-start } .ghContributors  div{ width: 50% ; display: inline-flex; margin-bottom: 5px; } .ghContributors  div label{ padding-left: 4px ; } .ghContributors  div span{ font-size: x-small; padding-left: 4px ; }  This pretty, modern C++ documentation  Hugo - static website generator of this documentation. hugo-theme-docdock - the Hugo theme used by this documentation. Standardese - the API reference generator  Special thanks To Paul Bristow who proposed the name &amp;ldquo;Outcome&amp;rdquo; for the library after a very extended period of name bikeshedding on boost-dev.</description>
     </item>
     
   </channel>

@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Hugo 0.29" />
-    <meta name="description" content="">
+    <meta name="description" content="Specifying how to deal with incorrect usage e.g. retrieving a value when no value is present.">
 
 
-    <title>TRY operations :: Outcome documentation</title>
+    <title>Policies :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/tutorial/result/try/">
+  <body class="" data-url="/outcome/tutorial/policies/">
     <nav id="sidebar" class=""><div class="highlightable">
   <div id="header-wrapper">
     <div id="header"> 
@@ -74,10 +74,9 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
-    <li data-nav-id="/outcome/tutorial/result/" class="dd-item parent">
+    <li data-nav-id="/outcome/tutorial/result/" class="dd-item">
       <a href="/outcome/tutorial/result/">
-        <span>result&lt;T, EC&gt;</span>
-            <i class="fa fa-angle-down fa-lg category-icon"></i>
+        <span>result&lt;T, EC&gt;</span><i class="fa fa-angle-right fa-lg category-icon"></i>
       </a>
         <ul>
       <li data-nav-id="/outcome/tutorial/result/inspecting/" class="dd-item">
@@ -85,7 +84,7 @@
           <span>Inspecting result&lt;T, EC&gt;</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/result/try/" class="dd-item active">
+      <li data-nav-id="/outcome/tutorial/result/try/" class="dd-item">
         <a href="/outcome/tutorial/result/try/">
           <span>TRY operations</span>
         </a>
@@ -158,9 +157,10 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/tutorial/policies/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/policies/" class="dd-item parent active">
       <a href="/outcome/tutorial/policies/">
-        <span>Policies</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>Policies</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
       <li data-nav-id="/outcome/tutorial/policies/happens/" class="dd-item">
@@ -225,7 +225,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/result/try.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/policies/_index.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -245,12 +245,7 @@
 
 
 
-
-
-
- <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/result/'>result<T, EC></a> > TRY operations
-
- 
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > Policies
 
  
 
@@ -270,65 +265,78 @@
         
         <div id="body-inner">
           
-            <h1>TRY operations</h1>
+            <h1>Policies</h1>
           
 
 
 
 
-<p>In the implementation of function <code>print_half</code> we have seen the usage of the macro <code>OUTCOME_TRY</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">OUTCOME_TRY (i, BigInt::fromString(text));</code></pre>
-</div>
-<p>This control statement is raughly equivalent to:</p>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="s3e8">auto</span>&amp;&amp; __result = BigInt::fromString(text);
-<span class="s3e8">if</span> (!__result)
-  <span class="s3e8">return</span> __result.as_failure();
-<span class="s3e8">auto</span>&amp;&amp; i = __result.value();</code></pre>
-</div>
-<p>Where <code>__result</code> is a unique name.</p>
+<p>Something the tutorial has not mentioned yet is what happens if your <code>EC</code> type is not
+an error code nor an error code enum.</p>
 
-<p>Additionally, in GCC and Clang which provide an extension to C++ known as
-<a href="https://gcc.gnu.org/onlinedocs/gcc/Statement-Exprs.html" title="GCC docs on statement expressions">statement expressions</a>
-it is possible to use an alternative macro: <code>OUTCOME_TRYX</code>, which is an expression. With the above macro, the above declaration of variable <code>i</code> can be rewritten to:</p>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="s3ee">int</span> i = OUTCOME_TRYX (BigInt::fromString(text));</code></pre>
-</div>
-<p>This has an advantage that you can use it any place where you can put an expression, e.g., in &ldquo;simple initialization&rdquo;:</p>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="s3e8">if</span> (<span class="s3ee">int</span> i = OUTCOME_TRYX(BigInt::fromString(text)))
-  use_a_non_zero_int(i);</code></pre>
-</div>
-<p>or in as a subexpression of a bigger full expression:</p>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="s3ee">int</span> ans = OUTCOME_TRYX(BigInt::fromString(<span class="sc1c"></span><span class="sc1c">&#34;1&#34;</span>)) + OUTCOME_TRYX(BigInt::fromString(<span class="sc1c"></span><span class="sc1c">&#34;2&#34;</span>));</code></pre>
-</div>
-<div class="notices note" ><p>This macro makes use of a proprietary extension in GCC and clang and is not
-portable. The macro is not made available on unsupported compilers,
-so you can test for its presence using <code>#ifdef OUTCOME_TRYX</code>.</p>
-</div>
-
-
-<p>Macro <code>OUTCOME_TRY</code> does two things:
-1. It extracts a <code>T</code> from <code>result&lt;T&gt;</code> (or <code>outcome&lt;T&gt;</code>).
-2. It declares a dependency between statements: If the &ldquo;tried&rdquo; statement fails, the next statement is not executed.</p>
-
-<p>When you are calling functions that return <code>result&lt;void&gt;</code> the first of the two things does not make sense. You then have to use macro <code>OUTCOME_TRYV</code> instead. Let&rsquo;s use our function <code>print_half</code>:</p>
+<p>So, let us imagine a some user
+defined type (UDT) and some arbitrary error type:</p>
 
 <div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
-outcome::result&lt;<span class="s3ee">void</span>&gt; test()
-{
-  OUTCOME_TRYV (print_half(<span class="sc1c"></span><span class="sc1c">&#34;2&#34;</span>));
-  OUTCOME_TRYV (print_half(<span class="sc1c"></span><span class="sc1c">&#34;X&#34;</span>));
-  OUTCOME_TRYV (print_half(<span class="sc1c"></span><span class="sc1c">&#34;4&#34;</span>)); <span class="s1770">// will not execute
-</span><span class="s1770"></span>  <span class="s3e8">return</span> outcome::success();
-}
+  <span class="s3e8">struct</span> udt
+  {
+    <span class="s3ee">int</span> a{0};
+    <span class="s3e8">explicit</span> udt(<span class="s3ee">int</span> _a)
+        : a(_a)
+    {
+    }
+    udt() = <span class="s3e8">default</span>;
+    <span class="s3ee">int</span> <span class="s3e8">operator</span>*() <span class="s3e8">const</span> { <span class="s3e8">return</span> a; }
+  };
+
+  <span class="s3e8">struct</span> err
+  {
+    <span class="s3ee">int</span> a{0};
+    <span class="s3e8">explicit</span> err(<span class="s3ee">int</span> _a)
+        : a(_a)
+    {
+    }
+    err() = <span class="s3e8">default</span>;
+  };
 </code></pre>
-</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/using_result.cpp#L138" class="code-snippet-url" target="_blank">View this code on Github</a></div>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/udts.cpp#L32" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
 
-<p>The first statement will succeed. The second statement will &ldquo;fail&rdquo;, i.e. it will return an <em>errored</em> result. This will cause an immediate return and the subsequent statements will be skipped.</p>
+<p>Firstly, note that both the <code>udt</code> and <code>err</code> types can be constructed from an <code>int</code>.
+Thus this won&rsquo;t compile:</p>
+
+<p><div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+  result&lt;udt, err&gt; res(5);  <span class="s1770">// fails to compile, cannot convert &#39;int&#39; to result
+</span><span class="s1770"></span></code></pre>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/udts.cpp#L55" class="code-snippet-url" target="_blank">View this code on Github</a></div>
+</p>
+
+<p>This is because all the implicit constructors self-disable because it could be ambiguous whether you
+might mean <code>udt</code> or <code>err</code>. This is not a problem, it just requires typing some more so you
+are explicit as to which you intend:</p>
+
+<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+  <span class="s1770">// When it is not unambiguous which to construct, we must say which we want same as with std::variant&lt;&gt;
+</span><span class="s1770"></span>  result&lt;udt, err&gt; res(in_place_type&lt;err&gt;, 5);
+  </code></pre>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/udts.cpp#L59" class="code-snippet-url" target="_blank">View this code on Github</a></div>
+
+
+<p>Now, what do you think will happen if we try to retrieve a <code>udt</code> from this <code>result</code> holding an <code>err</code>?</p>
+
+<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+  <span class="s1770">// What happens here? What exception type is thrown?
+</span><span class="s1770"></span>  std::cout &lt;&lt; *res.value() &lt;&lt; std::endl;
+  </code></pre>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/udts.cpp#L63" class="code-snippet-url" target="_blank">View this code on Github</a></div>
+
 
 
 <footer class=" footline" >
 	
 </footer>
+
+
 
 
 
@@ -343,8 +351,8 @@ outcome::result&lt;<span class="s3ee">void</span>&gt; test()
     
 
     <div id="navigation">
-        <a class="nav nav-prev" href="/outcome/tutorial/result/inspecting/" title="Inspecting result&lt;T, EC&gt;"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/tutorial/outcome/" title="outcome&lt;T, EC, EP&gt;" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/outcome/tutorial/hooks/hook_outcome/" title="Hook outcome"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/policies/happens/" title="result&lt;udt, err&gt;.value()" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>
@@ -369,4 +377,3 @@ outcome::result&lt;<span class="s3ee">void</span>&gt; test()
 
   </body>
 </html>
-

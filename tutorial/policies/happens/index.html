@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title>TRY operations :: Outcome documentation</title>
+    <title>result&lt;udt, err&gt;.value() :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/tutorial/result/try/">
+  <body class="" data-url="/outcome/tutorial/policies/happens/">
     <nav id="sidebar" class=""><div class="highlightable">
   <div id="header-wrapper">
     <div id="header"> 
@@ -74,10 +74,9 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
-    <li data-nav-id="/outcome/tutorial/result/" class="dd-item parent">
+    <li data-nav-id="/outcome/tutorial/result/" class="dd-item">
       <a href="/outcome/tutorial/result/">
-        <span>result&lt;T, EC&gt;</span>
-            <i class="fa fa-angle-down fa-lg category-icon"></i>
+        <span>result&lt;T, EC&gt;</span><i class="fa fa-angle-right fa-lg category-icon"></i>
       </a>
         <ul>
       <li data-nav-id="/outcome/tutorial/result/inspecting/" class="dd-item">
@@ -85,7 +84,7 @@
           <span>Inspecting result&lt;T, EC&gt;</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/result/try/" class="dd-item active">
+      <li data-nav-id="/outcome/tutorial/result/try/" class="dd-item">
         <a href="/outcome/tutorial/result/try/">
           <span>TRY operations</span>
         </a>
@@ -158,12 +157,13 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/tutorial/policies/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/policies/" class="dd-item parent">
       <a href="/outcome/tutorial/policies/">
-        <span>Policies</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>Policies</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
-      <li data-nav-id="/outcome/tutorial/policies/happens/" class="dd-item">
+      <li data-nav-id="/outcome/tutorial/policies/happens/" class="dd-item active">
         <a href="/outcome/tutorial/policies/happens/">
           <span>result&lt;udt, err&gt;.value()</span>
         </a>
@@ -225,7 +225,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/result/try.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/policies/happens.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -248,7 +248,7 @@
 
 
 
- <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/result/'>result<T, EC></a> > TRY operations
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/policies/'>Policies</a> > result<udt, err>.value()
 
  
 
@@ -270,60 +270,31 @@
         
         <div id="body-inner">
           
-            <h1>TRY operations</h1>
+            <h1>result&lt;udt, err&gt;.value()</h1>
           
 
 
 
 
-<p>In the implementation of function <code>print_half</code> we have seen the usage of the macro <code>OUTCOME_TRY</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">OUTCOME_TRY (i, BigInt::fromString(text));</code></pre>
-</div>
-<p>This control statement is raughly equivalent to:</p>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="s3e8">auto</span>&amp;&amp; __result = BigInt::fromString(text);
-<span class="s3e8">if</span> (!__result)
-  <span class="s3e8">return</span> __result.as_failure();
-<span class="s3e8">auto</span>&amp;&amp; i = __result.value();</code></pre>
-</div>
-<p>Where <code>__result</code> is a unique name.</p>
-
-<p>Additionally, in GCC and Clang which provide an extension to C++ known as
-<a href="https://gcc.gnu.org/onlinedocs/gcc/Statement-Exprs.html" title="GCC docs on statement expressions">statement expressions</a>
-it is possible to use an alternative macro: <code>OUTCOME_TRYX</code>, which is an expression. With the above macro, the above declaration of variable <code>i</code> can be rewritten to:</p>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="s3ee">int</span> i = OUTCOME_TRYX (BigInt::fromString(text));</code></pre>
-</div>
-<p>This has an advantage that you can use it any place where you can put an expression, e.g., in &ldquo;simple initialization&rdquo;:</p>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="s3e8">if</span> (<span class="s3ee">int</span> i = OUTCOME_TRYX(BigInt::fromString(text)))
-  use_a_non_zero_int(i);</code></pre>
-</div>
-<p>or in as a subexpression of a bigger full expression:</p>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="s3ee">int</span> ans = OUTCOME_TRYX(BigInt::fromString(<span class="sc1c"></span><span class="sc1c">&#34;1&#34;</span>)) + OUTCOME_TRYX(BigInt::fromString(<span class="sc1c"></span><span class="sc1c">&#34;2&#34;</span>));</code></pre>
-</div>
-<div class="notices note" ><p>This macro makes use of a proprietary extension in GCC and clang and is not
-portable. The macro is not made available on unsupported compilers,
-so you can test for its presence using <code>#ifdef OUTCOME_TRYX</code>.</p>
-</div>
-
-
-<p>Macro <code>OUTCOME_TRY</code> does two things:
-1. It extracts a <code>T</code> from <code>result&lt;T&gt;</code> (or <code>outcome&lt;T&gt;</code>).
-2. It declares a dependency between statements: If the &ldquo;tried&rdquo; statement fails, the next statement is not executed.</p>
-
-<p>When you are calling functions that return <code>result&lt;void&gt;</code> the first of the two things does not make sense. You then have to use macro <code>OUTCOME_TRYV</code> instead. Let&rsquo;s use our function <code>print_half</code>:</p>
-
-<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
-outcome::result&lt;<span class="s3ee">void</span>&gt; test()
-{
-  OUTCOME_TRYV (print_half(<span class="sc1c"></span><span class="sc1c">&#34;2&#34;</span>));
-  OUTCOME_TRYV (print_half(<span class="sc1c"></span><span class="sc1c">&#34;X&#34;</span>));
-  OUTCOME_TRYV (print_half(<span class="sc1c"></span><span class="sc1c">&#34;4&#34;</span>)); <span class="s1770">// will not execute
-</span><span class="s1770"></span>  <span class="s3e8">return</span> outcome::success();
-}
+<pre><code>ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts
+32767
+ned@lyta:~/outcome/build_posix$
 </code></pre>
-</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/using_result.cpp#L138" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
+<p>Apparently no exception was thrown? Correct. What actually happened was <em>undefined behaviour</em>. Let us
+turn on the undefined behaviour sanitiser and see what happens instead:</p>
 
-<p>The first statement will succeed. The second statement will &ldquo;fail&rdquo;, i.e. it will return an <em>errored</em> result. This will cause an immediate return and the subsequent statements will be skipped.</p>
+<pre><code>ned@lyta:~/outcome/build_posix$ export UBSAN_OPTIONS=print_stacktrace=1
+ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts
+/home/ned/outcome/doc/src/snippets/../../../include/outcome/policy/detail/common.hpp:42:9: runtime error: execution reached a __builtin_unreachable() call
+    #0 0x42a0dc in outcome_v2_1c2d524c::policy::detail::base::_ub() (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x42a0dc)
+    #1 0x42a028 in void outcome_v2_1c2d524c::policy::detail::base::narrow_value_check&lt;outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt; &gt;(outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt;*) (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x42a028)
+    #2 0x429f0c in void outcome_v2_1c2d524c::policy::all_narrow::wide_value_check&lt;outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt; &gt;(outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt;*) (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x429f0c)
+    #3 0x4298d6 in outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt;::value() &amp; (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4298d6)
+    #4 0x4295f1 in main (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4295f1)
+    #5 0x7f3bd59c1f44 in __libc_start_main /build/eglibc-SvCtMH/eglibc-2.19/csu/libc-start.c:287
+    #6 0x4030c3 in _start (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4030c3)
+</code></pre>
 
 
 <footer class=" footline" >
@@ -343,8 +314,8 @@ outcome::result&lt;<span class="s3ee">void</span>&gt; test()
     
 
     <div id="navigation">
-        <a class="nav nav-prev" href="/outcome/tutorial/result/inspecting/" title="Inspecting result&lt;T, EC&gt;"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/tutorial/outcome/" title="outcome&lt;T, EC, EP&gt;" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/outcome/tutorial/policies/" title="Policies"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/error_code/" title="Custom error codes" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>
