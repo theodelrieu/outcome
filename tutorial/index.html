@@ -125,6 +125,28 @@
     </li>
         </ul>
     </li>
+    <li data-nav-id="/outcome/tutorial/default-actions/" class="dd-item">
+      <a href="/outcome/tutorial/default-actions/">
+        <span>Default actions</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </a>
+        <ul>
+      <li data-nav-id="/outcome/tutorial/default-actions/udt-err/" class="dd-item">
+        <a href="/outcome/tutorial/default-actions/udt-err/">
+          <span>User defined error types</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/default-actions/enums/" class="dd-item">
+        <a href="/outcome/tutorial/default-actions/enums/">
+          <span>result&lt;udt, err&gt;.value()</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/default-actions/happens/" class="dd-item">
+        <a href="/outcome/tutorial/default-actions/happens/">
+          <span>result&lt;udt, err&gt;.value()</span>
+        </a>
+    </li>
+        </ul>
+    </li>
     <li data-nav-id="/outcome/tutorial/hooks/" class="dd-item">
       <a href="/outcome/tutorial/hooks/">
         <span>Hooking events</span><i class="fa fa-angle-right fa-lg category-icon"></i>
@@ -153,18 +175,6 @@
       <li data-nav-id="/outcome/tutorial/hooks/hook_outcome/" class="dd-item">
         <a href="/outcome/tutorial/hooks/hook_outcome/">
           <span>Hook outcome</span>
-        </a>
-    </li>
-        </ul>
-    </li>
-    <li data-nav-id="/outcome/tutorial/policies/" class="dd-item">
-      <a href="/outcome/tutorial/policies/">
-        <span>Policies</span><i class="fa fa-angle-right fa-lg category-icon"></i>
-      </a>
-        <ul>
-      <li data-nav-id="/outcome/tutorial/policies/happens/" class="dd-item">
-        <a href="/outcome/tutorial/policies/happens/">
-          <span>result&lt;udt, err&gt;.value()</span>
         </a>
     </li>
         </ul>
@@ -293,28 +303,29 @@ namespace filesystem { /*! Copies the file at path `from` to path `to`. \returns
 	<a href="/outcome/tutorial/payload/copy_file3/" >Throwing filesystem_error</a></li>
 <p></p>
 </ul><li>
+	<a href="/outcome/tutorial/default-actions/" >Default actions</a></li>
+<p>The default rules for handling different categories of failure type</p>
+<ul><li>
+	<a href="/outcome/tutorial/default-actions/udt-err/" >User defined error types</a></li>
+<p></p><li>
+	<a href="/outcome/tutorial/default-actions/enums/" >result&lt;udt, err&gt;.value()</a></li>
+<p></p><li>
+	<a href="/outcome/tutorial/default-actions/happens/" >result&lt;udt, err&gt;.value()</a></li>
+<p></p>
+</ul><li>
 	<a href="/outcome/tutorial/hooks/" >Hooking events</a></li>
 <p>Intercepting useful events such as initial construction, copies and moves so you can capture backtraces, fire debug breakpoints etc.</p>
 <ul><li>
 	<a href="/outcome/tutorial/hooks/keeping_state/" >Keeping state</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/hooks/adl_bridging/" >ADL bridging</a></li>
-<p>In the previous section outcome&lt;T, EC, P&gt;, we used the failure_info type to create the ADL bridge into the namespace where the ADL discovered throw_as_system_error_with_payload() function was to be found.
-Here we do the same, but more directly by creating a thin clone of std::error_code into the local namespace. This ensures that this namespace will be searched by the compiler when discovering the event hooks.
-namespace error_code_extended { // Use the error_code type as the ADL bridge for the hooks by creating a type here  // It can be any type that your localised result uses, including the value type but  // by localising the error code type here you prevent nasty surprises later when the  // value type you use doesn&#39;t trigger the ADL bridge.</p><li>
+<p></p><li>
 	<a href="/outcome/tutorial/hooks/hook_result/" >Hook result</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/hooks/poke_exception/" >Custom exception ptr</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/hooks/hook_outcome/" >Hook outcome</a></li>
 <p></p>
-</ul><li>
-	<a href="/outcome/tutorial/policies/" >Policies</a></li>
-<p>Specifying how to deal with incorrect usage e.g. retrieving a value when no value is present.</p>
-<ul><li>
-	<a href="/outcome/tutorial/policies/happens/" >result&lt;udt, err&gt;.value()</a></li>
-<p>ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts 32767 ned@lyta:~/outcome/build_posix$  Apparently no exception was thrown? Correct. What actually happened was undefined behaviour. Let us turn on the undefined behaviour sanitiser and see what happens instead:
-ned@lyta:~/outcome/build_posix$ export UBSAN_OPTIONS=print_stacktrace=1 ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts /home/ned/outcome/doc/src/snippets/../../../include/outcome/policy/detail/common.hpp:42:9: runtime error: execution reached a __builtin_unreachable() call #0 0x42a0dc in outcome_v2_1c2d524c::policy::detail::base::_ub() (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x42a0dc) #1 0x42a028 in void outcome_v2_1c2d524c::policy::detail::base::narrow_value_check&lt;outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt; &gt;(outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt;*) (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x42a028) #2 0x429f0c in void outcome_v2_1c2d524c::policy::all_narrow::wide_value_check&lt;outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt; &gt;(outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt;*) (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x429f0c) #3 0x4298d6 in outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt;::value() &amp; (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4298d6) #4 0x4295f1 in main (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4295f1) #5 0x7f3bd59c1f44 in __libc_start_main /build/eglibc-SvCtMH/eglibc-2.</p>
 </ul><li>
 	<a href="/outcome/tutorial/error_code/" >Custom error codes</a></li>
 <p>Illustrates how you can hook into the std::error_code system from the Standard Library in order to work with your own set of error codes.</p>

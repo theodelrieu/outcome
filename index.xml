@@ -10,6 +10,16 @@
     
     
     <item>
+      <title>User defined error types</title>
+      <link>https://ned14.github.io/outcome/tutorial/default-actions/udt-err/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/default-actions/udt-err/</guid>
+      <description>So, let us imagine a some user defined type (UDT) and some arbitrary error type:
+struct udt { int a{0}; explicit udt(int _a) : a(_a) { } udt() = default; int operator*() const { return a; } }; struct err { int a{0}; explicit err(int _a) : a(_a) { } err() = default; };  View this code on Github Firstly, note that both the udt and err types can be constructed from an int.</description>
+    </item>
+    
+    <item>
       <title>Keeping state</title>
       <link>https://ned14.github.io/outcome/tutorial/hooks/keeping_state/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -31,11 +41,25 @@ namespace filesystem { /*! Copies the file at path `from` to path `to`. \returns
     
     <item>
       <title>result&lt;udt, err&gt;.value()</title>
-      <link>https://ned14.github.io/outcome/tutorial/policies/happens/</link>
+      <link>https://ned14.github.io/outcome/tutorial/default-actions/enums/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://ned14.github.io/outcome/tutorial/policies/happens/</guid>
-      <description>ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts 32767 ned@lyta:~/outcome/build_posix$  Apparently no exception was thrown? Correct. What actually happened was undefined behaviour. Let us turn on the undefined behaviour sanitiser and see what happens instead:
+      <guid>https://ned14.github.io/outcome/tutorial/default-actions/enums/</guid>
+      <description>ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts 32767 ned@lyta:~/outcome/build_posix$  Apparently no exception was thrown? Correct.
+It is very likely, given the contents of the tutorial to date, that you will find this surprising. This is because the default action for a user-defined error type is undefined behaviour.
+Let&amp;rsquo;s demonstrate this by running the code under the undefined behaviour sanitiser and see what happens instead:
+ned@lyta:~/outcome/build_posix$ export UBSAN_OPTIONS=print_stacktrace=1 ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts /home/ned/outcome/doc/src/snippets/../../../include/outcome/policy/detail/common.hpp:42:9: runtime error: execution reached a __builtin_unreachable() call #0 0x42a0dc in outcome_v2_1c2d524c::policy::detail::base::_ub() (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x42a0dc) #1 0x42a028 in void outcome_v2_1c2d524c::policy::detail::base::narrow_value_check&amp;lt;outcome_v2_1c2d524c::detail::result_value_observers&amp;lt;outcome_v2_1c2d524c::detail::result_storage&amp;lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&amp;gt; &amp;gt;(outcome_v2_1c2d524c::detail::result_value_observers&amp;lt;outcome_v2_1c2d524c::detail::result_storage&amp;lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;*) (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x42a028) #2 0x429f0c in void outcome_v2_1c2d524c::policy::all_narrow::wide_value_check&amp;lt;outcome_v2_1c2d524c::detail::result_value_observers&amp;lt;outcome_v2_1c2d524c::detail::result_storage&amp;lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&amp;gt; &amp;gt;(outcome_v2_1c2d524c::detail::result_value_observers&amp;lt;outcome_v2_1c2d524c::detail::result_storage&amp;lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;*) (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x429f0c) #3 0x4298d6 in outcome_v2_1c2d524c::detail::result_value_observers&amp;lt;outcome_v2_1c2d524c::detail::result_storage&amp;lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;::value() &amp;amp; (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4298d6) #4 0x4295f1 in main (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4295f1) #5 0x7f3bd59c1f44 in __libc_start_main /build/eglibc-SvCtMH/eglibc-2.</description>
+    </item>
+    
+    <item>
+      <title>result&lt;udt, err&gt;.value()</title>
+      <link>https://ned14.github.io/outcome/tutorial/default-actions/happens/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/default-actions/happens/</guid>
+      <description>ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts 32767 ned@lyta:~/outcome/build_posix$  Apparently no exception was thrown? Correct.
+It is very likely, given the contents of the tutorial to date, that you will find this surprising. This is because the default action for a user-defined error type is undefined behaviour.
+Let&amp;rsquo;s demonstrate this by running the code under the undefined behaviour sanitiser and see what happens instead:
 ned@lyta:~/outcome/build_posix$ export UBSAN_OPTIONS=print_stacktrace=1 ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts /home/ned/outcome/doc/src/snippets/../../../include/outcome/policy/detail/common.hpp:42:9: runtime error: execution reached a __builtin_unreachable() call #0 0x42a0dc in outcome_v2_1c2d524c::policy::detail::base::_ub() (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x42a0dc) #1 0x42a028 in void outcome_v2_1c2d524c::policy::detail::base::narrow_value_check&amp;lt;outcome_v2_1c2d524c::detail::result_value_observers&amp;lt;outcome_v2_1c2d524c::detail::result_storage&amp;lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&amp;gt; &amp;gt;(outcome_v2_1c2d524c::detail::result_value_observers&amp;lt;outcome_v2_1c2d524c::detail::result_storage&amp;lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;*) (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x42a028) #2 0x429f0c in void outcome_v2_1c2d524c::policy::all_narrow::wide_value_check&amp;lt;outcome_v2_1c2d524c::detail::result_value_observers&amp;lt;outcome_v2_1c2d524c::detail::result_storage&amp;lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&amp;gt; &amp;gt;(outcome_v2_1c2d524c::detail::result_value_observers&amp;lt;outcome_v2_1c2d524c::detail::result_storage&amp;lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;*) (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x429f0c) #3 0x4298d6 in outcome_v2_1c2d524c::detail::result_value_observers&amp;lt;outcome_v2_1c2d524c::detail::result_storage&amp;lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&amp;gt;::value() &amp;amp; (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4298d6) #4 0x4295f1 in main (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4295f1) #5 0x7f3bd59c1f44 in __libc_start_main /build/eglibc-SvCtMH/eglibc-2.</description>
     </item>
     

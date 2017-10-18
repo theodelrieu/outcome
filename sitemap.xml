@@ -11,6 +11,10 @@
   </url>
   
   <url>
+    <loc>https://ned14.github.io/outcome/tutorial/default-actions/udt-err/</loc>
+  </url>
+  
+  <url>
     <loc>https://ned14.github.io/outcome/tutorial/hooks/keeping_state/</loc>
   </url>
   
@@ -27,7 +31,11 @@
   </url>
   
   <url>
-    <loc>https://ned14.github.io/outcome/tutorial/policies/happens/</loc>
+    <loc>https://ned14.github.io/outcome/tutorial/default-actions/enums/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/tutorial/default-actions/happens/</loc>
   </url>
   
   <url>
@@ -75,15 +83,15 @@
   </url>
   
   <url>
+    <loc>https://ned14.github.io/outcome/tutorial/default-actions/</loc>
+  </url>
+  
+  <url>
     <loc>https://ned14.github.io/outcome/tutorial/hooks/hook_outcome/</loc>
   </url>
   
   <url>
     <loc>https://ned14.github.io/outcome/tutorial/hooks/</loc>
-  </url>
-  
-  <url>
-    <loc>https://ned14.github.io/outcome/tutorial/policies/</loc>
   </url>
   
   <url>

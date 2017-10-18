@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title>Custom exception ptr :: Outcome documentation</title>
+    <title>result&lt;udt, err&gt;.value() :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/tutorial/hooks/poke_exception/">
+  <body class="" data-url="/outcome/tutorial/default-actions/enums/">
     <nav id="sidebar" class=""><div class="highlightable">
   <div id="header-wrapper">
     <div id="header"> 
@@ -125,9 +125,10 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/tutorial/default-actions/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/default-actions/" class="dd-item parent">
       <a href="/outcome/tutorial/default-actions/">
-        <span>Default actions</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>Default actions</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
       <li data-nav-id="/outcome/tutorial/default-actions/udt-err/" class="dd-item">
@@ -135,7 +136,7 @@
           <span>User defined error types</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/default-actions/enums/" class="dd-item">
+      <li data-nav-id="/outcome/tutorial/default-actions/enums/" class="dd-item active">
         <a href="/outcome/tutorial/default-actions/enums/">
           <span>result&lt;udt, err&gt;.value()</span>
         </a>
@@ -147,10 +148,9 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/tutorial/hooks/" class="dd-item parent">
+    <li data-nav-id="/outcome/tutorial/hooks/" class="dd-item">
       <a href="/outcome/tutorial/hooks/">
-        <span>Hooking events</span>
-            <i class="fa fa-angle-down fa-lg category-icon"></i>
+        <span>Hooking events</span><i class="fa fa-angle-right fa-lg category-icon"></i>
       </a>
         <ul>
       <li data-nav-id="/outcome/tutorial/hooks/keeping_state/" class="dd-item">
@@ -168,7 +168,7 @@
           <span>Hook result</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/hooks/poke_exception/" class="dd-item active">
+      <li data-nav-id="/outcome/tutorial/hooks/poke_exception/" class="dd-item">
         <a href="/outcome/tutorial/hooks/poke_exception/">
           <span>Custom exception ptr</span>
         </a>
@@ -235,7 +235,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/hooks/poke_exception.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/default-actions/enums.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -258,7 +258,7 @@
 
 
 
- <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/hooks/'>Hooking events</a> > Custom exception ptr
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/default-actions/'>Default actions</a> > result<udt, err>.value()
 
  
 
@@ -280,66 +280,37 @@
         
         <div id="body-inner">
           
-            <h1>Custom exception ptr</h1>
+            <h1>result&lt;udt, err&gt;.value()</h1>
           
 
 
 
 
-<p>If you merely want <code>result</code> to capture stack backtraces without calling a memory allocator
-and retaining any triviality of copy which is important for optimisation,
-you already have everything you need.</p>
-
-<p>But let&rsquo;s keep going by intercepting any
-construction of our localised <code>outcome</code> from our localised <code>result</code>, retrieving any
-stored backtrace and using it to synthesise an exception ptr with a message text
-including the backtrace. Firstly let us look at the function which synthesises
-the exception ptr:</p>
-
-<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
-<span class="s3e8">namespace</span> error_code_extended
-{
-  <span class="s1770">// Synthesise a custom exception_ptr from the TLS slot and write it into the outcome
-</span><span class="s1770"></span>  <span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">R</span>&gt; <span class="s3e8">inline</span> <span class="s3ee">void</span> poke_exception(outcome&lt;R&gt; *o)
-  {
-    <span class="s3e8">if</span>(o-&gt;has_error())
-    {
-      extended_error_info *eei = mythreadlocaldata().get(OUTCOME_V2_NAMESPACE::hooks::spare_storage(o));
-      <span class="s3e8">if</span>(eei != <span class="s3e8">nullptr</span>)
-      {
-        <span class="s1770">// Make a custom string for the exception
-</span><span class="s1770"></span>        std::string str(o-&gt;error().message());
-        str.append(<span class="sc1c"></span><span class="sc1c">&#34; [&#34;</span>);
-        <span class="s3ee">char</span> **symbols = ::backtrace_symbols(eei-&gt;backtrace.data(), eei-&gt;items);
-        <span class="s3e8">if</span>(symbols != <span class="s3e8">nullptr</span>)
-        {
-          <span class="s3e8">for</span>(size_t n = 0; n &lt; eei-&gt;items; n++)
-          {
-            <span class="s3e8">if</span>(n &gt; 0)
-            {
-              str.append(<span class="sc1c"></span><span class="sc1c">&#34;; &#34;</span>);
-            }
-            str.append(symbols[n]);
-          }
-          ::free(symbols);  <span class="s1770">// not exception safe, could leak symbols if appending str fails
-</span><span class="s1770"></span>        }
-        str.append(<span class="sc1c"></span><span class="sc1c">&#34;]&#34;</span>);
-
-        <span class="s1770">// Override the payload/exception member in the outcome with our synthesised exception ptr
-</span><span class="s1770"></span>        OUTCOME_V2_NAMESPACE::hooks::override_outcome_payload_exception(o, std::make_exception_ptr(std::runtime_error(str)));
-      }
-    }
-  }
-}
+<pre><code>ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts
+32767
+ned@lyta:~/outcome/build_posix$
 </code></pre>
-</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/error_code_extended.cpp#L136" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
+<p>Apparently no exception was thrown? Correct.</p>
 
-<p>If the localised <code>outcome</code> being constructed is errored, try fetching the TLS slot
-for the unique 16-bit value in its spare storage. If that is valid, symbolise the
-stack backtrace into a string and make an exception ptr with a runtime error with
-that string. Finally, override the payload/exception member in our just-copy-constructed
-localised <code>outcome</code> with the new exception ptr.</p>
+<p>It is very likely, given the contents of the tutorial to date, that you will find this surprising. This is because the <em>default
+action</em> for a user-defined error type is <strong>undefined behaviour</strong>.</p>
+
+<p>Let&rsquo;s
+demonstrate this by running the code under the undefined behaviour sanitiser
+and see what happens instead:</p>
+
+<pre><code>ned@lyta:~/outcome/build_posix$ export UBSAN_OPTIONS=print_stacktrace=1
+ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts
+/home/ned/outcome/doc/src/snippets/../../../include/outcome/policy/detail/common.hpp:42:9: runtime error: execution reached a __builtin_unreachable() call
+    #0 0x42a0dc in outcome_v2_1c2d524c::policy::detail::base::_ub() (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x42a0dc)
+    #1 0x42a028 in void outcome_v2_1c2d524c::policy::detail::base::narrow_value_check&lt;outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt; &gt;(outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt;*) (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x42a028)
+    #2 0x429f0c in void outcome_v2_1c2d524c::policy::all_narrow::wide_value_check&lt;outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt; &gt;(outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt;*) (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x429f0c)
+    #3 0x4298d6 in outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt;::value() &amp; (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4298d6)
+    #4 0x4295f1 in main (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4295f1)
+    #5 0x7f3bd59c1f44 in __libc_start_main /build/eglibc-SvCtMH/eglibc-2.19/csu/libc-start.c:287
+    #6 0x4030c3 in _start (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4030c3)
+</code></pre>
 
 
 <footer class=" footline" >
@@ -359,8 +330,8 @@ localised <code>outcome</code> with the new exception ptr.</p>
     
 
     <div id="navigation">
-        <a class="nav nav-prev" href="/outcome/tutorial/hooks/hook_result/" title="Hook result"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/tutorial/hooks/hook_outcome/" title="Hook outcome" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/outcome/tutorial/default-actions/udt-err/" title="User defined error types"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/default-actions/happens/" title="result&lt;udt, err&gt;.value()" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>
