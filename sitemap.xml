@@ -11,6 +11,10 @@
   </url>
   
   <url>
+    <loc>https://ned14.github.io/outcome/tutorial/hooks/keeping_state/</loc>
+  </url>
+  
+  <url>
     <loc>https://ned14.github.io/outcome/tutorial/payload/copy_file/</loc>
   </url>
   
@@ -20,6 +24,10 @@
   
   <url>
     <loc>https://ned14.github.io/outcome/tutorial/result/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/tutorial/hooks/adl_bridging/</loc>
   </url>
   
   <url>
@@ -39,6 +47,10 @@
   </url>
   
   <url>
+    <loc>https://ned14.github.io/outcome/tutorial/hooks/hook_result/</loc>
+  </url>
+  
+  <url>
     <loc>https://ned14.github.io/outcome/tutorial/outcome/inspecting/</loc>
   </url>
   
@@ -52,6 +64,18 @@
   
   <url>
     <loc>https://ned14.github.io/outcome/tutorial/payload/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/tutorial/hooks/poke_exception/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/tutorial/hooks/hook_outcome/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/tutorial/hooks/</loc>
   </url>
   
   <url>

@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title>History :: Outcome documentation</title>
+    <title>Hook outcome :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/history/">
+  <body class="" data-url="/outcome/tutorial/hooks/hook_outcome/">
     <nav id="sidebar" class=""><div class="highlightable">
   <div id="header-wrapper">
     <div id="header"> 
@@ -68,9 +68,10 @@
         <span>Build and install</span>
       </a>
     </li>
-    <li data-nav-id="/outcome/tutorial/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/" class="dd-item parent">
       <a href="/outcome/tutorial/">
-        <span>Tutorial</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>Tutorial</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
     <li data-nav-id="/outcome/tutorial/result/" class="dd-item">
@@ -124,9 +125,10 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/tutorial/hooks/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/hooks/" class="dd-item parent">
       <a href="/outcome/tutorial/hooks/">
-        <span>Hooking events</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>Hooking events</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
       <li data-nav-id="/outcome/tutorial/hooks/keeping_state/" class="dd-item">
@@ -149,7 +151,7 @@
           <span>Custom exception ptr</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/hooks/hook_outcome/" class="dd-item">
+      <li data-nav-id="/outcome/tutorial/hooks/hook_outcome/" class="dd-item active">
         <a href="/outcome/tutorial/hooks/hook_outcome/">
           <span>Hook outcome</span>
         </a>
@@ -168,7 +170,7 @@
         <span>Frequently asked questions</span>
       </a>
     </li>
-    <li data-nav-id="/outcome/history/" class="dd-item parent active">
+    <li data-nav-id="/outcome/history/" class="dd-item">
       <a href="/outcome/history/">
         <span>History</span>
       </a>
@@ -211,7 +213,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/history/_index.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/hooks/hook_outcome.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -228,7 +230,17 @@
 
 
 
- <a href='/outcome/'>Home</a> > History
+
+
+
+
+
+
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/hooks/'>Hooking events</a> > Hook outcome
+
+ 
+
+ 
 
  
 
@@ -237,15 +249,7 @@
             </div>
             <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#the-genesis-of-outcome-v1">The genesis of Outcome v1</a></li>
-<li><a href="#outcome-v2">Outcome v2</a></li>
-</ul></li>
-</ul>
-</nav>
+
     </div>
 </div>
 
@@ -254,133 +258,44 @@
         
         <div id="body-inner">
           
-            <h1>History</h1>
+            <h1>Hook outcome</h1>
           
 
 
 
 
+<p>The final step is to add ADL discovered event hooks for the very specific case of
+when our localised <code>outcome</code> is copy or move constructed from our localised <code>result</code>.
+There isn&rsquo;t really much to say about these, just be careful to mark them <code>noexcept</code>
+or not based on whether the types <code>T</code>, <code>EC</code> or <code>EP</code> could throw during copy or move
+construction. As <code>poke_exception()</code> creates a <code>std::string</code> and appends to it,
+it could indeed throw an exception and thus with the <code>noexcept</code> hooks below, the
+process would be terminated.</p>
 
+<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+<span class="s3e8">namespace</span> error_code_extended
+{
+  <span class="s1770">// Specialise the outcome copy and move conversion hook for when our localised result
+</span><span class="s1770"></span>  <span class="s1770">// is used as the source for copy construction our localised outcome
+</span><span class="s1770"></span>  <span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">T</span>, <span class="s3e8">class</span> <span class="s7d4">R</span>&gt; <span class="s3e8">inline</span> <span class="s3ee">void</span> hook_outcome_copy_construction(in_place_type_t&lt;<span class="s3e8">const</span> result&lt;T&gt; &amp;&gt;, outcome&lt;R&gt; *res) <span class="s3e8">noexcept</span>
+  {
+    <span class="s1770">// when copy constructing from a result&lt;T&gt;, poke in an exception
+</span><span class="s1770"></span>    poke_exception(res);
+  }
+  <span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">T</span>, <span class="s3e8">class</span> <span class="s7d4">R</span>&gt; <span class="s3e8">inline</span> <span class="s3ee">void</span> hook_outcome_move_construction(in_place_type_t&lt;result&lt;T&gt; &amp;&amp;&gt;, outcome&lt;R&gt; *res) <span class="s3e8">noexcept</span>
+  {
+    <span class="s1770">// when move constructing from a result&lt;T&gt;, poke in an exception
+</span><span class="s1770"></span>    poke_exception(res);
+  }
+}
+</code></pre>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/error_code_extended.cpp#L173" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
-<p>Outcome has had an interesting history, and it is worth summarising it here to show how a
-Boost library comes to life. The following recollections are by Niall Douglas, and may be
-faulty due to his aging memory.</p>
-
-<div class="mermaid" align="center" >
-gantt
-  dateFormat YYYY-MM
-  title History of the Outcome library
-  Outcome v1: done, des1, 2014-06,2017-05
-  Boost peer review of v1: done, des2, after des1, 30d
-  Outcome v2: active, des3, after des2, 365d
-  section Events
-  Separated from AFIO v1: crit, done, 2014-06,2d
-  Boost.Expected added: crit, done, 2014-10,2d
-  Boost.Expected replaced with feature complete basic_monad: crit, done, 2015-08,2d
-  Non-allocating future-promise implementation dropped: crit, done, 2016-05,2d
-  C++ 11 support dropped: crit, done, 2016-06,2d
-  Implemented LEWG expected&lt;T, E&gt; using basic_monad: crit, done, 2017-02,2d
-  Outcome v1 replaced with prototype v2 in git repo: crit, done, 2017-07,2d
-  Boost.Outcome generated by script from Outcome repo: crit, done, 2017-10,2d
-</div>
-
-<h2 id="the-genesis-of-outcome-v1">The genesis of Outcome v1</h2>
-
-<p>The git repo began life as a &ldquo;Boost.Spinlock&rdquo; in June 2014 hived out of Boost.AFIO v1 where it had existed
-for some time as an internal library. In October 2014 I added in the original prototype
-Boost.Expected reference library as a git submodule, and began developing a non-allocating
-<code>future&lt;T&gt;</code>/<code>promise&lt;T&gt;</code> as an extension of <code>expected&lt;T, std::exception_ptr&gt;</code> as a faster,
-monadic future-promise was something which AFIO v1 sorely needed.</p>
-
-<p>The original prototype Boost.Expected library was a large and very complex beastie.
-I was fortunate to be employed on a contract in late 2014 early 2015 where I saw it deployed at
-scale into an existing large C++ codebase. Expected was really great and powerful, but it absolutely
-murdered compile times in a large C++ codebase, and made LTO effectively infeasible.
-I also found its implementation non-conducive to implementing
-future-promise with it, and so I resolved to implement a much more powerful policy driven
-monad factory which could stamp out everything from an <code>option&lt;T&gt;</code> right through to a
-future-promise pair, all using the exact same <code>basic_monad&lt;&gt;</code> and therefore all with a full
-monadic programming API, C++ 17 continuations/monadic bind and intelligently convertible into one another.
-Moreover, all this needed to have an absolute minimum impact on compile times and runtime
-overheads, neither of which were strengths of the original prototype Boost.Expected library.</p>
-
-<p>By August 2015 &ldquo;Boost.Monad&rdquo; was delivering on all those requirements and then some, but it lacked
-maturity through use in other code. Summer 2015 saw the Boost peer review of AFIO v1 which
-was roundly rejected. After considering the ample review feedback, it was realised that
-AFIO v2 would be a very different design, one no longer using futures, memory allocation
-nor C++ exceptions. As AFIO v2 was started from scratch and using Outcome heavily from the
-very beginning (every AFIO v2 API returns a <code>result&lt;T&gt;</code>), Outcome began to gain bug fixes and
-shed features, with the non-allocating future-promise implementation being dropped in May
-2016 and a large chunk of metaprogramming being replaced with cleaner variable templates
-in June. After CppCon 2016 in September, then began the long process of getting Outcome
-ready for Boost peer review in Q1 2017 which involved a repeated sequence of complete rewrites
-of the tutorial in response to multiple rounds of feedback from the C++ community, with
-at least four complete rewrites currently at the time of writing.</p>
-
-<p>In parallel to all this development on Outcome, Expected went before the LEWG and entered
-the C++ standards track. As the WG21 meetings went by, Expected experienced a period
-of being stripped back and much of the complexity which had so murdered compile and
-link times in 2014-2015 fell away, thus the Expected proposed in P0323R1 ended up landing
-so close to Outcome that in January 2017 it was just a few hours work to implement
-Expected using the core <code>basic_monad</code> infrastructure in Outcome. That highly flexible
-policy based design which made monadic future-promise possible made it similarly easy
-to implement a highly conforming Expected, indeed in early 2017 Outcome&rsquo;s Expected was much
-closer to P0323R1 than any other implementation including the LEWG reference implementation.
-And unlike the LEWG reference implementation, Outcome has had eighteen months of that
-finely tuned patina you only get when a library is in use by other code bases.</p>
-
-<p>In February 2017 it became realised that the userbase really wanted a high quality <code>expected&lt;T, E&gt;</code>
-implementation rather than anything similar but not the same which Outcome had invented.
-The only just implemented Expected implementation based on <code>basic_monad</code> therefore took
-primacy. The final rewrite of the documentation before peer review submission was one
-which made it look like Outcome was primarily an <code>expected&lt;T, E&gt;</code> implementation with a
-few useful extensions like <code>outcome&lt;T&gt;</code> and <code>result&lt;T&gt;</code>. I was sad to so pivot, but it
-was obvious that Outcome would see far wider popularity and usage as primarily an Expected
-implementation.</p>
-
-<p>Almost three years after its beginning, Outcome v1 finally went before Boost peer review
-in May 2017 which turned into one of the longest and most detailed peer reviews Boost has
-done in recent years, with over 800 pieces of review feedback submitted. It was by consensus
-rejected, <a href="https://lists.boost.org/boost-announce/2017/06/0510.php">with substantial feedback on what to do instead</a>.</p>
-
-<h2 id="outcome-v2">Outcome v2</h2>
-
-<p>During the very lengthy peer review, roughly three groups of opinion emerged as to what
-a <code>value|error</code> transporting class ought to look like:</p>
-
-<dl>
-<dt><b>1. Lightweight</b></dt>
-<dd>A simple-as-possible <code>T</code> and/or <code>E</code> transport without any
-implementation complexity.</dd>
-<dt><b>2. Medium</b></dt>
-<dd>A variant stored <code>T</code> or <code>E1</code> ... <code>E<i>n</i></code>
-where <code>T</code> is the expected value and <code>E1 ...</code>
-are the potential unexpected values. This implemention really ought to be implemented
-using C++ 17's <code>std::variant<...></code> except with stronger never-empty guarantees.
-</dd>
-<dt><b>3. Heavy</b></dt>
-<dd>A full fat Either monad participating fully in a wider monadic programming framework for C++.</dd>
-</dl>
-
-<p>Peter Dimov was very quickly able to implement an <code>expected&lt;T, E1, ...&gt;</code> using his
-<a href="https://github.com/pdimov/variant2">variant2</a> library, and thus there seemed little
-point in replicating his work in an Outcome v2. The lightweight choice seemed to be the
-best path forwards, so in June 2017 the bare minimum <code>result&lt;T, E&gt;</code> and <code>outcome&lt;T, EC, P&gt;</code>
-as presented in this library was built, using the same constructor design as <code>std::variant&lt;...&gt;</code>.</p>
-
-<p>A period of maturation then followed by porting a large existing codebase using Outcome v1
-to v2, and writing a significant amount of new code using v2 to test it for unanticipated
-surprises and bugs. Quite a few corner cases were found and fixed. At the end of September
-2017, Outcome v2 was deemed to be &ldquo;mature&rdquo; and a script generated &ldquo;Boost edition&rdquo; made
-available. All that remained before it was ready for a second Boost peer review was the
-documentation.</p>
 
 
 <footer class=" footline" >
 	
 </footer>
-
-
 
 
 
@@ -395,8 +310,8 @@ documentation.</p>
     
 
     <div id="navigation">
-        <a class="nav nav-prev" href="/outcome/faq/" title="Frequently asked questions"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/requirements/" title="Prerequisites" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/outcome/tutorial/hooks/poke_exception/" title="Custom exception ptr"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/error_code/" title="Custom error codes" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>
@@ -421,3 +336,4 @@ documentation.</p>
 
   </body>
 </html>
+

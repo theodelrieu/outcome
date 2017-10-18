@@ -10,6 +10,16 @@
     
     
     <item>
+      <title>Keeping state</title>
+      <link>https://ned14.github.io/outcome/tutorial/hooks/keeping_state/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/hooks/keeping_state/</guid>
+      <description>The first thing we are going to need is somewhere to store the stack backtrace. We could take the easier route and simply store it into an allocated block and keep the pointer as a custom payload in an outcome&amp;lt;T, error_code, std::unique_ptr&amp;lt;stack_backtrace&amp;gt;&amp;gt; (see previous section on outcome&amp;lt;T, EC, P&amp;gt;). But let us assume that we care so deeply about bounded execution times that ever calling malloc is unacceptable.
+We therefore are going to need some completely static and trivially typed storage perhaps kept per-thread to avoid the need to keep mutexes.</description>
+    </item>
+    
+    <item>
       <title>The Filesystem TS</title>
       <link>https://ned14.github.io/outcome/tutorial/payload/copy_file/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -17,6 +27,17 @@
       <guid>https://ned14.github.io/outcome/tutorial/payload/copy_file/</guid>
       <description>To see how payload-transporting outcome might be useful, consider the copy_file() API from the Filesystem TS:
 namespace filesystem { /*! Copies the file at path `from` to path `to`. \returns True if file was successfully copied. \throws On failure throws `filesystem_error(ec.message(), from, to, ec)` with `ec` being the error code reported by the operating system. */ bool copy_file(const path &amp;amp;from, const path &amp;amp;to); /*! Copies the file at path `from` to path `to`.</description>
+    </item>
+    
+    <item>
+      <title>ADL bridging</title>
+      <link>https://ned14.github.io/outcome/tutorial/hooks/adl_bridging/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/hooks/adl_bridging/</guid>
+      <description>In the previous section outcome&amp;lt;T, EC, P&amp;gt;, we used the failure_info type to create the ADL bridge into the namespace where the ADL discovered throw_as_system_error_with_payload() function was to be found.
+Here we do the same, but more directly by creating a thin clone of std::error_code into the local namespace. This ensures that this namespace will be searched by the compiler when discovering the event hooks.
+namespace error_code_extended { // Use the error_code type as the ADL bridge for the hooks by creating a type here  // It can be any type that your localised result uses, including the value type but  // by localising the error code type here you prevent nasty surprises later when the  // value type you use doesn&amp;#39;t trigger the ADL bridge.</description>
     </item>
     
     <item>
@@ -37,6 +58,16 @@ outcome::result&amp;lt;void&amp;gt; print_half(const std::string&amp;amp; text);
       <guid>https://ned14.github.io/outcome/tutorial/payload/copy_file2/</guid>
       <description>An Outcome based solution looks deceptively simple initially, but there is more to it than it appears.
 namespace filesystem2 { // Paths related to a failure. Also causes ADL discovery to check this namespace.  struct failure_info { path path1, path2; }; // Localise an outcome implementation specific to this namespace. Normally would just  // be `result`, but for clarity we&amp;#39;ll use `fs_result`.  template &amp;lt;class T&amp;gt; using fs_result = outcome::outcome&amp;lt;T, std::error_code, failure_info&amp;gt;; /*!</description>
+    </item>
+    
+    <item>
+      <title>Hook result</title>
+      <link>https://ned14.github.io/outcome/tutorial/hooks/hook_result/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/hooks/hook_result/</guid>
+      <description>We now tell Outcome that for every instance of our localised result&amp;lt;T&amp;gt;, that on failure construction only, we want custom code to be run which increments the current slot in TLS storage and writes the current stack backtrace into it.
+namespace error_code_extended { // Specialise the result construction hook for our localised result  // We hook any non-copy, non-move, non-inplace construction, capturing a stack backtrace  // if the result is errored.</description>
     </item>
     
     <item>
@@ -72,6 +103,25 @@ namespace filesystem2 { // For outcome&amp;#39;s with error_code + payload confi
     </item>
     
     <item>
+      <title>Custom exception ptr</title>
+      <link>https://ned14.github.io/outcome/tutorial/hooks/poke_exception/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/hooks/poke_exception/</guid>
+      <description>If you merely want result to capture stack backtraces without calling a memory allocator and retaining any triviality of copy which is important for optimisation, you already have everything you need.
+But let&amp;rsquo;s keep going by intercepting any construction of our localised outcome from our localised result, retrieving any stored backtrace and using it to synthesise an exception ptr with a message text including the backtrace. Firstly let us look at the function which synthesises the exception ptr:</description>
+    </item>
+    
+    <item>
+      <title>Hook outcome</title>
+      <link>https://ned14.github.io/outcome/tutorial/hooks/hook_outcome/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/hooks/hook_outcome/</guid>
+      <description>The final step is to add ADL discovered event hooks for the very specific case of when our localised outcome is copy or move constructed from our localised result. There isn&amp;rsquo;t really much to say about these, just be careful to mark them noexcept or not based on whether the types T, EC or EP could throw during copy or move construction. As poke_exception() creates a std::string and appends to it, it could indeed throw an exception and thus with the noexcept hooks below, the process would be terminated.</description>
+    </item>
+    
+    <item>
       <title>Custom error codes</title>
       <link>https://ned14.github.io/outcome/tutorial/error_code/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -95,7 +145,7 @@ namespace filesystem2 { // For outcome&amp;#39;s with error_code + payload confi
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://ned14.github.io/outcome/credits/</guid>
-      <description>github contributors .ghContributors{ display:flex; flex-flow: wrap; align-content: flex-start } .ghContributors  div{ width: 50% ; display: inline-flex; margin-bottom: 5px; } .ghContributors  div label{ padding-left: 4px ; } .ghContributors  div span{ font-size: x-small; padding-left: 4px ; }  This pretty, modern C++ documentation  Hugo - static website generator of this documentation. hugo-theme-docdock - the Hugo theme used by this documentation. Standardese - the API reference generator  Special thanks To Paul Bristow who proposed the name &amp;ldquo;Outcome&amp;rdquo; for the library after a very extended period of name bikeshedding on boost-dev.</description>
+      <description>github contributors .ghContributors{ display:flex; flex-flow: wrap; align-content: flex-start } .ghContributors  div{ width: 50% ; display: inline-flex; margin-bottom: 5px; } .ghContributors  div label{ padding-left: 4px ; } .ghContributors  div span{ font-size: x-small; padding-left: 4px ; }   @ned14 684 commits   @akrzemi1 10 commits   @jenkins-nedprod 1 commits   This pretty, modern C++ documentation  Hugo - static website generator of this documentation. hugo-theme-docdock - the Hugo theme used by this documentation.</description>
     </item>
     
   </channel>
