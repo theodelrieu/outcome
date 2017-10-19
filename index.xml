@@ -32,6 +32,16 @@ Let&amp;rsquo;s demonstrate this by recompiling the code to use the undefined be
     </item>
     
     <item>
+      <title>Anatomy of a policy</title>
+      <link>https://ned14.github.io/outcome/tutorial/policies/anatomy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/policies/anatomy/</guid>
+      <description>A NoValuePolicy is quite simple. This is a complete policy, only the top half is needed if you never use the policy in an outcome.
+struct blank_policy { //! Performs a narrow check of state, used in the assume_value() functions.  template &amp;lt;class Impl&amp;gt; static constexpr void narrow_value_check(Impl *self) noexcept; //! Performs a narrow check of state, used in the assume_error() functions.  template &amp;lt;class Impl&amp;gt; static constexpr void narrow_error_check(Impl *self) noexcept; //!</description>
+    </item>
+    
+    <item>
       <title>Keeping state</title>
       <link>https://ned14.github.io/outcome/tutorial/hooks/keeping_state/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -60,6 +70,16 @@ namespace filesystem { /*! Copies the file at path `from` to path `to`. \returns
       <description>In the previous section outcome&amp;lt;T, EC, P&amp;gt;, we used the failure_info type to create the ADL bridge into the namespace where the ADL discovered throw_as_system_error_with_payload() function was to be found.
 Here we do the same, but more directly by creating a thin clone of std::error_code into the local namespace. This ensures that this namespace will be searched by the compiler when discovering the event hooks.
 namespace error_code_extended { // Use the error_code type as the ADL bridge for the hooks by creating a type here  // It can be any type that your localised result uses, including the value type but  // by localising the error code type here you prevent nasty surprises later when the  // value type you use doesn&amp;#39;t trigger the ADL bridge.</description>
+    </item>
+    
+    <item>
+      <title>Casting workaround</title>
+      <link>https://ned14.github.io/outcome/tutorial/policies/cast/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/policies/cast/</guid>
+      <description>The templated Impl type on each policy function is decltype(*this) of the part of Outcome&amp;rsquo;s internal implementation which calls the policy. It may also be const, depending on the observer called. It is highly unlikely to be result&amp;lt;T, EC&amp;gt; or especially outcome&amp;lt;T, EC, EP|P&amp;gt;, so a very common thing you&amp;rsquo;ll need to do is static cast to a more derived form before use like this:
+template &amp;lt;class R, class S, class P&amp;gt; struct outcome_policy { /*!</description>
     </item>
     
     <item>
@@ -105,6 +125,16 @@ struct udt { int a{0}; explicit udt(int _a) : a(_a) { } udt() = default; int ope
     </item>
     
     <item>
+      <title>Result &#43; Outcome</title>
+      <link>https://ned14.github.io/outcome/tutorial/policies/universal/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/policies/universal/</guid>
+      <description>These are the precanned policies suitable for use with both result and outcome:
+ all_narrow Wide checks call their narrow check cousins only. Narrow checks call __builtin_unreachable() on compilers which support that intrinsic. terminate Wide checks call std::terminate if they fail. Narrow checks call __builtin_unreachable() on compilers which support that intrinsic.  </description>
+    </item>
+    
+    <item>
       <title>-- Now what happens?</title>
       <link>https://ned14.github.io/outcome/tutorial/default-actions/happens3/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -133,6 +163,16 @@ namespace error_code_extended { // Specialise the result construction hook for o
       <guid>https://ned14.github.io/outcome/tutorial/outcome/inspecting/</guid>
       <description>Continuing with the previous example, in Layer3 we obtain an outcome&amp;lt;double&amp;gt; which may store a double or an std::error_code or an std::exception_ptr. Layer3 uses exceptions to indicate failure, so we want to turn a failed result into an exception: if we are storing an std::exception_ptr just rethrow it. If we are storing an std::error_code throw it as std::system_error, which is designed to store std::error_codes:
 namespace Layer3 { auto run() -&amp;gt; double // may throw  { if (outcome::outcome&amp;lt;double&amp;gt; o = Layer2NX::fun()) return o.</description>
+    </item>
+    
+    <item>
+      <title>Result</title>
+      <link>https://ned14.github.io/outcome/tutorial/policies/result-policies/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/policies/result-policies/</guid>
+      <description>These are the precanned policies suitable for use with result:
+ error_code_throw_as_system_error&amp;lt;EC&amp;gt; Requires that EC must be a base of std::error_code. .value() will OUTCOME_THROW_EXCEPTION(std::system_error(make_error_code(error))) if there is no value, .error() will OUTCOME_THROW_EXCEPTION(bad_result_access(&amp;quot;no error&amp;quot;)) if there is no error. The narrow checks call __builtin_unreachable() on compilers which support that intrinsic.  wip</description>
     </item>
     
     <item>

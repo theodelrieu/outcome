@@ -19,6 +19,10 @@
   </url>
   
   <url>
+    <loc>https://ned14.github.io/outcome/tutorial/policies/anatomy/</loc>
+  </url>
+  
+  <url>
     <loc>https://ned14.github.io/outcome/tutorial/hooks/keeping_state/</loc>
   </url>
   
@@ -36,6 +40,10 @@
   
   <url>
     <loc>https://ned14.github.io/outcome/tutorial/hooks/adl_bridging/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/tutorial/policies/cast/</loc>
   </url>
   
   <url>
@@ -59,6 +67,10 @@
   </url>
   
   <url>
+    <loc>https://ned14.github.io/outcome/tutorial/policies/universal/</loc>
+  </url>
+  
+  <url>
     <loc>https://ned14.github.io/outcome/tutorial/default-actions/happens3/</loc>
   </url>
   
@@ -72,6 +84,10 @@
   
   <url>
     <loc>https://ned14.github.io/outcome/tutorial/outcome/inspecting/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/tutorial/policies/result-policies/</loc>
   </url>
   
   <url>
@@ -112,6 +128,10 @@
   
   <url>
     <loc>https://ned14.github.io/outcome/tutorial/default-actions/void/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/tutorial/policies/</loc>
   </url>
   
   <url>

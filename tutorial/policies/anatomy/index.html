@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title>Inspecting result&lt;T, EC&gt; :: Outcome documentation</title>
+    <title>Anatomy of a policy :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/tutorial/result/inspecting/">
+  <body class="" data-url="/outcome/tutorial/policies/anatomy/">
     <nav id="sidebar" class=""><div class="highlightable">
   <div id="header-wrapper">
     <div id="header"> 
@@ -74,13 +74,12 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
-    <li data-nav-id="/outcome/tutorial/result/" class="dd-item parent">
+    <li data-nav-id="/outcome/tutorial/result/" class="dd-item">
       <a href="/outcome/tutorial/result/">
-        <span>result&lt;T, EC&gt;</span>
-            <i class="fa fa-angle-down fa-lg category-icon"></i>
+        <span>result&lt;T, EC&gt;</span><i class="fa fa-angle-right fa-lg category-icon"></i>
       </a>
         <ul>
-      <li data-nav-id="/outcome/tutorial/result/inspecting/" class="dd-item active">
+      <li data-nav-id="/outcome/tutorial/result/inspecting/" class="dd-item">
         <a href="/outcome/tutorial/result/inspecting/">
           <span>Inspecting result&lt;T, EC&gt;</span>
         </a>
@@ -210,12 +209,13 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/tutorial/policies/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/policies/" class="dd-item parent">
       <a href="/outcome/tutorial/policies/">
-        <span>Policies</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>Policies</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
-      <li data-nav-id="/outcome/tutorial/policies/anatomy/" class="dd-item">
+      <li data-nav-id="/outcome/tutorial/policies/anatomy/" class="dd-item active">
         <a href="/outcome/tutorial/policies/anatomy/">
           <span>Anatomy of a policy</span>
         </a>
@@ -292,7 +292,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/result/inspecting.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/policies/anatomy.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -315,7 +315,7 @@
 
 
 
- <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/result/'>result<T, EC></a> > Inspecting result<T, EC>
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/policies/'>Policies</a> > Anatomy of a policy
 
  
 
@@ -337,70 +337,48 @@
         
         <div id="body-inner">
           
-            <h1>Inspecting result&lt;T, EC&gt;</h1>
+            <h1>Anatomy of a policy</h1>
           
 
 
 
 
-<p>Suppose we will be writing function <code>print_half</code> that takes an integral number (however big) represented as an <code>std::string</code> and outputs a number which is twice smaller:</p>
+<p>A <code>NoValuePolicy</code> is quite simple. This is a complete policy, only the top half
+is needed if you never use the policy in an <code>outcome</code>.</p>
 
 <div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
-outcome::result&lt;<span class="s3ee">void</span>&gt; print_half(<span class="s3e8">const</span> std::string&amp; text);
-</code></pre>
-</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/using_result.cpp#L111" class="code-snippet-url" target="_blank">View this code on Github</a></div>
-
-
-<p>Type <code>result&lt;void&gt;</code> means that there is no value to be retuned upon success, but that the operation might still fail, and we may be interested in inspecting the cause of the failure. Class template <code>result&lt;&gt;</code> is declared with attribute <code>[[nodiscard]]</code>, which means compiler will warn you if you forget to inspect the returned object (in C++ 17 or later).</p>
-
-<p>The implementation will do the following: if the integral number can be represnted by an <code>int</code>, we will convert to <code>int</code> and use its arithmetical operations. If the number is too large, we will fall back to using a custom <code>BigInt</code> implementation that needs to allocate memory. In the implementation we will use function <code>convert</code> defined in the previous section.</p>
-
-<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
-outcome::result&lt;<span class="s3ee">void</span>&gt; print_half(<span class="s3e8">const</span> std::string&amp; text)
+<span class="s3e8">struct</span> blank_policy
 {
-  <span class="s3e8">if</span> (outcome::result&lt;<span class="s3ee">int</span>&gt; r = convert(text))     <span class="s1770">// #1
-</span><span class="s1770"></span>  {
-    std::cout &lt;&lt; (r.value() / 2) &lt;&lt; std::endl;    <span class="s1770">// #2
-</span><span class="s1770"></span>  }
-  <span class="s3e8">else</span>
-  {
-    <span class="s3e8">if</span> (r.error() == ConversionErrc::TooLong)     <span class="s1770">// #3 
-</span><span class="s1770"></span>    {
-      OUTCOME_TRY (i, BigInt::fromString(text));  <span class="s1770">// #4
-</span><span class="s1770"></span>      std::cout &lt;&lt; i.half() &lt;&lt; std::endl;
-    }
-    <span class="s3e8">else</span>
-    {
-      <span class="s3e8">return</span> r.as_failure();                      <span class="s1770">// #5
-</span><span class="s1770"></span>    }
-  }
-  <span class="s3e8">return</span> outcome::success();                      <span class="s1770">// #6
-</span><span class="s1770"></span>}
+  <span class="s1770">//! Performs a narrow check of state, used in the assume_value() functions.
+</span><span class="s1770"></span>  <span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">Impl</span>&gt; <span class="s3e8">static</span> <span class="s3e8">constexpr</span> <span class="s3ee">void</span> narrow_value_check(Impl *self) <span class="s3e8">noexcept</span>;
+
+  <span class="s1770">//! Performs a narrow check of state, used in the assume_error() functions.
+</span><span class="s1770"></span>  <span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">Impl</span>&gt; <span class="s3e8">static</span> <span class="s3e8">constexpr</span> <span class="s3ee">void</span> narrow_error_check(Impl *self) <span class="s3e8">noexcept</span>;
+
+  <span class="s1770">//! Performs a wide check of state, used in the value() functions.
+</span><span class="s1770"></span>  <span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">Impl</span>&gt; <span class="s3e8">static</span> <span class="s3e8">constexpr</span> <span class="s3ee">void</span> wide_value_check(Impl *self);
+
+  <span class="s1770">//! Performs a wide check of state, used in the error() functions.
+</span><span class="s1770"></span>  <span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">Impl</span>&gt; <span class="s3e8">static</span> <span class="s3e8">constexpr</span> <span class="s3ee">void</span> wide_error_check(Impl *self);
+
+
+  <span class="s1770">/******** These only used if the policy is used in Outcome ********/</span>
+
+  <span class="s1770">//! Performs a narrow check of state, used in the assume_payload() functions.
+</span><span class="s1770"></span>  <span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">Impl</span>&gt; <span class="s3e8">static</span> <span class="s3e8">constexpr</span> <span class="s3ee">void</span> narrow_payload_check(Impl *self) <span class="s3e8">noexcept</span>;
+
+  <span class="s1770">//! Performs a narrow check of state, used in the assume_exception() functions.
+</span><span class="s1770"></span>  <span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">Impl</span>&gt; <span class="s3e8">static</span> <span class="s3e8">constexpr</span> <span class="s3ee">void</span> narrow_exception_check(Impl *self) <span class="s3e8">noexcept</span>;
+
+  <span class="s1770">//! Performs a wide check of state, used in the payload() functions.
+</span><span class="s1770"></span>  <span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">Impl</span>&gt; <span class="s3e8">static</span> <span class="s3e8">constexpr</span> <span class="s3ee">void</span> wide_payload_check(Impl *self);
+
+  <span class="s1770">//! Performs a wide check of state, used in the exception() functions.
+</span><span class="s1770"></span>  <span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">Impl</span>&gt; <span class="s3e8">static</span> <span class="s3e8">constexpr</span> <span class="s3ee">void</span> wide_exception_check(Impl *self);
+};
 </code></pre>
-</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/using_result.cpp#L115" class="code-snippet-url" target="_blank">View this code on Github</a></div>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/policies.cpp#L31" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
-
-<p>#1. You test if <code>result&lt;&gt;</code> object represents a successful operation with contextual conversion to <code>bool</code>.</p>
-
-<p>#2. Function <code>.value()</code> extracts the successfully returned <code>BigInt</code>.</p>
-
-<p>#3. Function <code>.error()</code> allows you to inspect the error sub-object, representing information about the reason for failure.</p>
-
-<p>#4. Macro <code>OUTCOME_TRY</code> represents a control statement. It implies that the function call in the second argument returns a <code>result&lt;&gt;</code>. It is defined as:</p>
-
-<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
-<span class="s1770">/*static*/</span> outcome::result&lt;BigInt&gt; BigInt::fromString(<span class="s3e8">const</span> std::string&amp; s)
-</code></pre>
-</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/using_result.cpp#L104" class="code-snippet-url" target="_blank">View this code on Github</a></div>
-
-
-<p>Our control statement means: if <code>fromString</code> returned failure, this same error information should be returned from <code>print_half</code>, even though the type of <code>result&lt;&gt;</code> is different. If <code>fromString</code> returned success, we create  variable <code>i</code> of type <code>int</code> with the value returned from <code>fromString</code>. If control goes to subsequent line, it means <code>fromString</code> succeeded and variable of type <code>int</code> is in scope.</p>
-
-<p>#5. In the return statement we extract the error information and use it to initialize the return value from <code>print_half</code>. We could have written <code>return r.error();</code> instead,
-    and it would have the same effect, but it would not work if we were using <code>outcome&lt;&gt;</code> instead of <code>result&lt;&gt;</code> &ndash; this will be covered later.</p>
-
-<p>#6. Function <code>success()</code> returns an object of type <code>success&lt;void&gt;</code> representing success. This is implicitly converted by
-all <code>result</code> and <code>outcome</code> types into a successful return, default constructing any <code>T</code> if necessary.</p>
 
 
 <footer class=" footline" >
@@ -420,8 +398,8 @@ all <code>result</code> and <code>outcome</code> types into a successful return,
     
 
     <div id="navigation">
-        <a class="nav nav-prev" href="/outcome/tutorial/result/" title="result&lt;T, EC&gt;"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/tutorial/result/try/" title="TRY operations" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/outcome/tutorial/policies/" title="Policies"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/policies/cast/" title="Casting workaround" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>

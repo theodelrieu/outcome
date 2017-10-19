@@ -209,6 +209,33 @@
     </li>
         </ul>
     </li>
+    <li data-nav-id="/outcome/tutorial/policies/" class="dd-item">
+      <a href="/outcome/tutorial/policies/">
+        <span>Policies</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </a>
+        <ul>
+      <li data-nav-id="/outcome/tutorial/policies/anatomy/" class="dd-item">
+        <a href="/outcome/tutorial/policies/anatomy/">
+          <span>Anatomy of a policy</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/policies/cast/" class="dd-item">
+        <a href="/outcome/tutorial/policies/cast/">
+          <span>Casting workaround</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/policies/universal/" class="dd-item">
+        <a href="/outcome/tutorial/policies/universal/">
+          <span>Result &#43; Outcome</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/policies/result-policies/" class="dd-item">
+        <a href="/outcome/tutorial/policies/result-policies/">
+          <span>Result</span>
+        </a>
+    </li>
+        </ul>
+    </li>
       <li data-nav-id="/outcome/tutorial/error_code/" class="dd-item">
         <a href="/outcome/tutorial/error_code/">
           <span>Custom error codes</span>
@@ -312,7 +339,8 @@
 <p>Gentle introduction to writing code with simple success-or-failure return types.</p>
 <ul><li>
 	<a href="/outcome/tutorial/result/inspecting/" >Inspecting result&lt;T, EC&gt;</a></li>
-<p></p><li>
+<p>Suppose we will be writing function print_half that takes an integral number (however big) represented as an std::string and outputs a number which is twice smaller:
+outcome::result&lt;void&gt; print_half(const std::string&amp; text);  View this code on Github Type result&lt;void&gt; means that there is no value to be retuned upon success, but that the operation might still fail, and we may be interested in inspecting the cause of the failure. Class template result&lt;&gt; is declared with attribute [[nodiscard]], which means compiler will warn you if you forget to inspect the returned object (in C++ 17 or later).</p><li>
 	<a href="/outcome/tutorial/result/try/" >TRY operations</a></li>
 <p></p>
 </ul><li>
@@ -329,7 +357,8 @@
 <p>To see how payload-transporting outcome might be useful, consider the copy_file() API from the Filesystem TS:
 namespace filesystem { /*! Copies the file at path `from` to path `to`. \returns True if file was successfully copied. \throws On failure throws `filesystem_error(ec.message(), from, to, ec)` with `ec` being the error code reported by the operating system. */ bool copy_file(const path &amp;from, const path &amp;to); /*! Copies the file at path `from` to path `to`.</p><li>
 	<a href="/outcome/tutorial/payload/copy_file2/" >Upgrading the Filesystem TS</a></li>
-<p></p><li>
+<p>An Outcome based solution looks deceptively simple initially, but there is more to it than it appears.
+namespace filesystem2 { // Paths related to a failure. Also causes ADL discovery to check this namespace.  struct failure_info { path path1, path2; }; // Localise an outcome implementation specific to this namespace. Normally would just  // be `result`, but for clarity we&#39;ll use `fs_result`.  template &lt;class T&gt; using fs_result = outcome::outcome&lt;T, std::error_code, failure_info&gt;; /*!</p><li>
 	<a href="/outcome/tutorial/payload/copy_file3/" >Throwing filesystem_error</a></li>
 <p></p>
 </ul><li>
@@ -337,15 +366,22 @@ namespace filesystem { /*! Copies the file at path `from` to path `to`. \returns
 <p>The default rules for handling different categories of failure type</p>
 <ul><li>
 	<a href="/outcome/tutorial/default-actions/udt-err/" >User defined error types</a></li>
-<p></p><li>
+<p>Let us imagine a some user defined value type (udt) and some user defined error type (err):
+struct udt { int a{0}; explicit udt(int _a) : a(_a) { } udt() = default; int operator*() const { return a; } }; struct err { int a{0}; explicit err(int _a) : a(_a) { } err() = default; };  View this code on Github Firstly, note that both the udt and err types can be constructed from an int.</p><li>
 	<a href="/outcome/tutorial/default-actions/happens1/" >-- What happens?</a></li>
-<p></p><li>
+<p>Let us run the code from the previous page:
+ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts Segmentation fault (core dumped) ned@lyta:~/outcome/build_posix$  Apparently no exception was thrown? Correct. Nor was a value printed, though this will randomly vary depending on your compiler, libraries, the wind blowing on the day &hellip;
+You will probably find this surprising. This is because the default action for a user-defined error type is undefined behaviour.
+Let&rsquo;s demonstrate this by recompiling the code to use the undefined behaviour sanitiser and see what happens instead:</p><li>
 	<a href="/outcome/tutorial/default-actions/enums/" >Error code enums</a></li>
-<p></p><li>
+<p>Let&rsquo;s replace err with something likely in many people&rsquo;s code, a strongly typed enum:
+struct udt { int a{0}; explicit udt(int _a) : a(_a) { } udt() = default; int operator*() const { return a; } }; enum class err { success, failure1, failure2 }; result&lt;udt, err&gt; res(err::failure1); // What happens here? What exception type is thrown?  try { std::cout &lt;&lt; *res.value() &lt;&lt; std::endl; } catch(const std::exception &amp;e) { std::cerr &lt;&lt; &#34;Exception thrown was &#34; &lt;&lt; e.</p><li>
 	<a href="/outcome/tutorial/default-actions/happens2/" >-- What happens?</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/default-actions/happens3/" >-- Now what happens?</a></li>
-<p></p><li>
+<p>Let us run the code from the previous page:
+ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_error_code_enums2 Exception thrown was failure1 ned@lyta:~/outcome/build_posix$  Ah so now we are throwing a C++ exception on incorrect observation! This is because we registered our error code enum with the C++ standard library and in so doing, we also told the standard library how our error code interacts with std::error_code and thus std::system_error.
+Outcome&rsquo;s default action when incorrectly observing a result or outcome with a EC type where std::is_error_code_enum&lt;EC&gt; is true, or std::is_error_condition_enum&lt;EC&gt; is true, is to throw a std::system_error(make_error_code(.</p><li>
 	<a href="/outcome/tutorial/default-actions/error-codes/" >error_code</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/default-actions/exception-ptr/" >exception_ptr</a></li>
@@ -359,14 +395,32 @@ namespace filesystem { /*! Copies the file at path `from` to path `to`. \returns
 <p>Intercepting useful events such as initial construction, copies and moves so you can capture backtraces, fire debug breakpoints etc.</p>
 <ul><li>
 	<a href="/outcome/tutorial/hooks/keeping_state/" >Keeping state</a></li>
-<p></p><li>
+<p>The first thing we are going to need is somewhere to store the stack backtrace. We could take the easier route and simply store it into an allocated block and keep the pointer as a custom payload in an outcome&lt;T, error_code, std::unique_ptr&lt;stack_backtrace&gt;&gt; (see previous section on outcome&lt;T, EC, P&gt;). But let us assume that we care so deeply about bounded execution times that ever calling malloc is unacceptable.
+We therefore are going to need some completely static and trivially typed storage perhaps kept per-thread to avoid the need to keep mutexes.</p><li>
 	<a href="/outcome/tutorial/hooks/adl_bridging/" >ADL bridging</a></li>
-<p></p><li>
+<p>In the previous section outcome&lt;T, EC, P&gt;, we used the failure_info type to create the ADL bridge into the namespace where the ADL discovered throw_as_system_error_with_payload() function was to be found.
+Here we do the same, but more directly by creating a thin clone of std::error_code into the local namespace. This ensures that this namespace will be searched by the compiler when discovering the event hooks.
+namespace error_code_extended { // Use the error_code type as the ADL bridge for the hooks by creating a type here  // It can be any type that your localised result uses, including the value type but  // by localising the error code type here you prevent nasty surprises later when the  // value type you use doesn&#39;t trigger the ADL bridge.</p><li>
 	<a href="/outcome/tutorial/hooks/hook_result/" >Hook result</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/hooks/poke_exception/" >Custom exception ptr</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/hooks/hook_outcome/" >Hook outcome</a></li>
+<p></p>
+</ul><li>
+	<a href="/outcome/tutorial/policies/" >Policies</a></li>
+<p>Defining your own NoValuePolicy policies, plus an overview of the precanned policies which come in the Outcome source code.</p>
+<ul><li>
+	<a href="/outcome/tutorial/policies/anatomy/" >Anatomy of a policy</a></li>
+<p>A NoValuePolicy is quite simple. This is a complete policy, only the top half is needed if you never use the policy in an outcome.
+struct blank_policy { //! Performs a narrow check of state, used in the assume_value() functions.  template &lt;class Impl&gt; static constexpr void narrow_value_check(Impl *self) noexcept; //! Performs a narrow check of state, used in the assume_error() functions.  template &lt;class Impl&gt; static constexpr void narrow_error_check(Impl *self) noexcept; //!</p><li>
+	<a href="/outcome/tutorial/policies/cast/" >Casting workaround</a></li>
+<p>The templated Impl type on each policy function is decltype(*this) of the part of Outcome&rsquo;s internal implementation which calls the policy. It may also be const, depending on the observer called. It is highly unlikely to be result&lt;T, EC&gt; or especially outcome&lt;T, EC, EP|P&gt;, so a very common thing you&rsquo;ll need to do is static cast to a more derived form before use like this:
+template &lt;class R, class S, class P&gt; struct outcome_policy { /*!</p><li>
+	<a href="/outcome/tutorial/policies/universal/" >Result &#43; Outcome</a></li>
+<p>These are the precanned policies suitable for use with both result and outcome:
+ all_narrow Wide checks call their narrow check cousins only. Narrow checks call __builtin_unreachable() on compilers which support that intrinsic. terminate Wide checks call std::terminate if they fail. Narrow checks call __builtin_unreachable() on compilers which support that intrinsic.  </p><li>
+	<a href="/outcome/tutorial/policies/result-policies/" >Result</a></li>
 <p></p>
 </ul><li>
 	<a href="/outcome/tutorial/error_code/" >Custom error codes</a></li>
