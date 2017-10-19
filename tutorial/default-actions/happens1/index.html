@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Hugo 0.29" />
-    <meta name="description" content="The default rules for handling different categories of failure type">
+    <meta name="description" content="">
 
 
-    <title>Default actions :: Outcome documentation</title>
+    <title>-- What happens? :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/tutorial/default-actions/">
+  <body class="" data-url="/outcome/tutorial/default-actions/happens1/">
     <nav id="sidebar" class=""><div class="highlightable">
   <div id="header-wrapper">
     <div id="header"> 
@@ -125,7 +125,7 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/tutorial/default-actions/" class="dd-item parent active">
+    <li data-nav-id="/outcome/tutorial/default-actions/" class="dd-item parent">
       <a href="/outcome/tutorial/default-actions/">
         <span>Default actions</span>
             <i class="fa fa-angle-down fa-lg category-icon"></i>
@@ -136,7 +136,7 @@
           <span>User defined error types</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/default-actions/happens1/" class="dd-item">
+      <li data-nav-id="/outcome/tutorial/default-actions/happens1/" class="dd-item active">
         <a href="/outcome/tutorial/default-actions/happens1/">
           <span>-- What happens?</span>
         </a>
@@ -265,7 +265,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/default-actions/_index.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/default-actions/happens1.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -285,7 +285,12 @@
 
 
 
- <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > Default actions
+
+
+
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/default-actions/'>Default actions</a> > -- What happens?
+
+ 
 
  
 
@@ -305,45 +310,47 @@
         
         <div id="body-inner">
           
-            <h1>Default actions</h1>
+            <h1>-- What happens?</h1>
           
 
 
 
 
-<p>In the last section, we observed with <code>.value()</code> the value of the <code>outcome</code> returned by <code>copy_file()</code>
-and saw that it may throw a C++ exception configured by an ADL discovered function.
-This behaviour is what we will call a &ldquo;default action&rdquo; i.e. a pre-programmed action taken by
-Outcome in response to <em>incorrect observation</em>.</p>
+<p>Let us run the code from the previous page:</p>
 
-<p>Some &ndash; strongly &ndash; feel that these value-or-error objects should not have any
-&ldquo;default action&rdquo; other than to throw a logic error exception. Indeed, the Expected
-proposal before WG21, which intends to standardise a value-or-error object not
-dissimilar to Outcome&rsquo;s objects, does just this (at the time of writing). Optional,
-which is a value-or-nothing object, similarly throws a logic error exception on
-incorrect observation via <code>.value()</code>.</p>
+<pre><code>ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts
+Segmentation fault (core dumped)
+ned@lyta:~/outcome/build_posix$
+</code></pre>
 
-<p>Outcome&rsquo;s default is to not provide value-or-error objects, it defaults
-to providing <em>success-or-failure</em>
-objects. And we define the difference as being &ldquo;having programmable actions in
-response to incorrect observation other than throwing a logic error exception&rdquo;.</p>
+<p>Apparently no exception was thrown? Correct. Nor was a value printed, though this will
+<em>randomly</em> vary depending on your compiler, libraries, the wind blowing on the day &hellip;</p>
 
-<p>You can, of course,
-choose different default actions for your particular Outcome type, implement your own
-default actions, and indeed configure a <code>result</code> and <code>outcome</code> which throw a
-logic error exception exactly the same way as Expected or Optional does.
-How to do this is described later in this tutorial.</p>
+<p>You will probably find this surprising. This is because the <em>default
+action</em> for a user-defined error type is <strong>undefined behaviour</strong>.</p>
 
-<p>But this section describes the default actions implemented by Outcome, which
-we believe will cover the large majority of users with no further configuration
-needed.</p>
+<p>Let&rsquo;s
+demonstrate this by recompiling the code to use the undefined behaviour sanitiser
+and see what happens instead:</p>
+
+<pre><code>ned@lyta:~/outcome/build_posix$ export UBSAN_OPTIONS=print_stacktrace=1
+ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts
+/home/ned/outcome/doc/src/snippets/../../../include/outcome/policy/detail/common.hpp:42:9: runtime error: execution reached a __builtin_unreachable() call
+    #0 0x42a0dc in outcome_v2_1c2d524c::policy::detail::base::_ub() (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x42a0dc)
+    #1 0x42a028 in void outcome_v2_1c2d524c::policy::detail::base::narrow_value_check&lt;outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt; &gt;(outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt;*) (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x42a028)
+    #2 0x429f0c in void outcome_v2_1c2d524c::policy::all_narrow::wide_value_check&lt;outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt; &gt;(outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt;*) (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x429f0c)
+    #3 0x4298d6 in outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt;::value() &amp; (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4298d6)
+    #4 0x4295f1 in main (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4295f1)
+    #5 0x7f3bd59c1f44 in __libc_start_main /build/eglibc-SvCtMH/eglibc-2.19/csu/libc-start.c:287
+    #6 0x4030c3 in _start (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4030c3)
+</code></pre>
+
+<p>The undefined behaviour is correctly trapped at runtime by the undefined behaviour sanitiser.</p>
 
 
 <footer class=" footline" >
 	
 </footer>
-
-
 
 
 
@@ -358,8 +365,8 @@ needed.</p>
     
 
     <div id="navigation">
-        <a class="nav nav-prev" href="/outcome/tutorial/payload/copy_file3/" title="Throwing filesystem_error"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/tutorial/default-actions/udt-err/" title="User defined error types" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/outcome/tutorial/default-actions/udt-err/" title="User defined error types"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/default-actions/enums/" title="Error code enums" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>
@@ -384,3 +391,4 @@ needed.</p>
 
   </body>
 </html>
+

@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Hugo 0.29" />
-    <meta name="description" content="The default rules for handling different categories of failure type">
+    <meta name="description" content="">
 
 
-    <title>Default actions :: Outcome documentation</title>
+    <title>unchecked&lt;T, E&gt; and checked&lt;T, E&gt; :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/tutorial/default-actions/">
+  <body class="" data-url="/outcome/tutorial/default-actions/unchecked/">
     <nav id="sidebar" class=""><div class="highlightable">
   <div id="header-wrapper">
     <div id="header"> 
@@ -125,7 +125,7 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/tutorial/default-actions/" class="dd-item parent active">
+    <li data-nav-id="/outcome/tutorial/default-actions/" class="dd-item parent">
       <a href="/outcome/tutorial/default-actions/">
         <span>Default actions</span>
             <i class="fa fa-angle-down fa-lg category-icon"></i>
@@ -171,7 +171,7 @@
           <span>void</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/default-actions/unchecked/" class="dd-item">
+      <li data-nav-id="/outcome/tutorial/default-actions/unchecked/" class="dd-item active">
         <a href="/outcome/tutorial/default-actions/unchecked/">
           <span>unchecked&lt;T, E&gt; and checked&lt;T, E&gt;</span>
         </a>
@@ -265,7 +265,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/default-actions/_index.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/default-actions/unchecked.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -285,7 +285,12 @@
 
 
 
- <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > Default actions
+
+
+
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/default-actions/'>Default actions</a> > unchecked<T, E> and checked<T, E>
+
+ 
 
  
 
@@ -305,45 +310,40 @@
         
         <div id="body-inner">
           
-            <h1>Default actions</h1>
+            <h1>unchecked&lt;T, E&gt; and checked&lt;T, E&gt;</h1>
           
 
 
 
 
-<p>In the last section, we observed with <code>.value()</code> the value of the <code>outcome</code> returned by <code>copy_file()</code>
-and saw that it may throw a C++ exception configured by an ADL discovered function.
-This behaviour is what we will call a &ldquo;default action&rdquo; i.e. a pre-programmed action taken by
-Outcome in response to <em>incorrect observation</em>.</p>
+<p>We have now covered all of the default actions in Outcome whereby <code>result&lt;T, EC&gt;</code> and <code>outcome&lt;T, EC, EP|P&gt;</code> implement
+various default actions upon incorrect observation according to traits defined upon the <code>EC</code> and <code>EP|P</code> chosen.</p>
 
-<p>Some &ndash; strongly &ndash; feel that these value-or-error objects should not have any
-&ldquo;default action&rdquo; other than to throw a logic error exception. Indeed, the Expected
-proposal before WG21, which intends to standardise a value-or-error object not
-dissimilar to Outcome&rsquo;s objects, does just this (at the time of writing). Optional,
-which is a value-or-nothing object, similarly throws a logic error exception on
-incorrect observation via <code>.value()</code>.</p>
+<p>If you don&rsquo;t want all this clever automatic detection of traits, and just want a plain,
+always-undefined-behaviour-on-incorrect-observation success-or-failure type, we provide
+a simplified template alias to <code>result&lt;T, E&gt;</code> called <code>unchecked&lt;T, E&gt;</code>. It literally does
+no run time checking whatsoever, incorrect observation is always undefined behaviour.</p>
 
-<p>Outcome&rsquo;s default is to not provide value-or-error objects, it defaults
-to providing <em>success-or-failure</em>
-objects. And we define the difference as being &ldquo;having programmable actions in
-response to incorrect observation other than throwing a logic error exception&rdquo;.</p>
+<p>If instead you would prefer a plain, always-throwing-logic-error-on-incorrect-observation
+type, we also provide another simplified template alias to <code>result&lt;T, E&gt;</code> called <code>checked&lt;T, E&gt;</code>.
+Similar to <code>.value()</code> in the WG21 Expected proposal or Optional, incorrect observation throws
+these logic error exception types:</p>
 
-<p>You can, of course,
-choose different default actions for your particular Outcome type, implement your own
-default actions, and indeed configure a <code>result</code> and <code>outcome</code> which throw a
-logic error exception exactly the same way as Expected or Optional does.
-How to do this is described later in this tutorial.</p>
+<ul>
+<li>Incorrect <code>.value()</code> observation throws <code>bad_result_access_with&lt;E&gt;</code>.</li>
+<li>Incorrect <code>.error()</code> observation throws <code>bad_result_access</code>.</li>
+</ul>
 
-<p>But this section describes the default actions implemented by Outcome, which
-we believe will cover the large majority of users with no further configuration
-needed.</p>
+<p>If you need run time unchecked observers, <code>.assume_value()</code> and <code>.assume_error()</code> are
+always unchecked at run time.</p>
+
+<p>Finally, if you would like to implement your own default actions, you will find the
+tutorial section on <a href="policies">Policies</a> useful.</p>
 
 
 <footer class=" footline" >
 	
 </footer>
-
-
 
 
 
@@ -358,8 +358,8 @@ needed.</p>
     
 
     <div id="navigation">
-        <a class="nav nav-prev" href="/outcome/tutorial/payload/copy_file3/" title="Throwing filesystem_error"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/tutorial/default-actions/udt-err/" title="User defined error types" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/outcome/tutorial/default-actions/void/" title="void"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/hooks/" title="Hooking events" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>
@@ -384,3 +384,4 @@ needed.</p>
 
   </body>
 </html>
+

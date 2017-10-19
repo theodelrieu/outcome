@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title>result&lt;udt, err&gt;.value() :: Outcome documentation</title>
+    <title>Error code enums :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -136,14 +136,44 @@
           <span>User defined error types</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/default-actions/enums/" class="dd-item active">
-        <a href="/outcome/tutorial/default-actions/enums/">
-          <span>result&lt;udt, err&gt;.value()</span>
+      <li data-nav-id="/outcome/tutorial/default-actions/happens1/" class="dd-item">
+        <a href="/outcome/tutorial/default-actions/happens1/">
+          <span>-- What happens?</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/default-actions/happens/" class="dd-item">
-        <a href="/outcome/tutorial/default-actions/happens/">
-          <span>result&lt;udt, err&gt;.value()</span>
+      <li data-nav-id="/outcome/tutorial/default-actions/enums/" class="dd-item active">
+        <a href="/outcome/tutorial/default-actions/enums/">
+          <span>Error code enums</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/default-actions/happens2/" class="dd-item">
+        <a href="/outcome/tutorial/default-actions/happens2/">
+          <span>-- What happens?</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/default-actions/happens3/" class="dd-item">
+        <a href="/outcome/tutorial/default-actions/happens3/">
+          <span>-- Now what happens?</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/default-actions/error-codes/" class="dd-item">
+        <a href="/outcome/tutorial/default-actions/error-codes/">
+          <span>error_code</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/default-actions/exception-ptr/" class="dd-item">
+        <a href="/outcome/tutorial/default-actions/exception-ptr/">
+          <span>exception_ptr</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/default-actions/void/" class="dd-item">
+        <a href="/outcome/tutorial/default-actions/void/">
+          <span>void</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/default-actions/unchecked/" class="dd-item">
+        <a href="/outcome/tutorial/default-actions/unchecked/">
+          <span>unchecked&lt;T, E&gt; and checked&lt;T, E&gt;</span>
         </a>
     </li>
         </ul>
@@ -258,7 +288,7 @@
 
 
 
- <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/default-actions/'>Default actions</a> > result<udt, err>.value()
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/default-actions/'>Default actions</a> > Error code enums
 
  
 
@@ -280,37 +310,45 @@
         
         <div id="body-inner">
           
-            <h1>result&lt;udt, err&gt;.value()</h1>
+            <h1>Error code enums</h1>
           
 
 
 
 
-<pre><code>ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts
-32767
-ned@lyta:~/outcome/build_posix$
-</code></pre>
+<p>Let&rsquo;s replace <code>err</code> with something likely in many people&rsquo;s code, a strongly typed <code>enum</code>:</p>
 
-<p>Apparently no exception was thrown? Correct.</p>
+<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+  <span class="s3e8">struct</span> udt
+  {
+    <span class="s3ee">int</span> a{0};
+    <span class="s3e8">explicit</span> udt(<span class="s3ee">int</span> _a)
+        : a(_a)
+    {
+    }
+    udt() = <span class="s3e8">default</span>;
+    <span class="s3ee">int</span> <span class="s3e8">operator</span>*() <span class="s3e8">const</span> { <span class="s3e8">return</span> a; }
+  };
+  <span class="s3e8">enum</span> <span class="s3e8">class</span> <span class="s7d4">err</span>
+  {
+    success,
+    failure1,
+    failure2
+  };
+  result&lt;udt, err&gt; res(err::failure1);
 
-<p>It is very likely, given the contents of the tutorial to date, that you will find this surprising. This is because the <em>default
-action</em> for a user-defined error type is <strong>undefined behaviour</strong>.</p>
+  <span class="s1770">// What happens here? What exception type is thrown?
+</span><span class="s1770"></span>  <span class="s3e8">try</span>
+  {
+    std::cout &lt;&lt; *res.value() &lt;&lt; std::endl;
+  }
+  <span class="s3e8">catch</span>(<span class="s3e8">const</span> std::exception &amp;e)
+  {
+    std::cerr &lt;&lt; <span class="sc1c"></span><span class="sc1c">&#34;Exception thrown was &#34;</span> &lt;&lt; e.what() &lt;&lt; std::endl;
+  }
+  </code></pre>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/error_code_enums1.cpp#L32" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
-<p>Let&rsquo;s
-demonstrate this by running the code under the undefined behaviour sanitiser
-and see what happens instead:</p>
-
-<pre><code>ned@lyta:~/outcome/build_posix$ export UBSAN_OPTIONS=print_stacktrace=1
-ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts
-/home/ned/outcome/doc/src/snippets/../../../include/outcome/policy/detail/common.hpp:42:9: runtime error: execution reached a __builtin_unreachable() call
-    #0 0x42a0dc in outcome_v2_1c2d524c::policy::detail::base::_ub() (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x42a0dc)
-    #1 0x42a028 in void outcome_v2_1c2d524c::policy::detail::base::narrow_value_check&lt;outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt; &gt;(outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt;*) (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x42a028)
-    #2 0x429f0c in void outcome_v2_1c2d524c::policy::all_narrow::wide_value_check&lt;outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt; &gt;(outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt;*) (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x429f0c)
-    #3 0x4298d6 in outcome_v2_1c2d524c::detail::result_value_observers&lt;outcome_v2_1c2d524c::detail::result_storage&lt;main::udt, main::err, outcome_v2_1c2d524c::policy::all_narrow&gt;, main::udt, outcome_v2_1c2d524c::policy::all_narrow&gt;::value() &amp; (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4298d6)
-    #4 0x4295f1 in main (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4295f1)
-    #5 0x7f3bd59c1f44 in __libc_start_main /build/eglibc-SvCtMH/eglibc-2.19/csu/libc-start.c:287
-    #6 0x4030c3 in _start (/home/ned/outcome/build_posix/bin/outcome-snippets_udts+0x4030c3)
-</code></pre>
 
 
 <footer class=" footline" >
@@ -330,8 +368,8 @@ ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts
     
 
     <div id="navigation">
-        <a class="nav nav-prev" href="/outcome/tutorial/default-actions/udt-err/" title="User defined error types"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/tutorial/default-actions/happens/" title="result&lt;udt, err&gt;.value()" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/outcome/tutorial/default-actions/happens1/" title="-- What happens?"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/default-actions/happens2/" title="-- What happens?" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>

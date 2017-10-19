@@ -15,6 +15,10 @@
   </url>
   
   <url>
+    <loc>https://ned14.github.io/outcome/tutorial/default-actions/happens1/</loc>
+  </url>
+  
+  <url>
     <loc>https://ned14.github.io/outcome/tutorial/hooks/keeping_state/</loc>
   </url>
   
@@ -31,15 +35,11 @@
   </url>
   
   <url>
-    <loc>https://ned14.github.io/outcome/tutorial/default-actions/enums/</loc>
-  </url>
-  
-  <url>
-    <loc>https://ned14.github.io/outcome/tutorial/default-actions/happens/</loc>
-  </url>
-  
-  <url>
     <loc>https://ned14.github.io/outcome/tutorial/hooks/adl_bridging/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/tutorial/default-actions/enums/</loc>
   </url>
   
   <url>
@@ -52,6 +52,14 @@
   
   <url>
     <loc>https://ned14.github.io/outcome/tutorial/outcome/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/tutorial/default-actions/happens2/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/tutorial/default-actions/happens3/</loc>
   </url>
   
   <url>
@@ -75,11 +83,19 @@
   </url>
   
   <url>
+    <loc>https://ned14.github.io/outcome/tutorial/default-actions/error-codes/</loc>
+  </url>
+  
+  <url>
     <loc>https://ned14.github.io/outcome/tutorial/payload/</loc>
   </url>
   
   <url>
     <loc>https://ned14.github.io/outcome/tutorial/hooks/poke_exception/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/tutorial/default-actions/exception-ptr/</loc>
   </url>
   
   <url>
@@ -92,6 +108,14 @@
   
   <url>
     <loc>https://ned14.github.io/outcome/tutorial/hooks/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/tutorial/default-actions/void/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/tutorial/default-actions/unchecked/</loc>
   </url>
   
   <url>

@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Hugo 0.29" />
-    <meta name="description" content="The default rules for handling different categories of failure type">
+    <meta name="description" content="">
 
 
-    <title>Default actions :: Outcome documentation</title>
+    <title>-- Now what happens? :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/tutorial/default-actions/">
+  <body class="" data-url="/outcome/tutorial/default-actions/happens3/">
     <nav id="sidebar" class=""><div class="highlightable">
   <div id="header-wrapper">
     <div id="header"> 
@@ -125,7 +125,7 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/tutorial/default-actions/" class="dd-item parent active">
+    <li data-nav-id="/outcome/tutorial/default-actions/" class="dd-item parent">
       <a href="/outcome/tutorial/default-actions/">
         <span>Default actions</span>
             <i class="fa fa-angle-down fa-lg category-icon"></i>
@@ -151,7 +151,7 @@
           <span>-- What happens?</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/default-actions/happens3/" class="dd-item">
+      <li data-nav-id="/outcome/tutorial/default-actions/happens3/" class="dd-item active">
         <a href="/outcome/tutorial/default-actions/happens3/">
           <span>-- Now what happens?</span>
         </a>
@@ -265,7 +265,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/default-actions/_index.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/default-actions/happens3.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -285,7 +285,12 @@
 
 
 
- <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > Default actions
+
+
+
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/default-actions/'>Default actions</a> > -- Now what happens?
+
+ 
 
  
 
@@ -305,45 +310,39 @@
         
         <div id="body-inner">
           
-            <h1>Default actions</h1>
+            <h1>-- Now what happens?</h1>
           
 
 
 
 
-<p>In the last section, we observed with <code>.value()</code> the value of the <code>outcome</code> returned by <code>copy_file()</code>
-and saw that it may throw a C++ exception configured by an ADL discovered function.
-This behaviour is what we will call a &ldquo;default action&rdquo; i.e. a pre-programmed action taken by
-Outcome in response to <em>incorrect observation</em>.</p>
+<p>Let us run the code from the previous page:</p>
 
-<p>Some &ndash; strongly &ndash; feel that these value-or-error objects should not have any
-&ldquo;default action&rdquo; other than to throw a logic error exception. Indeed, the Expected
-proposal before WG21, which intends to standardise a value-or-error object not
-dissimilar to Outcome&rsquo;s objects, does just this (at the time of writing). Optional,
-which is a value-or-nothing object, similarly throws a logic error exception on
-incorrect observation via <code>.value()</code>.</p>
+<pre><code>ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_error_code_enums2
+Exception thrown was failure1
+ned@lyta:~/outcome/build_posix$
+</code></pre>
 
-<p>Outcome&rsquo;s default is to not provide value-or-error objects, it defaults
-to providing <em>success-or-failure</em>
-objects. And we define the difference as being &ldquo;having programmable actions in
-response to incorrect observation other than throwing a logic error exception&rdquo;.</p>
+<p>Ah so now we are throwing a C++ exception on incorrect observation! This
+is because we registered our error code enum with the C++ standard library
+and in so doing, we also told the standard library how our error code
+interacts with <code>std::error_code</code> and thus <code>std::system_error</code>.</p>
 
-<p>You can, of course,
-choose different default actions for your particular Outcome type, implement your own
-default actions, and indeed configure a <code>result</code> and <code>outcome</code> which throw a
-logic error exception exactly the same way as Expected or Optional does.
-How to do this is described later in this tutorial.</p>
+<p>Outcome&rsquo;s default action when incorrectly observing a <code>result</code> or <code>outcome</code>
+with a <code>EC</code> type where <code>std::is_error_code_enum&lt;EC&gt;</code> is true, or
+<code>std::is_error_condition_enum&lt;EC&gt;</code> is true, is to throw a
+<code>std::system_error(make_error_code(.error()))</code>. So because <code>.error()</code>
+is set to <code>err::failure1</code>, the free function we defined <code>make_error_code(err)</code>
+converts that into a <code>std::error_code</code>, and from that the <code>std::system_error</code>
+is constructed and thrown.</p>
 
-<p>But this section describes the default actions implemented by Outcome, which
-we believe will cover the large majority of users with no further configuration
-needed.</p>
+<p>On catching a <code>std::exception</code>, we print the <code>what()</code> which this particular
+standard library implementation (libstdc++) has chosen to set to <code>error_code::message()</code>.</p>
 
 
 <footer class=" footline" >
 	
 </footer>
-
-
 
 
 
@@ -358,8 +357,8 @@ needed.</p>
     
 
     <div id="navigation">
-        <a class="nav nav-prev" href="/outcome/tutorial/payload/copy_file3/" title="Throwing filesystem_error"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/tutorial/default-actions/udt-err/" title="User defined error types" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/outcome/tutorial/default-actions/happens2/" title="-- What happens?"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/default-actions/error-codes/" title="error_code" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>
@@ -384,3 +383,4 @@ needed.</p>
 
   </body>
 </html>
+

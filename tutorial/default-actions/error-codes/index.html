@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Hugo 0.29" />
-    <meta name="description" content="The default rules for handling different categories of failure type">
+    <meta name="description" content="">
 
 
-    <title>Default actions :: Outcome documentation</title>
+    <title>error_code :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/tutorial/default-actions/">
+  <body class="" data-url="/outcome/tutorial/default-actions/error-codes/">
     <nav id="sidebar" class=""><div class="highlightable">
   <div id="header-wrapper">
     <div id="header"> 
@@ -125,7 +125,7 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/tutorial/default-actions/" class="dd-item parent active">
+    <li data-nav-id="/outcome/tutorial/default-actions/" class="dd-item parent">
       <a href="/outcome/tutorial/default-actions/">
         <span>Default actions</span>
             <i class="fa fa-angle-down fa-lg category-icon"></i>
@@ -156,7 +156,7 @@
           <span>-- Now what happens?</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/default-actions/error-codes/" class="dd-item">
+      <li data-nav-id="/outcome/tutorial/default-actions/error-codes/" class="dd-item active">
         <a href="/outcome/tutorial/default-actions/error-codes/">
           <span>error_code</span>
         </a>
@@ -265,7 +265,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/default-actions/_index.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/default-actions/error-codes.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -285,7 +285,12 @@
 
 
 
- <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > Default actions
+
+
+
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/default-actions/'>Default actions</a> > error_code
+
+ 
 
  
 
@@ -305,45 +310,59 @@
         
         <div id="body-inner">
           
-            <h1>Default actions</h1>
+            <h1>error_code</h1>
           
 
 
 
 
-<p>In the last section, we observed with <code>.value()</code> the value of the <code>outcome</code> returned by <code>copy_file()</code>
-and saw that it may throw a C++ exception configured by an ADL discovered function.
-This behaviour is what we will call a &ldquo;default action&rdquo; i.e. a pre-programmed action taken by
-Outcome in response to <em>incorrect observation</em>.</p>
+<p>Now that we have told the C++ standard library about our custom error code enum <code>err</code>,
+we actually no longer need to specify <code>EC = err</code>, we can just leave it default to
+<code>std::error_code</code>:</p>
 
-<p>Some &ndash; strongly &ndash; feel that these value-or-error objects should not have any
-&ldquo;default action&rdquo; other than to throw a logic error exception. Indeed, the Expected
-proposal before WG21, which intends to standardise a value-or-error object not
-dissimilar to Outcome&rsquo;s objects, does just this (at the time of writing). Optional,
-which is a value-or-nothing object, similarly throws a logic error exception on
-incorrect observation via <code>.value()</code>.</p>
+<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+  result&lt;udt <span class="s1770">/*, std::error_code */</span>&gt; res(err::failure1);
 
-<p>Outcome&rsquo;s default is to not provide value-or-error objects, it defaults
-to providing <em>success-or-failure</em>
-objects. And we define the difference as being &ldquo;having programmable actions in
-response to incorrect observation other than throwing a logic error exception&rdquo;.</p>
+  <span class="s1770">// What happens here? What exception type is thrown?
+</span><span class="s1770"></span>  <span class="s3e8">try</span>
+  {
+    std::cout &lt;&lt; *res.value() &lt;&lt; std::endl;
+  }
+  <span class="s3e8">catch</span>(<span class="s3e8">const</span> std::exception &amp;e)
+  {
+    <span class="s1770">// Prints &#34;Exception thrown was failure1&#34;, exactly the same as before
+</span><span class="s1770"></span>    std::cerr &lt;&lt; <span class="sc1c"></span><span class="sc1c">&#34;Exception thrown was &#34;</span> &lt;&lt; e.what() &lt;&lt; std::endl;
+  }
+  </code></pre>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/error_code_enums2.cpp#L109" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
-<p>You can, of course,
-choose different default actions for your particular Outcome type, implement your own
-default actions, and indeed configure a <code>result</code> and <code>outcome</code> which throw a
-logic error exception exactly the same way as Expected or Optional does.
-How to do this is described later in this tutorial.</p>
 
-<p>But this section describes the default actions implemented by Outcome, which
-we believe will cover the large majority of users with no further configuration
-needed.</p>
+<p>The detection of <code>EC</code> being an error code is via <code>trait::is_error_code&lt;EC&gt;</code> which can
+be specialised by you for your own types if you wish. They must, of course, provide
+the same interface as <code>std::error_code</code>.</p>
+
+<p>The big advantage of always using <code>EC = std::error_code</code> is that <code>OUTCOME_TRY</code> only works when the <code>EC</code> type is the
+same in the try expression as the calling function, so by leaving it at the default of <code>std::error_code</code>, we can use <code>OUTCOME_TRY</code>
+and save having to type boilerplate:</p>
+
+<p><div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+result&lt;udt&gt; boo()
+{
+  <span class="s3e8">return</span> err::failure1;
+}
+result&lt;udt&gt; foo()
+{
+  OUTCOME_TRY(v, boo());
+  <span class="s3e8">return</span> {5};  <span class="s1770">// emplace construct udt with 5
+</span><span class="s1770"></span>}
+</code></pre>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/error_code_enums2.cpp#L125" class="code-snippet-url" target="_blank">View this code on Github</a></div>
+</p>
 
 
 <footer class=" footline" >
 	
 </footer>
-
-
 
 
 
@@ -358,8 +377,8 @@ needed.</p>
     
 
     <div id="navigation">
-        <a class="nav nav-prev" href="/outcome/tutorial/payload/copy_file3/" title="Throwing filesystem_error"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/tutorial/default-actions/udt-err/" title="User defined error types" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/outcome/tutorial/default-actions/happens3/" title="-- Now what happens?"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/default-actions/exception-ptr/" title="exception_ptr" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>
@@ -384,3 +403,4 @@ needed.</p>
 
   </body>
 </html>
+
