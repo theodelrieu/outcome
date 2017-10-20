@@ -72,6 +72,26 @@ namespace filesystem { /*! Copies the file at path `from` to path `to`. \returns
     </item>
     
     <item>
+      <title>Two phase construction</title>
+      <link>https://ned14.github.io/outcome/tutorial/constructors/two-phase-init/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/constructors/two-phase-init/</guid>
+      <description>The first thing to do is to break your object&amp;rsquo;s construction into two phases:
+ Place the object into a state where it can be legally destructed without doing anything which could throw an exception (i.e. everything done is constexpr). This phase usually involves initialising member variables to various default values. Most standard C++ library objects and containers have constexpr constructors, and thus can be initialised during phase 1. If you need to initialise a member variable without a constexpr constructor, std::optional&amp;lt;T&amp;gt; is the usual workaround.</description>
+    </item>
+    
+    <item>
+      <title>A file handle</title>
+      <link>https://ned14.github.io/outcome/tutorial/constructors/file_handle/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/constructors/file_handle/</guid>
+      <description>Borrowing from afio::file_handle which uses this design pattern, here is a simplified file_handle implementation:
+class file_handle { int _fd{-1}; // file descriptor  struct stat _stat { 0 }; // stat of the fd at open  // Phase 1 private constexpr constructor  constexpr file_handle() {} public: // Moves but not copies permitted  file_handle(const file_handle &amp;amp;) = delete; file_handle(file_handle &amp;amp;&amp;amp;o) noexcept : _fd(o._fd) { o._fd = -1; } file_handle &amp;amp;operator=(const file_handle &amp;amp;) = delete; file_handle &amp;amp;operator=(file_handle &amp;amp;&amp;amp;o) noexcept { this-&amp;gt;~file_handle(); new(this) file_handle(std::move(o)); return *this; } // Destruction closes the handle  ~file_handle() { if(_fd !</description>
+    </item>
+    
+    <item>
       <title>ADL bridging</title>
       <link>https://ned14.github.io/outcome/tutorial/hooks/adl_bridging/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -196,6 +216,16 @@ namespace Layer3 { auto run() -&amp;gt; double // may throw  { if (outcome::outc
     </item>
     
     <item>
+      <title>Phase 2 construction</title>
+      <link>https://ned14.github.io/outcome/tutorial/constructors/static-constructor/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ned14.github.io/outcome/tutorial/constructors/static-constructor/</guid>
+      <description>Its phase 2 construction:
+// Phase 2 static member constructor function, which cannot throw inline outcome::result&amp;lt;file_handle&amp;gt; file_handle::file(filesystem::path path) noexcept { // Perform phase 1 of object construction  file_handle ret; // Perform phase 2 of object construction  ret._fd = ::open(path.c_str(), O_RDONLY); if(-1 == ret._fd) { // Note that if we bail out here, ~file_handle() will correctly not call ::close()  return {errno, std::system_category()}; } if(-1 == ::fstat(ret._fd, &amp;amp;ret._stat)) { // Note that if we bail out here, ~file_handle() will correctly call ::close()  return {errno, std::system_category()}; } // Returning ret directly is an area full of compiler specific behaviour quirks,  // so be explicit by wrapping into an initialiser list with embedded move.</description>
+    </item>
+    
+    <item>
       <title>Result only</title>
       <link>https://ned14.github.io/outcome/tutorial/policies/result-policies/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -279,15 +309,6 @@ struct udt { int a{0}; explicit udt(int _a) : a(_a) { } udt() = default; int ope
     </item>
     
     <item>
-      <title>result returning constructors</title>
-      <link>https://ned14.github.io/outcome/tutorial/result/constructors/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://ned14.github.io/outcome/tutorial/result/constructors/</guid>
-      <description>todo</description>
-    </item>
-    
-    <item>
       <title>Hook outcome</title>
       <link>https://ned14.github.io/outcome/tutorial/hooks/hook_outcome/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -341,7 +362,7 @@ If you don&amp;rsquo;t want all this clever automatic detection of traits, and j
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://ned14.github.io/outcome/credits/</guid>
-      <description>github contributors .ghContributors{ display:flex; flex-flow: wrap; align-content: flex-start } .ghContributors  div{ width: 50% ; display: inline-flex; margin-bottom: 5px; } .ghContributors  div label{ padding-left: 4px ; } .ghContributors  div span{ font-size: x-small; padding-left: 4px ; }   @ned14 695 commits   @akrzemi1 10 commits   @jenkins-nedprod 1 commits   This pretty, modern C++ documentation  Hugo - static website generator of this documentation. hugo-theme-docdock - the Hugo theme used by this documentation.</description>
+      <description>github contributors .ghContributors{ display:flex; flex-flow: wrap; align-content: flex-start } .ghContributors  div{ width: 50% ; display: inline-flex; margin-bottom: 5px; } .ghContributors  div label{ padding-left: 4px ; } .ghContributors  div span{ font-size: x-small; padding-left: 4px ; }  This pretty, modern C++ documentation  Hugo - static website generator of this documentation. hugo-theme-docdock - the Hugo theme used by this documentation. Standardese - the API reference generator  Special thanks To Paul Bristow who proposed the name &amp;ldquo;Outcome&amp;rdquo; for the library after a very extended period of name bikeshedding on boost-dev.</description>
     </item>
     
   </channel>

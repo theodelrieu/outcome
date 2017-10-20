@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title>-- What happens? :: Outcome documentation</title>
+    <title>Two phase construction :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/tutorial/default-actions/happens2/">
+  <body class="" data-url="/outcome/tutorial/constructors/two-phase-init/">
     <nav id="sidebar" class=""><div class="highlightable">
   <div id="header-wrapper">
     <div id="header"> 
@@ -125,10 +125,9 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/tutorial/default-actions/" class="dd-item parent">
+    <li data-nav-id="/outcome/tutorial/default-actions/" class="dd-item">
       <a href="/outcome/tutorial/default-actions/">
-        <span>Default actions</span>
-            <i class="fa fa-angle-down fa-lg category-icon"></i>
+        <span>Default actions</span><i class="fa fa-angle-right fa-lg category-icon"></i>
       </a>
         <ul>
       <li data-nav-id="/outcome/tutorial/default-actions/udt-err/" class="dd-item">
@@ -146,7 +145,7 @@
           <span>Error code enums</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/default-actions/happens2/" class="dd-item active">
+      <li data-nav-id="/outcome/tutorial/default-actions/happens2/" class="dd-item">
         <a href="/outcome/tutorial/default-actions/happens2/">
           <span>-- What happens?</span>
         </a>
@@ -178,12 +177,13 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/tutorial/constructors/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/constructors/" class="dd-item parent">
       <a href="/outcome/tutorial/constructors/">
-        <span>Result returning constructors</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>Result returning constructors</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
-      <li data-nav-id="/outcome/tutorial/constructors/two-phase-init/" class="dd-item">
+      <li data-nav-id="/outcome/tutorial/constructors/two-phase-init/" class="dd-item active">
         <a href="/outcome/tutorial/constructors/two-phase-init/">
           <span>Two phase construction</span>
         </a>
@@ -346,7 +346,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/default-actions/happens2.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/constructors/two-phase-init.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -369,7 +369,7 @@
 
 
 
- <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/default-actions/'>Default actions</a> > -- What happens?
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/constructors/'>Result returning constructors</a> > Two phase construction
 
  
 
@@ -391,84 +391,43 @@
         
         <div id="body-inner">
           
-            <h1>-- What happens?</h1>
+            <h1>Two phase construction</h1>
           
 
 
 
 
-<p>Let us run the code from the previous page:</p>
+<p>The first thing to do is to break your object&rsquo;s construction into two phases:</p>
 
-<pre><code>ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_error_code_enums1
-Segmentation fault (core dumped)
-ned@lyta:~/outcome/build_posix$
-</code></pre>
+<ol>
+<li><p>Place the object into a state where it can be legally destructed
+without doing anything which could throw an exception (i.e. everything
+done is <code>constexpr</code>). This phase usually involves initialising member
+variables to various default values. Most standard C++ library objects
+and containers have <code>constexpr</code> constructors, and thus can be initialised
+during phase 1. If you need to initialise a member variable without
+a <code>constexpr</code> constructor, <code>std::optional&lt;T&gt;</code> is the usual workaround.</p></li>
 
-<p>Also undefined behaviour. This is because Outcome doesn&rsquo;t know what to do
-with a strongly typed <code>enum</code> any more than some user defined <code>struct</code>.</p>
+<li><p>Do the remainder of the construction, the parts which could fail.
+Because phase 1 placed the object into a legally destructible state,
+it is usually the case that one can bail out during phase 2 and the
+destructor will clean things up correctly.</p></li>
+</ol>
 
-<p>Let&rsquo;s register our error code enum with the C++ standard library. This causes
-Outcome to treat it quite differently.</p>
+<p>The phase 1 construction will be placed into a <em>private</em> <code>constexpr</code>
+constructor so nobody external can call it. The phase 2 construction will be placed into a static
+member initialisation function which returns a <code>result</code> with either
+the successfully constructed object, or the cause of any failure to
+construct the object.</p>
 
-<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
-<span class="s3e8">struct</span> udt
-{
-  <span class="s3ee">int</span> a{0};
-  <span class="s3e8">explicit</span> udt(<span class="s3ee">int</span> _a)
-      : a(_a)
-  {
-  }
-  udt() = <span class="s3e8">default</span>;
-  <span class="s3ee">int</span> <span class="s3e8">operator</span>*() <span class="s3e8">const</span> { <span class="s3e8">return</span> a; }
-};
-<span class="s3e8">enum</span> <span class="s3e8">class</span> <span class="s7d4">err</span>
-{
-  success,
-  failure1,
-  failure2
-};
-
-<span class="s1770">// Tell the standard library that enum err is an error code enum
-</span><span class="s1770">// by specialising the is_error_code_enum trait. See
-</span><span class="s1770">// http://en.cppreference.com/w/cpp/error/error_code/is_error_code_enum
-</span><span class="s1770"></span><span class="s3e8">namespace</span> std
-{
-  <span class="s3e8">template</span> &lt;&gt; <span class="s3e8">struct</span> is_error_code_enum&lt;err&gt; : std::true_type
-  {
-  };
-}
-
-<span class="s1770">// We also must declare a free function make_error_code. This is
-</span><span class="s1770">// discovered via ADL by the standard library. See
-</span><span class="s1770">// http://en.cppreference.com/w/cpp/error/errc/make_error_code
-</span><span class="s1770"></span><span class="s3e8">inline</span> std::error_code make_error_code(err c)
-{
-  <span class="s1770">// We need to inherit from std::error_category to define
-</span><span class="s1770"></span>  <span class="s1770">// an error code domain with the standard library for
-</span><span class="s1770"></span>  <span class="s1770">// our strongly typed enum. See
-</span><span class="s1770"></span>  <span class="s1770">// http://en.cppreference.com/w/cpp/error/error_category
-</span><span class="s1770"></span>  <span class="s3e8">static</span> <span class="s3e8">struct</span> err_category : std::error_category
-  {
-    <span class="s3e8">virtual</span> <span class="s3e8">const</span> <span class="s3ee">char</span> *name() <span class="s3e8">const</span> <span class="s3e8">noexcept</span> <span class="s3e8">override</span> <span class="s3e8">final</span> { <span class="s3e8">return</span> <span class="sc1c"></span><span class="sc1c">&#34;err_category&#34;</span>; };
-    <span class="s3e8">virtual</span> std::string message(<span class="s3ee">int</span> c) <span class="s3e8">const</span> <span class="s3e8">override</span> <span class="s3e8">final</span>
-    {
-      <span class="s3e8">switch</span>(<span class="s3e8">static_cast</span>&lt;err&gt;(c))
-      {
-      <span class="s3e8">case</span> err::success:
-        <span class="s3e8">return</span> <span class="sc1c"></span><span class="sc1c">&#34;err::success&#34;</span>;
-      <span class="s3e8">case</span> err::failure1:
-        <span class="s3e8">return</span> <span class="sc1c"></span><span class="sc1c">&#34;err::failure1&#34;</span>;
-      <span class="s3e8">case</span> err::failure2:
-        <span class="s3e8">return</span> <span class="sc1c"></span><span class="sc1c">&#34;err::failure2&#34;</span>;
-      }
-      <span class="s3e8">return</span> <span class="sc1c"></span><span class="sc1c">&#34;unknown&#34;</span>;
-    }
-  } category;
-  <span class="s3e8">return</span> std::error_code(<span class="s3e8">static_cast</span>&lt;<span class="s3ee">int</span>&gt;(c), category);
-}
-</code></pre>
-</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/error_code_enums2.cpp#L29" class="code-snippet-url" target="_blank">View this code on Github</a></div>
-
+<p>Finally,
+some simple metaprogramming will implement a <code>construct&lt;T&gt;(Args...)</code>
+free function which will construct any object <code>T</code> by calling its
+static initialisation function with <code>Args...</code> and returning the
+<code>result</code> returned. This isn&rsquo;t as nice as calling <code>T(Args...)</code> directly,
+but it&rsquo;s not too bad in practice. And more importantly, it lets you
+write generic code which can construct any unknown object which
+fails via returning <code>result</code>, completely avoiding C++ exception throws.</p>
 
 
 <footer class=" footline" >
@@ -488,8 +447,8 @@ Outcome to treat it quite differently.</p>
     
 
     <div id="navigation">
-        <a class="nav nav-prev" href="/outcome/tutorial/default-actions/enums/" title="Error code enums"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/tutorial/default-actions/happens3/" title="-- Now what happens?" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/outcome/tutorial/constructors/" title="Result returning constructors"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/constructors/file_handle/" title="A file handle" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>

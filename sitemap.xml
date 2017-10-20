@@ -39,7 +39,15 @@
   </url>
   
   <url>
+    <loc>https://ned14.github.io/outcome/tutorial/constructors/two-phase-init/</loc>
+  </url>
+  
+  <url>
     <loc>https://ned14.github.io/outcome/tutorial/result/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ned14.github.io/outcome/tutorial/constructors/file_handle/</loc>
   </url>
   
   <url>
@@ -99,6 +107,10 @@
   </url>
   
   <url>
+    <loc>https://ned14.github.io/outcome/tutorial/constructors/static-constructor/</loc>
+  </url>
+  
+  <url>
     <loc>https://ned14.github.io/outcome/tutorial/policies/result-policies/</loc>
   </url>
   
@@ -135,11 +147,11 @@
   </url>
   
   <url>
-    <loc>https://ned14.github.io/outcome/tutorial/result/constructors/</loc>
+    <loc>https://ned14.github.io/outcome/tutorial/default-actions/</loc>
   </url>
   
   <url>
-    <loc>https://ned14.github.io/outcome/tutorial/default-actions/</loc>
+    <loc>https://ned14.github.io/outcome/tutorial/constructors/</loc>
   </url>
   
   <url>

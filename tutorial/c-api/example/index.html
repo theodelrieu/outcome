@@ -89,11 +89,6 @@
           <span>TRY operations</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/result/constructors/" class="dd-item">
-        <a href="/outcome/tutorial/result/constructors/">
-          <span>result returning constructors</span>
-        </a>
-    </li>
         </ul>
     </li>
     <li data-nav-id="/outcome/tutorial/outcome/" class="dd-item">
@@ -178,6 +173,28 @@
       <li data-nav-id="/outcome/tutorial/default-actions/unchecked/" class="dd-item">
         <a href="/outcome/tutorial/default-actions/unchecked/">
           <span>unchecked&lt;T, E&gt; and checked&lt;T, E&gt;</span>
+        </a>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/outcome/tutorial/constructors/" class="dd-item">
+      <a href="/outcome/tutorial/constructors/">
+        <span>Result returning constructors</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </a>
+        <ul>
+      <li data-nav-id="/outcome/tutorial/constructors/two-phase-init/" class="dd-item">
+        <a href="/outcome/tutorial/constructors/two-phase-init/">
+          <span>Two phase construction</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/constructors/file_handle/" class="dd-item">
+        <a href="/outcome/tutorial/constructors/file_handle/">
+          <span>A file handle</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/constructors/static-constructor/" class="dd-item">
+        <a href="/outcome/tutorial/constructors/static-constructor/">
+          <span>Phase 2 construction</span>
         </a>
     </li>
         </ul>
@@ -414,7 +431,7 @@
 </div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/cpp_api.cpp.disabled#L31" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
 
-<p>A surprise to many is that one can return an <code>outcome::result&lt;size_t&gt;</code>
+<p>A surprise to some may be that one can return an <code>outcome::result&lt;size_t&gt;</code>
 from a C function! This is because if for some <code>result&lt;T, EC&gt;</code> where both <code>T</code> and <code>EC</code> have
 standard layout and are trivially copyable, then Outcome guarantees so will
 <code>result&lt;T, EC&gt;</code>. Thus <code>outcome::result&lt;size_t&gt;</code> is a perfectly legal C type,

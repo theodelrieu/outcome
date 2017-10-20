@@ -89,11 +89,6 @@
           <span>TRY operations</span>
         </a>
     </li>
-      <li data-nav-id="/outcome/tutorial/result/constructors/" class="dd-item">
-        <a href="/outcome/tutorial/result/constructors/">
-          <span>result returning constructors</span>
-        </a>
-    </li>
         </ul>
     </li>
     <li data-nav-id="/outcome/tutorial/outcome/" class="dd-item">
@@ -178,6 +173,28 @@
       <li data-nav-id="/outcome/tutorial/default-actions/unchecked/" class="dd-item">
         <a href="/outcome/tutorial/default-actions/unchecked/">
           <span>unchecked&lt;T, E&gt; and checked&lt;T, E&gt;</span>
+        </a>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/outcome/tutorial/constructors/" class="dd-item">
+      <a href="/outcome/tutorial/constructors/">
+        <span>Result returning constructors</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </a>
+        <ul>
+      <li data-nav-id="/outcome/tutorial/constructors/two-phase-init/" class="dd-item">
+        <a href="/outcome/tutorial/constructors/two-phase-init/">
+          <span>Two phase construction</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/constructors/file_handle/" class="dd-item">
+        <a href="/outcome/tutorial/constructors/file_handle/">
+          <span>A file handle</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/constructors/static-constructor/" class="dd-item">
+        <a href="/outcome/tutorial/constructors/static-constructor/">
+          <span>Phase 2 construction</span>
         </a>
     </li>
         </ul>
@@ -378,8 +395,6 @@
 	<a href="/outcome/tutorial/result/inspecting/" >Inspecting result&lt;T, EC&gt;</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/result/try/" >TRY operations</a></li>
-<p></p><li>
-	<a href="/outcome/tutorial/result/constructors/" >result returning constructors</a></li>
 <p></p>
 </ul><li>
 	<a href="/outcome/tutorial/outcome/" >outcome&lt;T, EC, EP&gt;</a></li>
@@ -406,13 +421,9 @@ namespace filesystem { /*! Copies the file at path `from` to path `to`. \returns
 <p>Let us imagine a some user defined value type (udt) and some user defined error type (err):
 struct udt { int a{0}; explicit udt(int _a) : a(_a) { } udt() = default; int operator*() const { return a; } }; struct err { int a{0}; explicit err(int _a) : a(_a) { } err() = default; };  View this code on Github Firstly, note that both the udt and err types can be constructed from an int.</p><li>
 	<a href="/outcome/tutorial/default-actions/happens1/" >-- What happens?</a></li>
-<p>Let us run the code from the previous page:
-ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts Segmentation fault (core dumped) ned@lyta:~/outcome/build_posix$  Apparently no exception was thrown? Correct. Nor was a value printed, though this will randomly vary depending on your compiler, libraries, the wind blowing on the day &hellip;
-You will probably find this surprising. This is because the default action for a user-defined error type is undefined behaviour.
-Let&rsquo;s demonstrate this by recompiling the code to use the undefined behaviour sanitiser and see what happens instead:</p><li>
+<p></p><li>
 	<a href="/outcome/tutorial/default-actions/enums/" >Error code enums</a></li>
-<p>Let&rsquo;s replace err with something likely in many people&rsquo;s code, a strongly typed enum:
-struct udt { int a{0}; explicit udt(int _a) : a(_a) { } udt() = default; int operator*() const { return a; } }; enum class err { success, failure1, failure2 }; result&lt;udt, err&gt; res(err::failure1); // What happens here? What exception type is thrown?  try { std::cout &lt;&lt; *res.value() &lt;&lt; std::endl; } catch(const std::exception &amp;e) { std::cerr &lt;&lt; &#34;Exception thrown was &#34; &lt;&lt; e.</p><li>
+<p></p><li>
 	<a href="/outcome/tutorial/default-actions/happens2/" >-- What happens?</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/default-actions/happens3/" >-- Now what happens?</a></li>
@@ -426,6 +437,17 @@ struct udt { int a{0}; explicit udt(int _a) : a(_a) { } udt() = default; int ope
 	<a href="/outcome/tutorial/default-actions/unchecked/" >unchecked&lt;T, E&gt; and checked&lt;T, E&gt;</a></li>
 <p></p>
 </ul><li>
+	<a href="/outcome/tutorial/constructors/" >Result returning constructors</a></li>
+<p>How to metaprogram construction of objects which use result&lt;T, EC&gt; to return failure instead of throwing a C&#43;&#43; exception.</p>
+<ul><li>
+	<a href="/outcome/tutorial/constructors/two-phase-init/" >Two phase construction</a></li>
+<p>The first thing to do is to break your object&rsquo;s construction into two phases:
+ Place the object into a state where it can be legally destructed without doing anything which could throw an exception (i.e. everything done is constexpr). This phase usually involves initialising member variables to various default values. Most standard C++ library objects and containers have constexpr constructors, and thus can be initialised during phase 1. If you need to initialise a member variable without a constexpr constructor, std::optional&lt;T&gt; is the usual workaround.</p><li>
+	<a href="/outcome/tutorial/constructors/file_handle/" >A file handle</a></li>
+<p></p><li>
+	<a href="/outcome/tutorial/constructors/static-constructor/" >Phase 2 construction</a></li>
+<p></p>
+</ul><li>
 	<a href="/outcome/tutorial/hooks/" >Hooking events</a></li>
 <p>Intercepting useful events such as initial construction, copies and moves so you can capture backtraces, fire debug breakpoints etc.</p>
 <ul><li>
@@ -433,9 +455,7 @@ struct udt { int a{0}; explicit udt(int _a) : a(_a) { } udt() = default; int ope
 <p>The first thing we are going to need is somewhere to store the stack backtrace. We could take the easier route and simply store it into an allocated block and keep the pointer as a custom payload in an outcome&lt;T, error_code, std::unique_ptr&lt;stack_backtrace&gt;&gt; (see previous section on outcome&lt;T, EC, P&gt;). But let us assume that we care so deeply about bounded execution times that ever calling malloc is unacceptable.
 We therefore are going to need some completely static and trivially typed storage perhaps kept per-thread to avoid the need to keep mutexes.</p><li>
 	<a href="/outcome/tutorial/hooks/adl_bridging/" >ADL bridging</a></li>
-<p>In the previous section outcome&lt;T, EC, P&gt;, we used the failure_info type to create the ADL bridge into the namespace where the ADL discovered throw_as_system_error_with_payload() function was to be found.
-Here we do the same, but more directly by creating a thin clone of std::error_code into the local namespace. This ensures that this namespace will be searched by the compiler when discovering the event hooks.
-namespace error_code_extended { // Use the error_code type as the ADL bridge for the hooks by creating a type here  // It can be any type that your localised result uses, including the value type but  // by localising the error code type here you prevent nasty surprises later when the  // value type you use doesn&#39;t trigger the ADL bridge.</p><li>
+<p></p><li>
 	<a href="/outcome/tutorial/hooks/hook_result/" >Hook result</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/hooks/poke_exception/" >Custom exception ptr</a></li>
@@ -450,8 +470,7 @@ namespace error_code_extended { // Use the error_code type as the ADL bridge for
 <p>A NoValuePolicy is quite simple. This is a complete policy, only the top half is needed if you never use the policy in an outcome.
 struct blank_policy { //! Performs a narrow check of state, used in the assume_value() functions.  template &lt;class Impl&gt; static constexpr void narrow_value_check(Impl *self) noexcept; //! Performs a narrow check of state, used in the assume_error() functions.  template &lt;class Impl&gt; static constexpr void narrow_error_check(Impl *self) noexcept; //!</p><li>
 	<a href="/outcome/tutorial/policies/cast/" >Casting workaround</a></li>
-<p>The templated Impl type on each policy function is decltype(*this) of the part of Outcome&rsquo;s internal implementation which calls the policy. It may also be const, depending on the observer called. It is highly unlikely to be result&lt;T, EC&gt; or especially outcome&lt;T, EC, EP|P&gt;, so a very common thing you&rsquo;ll need to do is static cast to a more derived form before use like this:
-template &lt;class R, class S, class P&gt; struct outcome_policy { /*!</p><li>
+<p></p><li>
 	<a href="/outcome/tutorial/policies/universal/" >Result &#43; Outcome</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/policies/result-policies/" >Result only</a></li>
@@ -466,8 +485,7 @@ template &lt;class R, class S, class P&gt; struct outcome_policy { /*!</p><li>
 <p>C++ has excellent two-way compatibility with the C ABI, but there are some limitations you must observe to write C++ code which C code can call without marshalling at the ABI boundary:
  A C++ function may not throw exceptions if it is safe to call from C, and so should always be marked noexcept. A C++ function should annotated with extern &quot;C&quot; to prevent its symbol being mangled, and thus give it the C rather than C++ ABI.</p><li>
 	<a href="/outcome/tutorial/c-api/example/" >Example C&#43;&#43; function</a></li>
-<p>Let us start with a simple C++ function which we wish to make available to C code:
-// Fill the supplied buffer with the integer v converted to a string, returning // length of string minus null terminator extern &#34;C&#34; outcome::result&lt;size_t&gt; to_string(char *buffer, size_t bufferlen, int v) noexcept { try { // Could throw an exception!  std::string temp(std::to_string(v)); // Will this string exceed the supplied buffer?  if(temp.size() + 1 &gt; bufferlen) return std::errc::no_buffer_space; // Copy the string into the supplied buffer, and return length of string  memcpy(buffer, temp.</p><li>
+<p></p><li>
 	<a href="/outcome/tutorial/c-api/example2/" >Calling it from C</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/c-api/variations/" >Variations</a></li>
