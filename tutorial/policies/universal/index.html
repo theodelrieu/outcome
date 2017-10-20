@@ -89,6 +89,11 @@
           <span>TRY operations</span>
         </a>
     </li>
+      <li data-nav-id="/outcome/tutorial/result/constructors/" class="dd-item">
+        <a href="/outcome/tutorial/result/constructors/">
+          <span>result returning constructors</span>
+        </a>
+    </li>
         </ul>
     </li>
     <li data-nav-id="/outcome/tutorial/outcome/" class="dd-item">
@@ -232,7 +237,39 @@
     </li>
       <li data-nav-id="/outcome/tutorial/policies/result-policies/" class="dd-item">
         <a href="/outcome/tutorial/policies/result-policies/">
-          <span>Result</span>
+          <span>Result only</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/policies/outcome-policies/" class="dd-item">
+        <a href="/outcome/tutorial/policies/outcome-policies/">
+          <span>Outcome only</span>
+        </a>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/outcome/tutorial/c-api/" class="dd-item">
+      <a href="/outcome/tutorial/c-api/">
+        <span>Using result&lt;T&gt; from C code</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </a>
+        <ul>
+      <li data-nav-id="/outcome/tutorial/c-api/limitations/" class="dd-item">
+        <a href="/outcome/tutorial/c-api/limitations/">
+          <span>Limitations</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/c-api/example/" class="dd-item">
+        <a href="/outcome/tutorial/c-api/example/">
+          <span>Example C&#43;&#43; function</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/c-api/example2/" class="dd-item">
+        <a href="/outcome/tutorial/c-api/example2/">
+          <span>Calling it from C</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/c-api/variations/" class="dd-item">
+        <a href="/outcome/tutorial/c-api/variations/">
+          <span>Variations</span>
         </a>
     </li>
         </ul>
@@ -349,6 +386,14 @@
 <dt><code>all_narrow</code></dt>
 <dd>Wide checks call their narrow check cousins only. Narrow checks
 call <code>__builtin_unreachable()</code> on compilers which support that intrinsic.</dd>
+<dt><code>exception_ptr_rethrow&lt;T, EC, EP&gt;</code></dt>
+<dd>Policy interpreting either <code>EC</code> or <code>EP</code> as meeting the <code>std::exception_ptr</code> contract. If
+there is no value, <code>.value()</code>
+will <code>std::rethrow_exception(error)</code> if <code>EP</code> is <code>void</code>, else <code>std::rethrow_exception(exception)</code>.
+<code>.error()</code> will <code>OUTCOME_THROW_EXCEPTION(bad_result_access(&quot;no error&quot;))</code>
+if there is no error.
+The narrow checks call <code>__builtin_unreachable()</code>
+on compilers which support that intrinsic.</dd>
 <dt><code>terminate</code></dt>
 <dd>Wide checks call <code>std::terminate</code> if they fail. Narrow checks
 call <code>__builtin_unreachable()</code> on compilers which support that intrinsic.</dd>
@@ -373,7 +418,7 @@ call <code>__builtin_unreachable()</code> on compilers which support that intrin
 
     <div id="navigation">
         <a class="nav nav-prev" href="/outcome/tutorial/policies/cast/" title="Casting workaround"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/tutorial/policies/result-policies/" title="Result" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/policies/result-policies/" title="Result only" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>

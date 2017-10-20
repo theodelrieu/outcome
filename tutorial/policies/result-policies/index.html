@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
 
-    <title>Result :: Outcome documentation</title>
+    <title>Result only :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -87,6 +87,11 @@
       <li data-nav-id="/outcome/tutorial/result/try/" class="dd-item">
         <a href="/outcome/tutorial/result/try/">
           <span>TRY operations</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/result/constructors/" class="dd-item">
+        <a href="/outcome/tutorial/result/constructors/">
+          <span>result returning constructors</span>
         </a>
     </li>
         </ul>
@@ -232,7 +237,39 @@
     </li>
       <li data-nav-id="/outcome/tutorial/policies/result-policies/" class="dd-item active">
         <a href="/outcome/tutorial/policies/result-policies/">
-          <span>Result</span>
+          <span>Result only</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/policies/outcome-policies/" class="dd-item">
+        <a href="/outcome/tutorial/policies/outcome-policies/">
+          <span>Outcome only</span>
+        </a>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/outcome/tutorial/c-api/" class="dd-item">
+      <a href="/outcome/tutorial/c-api/">
+        <span>Using result&lt;T&gt; from C code</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </a>
+        <ul>
+      <li data-nav-id="/outcome/tutorial/c-api/limitations/" class="dd-item">
+        <a href="/outcome/tutorial/c-api/limitations/">
+          <span>Limitations</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/c-api/example/" class="dd-item">
+        <a href="/outcome/tutorial/c-api/example/">
+          <span>Example C&#43;&#43; function</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/c-api/example2/" class="dd-item">
+        <a href="/outcome/tutorial/c-api/example2/">
+          <span>Calling it from C</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/c-api/variations/" class="dd-item">
+        <a href="/outcome/tutorial/c-api/variations/">
+          <span>Variations</span>
         </a>
     </li>
         </ul>
@@ -315,7 +352,7 @@
 
 
 
- <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/policies/'>Policies</a> > Result
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/policies/'>Policies</a> > Result only
 
  
 
@@ -337,7 +374,7 @@
         
         <div id="body-inner">
           
-            <h1>Result</h1>
+            <h1>Result only</h1>
           
 
 
@@ -347,14 +384,24 @@
 
 <dl>
 <dt><code>error_code_throw_as_system_error&lt;EC&gt;</code></dt>
-<dd><em>Requires that <code>EC</code> must be a base of <code>std::error_code</code></em>. <code>.value()</code>
+<dd>Policy interpreting <code>EC</code> as meeting the <code>std::error_code</code> contract. <code>.value()</code>
+will <code>OUTCOME_THROW_EXCEPTION(std::system_error(error))</code>
+if there is no value, <code>.error()</code> will <code>OUTCOME_THROW_EXCEPTION(bad_result_access(&quot;no error&quot;))</code>
+if there is no error. The narrow checks call <code>__builtin_unreachable()</code>
+on compilers which support that intrinsic.</dd>
+<dt><code>error_enum_throw_as_system_error&lt;EC&gt;</code></dt>
+<dd>Policy interpreting <code>make_error_code(EC)</code> as meeting the <code>std::error_code</code> contract. <code>.value()</code>
 will <code>OUTCOME_THROW_EXCEPTION(std::system_error(make_error_code(error)))</code>
 if there is no value, <code>.error()</code> will <code>OUTCOME_THROW_EXCEPTION(bad_result_access(&quot;no error&quot;))</code>
 if there is no error. The narrow checks call <code>__builtin_unreachable()</code>
 on compilers which support that intrinsic.</dd>
+<dt><code>throw_bad_result_access&lt;EC&gt;</code></dt>
+<dd>Policy implementing throws of <code>bad_result_access_with&lt;EC&gt;</code>. <code>.value()</code>
+will <code>OUTCOME_THROW_EXCEPTION(bad_result_access_with&lt;EC&gt;(error))</code>
+if there is no value, <code>.error()</code> will <code>OUTCOME_THROW_EXCEPTION(bad_result_access(&quot;no error&quot;))</code>
+if there is no error. The narrow checks call <code>__builtin_unreachable()</code>
+on compilers which support that intrinsic.</dd>
 </dl>
-
-<p>wip</p>
 
 
 <footer class=" footline" >
@@ -375,7 +422,7 @@ on compilers which support that intrinsic.</dd>
 
     <div id="navigation">
         <a class="nav nav-prev" href="/outcome/tutorial/policies/universal/" title="Result &#43; Outcome"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/tutorial/error_code/" title="Custom error codes" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/policies/outcome-policies/" title="Outcome only" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>

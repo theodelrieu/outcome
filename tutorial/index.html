@@ -89,6 +89,11 @@
           <span>TRY operations</span>
         </a>
     </li>
+      <li data-nav-id="/outcome/tutorial/result/constructors/" class="dd-item">
+        <a href="/outcome/tutorial/result/constructors/">
+          <span>result returning constructors</span>
+        </a>
+    </li>
         </ul>
     </li>
     <li data-nav-id="/outcome/tutorial/outcome/" class="dd-item">
@@ -231,7 +236,39 @@
     </li>
       <li data-nav-id="/outcome/tutorial/policies/result-policies/" class="dd-item">
         <a href="/outcome/tutorial/policies/result-policies/">
-          <span>Result</span>
+          <span>Result only</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/policies/outcome-policies/" class="dd-item">
+        <a href="/outcome/tutorial/policies/outcome-policies/">
+          <span>Outcome only</span>
+        </a>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/outcome/tutorial/c-api/" class="dd-item">
+      <a href="/outcome/tutorial/c-api/">
+        <span>Using result&lt;T&gt; from C code</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </a>
+        <ul>
+      <li data-nav-id="/outcome/tutorial/c-api/limitations/" class="dd-item">
+        <a href="/outcome/tutorial/c-api/limitations/">
+          <span>Limitations</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/c-api/example/" class="dd-item">
+        <a href="/outcome/tutorial/c-api/example/">
+          <span>Example C&#43;&#43; function</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/c-api/example2/" class="dd-item">
+        <a href="/outcome/tutorial/c-api/example2/">
+          <span>Calling it from C</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/c-api/variations/" class="dd-item">
+        <a href="/outcome/tutorial/c-api/variations/">
+          <span>Variations</span>
         </a>
     </li>
         </ul>
@@ -339,9 +376,10 @@
 <p>Gentle introduction to writing code with simple success-or-failure return types.</p>
 <ul><li>
 	<a href="/outcome/tutorial/result/inspecting/" >Inspecting result&lt;T, EC&gt;</a></li>
-<p>Suppose we will be writing function print_half that takes an integral number (however big) represented as an std::string and outputs a number which is twice smaller:
-outcome::result&lt;void&gt; print_half(const std::string&amp; text);  View this code on Github Type result&lt;void&gt; means that there is no value to be retuned upon success, but that the operation might still fail, and we may be interested in inspecting the cause of the failure. Class template result&lt;&gt; is declared with attribute [[nodiscard]], which means compiler will warn you if you forget to inspect the returned object (in C++ 17 or later).</p><li>
+<p></p><li>
 	<a href="/outcome/tutorial/result/try/" >TRY operations</a></li>
+<p></p><li>
+	<a href="/outcome/tutorial/result/constructors/" >result returning constructors</a></li>
 <p></p>
 </ul><li>
 	<a href="/outcome/tutorial/outcome/" >outcome&lt;T, EC, EP&gt;</a></li>
@@ -357,8 +395,7 @@ outcome::result&lt;void&gt; print_half(const std::string&amp; text);  View this 
 <p>To see how payload-transporting outcome might be useful, consider the copy_file() API from the Filesystem TS:
 namespace filesystem { /*! Copies the file at path `from` to path `to`. \returns True if file was successfully copied. \throws On failure throws `filesystem_error(ec.message(), from, to, ec)` with `ec` being the error code reported by the operating system. */ bool copy_file(const path &amp;from, const path &amp;to); /*! Copies the file at path `from` to path `to`.</p><li>
 	<a href="/outcome/tutorial/payload/copy_file2/" >Upgrading the Filesystem TS</a></li>
-<p>An Outcome based solution looks deceptively simple initially, but there is more to it than it appears.
-namespace filesystem2 { // Paths related to a failure. Also causes ADL discovery to check this namespace.  struct failure_info { path path1, path2; }; // Localise an outcome implementation specific to this namespace. Normally would just  // be `result`, but for clarity we&#39;ll use `fs_result`.  template &lt;class T&gt; using fs_result = outcome::outcome&lt;T, std::error_code, failure_info&gt;; /*!</p><li>
+<p></p><li>
 	<a href="/outcome/tutorial/payload/copy_file3/" >Throwing filesystem_error</a></li>
 <p></p>
 </ul><li>
@@ -379,9 +416,7 @@ struct udt { int a{0}; explicit udt(int _a) : a(_a) { } udt() = default; int ope
 	<a href="/outcome/tutorial/default-actions/happens2/" >-- What happens?</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/default-actions/happens3/" >-- Now what happens?</a></li>
-<p>Let us run the code from the previous page:
-ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_error_code_enums2 Exception thrown was failure1 ned@lyta:~/outcome/build_posix$  Ah so now we are throwing a C++ exception on incorrect observation! This is because we registered our error code enum with the C++ standard library and in so doing, we also told the standard library how our error code interacts with std::error_code and thus std::system_error.
-Outcome&rsquo;s default action when incorrectly observing a result or outcome with a EC type where std::is_error_code_enum&lt;EC&gt; is true, or std::is_error_condition_enum&lt;EC&gt; is true, is to throw a std::system_error(make_error_code(.</p><li>
+<p></p><li>
 	<a href="/outcome/tutorial/default-actions/error-codes/" >error_code</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/default-actions/exception-ptr/" >exception_ptr</a></li>
@@ -418,9 +453,24 @@ struct blank_policy { //! Performs a narrow check of state, used in the assume_v
 <p>The templated Impl type on each policy function is decltype(*this) of the part of Outcome&rsquo;s internal implementation which calls the policy. It may also be const, depending on the observer called. It is highly unlikely to be result&lt;T, EC&gt; or especially outcome&lt;T, EC, EP|P&gt;, so a very common thing you&rsquo;ll need to do is static cast to a more derived form before use like this:
 template &lt;class R, class S, class P&gt; struct outcome_policy { /*!</p><li>
 	<a href="/outcome/tutorial/policies/universal/" >Result &#43; Outcome</a></li>
-<p>These are the precanned policies suitable for use with both result and outcome:
- all_narrow Wide checks call their narrow check cousins only. Narrow checks call __builtin_unreachable() on compilers which support that intrinsic. terminate Wide checks call std::terminate if they fail. Narrow checks call __builtin_unreachable() on compilers which support that intrinsic.  </p><li>
-	<a href="/outcome/tutorial/policies/result-policies/" >Result</a></li>
+<p></p><li>
+	<a href="/outcome/tutorial/policies/result-policies/" >Result only</a></li>
+<p></p><li>
+	<a href="/outcome/tutorial/policies/outcome-policies/" >Outcome only</a></li>
+<p></p>
+</ul><li>
+	<a href="/outcome/tutorial/c-api/" >Using result&lt;T&gt; from C code</a></li>
+<p>Interacting with result&lt;T, EC&gt; returning C&#43;&#43; functions from C code.</p>
+<ul><li>
+	<a href="/outcome/tutorial/c-api/limitations/" >Limitations</a></li>
+<p>C++ has excellent two-way compatibility with the C ABI, but there are some limitations you must observe to write C++ code which C code can call without marshalling at the ABI boundary:
+ A C++ function may not throw exceptions if it is safe to call from C, and so should always be marked noexcept. A C++ function should annotated with extern &quot;C&quot; to prevent its symbol being mangled, and thus give it the C rather than C++ ABI.</p><li>
+	<a href="/outcome/tutorial/c-api/example/" >Example C&#43;&#43; function</a></li>
+<p>Let us start with a simple C++ function which we wish to make available to C code:
+// Fill the supplied buffer with the integer v converted to a string, returning // length of string minus null terminator extern &#34;C&#34; outcome::result&lt;size_t&gt; to_string(char *buffer, size_t bufferlen, int v) noexcept { try { // Could throw an exception!  std::string temp(std::to_string(v)); // Will this string exceed the supplied buffer?  if(temp.size() + 1 &gt; bufferlen) return std::errc::no_buffer_space; // Copy the string into the supplied buffer, and return length of string  memcpy(buffer, temp.</p><li>
+	<a href="/outcome/tutorial/c-api/example2/" >Calling it from C</a></li>
+<p></p><li>
+	<a href="/outcome/tutorial/c-api/variations/" >Variations</a></li>
 <p></p>
 </ul><li>
 	<a href="/outcome/tutorial/error_code/" >Custom error codes</a></li>
