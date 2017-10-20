@@ -222,7 +222,7 @@ namespace Layer3 { auto run() -&amp;gt; double // may throw  { if (outcome::outc
       
       <guid>https://ned14.github.io/outcome/tutorial/constructors/static-constructor/</guid>
       <description>Its phase 2 construction:
-// Phase 2 static member constructor function, which cannot throw inline outcome::result&amp;lt;file_handle&amp;gt; file_handle::file(filesystem::path path) noexcept { // Perform phase 1 of object construction  file_handle ret; // Perform phase 2 of object construction  ret._fd = ::open(path.c_str(), O_RDONLY); if(-1 == ret._fd) { // Note that if we bail out here, ~file_handle() will correctly not call ::close()  return {errno, std::system_category()}; } if(-1 == ::fstat(ret._fd, &amp;amp;ret._stat)) { // Note that if we bail out here, ~file_handle() will correctly call ::close()  return {errno, std::system_category()}; } // Returning ret directly is an area full of compiler specific behaviour quirks,  // so be explicit by wrapping into an initialiser list with embedded move.</description>
+// Phase 2 static member constructor function, which cannot throw inline outcome::result&amp;lt;file_handle&amp;gt; file_handle::file(filesystem::path path) noexcept { // Perform phase 1 of object construction  file_handle ret; // Perform phase 2 of object construction  ret._fd = ::open(path.u8string().c_str(), O_RDONLY); if(-1 == ret._fd) { // Note that if we bail out here, ~file_handle() will correctly not call ::close()  return {errno, std::system_category()}; } if(-1 == ::fstat(ret._fd, &amp;amp;ret._stat)) { // Note that if we bail out here, ~file_handle() will correctly call ::close()  return {errno, std::system_category()}; } // Returning ret directly is an area full of compiler specific behaviour quirks,  // so be explicit by wrapping into an initialiser list with embedded move.</description>
     </item>
     
     <item>
@@ -362,7 +362,7 @@ If you don&amp;rsquo;t want all this clever automatic detection of traits, and j
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://ned14.github.io/outcome/credits/</guid>
-      <description>github contributors .ghContributors{ display:flex; flex-flow: wrap; align-content: flex-start } .ghContributors  div{ width: 50% ; display: inline-flex; margin-bottom: 5px; } .ghContributors  div label{ padding-left: 4px ; } .ghContributors  div span{ font-size: x-small; padding-left: 4px ; }  This pretty, modern C++ documentation  Hugo - static website generator of this documentation. hugo-theme-docdock - the Hugo theme used by this documentation. Standardese - the API reference generator  Special thanks To Paul Bristow who proposed the name &amp;ldquo;Outcome&amp;rdquo; for the library after a very extended period of name bikeshedding on boost-dev.</description>
+      <description>github contributors .ghContributors{ display:flex; flex-flow: wrap; align-content: flex-start } .ghContributors  div{ width: 50% ; display: inline-flex; margin-bottom: 5px; } .ghContributors  div label{ padding-left: 4px ; } .ghContributors  div span{ font-size: x-small; padding-left: 4px ; }   @ned14 697 commits   @akrzemi1 10 commits   @jenkins-nedprod 1 commits   This pretty, modern C++ documentation  Hugo - static website generator of this documentation. hugo-theme-docdock - the Hugo theme used by this documentation.</description>
     </item>
     
   </channel>

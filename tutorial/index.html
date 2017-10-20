@@ -407,8 +407,7 @@
 <p>Success-or-failure return types where extra information accompanies failure.</p>
 <ul><li>
 	<a href="/outcome/tutorial/payload/copy_file/" >The Filesystem TS</a></li>
-<p>To see how payload-transporting outcome might be useful, consider the copy_file() API from the Filesystem TS:
-namespace filesystem { /*! Copies the file at path `from` to path `to`. \returns True if file was successfully copied. \throws On failure throws `filesystem_error(ec.message(), from, to, ec)` with `ec` being the error code reported by the operating system. */ bool copy_file(const path &amp;from, const path &amp;to); /*! Copies the file at path `from` to path `to`.</p><li>
+<p></p><li>
 	<a href="/outcome/tutorial/payload/copy_file2/" >Upgrading the Filesystem TS</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/payload/copy_file3/" >Throwing filesystem_error</a></li>
@@ -421,7 +420,10 @@ namespace filesystem { /*! Copies the file at path `from` to path `to`. \returns
 <p>Let us imagine a some user defined value type (udt) and some user defined error type (err):
 struct udt { int a{0}; explicit udt(int _a) : a(_a) { } udt() = default; int operator*() const { return a; } }; struct err { int a{0}; explicit err(int _a) : a(_a) { } err() = default; };  View this code on Github Firstly, note that both the udt and err types can be constructed from an int.</p><li>
 	<a href="/outcome/tutorial/default-actions/happens1/" >-- What happens?</a></li>
-<p></p><li>
+<p>Let us run the code from the previous page:
+ned@lyta:~/outcome/build_posix$ bin/outcome-snippets_udts Segmentation fault (core dumped) ned@lyta:~/outcome/build_posix$  Apparently no exception was thrown? Correct. Nor was a value printed, though this will randomly vary depending on your compiler, libraries, the wind blowing on the day &hellip;
+You will probably find this surprising. This is because the default action for a user-defined error type is undefined behaviour.
+Let&rsquo;s demonstrate this by recompiling the code to use the undefined behaviour sanitiser and see what happens instead:</p><li>
 	<a href="/outcome/tutorial/default-actions/enums/" >Error code enums</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/default-actions/happens2/" >-- What happens?</a></li>
@@ -482,8 +484,7 @@ struct blank_policy { //! Performs a narrow check of state, used in the assume_v
 <p>Interacting with result&lt;T, EC&gt; returning C&#43;&#43; functions from C code.</p>
 <ul><li>
 	<a href="/outcome/tutorial/c-api/limitations/" >Limitations</a></li>
-<p>C++ has excellent two-way compatibility with the C ABI, but there are some limitations you must observe to write C++ code which C code can call without marshalling at the ABI boundary:
- A C++ function may not throw exceptions if it is safe to call from C, and so should always be marked noexcept. A C++ function should annotated with extern &quot;C&quot; to prevent its symbol being mangled, and thus give it the C rather than C++ ABI.</p><li>
+<p></p><li>
 	<a href="/outcome/tutorial/c-api/example/" >Example C&#43;&#43; function</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/c-api/example2/" >Calling it from C</a></li>

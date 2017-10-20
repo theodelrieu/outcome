@@ -407,7 +407,7 @@
 </span><span class="s1770"></span>  file_handle ret;
 
   <span class="s1770">// Perform phase 2 of object construction
-</span><span class="s1770"></span>  ret._fd = ::open(path.c_str(), O_RDONLY);
+</span><span class="s1770"></span>  ret._fd = ::open(path.u8string().c_str(), O_RDONLY);
   <span class="s3e8">if</span>(-1 == ret._fd)
   {
     <span class="s1770">// Note that if we bail out here, ~file_handle() will correctly not call ::close()
@@ -424,7 +424,7 @@
 </span><span class="s1770"></span>  <span class="s3e8">return</span> {std::move(ret)};
 }
 </code></pre>
-</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/constructors.cpp#L86" class="code-snippet-url" target="_blank">View this code on Github</a></div>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/constructors.cpp#L89" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
 
 <p>To finish later &hellip;</p>
