@@ -198,6 +198,21 @@
           <span>Phase 2 construction</span>
         </a>
     </li>
+      <li data-nav-id="/outcome/tutorial/constructors/metaprogrammg1/" class="dd-item">
+        <a href="/outcome/tutorial/constructors/metaprogrammg1/">
+          <span>Phase 3</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/constructors/metaprogrammg2/" class="dd-item">
+        <a href="/outcome/tutorial/constructors/metaprogrammg2/">
+          <span>construct&lt;T&gt;</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/constructors/metaprogrammg3/" class="dd-item">
+        <a href="/outcome/tutorial/constructors/metaprogrammg3/">
+          <span>Alternatives</span>
+        </a>
+    </li>
         </ul>
     </li>
     <li data-nav-id="/outcome/tutorial/hooks/" class="dd-item">
@@ -413,6 +428,8 @@ which uses this design pattern, here is a simplified <code>file_handle</code> im
 </span><span class="s1770"></span>  <span class="s3e8">constexpr</span> file_handle() {}
 
 <span class="s3e8">public</span>:
+  <span class="s3e8">using</span> path_type = filesystem::path;
+
   <span class="s1770">// Moves but not copies permitted
 </span><span class="s1770"></span>  file_handle(<span class="s3e8">const</span> file_handle &amp;) = <span class="s3e8">delete</span>;
   file_handle(file_handle &amp;&amp;o) <span class="s3e8">noexcept</span> : _fd(o._fd) { o._fd = -1; }
@@ -439,11 +456,24 @@ which uses this design pattern, here is a simplified <code>file_handle</code> im
   }
 
   <span class="s1770">// Phase 2 static member constructor function, which cannot throw
-</span><span class="s1770"></span>  <span class="s3e8">static</span> <span class="s3e8">inline</span> outcome::result&lt;file_handle&gt; file(filesystem::path path) <span class="s3e8">noexcept</span>;
+</span><span class="s1770"></span>  <span class="s3e8">static</span> <span class="s3e8">inline</span> outcome::result&lt;file_handle&gt; file(path_type path) <span class="s3e8">noexcept</span>;
 };
 </code></pre>
 </div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/constructors.cpp#L46" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
+
+<p>Note the default member initialisers, these are particularly convenient for
+implementing phase 1 of construction. Note also the <code>constexpr</code> constructor,
+which thanks to the default member initialisers is otherwise empty.</p>
+
+<p>File handles are very expensive to copy as they involve a syscall to duplicate
+the file descriptor, so we enable moves only.</p>
+
+<p>The destructor closes the file descriptor if it is not -1, and if the close
+fails, seeing as there is nothing else we can do without leaking the file
+descriptor, we fatal exit the process.</p>
+
+<p>Finally we declare the phase 2 constructor which is a static member function.</p>
 
 
 <footer class=" footline" >

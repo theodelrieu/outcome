@@ -198,6 +198,21 @@
           <span>Phase 2 construction</span>
         </a>
     </li>
+      <li data-nav-id="/outcome/tutorial/constructors/metaprogrammg1/" class="dd-item">
+        <a href="/outcome/tutorial/constructors/metaprogrammg1/">
+          <span>Phase 3</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/constructors/metaprogrammg2/" class="dd-item">
+        <a href="/outcome/tutorial/constructors/metaprogrammg2/">
+          <span>construct&lt;T&gt;</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/constructors/metaprogrammg3/" class="dd-item">
+        <a href="/outcome/tutorial/constructors/metaprogrammg3/">
+          <span>Alternatives</span>
+        </a>
+    </li>
         </ul>
     </li>
     <li data-nav-id="/outcome/tutorial/hooks/" class="dd-item">
@@ -397,11 +412,11 @@
 
 
 
-<p>Its phase 2 construction:</p>
+<p>Its phase 2 constructor:</p>
 
 <div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
 <span class="s1770">// Phase 2 static member constructor function, which cannot throw
-</span><span class="s1770"></span><span class="s3e8">inline</span> outcome::result&lt;file_handle&gt; file_handle::file(filesystem::path path) <span class="s3e8">noexcept</span>
+</span><span class="s1770"></span><span class="s3e8">inline</span> outcome::result&lt;file_handle&gt; file_handle::file(file_handle::path_type path) <span class="s3e8">noexcept</span>
 {
   <span class="s1770">// Perform phase 1 of object construction
 </span><span class="s1770"></span>  file_handle ret;
@@ -424,10 +439,25 @@
 </span><span class="s1770"></span>  <span class="s3e8">return</span> {std::move(ret)};
 }
 </code></pre>
-</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/constructors.cpp#L89" class="code-snippet-url" target="_blank">View this code on Github</a></div>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/constructors.cpp#L91" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
 
-<p>To finish later &hellip;</p>
+<p>The static member function implementing phase 2 firstly calls phase 1
+which puts the object into a legally destructible state. We then
+proceed to implement phase 2 of construction, filling in the various
+parts as we go, reporting via <code>result</code> any failures.</p>
+
+<p><div class="notices note" ><p>Remember that <code>operator new</code> has a non-throwing form, <code>new(std::nothrow)</code>.</p>
+</div>
+</p>
+
+<p>For the final return, in theory we could just <code>return ret</code> and
+depending on the C++ version currently in force, it might work
+via move, or via copy, or it might refuse to compile. You can
+of course type lots of boilerplate to be explicit, but this use
+via initialiser list is a reasonable balance of explicitness
+versus brevity, and it should generate minimum overhead code
+irrespective of compiler, C++ version, or any other factor.</p>
 
 
 <footer class=" footline" >
@@ -448,7 +478,7 @@
 
     <div id="navigation">
         <a class="nav nav-prev" href="/outcome/tutorial/constructors/file_handle/" title="A file handle"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/tutorial/hooks/" title="Hooking events" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/constructors/metaprogrammg1/" title="Phase 3" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>

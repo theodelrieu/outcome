@@ -197,6 +197,21 @@
           <span>Phase 2 construction</span>
         </a>
     </li>
+      <li data-nav-id="/outcome/tutorial/constructors/metaprogrammg1/" class="dd-item">
+        <a href="/outcome/tutorial/constructors/metaprogrammg1/">
+          <span>Phase 3</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/constructors/metaprogrammg2/" class="dd-item">
+        <a href="/outcome/tutorial/constructors/metaprogrammg2/">
+          <span>construct&lt;T&gt;</span>
+        </a>
+    </li>
+      <li data-nav-id="/outcome/tutorial/constructors/metaprogrammg3/" class="dd-item">
+        <a href="/outcome/tutorial/constructors/metaprogrammg3/">
+          <span>Alternatives</span>
+        </a>
+    </li>
         </ul>
     </li>
     <li data-nav-id="/outcome/tutorial/hooks/" class="dd-item">
@@ -444,10 +459,16 @@ Let&rsquo;s demonstrate this by recompiling the code to use the undefined behavi
 <ul><li>
 	<a href="/outcome/tutorial/constructors/two-phase-init/" >Two phase construction</a></li>
 <p>The first thing to do is to break your object&rsquo;s construction into two phases:
- Place the object into a state where it can be legally destructed without doing anything which could throw an exception (i.e. everything done is constexpr). This phase usually involves initialising member variables to various default values. Most standard C++ library objects and containers have constexpr constructors, and thus can be initialised during phase 1. If you need to initialise a member variable without a constexpr constructor, std::optional&lt;T&gt; is the usual workaround.</p><li>
+ Place the object into a state where it can be legally destructed without doing any initialisation which could throw an exception (i.e. everything done in phase 1 is constexpr). This phase usually involves initialising member variables to various default values, most often using default member initialisers. Most standard C++ library objects and containers have constexpr constructors, and thus can be initialised during phase 1.</p><li>
 	<a href="/outcome/tutorial/constructors/file_handle/" >A file handle</a></li>
 <p></p><li>
 	<a href="/outcome/tutorial/constructors/static-constructor/" >Phase 2 construction</a></li>
+<p></p><li>
+	<a href="/outcome/tutorial/constructors/metaprogrammg1/" >Phase 3</a></li>
+<p></p><li>
+	<a href="/outcome/tutorial/constructors/metaprogrammg2/" >construct&lt;T&gt;</a></li>
+<p></p><li>
+	<a href="/outcome/tutorial/constructors/metaprogrammg3/" >Alternatives</a></li>
 <p></p>
 </ul><li>
 	<a href="/outcome/tutorial/hooks/" >Hooking events</a></li>

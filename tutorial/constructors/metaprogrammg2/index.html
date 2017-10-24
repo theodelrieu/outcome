@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Hugo 0.29" />
-    <meta name="description" content="Intercepting useful events such as initial construction, copies and moves so you can capture backtraces, fire debug breakpoints etc.">
+    <meta name="description" content="">
 
 
-    <title>Hooking events :: Outcome documentation</title>
+    <title>construct&lt;T&gt; :: Outcome documentation</title>
     <link rel="shortcut icon" href="/outcome/images/favicon.png" type="image/x-icon" />
     <link href="/outcome/css/nucleus.css" rel="stylesheet">
     <link href="/outcome/css/font-awesome.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     <link href="/outcome/css/local.css" rel="stylesheet">
 
   </head>
-  <body class="" data-url="/outcome/tutorial/hooks/">
+  <body class="" data-url="/outcome/tutorial/constructors/metaprogrammg2/">
     <nav id="sidebar" class=""><div class="highlightable">
   <div id="header-wrapper">
     <div id="header"> 
@@ -177,47 +177,17 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/tutorial/constructors/" class="dd-item">
+    <li data-nav-id="/outcome/tutorial/constructors/" class="dd-item parent">
       <a href="/outcome/tutorial/constructors/">
-        <span>Result returning constructors</span><i class="fa fa-angle-right fa-lg category-icon"></i>
+        <span>Result returning constructors</span>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </a>
         <ul>
-      <li data-nav-id="/outcome/tutorial/constructors/two-phase-init/" class="dd-item">
-        <a href="/outcome/tutorial/constructors/two-phase-init/">
-          <span>Two phase construction</span>
-        </a>
-    </li>
-      <li data-nav-id="/outcome/tutorial/constructors/file_handle/" class="dd-item">
-        <a href="/outcome/tutorial/constructors/file_handle/">
-          <span>A file handle</span>
-        </a>
-    </li>
-      <li data-nav-id="/outcome/tutorial/constructors/static-constructor/" class="dd-item">
-        <a href="/outcome/tutorial/constructors/static-constructor/">
-          <span>Phase 2 construction</span>
-        </a>
-    </li>
-      <li data-nav-id="/outcome/tutorial/constructors/metaprogrammg1/" class="dd-item">
-        <a href="/outcome/tutorial/constructors/metaprogrammg1/">
-          <span>Phase 3</span>
-        </a>
-    </li>
-      <li data-nav-id="/outcome/tutorial/constructors/metaprogrammg2/" class="dd-item">
-        <a href="/outcome/tutorial/constructors/metaprogrammg2/">
-          <span>construct&lt;T&gt;</span>
-        </a>
-    </li>
-      <li data-nav-id="/outcome/tutorial/constructors/metaprogrammg3/" class="dd-item">
-        <a href="/outcome/tutorial/constructors/metaprogrammg3/">
-          <span>Alternatives</span>
-        </a>
-    </li>
         </ul>
     </li>
-    <li data-nav-id="/outcome/tutorial/hooks/" class="dd-item parent active">
+    <li data-nav-id="/outcome/tutorial/hooks/" class="dd-item">
       <a href="/outcome/tutorial/hooks/">
-        <span>Hooking events</span>
-            <i class="fa fa-angle-down fa-lg category-icon"></i>
+        <span>Hooking events</span><i class="fa fa-angle-right fa-lg category-icon"></i>
       </a>
         <ul>
       <li data-nav-id="/outcome/tutorial/hooks/keeping_state/" class="dd-item">
@@ -361,7 +331,7 @@
               
               
             <div id="top-github-link">
-              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/hooks/_index.md" target="blank">
+              <a class="github-link" href="https://github.com/ned14/outcome/edit/develop/doc/src/content/tutorial/constructors/metaprogrammg2.md" target="blank">
                 <i class="fa fa-code-fork"></i>
                 Edit page
               </a>
@@ -381,7 +351,12 @@
 
 
 
- <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > Hooking events
+
+
+
+ <a href='/outcome/'>Home</a> > <a href='/outcome/tutorial/'>Tutorial</a> > <a href='/outcome/tutorial/constructors/'>Result returning constructors</a> > construct<T>
+
+ 
 
  
 
@@ -401,60 +376,54 @@
         
         <div id="body-inner">
           
-            <h1>Hooking events</h1>
+            <h1>construct&lt;T&gt;</h1>
           
 
 
 
 
-<p>Outcome provides multiple methods for user code to intercept various events which occur.
-The deepest is simply to inherit from <code>result</code> or <code>outcome</code> and override member functions.
-Another possible option is to supply a custom <code>NoValuePolicy</code> (see next section).
-The final option which this section covers is to use the ADL discovered event hooks
-which tell you when a namespace-localised <code>outcome</code> or <code>result</code> has been:</p>
+<p>First, we need a base definition for <code>construct&lt;T&gt;</code>:</p>
 
-<ul>
-<li>Constructed
+<div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+<span class="s3e8">template</span> &lt;<span class="s3e8">class</span> <span class="s7d4">T</span>&gt; <span class="s3e8">struct</span> construct
+{
+  outcome::result&lt;T&gt; <span class="s3e8">operator</span>()() <span class="s3e8">const</span> <span class="s3e8">noexcept</span>
+  {  <span class="s1770">//
+</span><span class="s1770"></span>    <span class="s3e8">static_assert</span>(!std::is_same&lt;T, T&gt;::value, <span class="sc1c"></span><span class="sc1c">&#34;construct&lt;T&gt;() was not specialised for the type T supplied&#34;</span>);
+  }
+};
+</code></pre>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/constructors.cpp#L117" class="code-snippet-url" target="_blank">View this code on Github</a></div>
 
-<ul>
-<li><code>hook_result_construction(in_place_type_t&lt;T|E&gt;, result&lt;T, E&gt; *)</code></li>
-<li><code>hook_outcome_construction(in_place_type_t&lt;T|EC|EP&gt;, outcome&lt;T, EC, EP&gt; *)</code></li>
-</ul></li>
-<li>In-place constructed
 
-<ul>
-<li><code>hook_result_in_place_construction(in_place_type_t&lt;T|E&gt;, result&lt;T, E&gt; *)</code></li>
-<li><code>hook_outcome_in_place_construction(in_place_type_t&lt;T|EC|EP&gt;, outcome&lt;T, EC, EP&gt; *)</code></li>
-</ul></li>
-<li>Copied
+<p>This fails a static assert if the type is ever instantiated unspecialised.</p>
 
-<ul>
-<li><code>hook_result_copy_construction(in_place_type_t&lt;T|E&gt;, result&lt;T, E&gt; *)</code></li>
-<li><code>hook_outcome_copy_construction(in_place_type_t&lt;T|EC|EP&gt;, outcome&lt;T, EC, EP&gt; *)</code></li>
-</ul></li>
-<li>Moved
+<p>We then specialise for <code>construct&lt;file_handle&gt;</code>:</p>
 
-<ul>
-<li><code>hook_result_move_construction(in_place_type_t&lt;T|E&gt;, result&lt;T, E&gt; *)</code></li>
-<li><code>hook_outcome_move_construction(in_place_type_t&lt;T|EC|EP&gt;, outcome&lt;T, EC, EP&gt; *)</code></li>
-</ul></li>
-</ul>
+<p><div class="code-snippet"><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">
+<span class="s3e8">template</span> &lt;&gt; <span class="s3e8">struct</span> construct&lt;file_handle&gt;
+{
+  file_handle::path_type _path;
+  <span class="s1770">// Any other args, default initialised if necessary, follow here ...
+</span><span class="s1770"></span>  outcome::result&lt;file_handle&gt; <span class="s3e8">operator</span>()() <span class="s3e8">const</span> <span class="s3e8">noexcept</span> { <span class="s3e8">return</span> file_handle::file(std::move(_path)); }
+};
+</code></pre>
+</div><a href="https://github.com/ned14/outcome/tree/master/doc/src/snippets/constructors.cpp#L127" class="code-snippet-url" target="_blank">View this code on Github</a></div>
+</p>
 
-<p>One criticism often levelled against these success-or-failure objects is that they do
-not provide as rich a set of facilities as C++ exception throws. This section shows
-you how to configure Outcome using the ADL event hooks to take a stack backtrace on
-construction of an errored <code>result&lt;T, error_code&gt;</code>,
-and if that <code>result&lt;T, error_code&gt;</code> should ever be converted into an <code>outcome&lt;T, error_code, std::exception_ptr&gt;</code>,
-a custom <code>std::exception_ptr</code> will be synthesised consisting of the <code>std::system_error</code>
-for the error code, plus an expanded message string containing the stack backtrace of where
-the error originally occurred.</p>
+<p>Because this is a struct, we can list initialise <code>construct</code>, and use
+default member initialisers to implement default arguments. This can get
+you surprisingly far before you need to start writing custom constructors.</p>
+
+<p>But in more complex code, you will usually provide all the initialisation overloads that
+you would for the constructors of your main type. You then implement a single phase 2 constructing
+function which accepts <code>construct&lt;YOURTYPE&gt;</code> as input, and construct solely from
+that source.</p>
 
 
 <footer class=" footline" >
 	
 </footer>
-
-
 
 
 
@@ -469,8 +438,8 @@ the error originally occurred.</p>
     
 
     <div id="navigation">
-        <a class="nav nav-prev" href="/outcome/tutorial/constructors/metaprogrammg3/" title="Alternatives"> <i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/outcome/tutorial/hooks/keeping_state/" title="Keeping state" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/outcome/tutorial/constructors/metaprogrammg1/" title="Phase 3"> <i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/outcome/tutorial/constructors/metaprogrammg3/" title="Alternatives" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
     </div>
 
     </section>
@@ -495,3 +464,4 @@ the error originally occurred.</p>
 
   </body>
 </html>
+
